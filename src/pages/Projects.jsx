@@ -1,105 +1,25 @@
 import React, { useState } from 'react';
 import './Projects.css';
+import ProjectsMap from '../components/ProjectsMap';
+import { projectsData, categories, statusOptions } from '../data/projectsData';
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [viewMode, setViewMode] = useState('map'); // 'map' ou 'grid'
 
-  const projects = [
-    {
-      id: 1,
-      title: 'Autoroute Est-Ouest',
-      category: 'routes',
-      image: '/assets/images/project-autoroute.jpg',
-      location: 'Alger - Oran',
-      year: '2023',
-      description: 'Tronçon de 150km de l\'autoroute reliant l\'Est à l\'Ouest du pays'
-    },
-    {
-      id: 2,
-      title: 'Complexe Résidentiel Les Vergers',
-      category: 'batiments',
-      image: '/assets/images/project-residential.jpg',
-      location: 'Alger',
-      year: '2024',
-      description: '500 logements haut standing avec commodités'
-    },
-    {
-      id: 3,
-      title: 'Pont de Béjaïa',
-      category: 'ouvrages',
-      image: '/assets/images/project-bridge.jpg',
-      location: 'Béjaïa',
-      year: '2023',
-      description: 'Pont suspendu de 800m reliant deux rives'
-    },
-    {
-      id: 4,
-      title: 'Barrage de Beni Haroun',
-      category: 'hydraulique',
-      image: '/assets/images/project-dam.jpg',
-      location: 'Mila',
-      year: '2022',
-      description: 'Barrage d\'une capacité de 960 millions de m³'
-    },
-    {
-      id: 5,
-      title: 'Centre Commercial Ardis',
-      category: 'batiments',
-      image: '/assets/images/project-mall.jpg',
-      location: 'Alger',
-      year: '2024',
-      description: 'Centre commercial de 50,000 m² sur 4 niveaux'
-    },
-    {
-      id: 6,
-      title: 'Route Nationale N1',
-      category: 'routes',
-      image: '/assets/images/project-road.jpg',
-      location: 'Ghardaïa - Tamanrasset',
-      year: '2023',
-      description: 'Réhabilitation de 200km de route nationale'
-    },
-    {
-      id: 7,
-      title: 'Usine Pharmaceutique',
-      category: 'industriel',
-      image: '/assets/images/project-factory.jpg',
-      location: 'Constantine',
-      year: '2024',
-      description: 'Complexe industriel de production pharmaceutique'
-    },
-    {
-      id: 8,
-      title: 'Station d\'Épuration',
-      category: 'hydraulique',
-      image: '/assets/images/project-water.jpg',
-      location: 'Oran',
-      year: '2023',
-      description: 'Station de traitement des eaux usées de 500,000 m³/jour'
-    },
-    {
-      id: 9,
-      title: 'Viaduc de Tizi Ouzou',
-      category: 'ouvrages',
-      image: '/assets/images/project-viaduc.jpg',
-      location: 'Tizi Ouzou',
-      year: '2022',
-      description: 'Viaduc de 1,2km à 4 voies'
-    }
-  ];
+  // Filtrer les projets selon la catégorie et le statut
+  const filteredProjects = projectsData.filter(project => {
+    const categoryMatch = activeFilter === 'all' || project.category === activeFilter;
+    const statusMatch = statusFilter === 'all' || project.status === statusFilter;
+    return categoryMatch && statusMatch;
+  });
 
-  const categories = [
-    { id: 'all', label: 'Tous les Projets' },
-    { id: 'routes', label: 'Travaux Routiers' },
-    { id: 'batiments', label: 'Bâtiments' },
-    { id: 'ouvrages', label: 'Ouvrages d\'Art' },
-    { id: 'hydraulique', label: 'Hydraulique' },
-    { id: 'industriel', label: 'Industriel' }
-  ];
-
-  const filteredProjects = activeFilter === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
+  const handleProjectClick = (project) => {
+    console.log('Projet sélectionné:', project);
+    // Vous pouvez ajouter ici la navigation vers une page détaillée
+    // ou ouvrir un modal avec plus d'informations
+  };
 
   return (
     <div className="projects-page">
@@ -137,44 +57,103 @@ const Projects = () => {
       {/* Projects Section */}
       <section className="projects-section section">
         <div className="container">
-          {/* Filter */}
-          <div className="projects-filter">
-            {categories.map(category => (
-              <button
-                key={category.id}
-                className={`filter-btn ${activeFilter === category.id ? 'active' : ''}`}
-                onClick={() => setActiveFilter(category.id)}
-              >
-                {category.label}
-              </button>
-            ))}
+          {/* View Mode Toggle */}
+          <div className="view-mode-toggle">
+            <button
+              className={`mode-btn ${viewMode === 'map' ? 'active' : ''}`}
+              onClick={() => setViewMode('map')}
+            >
+              🗺️ Vue Carte
+            </button>
+            <button
+              className={`mode-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              onClick={() => setViewMode('grid')}
+            >
+              📋 Vue Grille
+            </button>
           </div>
 
-          {/* Projects Grid */}
-          <div className="projects-grid">
-            {filteredProjects.map(project => (
-              <div key={project.id} className="project-card-item">
-                <div className="project-image-wrapper">
-                  <img src={project.image} alt={project.title} />
-                  <div className="project-overlay-card">
-                    <div className="project-info">
-                      <span className="project-year">{project.year}</span>
-                      <span className="project-location">{project.location}</span>
+          {/* Filters Container */}
+          <div className="filters-container">
+            {/* Category Filter */}
+            <div className="filter-group">
+              <label className="filter-label">Catégories</label>
+              <div className="projects-filter">
+                {categories.map(category => (
+                  <button
+                    key={category.id}
+                    className={`filter-btn ${activeFilter === category.id ? 'active' : ''}`}
+                    onClick={() => setActiveFilter(category.id)}
+                  >
+                    <span className="filter-icon">{category.icon}</span>
+                    {category.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Status Filter */}
+            <div className="filter-group">
+              <label className="filter-label">Statut</label>
+              <div className="status-filter">
+                {statusOptions.map(status => (
+                  <button
+                    key={status.id}
+                    className={`status-btn ${statusFilter === status.id ? 'active' : ''}`}
+                    onClick={() => setStatusFilter(status.id)}
+                  >
+                    {status.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Results Count */}
+          <div className="results-count">
+            <p>
+              <strong>{filteredProjects.length}</strong> projet{filteredProjects.length > 1 ? 's' : ''} trouvé{filteredProjects.length > 1 ? 's' : ''}
+            </p>
+          </div>
+
+          {/* Map View */}
+          {viewMode === 'map' && (
+            <ProjectsMap
+              projects={filteredProjects}
+              onProjectClick={handleProjectClick}
+            />
+          )}
+
+          {/* Grid View */}
+          {viewMode === 'grid' && (
+            <div className="projects-grid">
+              {filteredProjects.map(project => (
+                <div key={project.id} className="project-card-item">
+                  <div className="project-image-wrapper">
+                    <img src={project.image} alt={project.title} />
+                    <span className={`project-status-badge ${project.status}`}>
+                      {project.status === 'completed' ? 'Terminé' : 'En cours'}
+                    </span>
+                    <div className="project-overlay-card">
+                      <div className="project-info">
+                        <span className="project-year">{project.year}</span>
+                        <span className="project-location">{project.location}</span>
+                      </div>
                     </div>
                   </div>
+                  <div className="project-details">
+                    <h3 className="project-card-title">{project.title}</h3>
+                    <p className="project-card-description">{project.description}</p>
+                    <a href="#" className="project-view-link">Voir les détails →</a>
+                  </div>
                 </div>
-                <div className="project-details">
-                  <h3 className="project-card-title">{project.title}</h3>
-                  <p className="project-card-description">{project.description}</p>
-                  <a href="#" className="project-view-link">Voir les détails →</a>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           {filteredProjects.length === 0 && (
             <div className="no-projects">
-              <p>Aucun projet trouvé dans cette catégorie.</p>
+              <p>Aucun projet trouvé avec les filtres sélectionnés.</p>
             </div>
           )}
         </div>
