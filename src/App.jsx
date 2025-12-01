@@ -1,7 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import PageTransition from './components/PageTransition/PageTransition';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -10,13 +12,15 @@ import Blog from './pages/Blog';
 import FAQ from './pages/FAQ';
 import './App.css';
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+
   return (
-    <Router>
-      <div className="App">
-        <Header />
-        <main id="main" className="site-main">
-          <Routes>
+    <div className="App">
+      <Header />
+      <main id="main" className="site-main">
+        <PageTransition location={location.pathname}>
+          <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
@@ -24,9 +28,17 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/faq" element={<FAQ />} />
           </Routes>
-        </main>
-        <Footer />
-      </div>
+        </PageTransition>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

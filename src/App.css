@@ -6,11 +6,18 @@
 
 .site-main {
   flex: 1;
+  position: relative;
+  min-height: calc(100vh - 200px);
+  overflow-x: hidden;
 }
 
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+body.transitioning {
+  overflow: hidden;
 }
 
 /* Skip to content link */
