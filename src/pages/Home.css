@@ -1,0 +1,265 @@
+.home-page {
+  padding-top: 0;
+}
+
+.ct-menu-link {
+}
+
+/* Services Section */
+.services-section {
+  background: #ffffff;
+  margin-top: -100px;
+  position: relative;
+  z-index: 10;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: -100px;
+}
+
+/* Featured Projects */
+.featured-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  transition: var(--transition-fast);
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(46, 57, 111, 0.8) 0%, rgba(46, 57, 111, 0.3) 100%);
+  transition: var(--transition-normal);
+}
+
+.project-card:hover .project-overlay {
+  background: linear-gradient(to top, rgba(255, 94, 20, 0.8) 0%, rgba(255, 94, 20, 0.3) 100%);
+}
+
+.project-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  z-index: 2;
+}
+
+.project-title {
+  background: #810012;
+  color: #fff;
+  padding: 15px;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  border-left: 3px solid #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1rem;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 25px;
+  background: #fff;
+  color: #091441;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: var(--transition-fast);
+}
+
+.project-link:hover {
+  background: #B72222;
+  color: #fff;
+  transform: translateX(5px);
+}
+
+/* About Section */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.section-subtitle {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #7A7A7A;
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1d1d37;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+
+.section-divider {
+  width: 214px;
+  height: 6.5px;
+  background: repeating-linear-gradient(
+    90deg,
+    #FF5E14,
+    #FF5E14 12.2px,
+    transparent 12.2px,
+    transparent 24.4px
+  );
+  margin-bottom: 1.5rem;
+}
+
+.about-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--theme-palette-color-3);
+  margin-bottom: 1.5rem;
+}
+
+.skills-section {
+  margin-top: 2rem;
+}
+
+.skill-item {
+  margin-bottom: 2rem;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.skill-name {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #7A7A7A;
+  font-weight: 500;
+}
+
+.skill-percentage {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #7A7A7A;
+  font-weight: 600;
+}
+
+.skill-bar {
+  width: 100%;
+  height: 20px;
+  background: #DDDDDD;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.skill-progress {
+  height: 100%;
+  transition: width 1.5s ease-out;
+  border-radius: 0;
+}
+
+.about-image {
+  position: relative;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border: 10px solid #DDDDDD;
+}
+
+/* Stats Section */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+/* CTA Section */
+.cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-icon {
+  animation: float 3s ease-in-out infinite;
+}
+
+.cta-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+}
+
+.cta-text {
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+
+/* Section Header */
+.section-header {
+  margin-bottom: 3rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 0;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .featured-projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-section {
+    margin-top: 0;
+    padding: 3rem 0;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-divider {
+    width: 100%;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+

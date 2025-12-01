@@ -1,0 +1,39 @@
+.counter-box {
+  padding: 3rem 2rem;
+  text-align: center;
+  transition: var(--transition-fast);
+  border: 15px solid var(--theme-palette-color-8);
+}
+
+.counter-dark {
+  background: var(--theme-palette-color-2);
+}
+
+.counter-red {
+  background: linear-gradient(180deg, #810012 0%, #FF0404 100%);
+}
+
+.counter-number {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--theme-palette-color-8);
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.counter-title {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--theme-palette-color-8);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .counter-box {
+    padding: 2rem 1.5rem;
+    border-width: 10px;
+  }
+}
