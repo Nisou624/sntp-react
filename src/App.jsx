@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import Implantations from './pages/Implantations'
+import Implantations from './pages/Implantations';
 import PageTransition from './components/PageTransition/PageTransition';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -12,9 +12,20 @@ import Projects from './pages/Projects';
 import Blog from './pages/Blog';
 import FAQ from './pages/FAQ';
 import './App.css';
+import FloatingChatButton from './components/Chatbot/FloatingChatButton';
+import ChatbotWindow from './components/Chatbot/ChatbotWindow';
 
 function AppContent() {
   const location = useLocation();
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+
+  const toggleChatbot = () => {
+    setIsChatbotOpen(!isChatbotOpen);
+  }
+  
+  const closeChatbot = () => {
+    setIsChatbotOpen(false);
+  }
 
   return (
     <div className="App">
@@ -33,6 +44,14 @@ function AppContent() {
         </PageTransition>
       </main>
       <Footer />
+      <FloatingChatButton
+        onClick={toggleChatbot}
+        isOpen={isChatbotOpen}
+      />
+      <ChatbotWindow
+        isOpen={isChatbotOpen}
+        onClose={closeChatbot}
+      />
     </div>
   );
 }
