@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import './Projects.css';
-import ProjectsMap from '../components/ProjectsMap';
 import { projectsData, categories, statusOptions } from '../data/projectsData';
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [viewMode, setViewMode] = useState('map'); // 'map' ou 'grid'
 
   // Filtrer les projets selon la catégorie et le statut
   const filteredProjects = projectsData.filter(project => {
@@ -57,55 +55,34 @@ const Projects = () => {
       {/* Projects Section */}
       <section className="projects-section section">
         <div className="container">
-          {/* View Mode Toggle */}
-          <div className="view-mode-toggle">
-            <button
-              className={`mode-btn ${viewMode === 'map' ? 'active' : ''}`}
-              onClick={() => setViewMode('map')}
-            >
-              🗺️ Vue Carte
-            </button>
-            <button
-              className={`mode-btn ${viewMode === 'grid' ? 'active' : ''}`}
-              onClick={() => setViewMode('grid')}
-            >
-              📋 Vue Grille
-            </button>
-          </div>
-
           {/* Filters Container */}
           <div className="filters-container">
-            {/* Category Filter */}
             <div className="filter-group">
-              <label className="filter-label">Catégories</label>
-              <div className="projects-filter">
+              <select 
+                value={activeFilter} 
+                onChange={(e) => setActiveFilter(e.target.value)}
+                className="filter-select"
+              >
                 {categories.map(category => (
-                  <button
-                    key={category.id}
-                    className={`filter-btn ${activeFilter === category.id ? 'active' : ''}`}
-                    onClick={() => setActiveFilter(category.id)}
-                  >
-                    <span className="filter-icon">{category.icon}</span>
-                    {category.label}
-                  </button>
+                  <option key={category.id} value={category.id}>
+                    {category.icon} {category.label}
+                  </option>
                 ))}
-              </div>
+              </select>
             </div>
 
-            {/* Status Filter */}
             <div className="filter-group">
-              <label className="filter-label">Statut</label>
-              <div className="status-filter">
+              <select 
+                value={statusFilter} 
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="filter-select"
+              >
                 {statusOptions.map(status => (
-                  <button
-                    key={status.id}
-                    className={`status-btn ${statusFilter === status.id ? 'active' : ''}`}
-                    onClick={() => setStatusFilter(status.id)}
-                  >
+                  <option key={status.id} value={status.id}>
                     {status.label}
-                  </button>
+                  </option>
                 ))}
-              </div>
+              </select>
             </div>
           </div>
 
@@ -116,40 +93,32 @@ const Projects = () => {
             </p>
           </div>
 
-          {/* Map View */}
-          {viewMode === 'map' && (
-            <ProjectsMap
-              projects={filteredProjects}
-              onProjectClick={handleProjectClick}
-            />
-          )}
-
           {/* Grid View */}
-          {viewMode === 'grid' && (
-            <div className="projects-grid">
-              {filteredProjects.map(project => (
-                <div key={project.id} className="project-card-item">
-                  <div className="project-image-wrapper">
-                    <img src={project.image} alt={project.title} />
-                    <span className={`project-status-badge ${project.status}`}>
-                      {project.status === 'completed' ? 'Terminé' : 'En cours'}
-                    </span>
-                    <div className="project-overlay-card">
-                      <div className="project-info">
-                        <span className="project-year">{project.year}</span>
-                        <span className="project-location">{project.location}</span>
-                      </div>
+          <div className="projects-grid">
+            {filteredProjects.map(project => (
+              <div key={project.id} className="project-card-item" onClick={() => handleProjectClick(project)}>
+                <div className="project-image-wrapper">
+                  <img src={project.image} alt={project.title} />
+                  <span className={`project-status-badge ${project.status}`}>
+                    {project.status === 'completed' ? 'Terminé' : 'En cours'}
+                  </span>
+                  <div className="project-overlay-card">
+                    <div className="project-info">
+                      <span className="project-year">{project.year}</span>
+                      <span className="project-location">{project.location}</span>
                     </div>
                   </div>
-                  <div className="project-details">
-                    <h3 className="project-card-title">{project.title}</h3>
-                    <p className="project-card-description">{project.description}</p>
-                    <a href="#" className="project-view-link">Voir les détails →</a>
-                  </div>
                 </div>
-              ))}
-            </div>
-          )}
+                <div className="project-details">
+                  <h3 className="project-card-title">{project.title}</h3>
+                  <p className="project-card-description">{project.description}</p>
+                  <a href="#" className="project-view-link" onClick={(e) => e.stopPropagation()}>
+                    Voir les détails →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
 
           {filteredProjects.length === 0 && (
             <div className="no-projects">
@@ -163,4 +132,3 @@ const Projects = () => {
 };
 
 export default Projects;
-
