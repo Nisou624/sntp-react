@@ -27,7 +27,7 @@ const ChatbotWindow = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [conversationHistory, isTyping]);
+  }, [conversationHistory, isTyping, currentQuestion]);
 
   // Ajouter un message du bot
   const addBotMessage = (question) => {
@@ -59,6 +59,8 @@ const ChatbotWindow = ({ isOpen, onClose }) => {
         timestamp: new Date()
       }
     ]);
+    // Réinitialiser la question actuelle pour cacher les options temporairement
+    setCurrentQuestion(null);
   };
 
   // Gérer le clic sur une option
@@ -81,7 +83,7 @@ const ChatbotWindow = ({ isOpen, onClose }) => {
             {
               type: 'bot',
               message: result.message,
-              avatar: '💼',
+              avatar: 'S',
               timestamp: new Date()
             }
           ]);
@@ -95,13 +97,13 @@ const ChatbotWindow = ({ isOpen, onClose }) => {
       setTimeout(() => {
         navigate(result.route);
         onClose(); // Fermer le chatbot après navigation
-      }, result.message ? 2000 : 1000);
+      }, result.message ? 2500 : 1200);
     }
     // Sinon, afficher la prochaine question
     else if (result.nextQuestion) {
       setTimeout(() => {
         addBotMessage(result.nextQuestion);
-      }, 1000);
+      }, 1200);
     }
   };
 
@@ -115,14 +117,6 @@ const ChatbotWindow = ({ isOpen, onClose }) => {
     }, 300);
   };
 
-  // Formater l'heure
-  const formatTime = (date) => {
-    return new Intl.DateTimeFormat('fr-FR', {
-      hour: '2-digit',
-      minute: '2-digit'
-    }).format(date);
-  };
-
   if (!isOpen) return null;
 
   return (
@@ -130,9 +124,7 @@ const ChatbotWindow = ({ isOpen, onClose }) => {
       {/* En-tête du chatbot */}
       <div className="chatbot-header">
         <div className="chatbot-header-info">
-          <div className="chatbot-avatar-large">
-            <img src="/logo.png" alt="SNTP" onError={(e) => e.target.style.display = 'none'} />
-          </div>
+          <div className="chatbot-avatar-large">S</div>
           <div className="chatbot-header-text">
             <h3>Assistant SNTP</h3>
             <span className="chatbot-status">
@@ -168,52 +160,62 @@ const ChatbotWindow = ({ isOpen, onClose }) => {
       <div className="chatbot-body">
         <div className="chatbot-messages">
           {conversationHistory.map((msg, index) => (
-            <div 
-              key={index} 
-              className={`message-wrapper ${msg.type === 'user' ? 'user-message-wrapper' : 'bot-message-wrapper'}`}
-            >
-              {msg.type === 'bot' && (
-                <div className="message-avatar">
-                  {msg.avatar}
+            <div key={index}>
+              {msg.type === 'bot' ? (
+                // Message du bot - À GAUCHE avec avatar
+                <div className="bot-message-container">
+                  <div className="bot-message-wrapper">
+                    <div className="message-avatar">{msg.avatar}</div>
+                    <div className="bot-message-bubble">
+                      <div className="bot-message-name">SNTP</div>
+                      <div className="bot-message-content">{msg.message}</div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                // Message utilisateur - À DROITE sans avatar
+                <div className="user-message-container">
+                  <div className="user-message-bubble">
+                    <div className="user-message-content">{msg.message}</div>
+                  </div>
                 </div>
               )}
-              <div className={`message ${msg.type === 'user' ? 'user-message' : 'bot-message'}`}>
-                <div className="message-content">{msg.message}</div>
-                <div className="message-time">{formatTime(msg.timestamp)}</div>
-              </div>
             </div>
           ))}
 
           {/* Indicateur de saisie */}
           {isTyping && (
-            <div className="message-wrapper bot-message-wrapper">
-              <div className="message-avatar">⌨️</div>
-              <div className="message bot-message typing-indicator">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div className="bot-message-container">
+              <div className="bot-message-wrapper">
+                <div className="message-avatar">S</div>
+                <div className="bot-message-bubble typing-indicator-bubble">
+                  <div className="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
               </div>
+            </div>
+          )}
+
+          {/* Options de réponse - DANS LE FLUX, alignées à droite */}
+          {currentQuestion && currentQuestion.options && !isTyping && (
+            <div className="chatbot-options-inline">
+              {currentQuestion.options.map((option) => (
+                <button
+                  key={option.id}
+                  className="chatbot-option-btn"
+                  onClick={() => handleOptionClick(option)}
+                >
+                  {option.text}
+                </button>
+              ))}
             </div>
           )}
 
           <div ref={messagesEndRef} />
         </div>
-
-        {/* Options de réponse */}
-        {currentQuestion && currentQuestion.options && !isTyping && (
-          <div className="chatbot-options">
-            {currentQuestion.options.map((option) => (
-              <button
-                key={option.id}
-                className="chatbot-option-btn"
-                onClick={() => handleOptionClick(option)}
-              >
-                <span className="option-icon">{option.icon}</span>
-                <span className="option-text">{option.text}</span>
-              </button>
-            ))}
-          </div>
-        )}
       </div>
 
       {/* Pied de page */}
