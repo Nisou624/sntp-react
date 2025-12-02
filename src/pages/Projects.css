@@ -37,125 +37,54 @@
   padding: 0 2rem;
 }
 
-/* Toggle vue carte/grille */
-.view-mode-toggle {
+/* Container des filtres */
+.filters-container {
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
   justify-content: center;
-}
-
-.mode-btn {
-  padding: 12px 24px;
-  border: 2px solid #091441;
-  background: white;
-  color: #091441;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.mode-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(9, 20, 65, 0.2);
-}
-
-.mode-btn.active {
-  background: linear-gradient(135deg, #810012 0%, #091441 100%);
-  color: white;
-  border-color: transparent;
-}
-
-/* Container des filtres */
-.filters-container {
-  margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
 .filter-group {
-  margin-bottom: 1.5rem;
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
 }
 
-.filter-label {
-  display: block;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #091441;
-  margin-bottom: 0.75rem;
-}
-
-/* Filtres de catégories */
-.projects-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
-}
-
-.filter-btn {
-  padding: 10px 20px;
-  border: 2px solid #e0e0e0;
-  background: white;
-  color: #333;
-  border-radius: 25px;
-  font-size: 0.95rem;
+/* Styles pour les selects épurés */
+.filter-select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
   font-weight: 500;
+  color: #333;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  outline: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"%3E%3Cpath fill="%23333" d="M6 9L1 4h10z"/%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
 }
 
-.filter-icon {
-  font-size: 1.2rem;
-}
-
-.filter-btn:hover {
+.filter-select:hover {
   border-color: #810012;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(129, 0, 18, 0.15);
+  box-shadow: 0 2px 8px rgba(129, 0, 18, 0.1);
 }
 
-.filter-btn.active {
-  background: linear-gradient(135deg, #810012 0%, #091441 100%);
-  color: white;
-  border-color: transparent;
-  box-shadow: 0 4px 15px rgba(129, 0, 18, 0.3);
+.filter-select:focus {
+  border-color: #810012;
+  box-shadow: 0 0 0 3px rgba(129, 0, 18, 0.1);
 }
 
-/* Filtres de statut */
-.status-filter {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-}
-
-.status-btn {
-  padding: 8px 18px;
-  border: 2px solid #e0e0e0;
-  background: white;
-  color: #333;
-  border-radius: 20px;
-  font-size: 0.9rem;
+.filter-select option {
+  padding: 10px;
   font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.status-btn:hover {
-  border-color: #091441;
-  transform: translateY(-1px);
-}
-
-.status-btn.active {
-  background: #091441;
-  color: white;
-  border-color: #091441;
 }
 
 /* Compteur de résultats */
@@ -330,25 +259,12 @@
     font-size: 1rem !important;
   }
 
-  .view-mode-toggle {
+  .filters-container {
     flex-direction: column;
   }
 
-  .mode-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .projects-filter,
-  .status-filter {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .filter-btn,
-  .status-btn {
-    width: 100%;
-    justify-content: center;
+  .filter-group {
+    max-width: 100%;
   }
 
   .projects-grid {
@@ -366,10 +282,6 @@
     padding: 2rem 0;
   }
 
-  .filter-label {
-    font-size: 1rem;
-  }
-
   .results-count {
     font-size: 1rem;
   }
@@ -381,5 +293,9 @@
   .project-card-description {
     font-size: 0.9rem;
   }
-}
 
+  .filter-select {
+    font-size: 0.95rem;
+    padding: 10px 14px;
+  }
+}
