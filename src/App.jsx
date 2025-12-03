@@ -9,6 +9,10 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Projects from './pages/Projects';
+import SNTPEngineering from './pages/SNTPEngineering';
+import SNTPAnabibe from './pages/SNTPAnabibe';
+import TravauxRoutiers from './pages/TravauxRoutiers';
+import LocationMateriel from './pages/LocationMateriel';
 import Blog from './pages/Blog';
 import FAQ from './pages/FAQ';
 import './App.css';
@@ -40,6 +44,11 @@ function AppContent() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/implantations" element={<Implantations />} />
+            <Route path="/sntp-engineering" element={<SNTPEngineering />} />
+            <Route path="/sntp-anabibe" element={<SNTPAnabibe />} />
+            <Route path="/travaux-routiers" element={<TravauxRoutiers />} />
+            <Route path="/location-materiel" element={<LocationMateriel />} />
+            
           </Routes>
         </PageTransition>
       </main>

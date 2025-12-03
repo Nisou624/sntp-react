@@ -1,0 +1,783 @@
+/* ====================
+   SNTP ENGINEERING PAGE STYLES
+   ==================== */
+
+/* Hero Section */
+.engineering-hero {
+  position: relative;
+  min-height: 848px;
+  /*background: url('/wp-content/uploads/2025/07/img_Envato_ConstructionKit_about4.jpg') top center/cover no-repeat;*/
+  display: flex;
+  align-items: center;
+  margin-top: -114px;
+  margin-bottom: 0;
+}
+
+.engineering-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(360deg, #091441 0%, rgba(46, 57, 111, 0.28) 100%);
+  z-index: 1;
+}
+
+.engineering-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 50%;
+  padding: 2em;
+  color: #fff;
+}
+
+.engineering-subtitle {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 1.5em;
+  font-weight: 400;
+  text-transform: capitalize;
+  color: #FFFEFE;
+  margin-bottom: 1em;
+}
+
+.engineering-logo-container {
+  width: 73%;
+  margin-bottom: 1.5em;
+}
+
+.engineering-logo {
+  width: 100%;
+  height: auto;
+}
+
+.engineering-title {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 3.3em;
+  font-weight: 800;
+  text-transform: capitalize;
+  color: #FFFFFF;
+  margin-bottom: 0.3em;
+}
+
+.hero-divider {
+  width: 381px;
+  height: 6.5px;
+  background: repeating-linear-gradient(
+    90deg,
+    #FF5E14,
+    #FF5E14 12.2px,
+    transparent 12.2px,
+    transparent 24.4px
+  );
+  margin: -15px 0 1.5em 0;
+}
+
+.engineering-description {
+  font-family: "Open Sans", Sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.6em;
+  color: #FFFFFF;
+}
+
+/* Domaines Section */
+.domaines-section {
+  background-color: #131B3A;
+  padding: 80px 0;
+  margin-top: -146px;
+}
+
+.domaines-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3em;
+  margin-bottom: 4em;
+  background: #FFFFFF;
+  padding: 2em;
+  box-shadow: 0px 32px 10px -23px rgba(0, 0, 0, 0.39);
+  margin-bottom: -10%;
+  position: relative;
+  z-index: 1;
+}
+
+.domaines-content h4 {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 3em;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #1d1d37;
+  margin-top: -2%;
+}
+
+.section-divider {
+  width: 214px;
+  height: 6.5px;
+  background: repeating-linear-gradient(
+    90deg,
+    #FF5E14,
+    #FF5E14 12.2px,
+    transparent 12.2px,
+    transparent 24.4px
+  );
+  margin: -15px 0 1.5em 0;
+}
+
+.domaines-text {
+  font-family: "Open Sans", Sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #7A7A7A;
+  margin-bottom: 1.5em;
+}
+
+.domaines-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: -2em -2em -2em 0;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  padding: 15px 30px;
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0;
+  transition: all 0.3s ease;
+}
+
+.hero-btn-primary {
+  background-color: #FF5E14;
+  color: #FFFFFF;
+  border: none;
+}
+
+.hero-btn-primary:hover {
+  background-color: #ff3600;
+  color: #ffffff;
+}
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Domaines Grid */
+.domaines-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2em;
+  padding-top: 100px;
+}
+
+.domaine-card {
+  background: #ffffff;
+  padding: 2em;
+  border-bottom: 2px solid #FFFFFF;
+  transition: all 0.3s ease;
+}
+
+.domaine-card:hover {
+  background: #FFFFFF;
+  border-bottom: 2px solid #FF5E14;
+  box-shadow: 0px 19px 10px -9px rgba(0, 0, 0, 0.3);
+}
+
+.domaine-icon {
+  font-size: 33px;
+  color: #FF5E14;
+  margin-bottom: 1em;
+}
+
+.domaine-title {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #091441;
+  margin-bottom: 0.5em;
+}
+
+.domaine-divider {
+  width: 55px;
+  height: 2px;
+  background-color: #7A7A7A;
+  margin: -15px 0 1.5em 0;
+}
+
+.domaine-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", Sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #7A7A7A;
+}
+
+.domaine-list li {
+  margin-bottom: 0.5em;
+  padding-left: 1em;
+  position: relative;
+}
+
+.domaine-list li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #FF5E14;
+  font-weight: bold;
+}
+
+.domaine-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  padding: 15px 30px;
+  margin-top: 1.5em;
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: #FFFFFF;
+  color: #091441;
+  border-radius: 0;
+  transition: all 0.3s ease;
+}
+
+.domaine-btn:hover {
+  background-color: #FF5E14;
+  color: #ffffff;
+}
+
+/* CTA Background Section */
+.cta-background-section {
+  position: relative;
+  /*background: url('/wp-content/uploads/2025/07/image-from-rawpixel-id-585155.jpg') center/cover no-repeat;*/
+  padding: 12em 2em 9em;
+}
+
+.cta-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: #E3E3E3;
+  opacity: 0.48;
+}
+
+.cta-content-center {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-bottom: 3em;
+}
+
+.cta-white-title {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 3em;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #1d1d37;
+  margin-bottom: 1em;
+}
+
+.features-grid-white {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2em;
+}
+
+.feature-card-white {
+  background: #FFFFFF;
+  padding: 2em;
+  box-shadow: 0px 34px 10px -20px rgba(0, 0, 0, 0.25);
+  text-align: left;
+}
+
+.feature-icon-white {
+  font-size: 23px;
+  color: #091441;
+  margin-bottom: 1em;
+}
+
+.feature-title-white {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #091441;
+  margin-bottom: 0.5em;
+}
+
+.feature-text-white {
+  font-family: "Open Sans", Sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #7A7A7A;
+}
+
+/* Innovation Section */
+.innovation-section {
+  background-color: #FFFFFF;
+  padding: 80px 0;
+}
+
+.innovation-grid {
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  gap: 0;
+}
+
+.innovation-images {
+  /*background: url('/wp-content/uploads/2025/07/image-from-rawpixel-id-1364-jpeg.jpg') center/cover no-repeat;*/
+}
+
+.innovation-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.innovation-content {
+  background-color: #f5f6f7;
+  padding: 7em;
+}
+
+.innovation-content h4 {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 1.5em;
+  font-weight: 400;
+  text-transform: capitalize;
+  color: #7A7A7A;
+}
+
+.innovation-content h2 {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 3em;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #1d1d37;
+  margin-top: -3%;
+}
+
+.innovation-text {
+  font-family: "Open Sans", Sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #7A7A7A;
+  margin-bottom: 2em;
+}
+
+.innovation-sidebar {
+  background-color: #2E396F;
+  padding: 2em 7em;
+}
+
+.sidebar-title {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.5em;
+}
+
+.sidebar-text {
+  font-family: "Open Sans", Sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #FFFFFF;
+}
+
+/* Team Gallery Section */
+.team-gallery-section {
+  background-color: #ffffff;
+  padding: 0;
+}
+
+.container-full {
+  width: 100%;
+  padding: 0;
+}
+
+.team-gallery-grid {
+  display: grid;
+  grid-template-columns: 25% 25% 50%;
+  height: 600px;
+}
+
+.team-gallery-item {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.team-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: #FF5E14;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.team-title {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #FFFFFF;
+  margin-bottom: 0.5em;
+}
+
+.team-text {
+  font-family: "Open Sans", Sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #FFFFFF;
+}
+
+/* Projets Phares Section */
+.projets-phares-section {
+  background-color: #ffffff;
+  padding: 80px 0;
+}
+
+.projets-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.projets-content h4 {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 1.5em;
+  font-weight: 400;
+  text-transform: capitalize;
+  color: #7A7A7A;
+}
+
+.projets-content h2 {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 3em;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #1d1d37;
+  margin-top: -3%;
+}
+
+.projets-text {
+  font-family: "Open Sans", Sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #7A7A7A;
+  margin-bottom: 2em;
+}
+
+.projets-list {
+  list-style: none;
+  padding: 0;
+  margin: 2em 0;
+  text-align: left;
+}
+
+.projets-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 1em;
+  font-family: "Open Sans", Sans-serif;
+  font-size: 1em;
+  line-height: 1.5em;
+  color: #7A7A7A;
+}
+
+.list-icon {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* Contact Map Section */
+.contact-map-section {
+  /*background: url('/wp-content/uploads/2025/07/robin-spielmann-591331-unsplash.jpg') center right/cover no-repeat;*/
+  padding: 80px 0;
+  position: relative;
+}
+
+.contact-map-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #ffffff;
+  opacity: 0.94;
+}
+
+.contact-map-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.map-column {
+  padding: 0;
+}
+
+.google-map {
+  width: 100%;
+  height: 522px;
+  border: none;
+  filter: brightness(110%) contrast(95%) saturate(43%);
+}
+
+.contact-info-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 30px;
+}
+
+.contact-main-title {
+  font-family: "Roboto", Sans-serif;
+  font-size: 50px;
+  line-height: 60px;
+  color: #102d5e;
+  margin-bottom: 0.5em;
+}
+
+.contact-spacer {
+  height: 28px;
+}
+
+.contact-section-title {
+  font-family: "Roboto Condensed", Sans-serif;
+  font-size: 24px;
+  text-transform: capitalize;
+  color: rgba(16, 45, 94, 0.6);
+  margin-bottom: 0.5em;
+}
+
+.contact-text {
+  font-family: "Open Sans", Sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #7c7c7c;
+  margin-bottom: 1.5em;
+}
+
+.contact-emphasis {
+  font-family: "Open Sans", Sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #7c7c7c;
+  margin: 2em 0;
+}
+
+.hero-btn-dark {
+  background-color: #102d5e;
+  color: #ffffff;
+  border: none;
+  margin-top: 40px;
+}
+
+.hero-btn-dark:hover {
+  background-color: #7c7c7c;
+  color: #ffffff;
+}
+
+/* Section Utility Classes */
+.section {
+  padding: 80px 0;
+}
+
+.section-subtitle {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 1.5em;
+  font-weight: 400;
+  text-transform: capitalize;
+  color: #7A7A7A;
+  margin-bottom: 0.3em;
+}
+
+.section-title {
+  font-family: "Rajdhani", Sans-serif;
+  font-size: 3em;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #1d1d37;
+  margin-bottom: 0.5em;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .engineering-title {
+    font-size: 3em;
+  }
+  
+  .domaines-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .engineering-hero {
+    background-position: center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .engineering-hero-content {
+    max-width: 100%;
+  }
+  
+  .domaines-intro {
+    grid-template-columns: 1fr;
+  }
+  
+  .domaines-image img {
+    margin: 0 -2em -2em;
+  }
+  
+  .innovation-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .innovation-content,
+  .innovation-sidebar {
+    padding: 2em;
+  }
+  
+  .team-gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+  }
+  
+  .team-gallery-grid .team-gallery-item:last-child {
+    grid-column: 1 / -1;
+    min-height: 300px;
+  }
+  
+  .contact-map-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .features-grid-white {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 920px) {
+  .engineering-hero {
+    min-height: auto;
+    padding: 2em 1em;
+  }
+  
+  .engineering-hero-content {
+    text-align: center;
+    max-width: 100%;
+  }
+  
+  .engineering-logo-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 1.5em;
+  }
+  
+  .hero-divider {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .engineering-title {
+    font-size: 2em;
+  }
+  
+  .cta-white-title,
+  .section-title {
+    font-size: 2em;
+  }
+  
+  .domaines-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .domaine-card {
+    text-align: center;
+  }
+  
+  .domaine-icon {
+    display: block;
+    margin: 0 auto 1em;
+  }
+  
+  .domaine-divider {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .features-grid-white {
+    grid-template-columns: 1fr;
+  }
+  
+  .team-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-main-title {
+    font-size: 36px;
+    line-height: 44px;
+  }
+  
+  .contact-section-title {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 668px) {
+  .engineering-hero-content {
+    padding: 1em;
+  }
+  
+  .engineering-subtitle {
+    font-size: 1.2em;
+  }
+  
+  .engineering-title {
+    font-size: 1.5em;
+  }
+  
+  .hero-divider {
+    width: 83%;
+  }
+  
+  .domaines-intro {
+    padding: 1em;
+  }
+  
+  .domaine-card {
+    padding: 1em;
+  }
+  
+  .innovation-content {
+    padding: 2em;
+  }
+  
+  .cta-background-section {
+    padding: 3em 2em;
+  }
+}
+
