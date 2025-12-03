@@ -200,7 +200,7 @@
   display: flex;
   gap: 35px;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
   pointer-events: all;
 }
 
@@ -389,6 +389,7 @@
     flex-direction: column;
     gap: 15px;
     align-items: flex-start;
+    justify-content: flex-start;
   }
 
   .dot-title {
