@@ -1,301 +1,712 @@
-/* Page Projects - Styles généraux */
-.projects-page {
+/* ============================================
+   PROJET SHOWCASE - STICKY SPLIT-SCREEN IMMERSIF
+   Style Bechtel avec Scroll Synchronisé
+   ============================================ */
+
+.projects-showcase {
+  width: 100%;
   min-height: 100vh;
-}
-
-.page-header {
+  background-color: #000000;
   position: relative;
   overflow: hidden;
 }
 
-.page-title {
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
+/* ============================================
+   SECTION CATÉGORIE - SPLIT SCREEN LAYOUT
+   ============================================ */
 
-.section-divider {
-  width: 150px;
-  height: 4px;
-  margin: 1.5rem 0;
-}
-
-.page-subtitle {
-  max-width: 600px;
-  line-height: 1.6;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* Section des projets */
-.projects-section {
-  padding: 4rem 0;
-}
-
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* Container des filtres */
-.filters-container {
+.category-section-split {
+  position: relative;
   display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.filter-group {
-  flex: 1;
-  min-width: 200px;
-  max-width: 300px;
-}
-
-/* Styles pour les selects épurés */
-.filter-select {
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: 100vh;
   width: 100%;
-  padding: 12px 16px;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #333;
-  background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  outline: none;
-  appearance: none;
-  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"%3E%3Cpath fill="%23333" d="M6 9L1 4h10z"/%3E%3C/svg%3E');
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 40px;
+  background-color: #000000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.filter-select:hover {
-  border-color: #810012;
-  box-shadow: 0 2px 8px rgba(129, 0, 18, 0.1);
+.category-section-split:last-child {
+  border-bottom: none;
 }
 
-.filter-select:focus {
-  border-color: #810012;
-  box-shadow: 0 0 0 3px rgba(129, 0, 18, 0.1);
-}
+/* ============================================
+   GAUCHE - IMAGE CATÉGORIE STICKY (LE PILIER)
+   Avec effet de scroll révélation
+   ============================================ */
 
-.filter-select option {
-  padding: 10px;
-  font-weight: 500;
-}
-
-/* Compteur de résultats */
-.results-count {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-  color: #555;
-}
-
-.results-count strong {
-  color: #810012;
-  font-size: 1.3rem;
-}
-
-/* Grille des projets */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.project-card-item {
-  background: white;
-  border-radius: 12px;
+.category-left-sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100vh;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  cursor: pointer;
+  z-index: 1;
 }
 
-.project-card-item:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-}
-
-.project-image-wrapper {
+.category-sticky-content {
+  width: 100%;
+  height: 100%;
   position: relative;
+}
+
+.category-image-hero {
   width: 100%;
-  height: 240px;
+  height: 100%;
+  position: relative;
   overflow: hidden;
 }
 
-.project-image-wrapper img {
+.category-hero-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.85;
 }
 
-.project-card-item:hover .project-image-wrapper img {
-  transform: scale(1.1);
+/* Effet de zoom progressif au scroll */
+.category-section-split:hover .category-hero-image {
+  transform: scale(1.05);
+  opacity: 1;
 }
 
-.project-status-badge {
+/* Overlay gradient pour améliorer la lisibilité du texte */
+.category-overlay {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(129, 0, 18, 0.80) 0%,
+    rgba(9, 20, 65, 0.70) 50%,
+    rgba(0, 0, 0, 0.88) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3.5rem;
+  z-index: 2;
+  animation: fadeInOverlay 0.8s ease-out;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.category-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 85px;
+  height: 85px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  margin-bottom: auto;
+  animation: pulseBadge 3s ease-in-out infinite;
+}
+
+@keyframes pulseBadge {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0);
+  }
+}
+
+.category-icon-large {
+  font-size: 2.75rem;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+}
+
+.category-text-overlay {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: auto;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.category-kicker-overlay {
   text-transform: uppercase;
-  color: white;
-  z-index: 10;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 700;
+  margin: 0;
 }
 
-.project-status-badge.completed {
-  background-color: #2ecc71;
+.category-title-overlay {
+  font-size: clamp(2.25rem, 4.5vw, 4rem);
+  line-height: 1.05;
+  margin: 0;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-shadow: 0 6px 16px rgba(0, 0, 0, 0.8);
 }
 
-.project-status-badge.in_progress {
-  background-color: #f39c12;
+.category-description-overlay {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 450px;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  font-weight: 300;
 }
 
-.project-overlay-card {
+/* ============================================
+   DROITE - LISTE DES PROJETS (LE FLUX)
+   Avec scroll fluide et smooth
+   ============================================ */
+
+.category-right-flow {
+  position: relative;
+  width: 50%;
+  min-height: 100vh;
+  background-color: #000000;
+  z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar pour la colonne droite */
+.category-right-flow::-webkit-scrollbar {
+  width: 8px;
+}
+
+.category-right-flow::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.category-right-flow::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.category-right-flow::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.projects-flow-container {
+  display: flex;
+  flex-direction: column;
+  padding: 5rem 3.5rem 5rem 4rem;
+  gap: 0;
+}
+
+/* ============================================
+   CARTE PROJET IMMERSIVE
+   ============================================ */
+
+.project-card-immersive {
+  position: relative;
+  width: 100%;
+  background-color: #000000;
+  border-radius: 0;
+  overflow: hidden;
+  margin-bottom: 0;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: 
+    opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.5s ease;
+  cursor: pointer;
+}
+
+/* Animation d'apparition quand la carte entre dans le viewport */
+.project-card-immersive.project-card-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Délai progressif pour l'animation */
+.project-card-immersive:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.project-card-immersive:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.project-card-immersive:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.project-card-immersive:nth-child(4) {
+  transition-delay: 0.4s;
+}
+
+.project-card-immersive:hover {
+  box-shadow: 0 0 0 1px rgba(129, 0, 18, 0.3);
+}
+
+/* ============================================
+   IMAGE DE PROJET (GRANDE TAILLE IMMERSIVE)
+   ============================================ */
+
+.project-image-container {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 500px;
+  max-height: 700px;
+  overflow: hidden;
+  background: #000000;
+}
+
+.project-image-immersive {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.6s ease;
+  opacity: 0.85;
+}
+
+.project-card-immersive:hover .project-image-immersive {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+/* Gradient overlay sur l'image - style Bechtel */
+.project-image-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.75) 30%,
+    rgba(0, 0, 0, 0.4) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Badge de statut */
+.project-status-pill {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  z-index: 3;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.project-status-pill.completed {
+  background-color: rgba(40, 167, 69, 0.92);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(40, 167, 69, 0.5);
+}
+
+.project-status-pill.in_progress {
+  background-color: rgba(255, 193, 7, 0.92);
+  color: #000000;
+  box-shadow: 0 4px 16px rgba(255, 193, 7, 0.5);
+}
+
+/* ============================================
+   CONTENU DE LA CARTE - Overlay sur image
+   ============================================ */
+
+.project-content-box {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  padding: 1.5rem 1rem 1rem;
-  transform: translateY(100%);
+  padding: 3.5rem 3rem 3rem 0;
+  z-index: 2;
+}
+
+.project-header-info {
+  margin-bottom: 1.5rem;
+  max-width: 700px;
+}
+
+.project-title-immersive {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  margin: 0 0 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+  transition: color 0.3s ease;
+}
+
+.project-card-immersive:hover .project-title-immersive {
+  color: #810012;
+}
+
+.project-location-immersive {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.location-icon,
+.calendar-icon {
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+}
+
+.project-description-immersive {
+  margin: 0 0 2rem;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.7;
+  max-width: 700px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  font-weight: 300;
+}
+
+/* ============================================
+   FOOTER DE LA CARTE
+   ============================================ */
+
+.project-meta-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  max-width: 700px;
+}
+
+.project-year-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.project-details-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1.75rem;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(10px);
+}
+
+.project-details-btn:hover {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+  transform: translateX(6px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+.arrow-icon {
   transition: transform 0.3s ease;
 }
 
-.project-card-item:hover .project-overlay-card {
-  transform: translateY(0);
-}
-
-.project-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  font-size: 0.9rem;
-}
-
-.project-year,
-.project-location {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.project-details {
-  padding: 1.5rem;
-}
-
-.project-card-title {
-  font-size: 1.25rem;
-  color: #091441;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-.project-card-description {
-  color: #666;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-.project-view-link {
-  display: inline-block;
-  color: #810012;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.project-view-link:hover {
-  color: #091441;
+.project-details-btn:hover .arrow-icon {
   transform: translateX(5px);
 }
 
-/* Message aucun projet */
-.no-projects {
-  text-align: center;
-  padding: 4rem 2rem;
-  background: #f5f5f5;
-  border-radius: 12px;
-  margin-top: 2rem;
-}
+/* ============================================
+   RESPONSIVE - TABLETTE
+   ============================================ */
 
-.no-projects p {
-  font-size: 1.2rem;
-  color: #666;
-}
-
-/* Responsive */
 @media (max-width: 1200px) {
-  .projects-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+  .category-overlay {
+    padding: 3rem;
+  }
+
+  .category-title-overlay {
+    font-size: 3rem;
+  }
+
+  .projects-flow-container {
+    padding: 4rem 3rem;
+  }
+
+  .project-image-container {
+    height: 60vh;
+    min-height: 450px;
+    max-height: 650px;
+  }
+
+  .project-content-box {
+    padding: 3rem 2.5rem 2.5rem 0;
+  }
+
+  .project-title-immersive {
+    font-size: 2rem;
+  }
+
+  .project-description-immersive {
+    font-size: 1rem;
   }
 }
+
+@media (max-width: 992px) {
+  .category-section-split {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .category-left-sticky {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+  }
+
+  .category-overlay {
+    padding: 3rem 2.5rem;
+  }
+
+  .category-badge {
+    width: 75px;
+    height: 75px;
+  }
+
+  .category-icon-large {
+    font-size: 2.5rem;
+  }
+
+  .category-title-overlay {
+    font-size: 2.75rem;
+  }
+
+  .category-description-overlay {
+    font-size: 1rem;
+  }
+
+  .category-right-flow {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    overflow-y: visible;
+  }
+
+  .projects-flow-container {
+    padding: 3.5rem 2.5rem;
+  }
+
+  .project-image-container {
+    height: 60vh;
+    min-height: 400px;
+  }
+
+  .project-content-box {
+    padding: 3rem 2.5rem 2.5rem 0;
+  }
+}
+
+/* ============================================
+   RESPONSIVE - MOBILE
+   ============================================ */
 
 @media (max-width: 768px) {
-  .container {
-    padding: 0 1rem;
+  .category-left-sticky {
+    height: 70vh;
   }
 
-  .page-title {
-    font-size: 2rem !important;
+  .category-overlay {
+    padding: 2.5rem 2rem;
   }
 
-  .page-subtitle {
-    font-size: 1rem !important;
+  .category-badge {
+    width: 65px;
+    height: 65px;
   }
 
-  .filters-container {
+  .category-icon-large {
+    font-size: 2rem;
+  }
+
+  .category-title-overlay {
+    font-size: 2.25rem;
+  }
+
+  .category-description-overlay {
+    font-size: 0.95rem;
+  }
+
+  .projects-flow-container {
+    padding: 3rem 2rem;
+  }
+
+  .project-image-container {
+    height: 50vh;
+    min-height: 350px;
+  }
+
+  .project-content-box {
+    padding: 2.5rem 2rem 2rem 0;
+  }
+
+  .project-title-immersive {
+    font-size: 1.65rem;
+  }
+
+  .project-description-immersive {
+    font-size: 0.95rem;
+  }
+
+  .project-meta-footer {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
   }
 
-  .filter-group {
-    max-width: 100%;
+  .project-details-btn {
+    width: 100%;
+    justify-content: center;
   }
 
-  .projects-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .project-image-wrapper {
-    height: 200px;
+  .project-status-pill {
+    top: 1.25rem;
+    right: 1.25rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
   }
 }
 
 @media (max-width: 480px) {
-  .projects-section {
-    padding: 2rem 0;
+  .category-left-sticky {
+    height: 60vh;
   }
 
-  .results-count {
-    font-size: 1rem;
+  .category-overlay {
+    padding: 2rem 1.5rem;
   }
 
-  .project-card-title {
-    font-size: 1.1rem;
+  .category-badge {
+    width: 60px;
+    height: 60px;
   }
 
-  .project-card-description {
+  .category-icon-large {
+    font-size: 1.85rem;
+  }
+
+  .category-title-overlay {
+    font-size: 2rem;
+  }
+
+  .category-description-overlay {
     font-size: 0.9rem;
   }
 
-  .filter-select {
-    font-size: 0.95rem;
-    padding: 10px 14px;
+  .projects-flow-container {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .project-image-container {
+    height: 45vh;
+    min-height: 320px;
+  }
+
+  .project-content-box {
+    padding: 2rem 1.5rem 1.5rem 0;
+  }
+
+  .project-title-immersive {
+    font-size: 1.5rem;
+  }
+
+  .project-description-immersive {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-status-pill {
+    top: 1rem;
+    right: 1rem;
+    padding: 0.45rem 1rem;
+    font-size: 0.7rem;
+  }
+
+  .project-details-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.85rem;
   }
 }
+
+/* ============================================
+   ANIMATION DE DÉFILEMENT SMOOTH
+   ============================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ============================================
+   PERFORMANCE - GPU Acceleration
+   ============================================ */
+
+.category-hero-image,
+.project-image-immersive,
+.project-card-immersive {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
