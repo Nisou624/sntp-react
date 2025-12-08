@@ -31,6 +31,9 @@ function AppContent() {
     setIsChatbotOpen(false);
   }
 
+  // Vérifier si on est sur la page Projects pour cacher le footer
+  const isProjectsPage = location.pathname === '/projects';
+
   return (
     <div className="App">
       <Header />
@@ -48,11 +51,11 @@ function AppContent() {
             <Route path="/sntp-anabibe" element={<SNTPAnabibe />} />
             <Route path="/travaux-routiers" element={<TravauxRoutiers />} />
             <Route path="/location-materiel" element={<LocationMateriel />} />
-            
           </Routes>
         </PageTransition>
       </main>
-      <Footer />
+      {/* Cacher le footer sur la page Projects */}
+      {!isProjectsPage && <Footer />}
       <FloatingChatButton
         onClick={toggleChatbot}
         isOpen={isChatbotOpen}

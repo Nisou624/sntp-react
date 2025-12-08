@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaTruck, FaTools, FaCogs, FaHeadset } from 'react-icons/fa';
+import { FaTruck, FaTools, FaCogs, FaHeadset, FaCheckCircle, FaPhoneAlt } from 'react-icons/fa';
 import './LocationMateriel.css';
 
 const LocationMateriel = () => {
@@ -49,7 +49,8 @@ const LocationMateriel = () => {
           <h1 className="location-title">LOCATION DE MATÉRIEL</h1>
           <div className="hero-divider"></div>
           <p className="location-description">
-            Plus de <strong>200 engins</strong> de dernière génération disponibles pour vos chantiers. Location courte/longue durée avec ou sans opérateur.
+            Plus de <strong>200 engins</strong> de dernière génération disponibles pour vos chantiers. 
+            Location courte/longue durée avec ou sans opérateur.
           </p>
         </div>
       </header>
@@ -65,7 +66,9 @@ const LocationMateriel = () => {
 
           <div className="avantages-grid">
             <div className="avantage-card">
-              <FaTruck className="avantage-icon" />
+              <div className="avantage-icon-wrapper">
+                <FaTruck className="avantage-icon" />
+              </div>
               <h3 className="avantage-title">Parc Moderne</h3>
               <p className="avantage-text">
                 Équipements récents (2018-2024) des marques leaders : Caterpillar, Komatsu, BOMAG, VÖGELE.
@@ -73,7 +76,9 @@ const LocationMateriel = () => {
             </div>
 
             <div className="avantage-card">
-              <FaTools className="avantage-icon" />
+              <div className="avantage-icon-wrapper">
+                <FaTools className="avantage-icon" />
+              </div>
               <h3 className="avantage-title">Maintenance Préventive</h3>
               <p className="avantage-text">
                 Atelier certifié ISO 9001, révisions systématiques toutes les 250 heures, taux de disponibilité 98%.
@@ -81,7 +86,9 @@ const LocationMateriel = () => {
             </div>
 
             <div className="avantage-card">
-              <FaCogs className="avantage-icon" />
+              <div className="avantage-icon-wrapper">
+                <FaCogs className="avantage-icon" />
+              </div>
               <h3 className="avantage-title">Flexibilité</h3>
               <p className="avantage-text">
                 Location journalière, hebdomadaire ou mensuelle. Possibilité de location-vente après 12 mois.
@@ -89,7 +96,9 @@ const LocationMateriel = () => {
             </div>
 
             <div className="avantage-card">
-              <FaHeadset className="avantage-icon" />
+              <div className="avantage-icon-wrapper">
+                <FaHeadset className="avantage-icon" />
+              </div>
               <h3 className="avantage-title">Support 24/7</h3>
               <p className="avantage-text">
                 Assistance technique joignable H24, dépannage rapide, remplacement sous 24h si panne majeure.
@@ -114,7 +123,10 @@ const LocationMateriel = () => {
           <div className="equipements-tabs">
             {equipments.map((category, index) => (
               <div key={index} className="equipement-category">
-                <h3 className="category-title">{category.category}</h3>
+                <h3 className="category-title">
+                  <span className="category-number">{String(index + 1).padStart(2, '0')}</span>
+                  {category.category}
+                </h3>
                 <div className="equipements-list">
                   {category.items.map((item, idx) => (
                     <div key={idx} className="equipement-item">
@@ -193,10 +205,18 @@ const LocationMateriel = () => {
             </div>
 
             <div className="conditions-image">
-              <img 
-                src="/wp-content/uploads/2025/07/equipment-maintenance.jpg" 
-                alt="Matériel SNTP" 
-              />
+              <div className="image-wrapper">
+                <img 
+                  src="/wp-content/uploads/2025/07/equipment-maintenance.jpg" 
+                  alt="Matériel SNTP" 
+                />
+                <div className="image-overlay">
+                  <div className="overlay-badge">
+                    <FaCheckCircle className="overlay-icon" />
+                    <span>Certifié ISO 9001</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -208,7 +228,7 @@ const LocationMateriel = () => {
           <div className="testimonial-content">
             <div className="testimonial-quote">
               <svg className="quote-icon" viewBox="0 0 512 512" width="60" height="60">
-                <path fill="rgba(255,255,255,0.2)" d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"></path>
+                <path fill="rgba(220,20,60,0.15)" d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"></path>
               </svg>
               <p className="testimonial-text">
                 "Location de 15 engins pour notre chantier autoroutier. Équipements neufs, livraison respectée, aucune panne en 6 mois. Service impeccable !"
@@ -236,6 +256,7 @@ const LocationMateriel = () => {
                 </svg>
               </a>
               <a href="tel:023812345" className="hero-btn hero-btn-outline">
+                <FaPhoneAlt className="btn-icon-phone" />
                 <span>023 81 23 45</span>
               </a>
             </div>
@@ -247,4 +268,3 @@ const LocationMateriel = () => {
 };
 
 export default LocationMateriel;
-

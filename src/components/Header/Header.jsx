@@ -26,6 +26,7 @@ const Header = () => {
     { path: '/about', label: 'Mot du PDG' },
     { path: '/services', label: 'Nos services' },
     { path: '/projects', label: 'Nos projets' },
+    { path: '/implantations', label: 'Implantations' },
     { path: '/blog', label: 'Blog' },
     { path: '/faq', label: 'FAQ' }
   ];
@@ -37,9 +38,7 @@ const Header = () => {
           <div className="header-logo">
             <Link to="/" className="site-logo-container">
               <img
-                src={isSticky 
-                  ? "/assets/images/logo-dark-sticky.svg" 
-                  : "/assets/images/logo-light.svg"}
+                src="/logo.png"
                 alt="SNTP"
                 className="logo"
               />
@@ -80,7 +79,7 @@ const Header = () => {
       <div className={`mobile-menu ${isMobileMenuOpen ? 'is-active' : ''}`}>
         <div className="mobile-menu-inner">
           <Link to="/" className="mobile-logo">
-            <img src="/assets/images/logo-light-mobile.svg" alt="SNTP" />
+            <img src="/logo.png" alt="SNTP" />
           </Link>
           
           <nav className="mobile-nav">
@@ -114,4 +113,3 @@ const Header = () => {
 };
 
 export default Header;
-

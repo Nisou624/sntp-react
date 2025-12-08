@@ -1,38 +1,13 @@
 import React from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import './About.css';
+import Header from '../components/Header/Header';
 
 const About = () => {
   return (
     <div className="about-page">
       {/* Page Header */}
-      <section className="page-header" style={{
-        backgroundImage: 'url(/assets/images/about-header.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '400px',
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center'
-      }}>
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(135deg, rgba(129, 0, 18, 0.85) 0%, rgba(9, 20, 65, 0.75) 100%)'
-        }}></div>
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <h1 className="page-title" style={{ color: '#fff', fontSize: 'clamp(2.5rem, 5vw, 3.5rem)' }}>
-            Mot du PDG
-          </h1>
-          <div className="section-divider" style={{
-            background: 'repeating-linear-gradient(90deg, #fff, #fff 12.2px, transparent 12.2px, transparent 24.4px)'
-          }}></div>
-        </div>
-      </section>
-
+      <Header />
       {/* CEO Message */}
       <section className="ceo-message section">
         <div className="container">
