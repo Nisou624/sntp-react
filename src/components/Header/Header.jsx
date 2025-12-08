@@ -8,6 +8,10 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
+  // Pages qui nécessitent du texte foncé au lieu de blanc au top
+  const darkTextPages = ['/faq', '/about', '/implantations'];
+  const isDarkTextPage = darkTextPages.includes(location.pathname);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsSticky(window.scrollY > 100);
@@ -32,7 +36,7 @@ const Header = () => {
   ];
 
   return (
-    <header className={`ct-header ${isSticky ? 'is-sticky' : ''}`}>
+    <header className={`ct-header ${isSticky ? 'is-sticky' : ''} ${isDarkTextPage ? 'dark-text-mode' : ''}`}>
       <div className="ct-container">
         <div className="header-row">
           <div className="header-logo">
@@ -113,3 +117,4 @@ const Header = () => {
 };
 
 export default Header;
+

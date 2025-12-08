@@ -48,6 +48,7 @@
   position: relative;
 }
 
+/* Comportement par défaut: texte blanc au top */
 .ct-menu-link {
   font-family: var(--font-heading);
   font-size: 1rem;
@@ -59,10 +60,17 @@
   position: relative;
 }
 
+/* Texte noir quand sticky (pour toutes les pages) */
 .ct-header.is-sticky .ct-menu-link {
   color: var(--theme-palette-color-2);
 }
 
+/* Pages spécifiques: texte noir dès le top */
+.ct-header.dark-text-mode .ct-menu-link {
+  color: var(--theme-palette-color-2);
+}
+
+/* Animation de soulignement */
 .ct-menu-link::after {
   content: '';
   position: absolute;
@@ -79,6 +87,7 @@
   width: 100%;
 }
 
+/* Bouton CTA */
 .ct-button {
   display: inline-block;
   padding: 12px 30px;
@@ -98,7 +107,7 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Mobile Menu */
+/* Mobile Menu Toggle */
 .mobile-menu-toggle {
   display: none;
   background: transparent;
@@ -106,12 +115,21 @@
   color: var(--theme-palette-color-8);
   padding: 0.5rem;
   transition: var(--transition-fast);
+  border: none;
+  cursor: pointer;
 }
 
+/* Icône mobile - texte noir quand sticky */
 .ct-header.is-sticky .mobile-menu-toggle {
   color: var(--theme-palette-color-2);
 }
 
+/* Icône mobile - texte noir pour les pages spécifiques */
+.ct-header.dark-text-mode .mobile-menu-toggle {
+  color: var(--theme-palette-color-2);
+}
+
+/* Menu Mobile */
 .mobile-menu {
   position: fixed;
   top: 0;

@@ -219,7 +219,7 @@ const Home = () => {
             </Link>
 
             {/* Service 4: ANABIBE */}
-            <Link to="/anabibe" className="service-card-modern">
+            <Link to="/sntp-anabibe" className="service-card-modern">
               <div className="service-card-image">
                 <img 
                   src="/wp-content/uploads/2025/07/portrait-of-chemical-engineer-3861445.jpg" 

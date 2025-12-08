@@ -1,330 +1,293 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Hero from '../components/Hero/Hero';
-import { FaBuilding, FaRoad, FaTruck, FaHardHat, FaCogs, FaChartLine, FaTint } from 'react-icons/fa';
-import './Home.css';
+import { 
+  FaMapMarkedAlt, 
+  FaPeopleArrows, 
+  FaLeaf, 
+  FaProjectDiagram,
+  FaArrowRight,
+  FaAngleRight,
+  FaLongArrowAltRight,
+  FaMapPin
+} from 'react-icons/fa';
+import './SNTPAnabibe.css';
 
-const Home = () => {
+const SNTPAnabibe = () => {
+  // Données des cartes de 4 sections (Excellence, Engagement, Durabilité, Intégrité)
+  const featuresCards = [
+    {
+      id: 1,
+      icon: <FaMapMarkedAlt />,
+      title: "Excellence Technique",
+      description: "Innovation et précision dans chaque projet, des études à la réalisation."
+    },
+    {
+      id: 2,
+      icon: <FaPeopleArrows />,
+      title: "Engagement Social",
+      description: "Formation et insertion des compétences locales pour un développement durable."
+    },
+    {
+      id: 3,
+      icon: <FaLeaf />,
+      title: "Durabilité",
+      description: "Solutions éco-responsables et optimisation des ressources pour des infrastructures pérennes."
+    },
+    {
+      id: 4,
+      icon: <FaProjectDiagram />,
+      title: "Intégrité",
+      description: "Transparence, éthique et respect strict des engagements contractuels."
+    }
+  ];
+
   return (
-    <div className="home-page">
-      {/* Hero Section - Carrousel existant conservé */}
-      <Hero />
-
-      {/* Stats Section Overlapping - Exactement comme HTML statique */}
-      <section className="stats-overlap-section">
-        <div className="container">
-          <div className="stats-overlap-grid">
-            <div className="stat-overlap-card">
-              <div className="stat-overlap-icon">
-                <FaBuilding />
-              </div>
-              <div className="stat-overlap-content">
-                <div className="stat-overlap-number" data-count="50">50+</div>
-                <div className="stat-overlap-label">Années d'Expérience</div>
-              </div>
-            </div>
-            
-            <div className="stat-overlap-card">
-              <div className="stat-overlap-icon">
-                <FaRoad />
-              </div>
-              <div className="stat-overlap-content">
-                <div className="stat-overlap-number" data-count="1200">1200+</div>
-                <div className="stat-overlap-label">Kilomètres Construits</div>
-              </div>
-            </div>
-            
-            <div className="stat-overlap-card">
-              <div className="stat-overlap-icon">
-                <FaHardHat />
-              </div>
-              <div className="stat-overlap-content">
-                <div className="stat-overlap-number" data-count="5000">5000+</div>
-                <div className="stat-overlap-label">Employés Qualifiés</div>
-              </div>
-            </div>
-            
-            <div className="stat-overlap-card">
-              <div className="stat-overlap-icon">
-                <FaChartLine />
-              </div>
-              <div className="stat-overlap-content">
-                <div className="stat-overlap-number" data-count="300">300+</div>
-                <div className="stat-overlap-label">Projets Achevés</div>
-              </div>
-            </div>
+    <div className="sntp-anabibe-page">
+      {/* Hero Section */}
+      <header className="anabibe-hero-section">
+        <div className="anabibe-hero-overlay"></div>
+        <div className="container anabibe-hero-content">
+          <h4 className="anabibe-hero-subtitle">L'Art De L'écoulement Durable</h4>
+          <div className="anabibe-hero-logo">
+            <img src="/wp-content/uploads/2025/07/1Couleur-22-1024x512.png" alt="SNTP ANABIBE Logo" />
           </div>
+          <h1 className="anabibe-hero-title">SNTP ANABIBE</h1>
+          <div className="anabibe-hero-divider"></div>
+          <p className="anabibe-hero-description">
+            <em>Fabricant de buses en béton haute-résistance pour réseaux d'assainissement, drainage agricole et infrastructures urbaines.</em>
+          </p>
         </div>
-      </section>
+      </header>
 
-      {/* About Preview Section - Comme HTML statique */}
-      <section className="about-preview-section">
+      {/* Section Innovation + Durabilité avec image centrale */}
+      <section className="anabibe-expertise-section">
         <div className="container">
-          <div className="about-preview-grid">
-            <div className="about-preview-image">
-              <img 
-                src="/wp-content/uploads/2025/07/construction-workers-3682977_1920.jpg" 
-                alt="SNTP Construction" 
-              />
-              <div className="experience-badge">
-                <div className="experience-number">50+</div>
-                <div className="experience-text">Ans d'Excellence</div>
-              </div>
-            </div>
-            
-            <div className="about-preview-content">
-              <h4 className="section-subtitle">QUI SOMMES-NOUS</h4>
-              <h2 className="section-title">SNTP, Pionnier des Infrastructures Algériennes</h2>
-              <div className="section-divider"></div>
-              <p className="about-preview-text">
-                Depuis 1967, <strong>SNTP (Société Nationale des Travaux Publics)</strong> façonne le paysage infrastructurel algérien. Acteur historique et leader national, nous conjuguons expertise technique, innovation et engagement social pour bâtir des ouvrages qui résistent au temps et servent l'intérêt public.
+          <div className="expertise-grid">
+            <div className="expertise-card">
+              <h4 className="expertise-label">EXPERTISE</h4>
+              <h2 className="expertise-title">INNOVATION</h2>
+              <div className="expertise-divider"></div>
+              <p className="expertise-description">
+                Nous révolutionnons le béton depuis 20 ans. Nos buses allient résistance exceptionnelle et design hydrodynamique pour des écoulements parfaits. Solutions durables certifiées ISO.
               </p>
-              
-              <ul className="about-features-list">
-                <li>
-                  <svg className="check-icon" viewBox="0 0 448 512" width="14" height="14">
-                    <path fill="#FF5E14" d="M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z"></path>
-                  </svg>
-                  <span>Leader national en travaux publics depuis plus de 50 ans</span>
-                </li>
-                <li>
-                  <svg className="check-icon" viewBox="0 0 448 512" width="14" height="14">
-                    <path fill="#FF5E14" d="M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z"></path>
-                  </svg>
-                  <span>Certifications ISO 9001, ISO 14001, ISO 45001</span>
-                </li>
-                <li>
-                  <svg className="check-icon" viewBox="0 0 448 512" width="14" height="14">
-                    <path fill="#FF5E14" d="M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z"></path>
-                  </svg>
-                  <span>Parc matériel moderne : 200+ engins de dernière génération</span>
-                </li>
-                <li>
-                  <svg className="check-icon" viewBox="0 0 448 512" width="14" height="14">
-                    <path fill="#FF5E14" d="M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z"></path>
-                  </svg>
-                  <span>5000+ employés qualifiés, 300+ projets d'envergure réalisés</span>
-                </li>
-              </ul>
-              
-              <Link to="/about" className="btn-primary">
-                <span>En savoir plus</span>
-                <svg className="btn-arrow" viewBox="0 0 448 512" width="16" height="16">
-                  <path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>
-                </svg>
-              </Link>
+            </div>
+
+            <div className="expertise-image-center">
+              <img src="/wp-content/uploads/2025/07/image-from-rawpixel-id-83704-jpeg.jpg" alt="Plans et chantier" />
+            </div>
+
+            <div className="expertise-card">
+              <h4 className="expertise-label">ENGAGEMENT</h4>
+              <h2 className="expertise-title">DURABILITÉ</h2>
+              <div className="expertise-divider"></div>
+              <p className="expertise-description">
+                Nos buses garantissent 50 ans de service sans faille. Béton haute performance, traitement anti-érosion, joints étanches. Protection active des ressources hydrauliques et des sols.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services Section - 4 CARTES comme HTML statique */}
-      <section className="services-section">
+      {/* Section Des Solutions Techniques */}
+      <section className="anabibe-solutions-section">
         <div className="container">
-          <div className="section-header-center">
-            <h4 className="section-subtitle">NOS ACTIVITÉS</h4>
-            <h2 className="section-title">Nos Pôles d'Expertise</h2>
-            <div className="section-divider-center"></div>
-            <p className="section-description">
-              Trois divisions complémentaires pour couvrir tous vos besoins en infrastructures
-            </p>
-          </div>
-
-          <div className="services-grid-four">
-            <Link to="/sntp-engineering" className="service-card-modern">
-              <div className="service-card-image">
-                <img 
-                  src="/wp-content/uploads/2025/07/dean-bennett-aBV8pVODWiM-unsplash.jpg" 
-                  alt="SNTP Engineering" 
-                />
-                <div className="service-card-overlay">
-                  <FaCogs className="service-card-icon-large" />
-                </div>
+          <div className="solutions-layout">
+            <div className="solutions-text">
+              <h2 className="solutions-title">Des solutions techniques qui transforment durablement les territoires</h2>
+              <a href="/projects" className="solutions-btn">
+                <FaArrowRight className="btn-icon" />
+                <span>Nos projets</span>
+              </a>
+            </div>
+            <div className="solutions-cards-wrapper">
+              <div className="solutions-cards-grid">
+                {featuresCards.map((card) => (
+                  <div key={card.id} className="solution-feature-card">
+                    <div className="feature-icon-wrapper">
+                      {card.icon}
+                    </div>
+                    <h3 className="feature-title">{card.title}</h3>
+                    <p className="feature-description">{card.description}</p>
+                  </div>
+                ))}
               </div>
-              <div className="service-card-content">
-                <div className="service-card-icon">
-                  <FaCogs />
-                </div>
-                <h3 className="service-card-title">SNTP ENGINEERING</h3>
-                <div className="service-card-divider"></div>
-                <p className="service-card-text">
-                  Bureau d'études techniques : conception, dimensionnement, supervision selon normes internationales (Eurocodes, AASHTO).
-                </p>
-                <div className="service-card-link">
-                  <span>Découvrir</span>
-                  <svg className="service-arrow" viewBox="0 0 448 512" width="14" height="14">
-                    <path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>
-                  </svg>
-                </div>
-              </div>
-            </Link>
-
-            <Link to="/travaux-routiers" className="service-card-modern">
-              <div className="service-card-image">
-                <img 
-                  src="/wp-content/uploads/2025/07/construction-workers-3682977_1920.jpg" 
-                  alt="Travaux Routiers" 
-                />
-                <div className="service-card-overlay">
-                  <FaRoad className="service-card-icon-large" />
-                </div>
-              </div>
-              <div className="service-card-content">
-                <div className="service-card-icon">
-                  <FaRoad />
-                </div>
-                <h3 className="service-card-title">TRAVAUX ROUTIERS</h3>
-                <div className="service-card-divider"></div>
-                <p className="service-card-text">
-                  Construction et réhabilitation : autoroutes, routes nationales, voiries urbaines. 1200+ km réalisés.
-                </p>
-                <div className="service-card-link">
-                  <span>Découvrir</span>
-                  <svg className="service-arrow" viewBox="0 0 448 512" width="14" height="14">
-                    <path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>
-                  </svg>
-                </div>
-              </div>
-            </Link>
-
-            <Link to="/location-materiel" className="service-card-modern">
-              <div className="service-card-image">
-                <img 
-                  src="/wp-content/uploads/2025/07/man-welding-metal-2880871.jpg" 
-                  alt="Location de Matériel" 
-                />
-                <div className="service-card-overlay">
-                  <FaTruck className="service-card-icon-large" />
-                </div>
-              </div>
-              <div className="service-card-content">
-                <div className="service-card-icon">
-                  <FaTruck />
-                </div>
-                <h3 className="service-card-title">LOCATION DE MATÉRIEL</h3>
-                <div className="service-card-divider"></div>
-                <p className="service-card-text">
-                  Parc moderne de 200+ engins : pelles, bulldozers, finisseurs, camions. Maintenance 24/7, disponibilité 98%.
-                </p>
-                <div className="service-card-link">
-                  <span>Découvrir</span>
-                  <svg className="service-arrow" viewBox="0 0 448 512" width="14" height="14">
-                    <path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>
-                  </svg>
-                </div>
-              </div>
-            </Link>
-
-            <Link to="/anabib" className="service-card-modern">
-              <div className="service-card-image">
-                <img 
-                  src="/wp-content/uploads/2025/07/image-from-rawpixel-id-1364-jpeg.jpg" 
-                  alt="ANABIB" 
-                />
-                <div className="service-card-overlay">
-                  <FaTint className="service-card-icon-large" />
-                </div>
-              </div>
-              <div className="service-card-content">
-                <div className="service-card-icon">
-                  <FaTint />
-                </div>
-                <h3 className="service-card-title">ANABIB</h3>
-                <div className="service-card-divider"></div>
-                <p className="service-card-text">
-                  Aménagement de bassins hydrauliques, barrages, stations d'épuration. Expertise en ouvrages d'art hydrauliques.
-                </p>
-                <div className="service-card-link">
-                  <span>Découvrir</span>
-                  <svg className="service-arrow" viewBox="0 0 448 512" width="14" height="14">
-                    <path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>
-                  </svg>
-                </div>
-              </div>
-            </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Projects Showcase - Comme HTML statique */}
-      <section className="projects-showcase-section">
-        <div className="container">
-          <div className="section-header-center">
-            <h4 className="section-subtitle">RÉALISATIONS</h4>
-            <h2 className="section-title">Projets de Référence</h2>
-            <div className="section-divider-center"></div>
-          </div>
-
-          <div className="projects-grid-three">
-            <div className="project-card-modern">
-              <img 
-                src="/wp-content/uploads/2025/07/highway-3392100_1920.jpg" 
-                alt="Autoroute Est-Ouest" 
-              />
-              <div className="project-card-content">
-                <h3 className="project-card-title">Autoroute Est-Ouest</h3>
-                <p className="project-card-desc">Tronçon stratégique Alger-Oran (120 km)</p>
-                <Link to="/projets" className="project-card-link">
-                  Voir le projet <span className="arrow-right">→</span>
-                </Link>
-              </div>
+      {/* Section Parc Industriel Performant (Orange) */}
+      <section className="anabibe-industrial-section">
+        <div className="container-full">
+          <div className="industrial-grid">
+            <div className="industrial-image">
+              <img src="/wp-content/uploads/2025/07/image-warehouse.jpg" alt="Parc industriel" />
             </div>
-
-            <div className="project-card-modern">
-              <img 
-                src="/wp-content/uploads/2025/07/image-from-rawpixel-id-1364-jpeg.jpg" 
-                alt="Barrage Koudiet Acerdoune" 
-              />
-              <div className="project-card-content">
-                <h3 className="project-card-title">Barrage Koudiet Acerdoune</h3>
-                <p className="project-card-desc">Ouvrage hydraulique majeur (Bouira)</p>
-                <Link to="/projets" className="project-card-link">
-                  Voir le projet <span className="arrow-right">→</span>
-                </Link>
-              </div>
+            <div className="industrial-content orange-bg">
+              <h2 className="industrial-title">Parc industriel performant</h2>
+              <div className="industrial-divider"></div>
+              <p className="industrial-description">
+                Dans 70 hectares installé principalement généralement l'équipement, intégrant un centre d'usinage, un four de préchauffe et un vaste stock de produits finis. Dotation logistique complète et méthodes modernes pour garantir vos projets.
+              </p>
+              <a href="#" className="industrial-btn">
+                LEARN MORE <FaArrowRight />
+              </a>
             </div>
-
-            <div className="project-card-modern">
-              <img 
-                src="/wp-content/uploads/2025/07/portrait-of-chemical-engineer-3861445.jpg" 
-                alt="Tramway d'Alger" 
-              />
-              <div className="project-card-content">
-                <h3 className="project-card-title">Tramway d'Alger</h3>
-                <p className="project-card-desc">Extensions et modernisation VRD</p>
-                <Link to="/projets" className="project-card-link">
-                  Voir le projet <span className="arrow-right">→</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="projects-cta-center">
-            <Link to="/projets" className="btn-primary">
-              <span>Voir tous nos projets</span>
-              <svg className="btn-arrow" viewBox="0 0 448 512" width="16" height="16">
-                <path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>
-              </svg>
-            </Link>
           </div>
         </div>
       </section>
 
-      {/* CTA Section - Comme HTML statique */}
-      <section className="cta-section-home">
-        <div className="cta-overlay-home"></div>
+      {/* Section Solutions Complètes (Bleu Navy) */}
+      <section className="anabibe-complete-solutions-section">
+        <div className="container-full">
+          <div className="complete-solutions-grid">
+            <div className="complete-solutions-image">
+              <img src="/wp-content/uploads/2025/07/construction-site-machines.jpg" alt="Chantier avec engins" />
+            </div>
+            <div className="complete-solutions-content navy-bg">
+              <h2 className="complete-solutions-title">Solutions Complètes d'Infrastructures Modernes</h2>
+              <div className="complete-solutions-divider"></div>
+              <p className="complete-solutions-description">
+                Grâce à Loiseau, notre partenaire locale tous les besoins en assainissement, drainage hydraulique urbaine, agricole et industrielle. Etudes, fourniture, pose pour des fils de machines durables.
+              </p>
+              <a href="#" className="complete-solutions-btn">
+                LEARN MORE <FaArrowRight />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Résistance Certifiée (Navy) */}
+      <section className="anabibe-resistance-section">
+        <div className="container-full">
+          <div className="resistance-grid">
+            <div className="resistance-content navy-bg">
+              <h2 className="resistance-title">Résistance Certifiée En Conditions Extrêmes</h2>
+              <div className="resistance-divider"></div>
+              <p className="resistance-description">
+                Conçus pour résister à 45 bars en test, nos tuyaux assurent une performance inégalée dans les sols instables, les zones sismiques et les milieux corrosifs
+              </p>
+              <a href="#" className="resistance-btn">
+                LEARN MORE <FaAngleRight />
+              </a>
+            </div>
+            <div className="resistance-image">
+              <img src="/wp-content/uploads/2025/07/construction-site-machines.jpg" alt="Chantier" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Optimisation Logistique (Orange) */}
+      <section className="anabibe-optimization-section">
+        <div className="container-full">
+          <div className="optimization-grid">
+            <div className="optimization-image">
+              <img src="/wp-content/uploads/2025/07/construction-site-machines.jpg" alt="Chantier" />
+            </div>
+            <div className="optimization-content orange-bg">
+              <h2 className="optimization-title">Optimisation Logistique Et Installation Simplifiée</h2>
+              <div className="optimization-divider"></div>
+              <p className="optimization-description">
+                La longueur standard de 6 mètres réduit les coûts de manutention, facilite le stockage et permet une pose rapide grâce à un système d'emboîtement breveté.
+              </p>
+              <a href="#" className="optimization-btn">
+                LEARN MORE <FaLongArrowAltRight />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Notre Objectif avec barres de progression */}
+      <section className="anabibe-objective-section">
         <div className="container">
-          <div className="cta-content-home">
-            <h2 className="cta-title-home">Un Projet d'Infrastructure ?</h2>
-            <p className="cta-text-home">
-              Confiez-nous vos travaux et bénéficiez de notre expertise reconnue depuis 50 ans
-            </p>
-            <Link to="/contact" className="btn-white">
-              <span>Demander un devis gratuit</span>
-              <svg className="btn-arrow" viewBox="0 0 448 512" width="16" height="16">
-                <path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>
-              </svg>
-            </Link>
+          <div className="objective-layout">
+            <div className="objective-text">
+              <h3 className="objective-subtitle">SNTP ANABIBE</h3>
+              <h2 className="objective-title">Notre Objectif</h2>
+              <div className="objective-divider"></div>
+              <p className="objective-description">
+                Chaque buse en béton qui sort de nos ateliers porte en elle notre savoir-faire artisanal allié à une précision industrielle.
+              </p>
+              <a href="#" className="objective-btn">
+                <FaArrowRight className="btn-icon" />
+                <span>A propos</span>
+              </a>
+            </div>
+            <div className="objective-progress">
+              <div className="progress-item">
+                <div className="progress-header">
+                  <span className="progress-label">Fabrication & Développement</span>
+                  <span className="progress-percentage">70%</span>
+                </div>
+                <div className="progress-bar-container">
+                  <div className="progress-bar-fill" style={{ width: '70%' }}></div>
+                </div>
+              </div>
+              <div className="progress-item">
+                <div className="progress-header">
+                  <span className="progress-label">Chaine de Production Robotisée</span>
+                  <span className="progress-percentage">75%</span>
+                </div>
+                <div className="progress-bar-container">
+                  <div className="progress-bar-fill" style={{ width: '75%' }}></div>
+                </div>
+              </div>
+              <div className="progress-item">
+                <div className="progress-header">
+                  <span className="progress-label">Livres en Production Nationale</span>
+                  <span className="progress-percentage">85%</span>
+                </div>
+                <div className="progress-bar-container">
+                  <div className="progress-bar-fill" style={{ width: '85%' }}></div>
+                </div>
+              </div>
+              <div className="progress-item">
+                <div className="progress-header">
+                  <span className="progress-label">Durabilité Chez Valeur Ajoutée</span>
+                  <span className="progress-percentage">90%</span>
+                </div>
+                <div className="progress-bar-container">
+                  <div className="progress-bar-fill" style={{ width: '90%' }}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Retrouvez-nous avec carte */}
+      <section className="anabibe-location-section">
+        <div className="container">
+          <div className="location-layout">
+            <div className="location-map">
+              <iframe 
+                src="https://maps.google.com/maps?q=SNTP%20ANABIBE%20FORNAKA&t=m&z=10&output=embed&iwloc=near" 
+                title="SNTP ANABIBE FORNAKA"
+                aria-label="SNTP ANABIBE FORNAKA"
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div className="location-info">
+              <h1 className="location-title">Retrouvez-nous</h1>
+              <div className="location-details">
+                <h3 className="location-heading">L'adresse :</h3>
+                <p className="location-text">Zone Industrielle, lot n°16, Fornaka, Mostaganem, Algérie, 27160</p>
+              </div>
+              <div className="location-details">
+                <h3 className="location-heading">Numéro de téléphone :</h3>
+                <p className="location-text">
+                  <strong>Téléphone:</strong> 045 58 07 30<br />
+                  <strong>Fax:</strong> 045 58 07 31<br />
+                  <strong>Email:</strong> infocontact@sntp.dz
+                </p>
+              </div>
+              <a href="#" className="location-btn">
+                <FaMapPin className="btn-icon" />
+                <span>Localisation</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -332,5 +295,5 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default SNTPAnabibe;
 

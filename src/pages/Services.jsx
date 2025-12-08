@@ -1,5 +1,4 @@
 import React from 'react';
-import ServicesCarousel from '../components/Services/ServicesCarousel';
 import { 
   FaBuilding, 
   FaRoad, 
@@ -12,6 +11,78 @@ import {
 import './Services.css';
 
 const Services = () => {
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [isAnimating, setIsAnimating] = React.useState(false);
+  const [hasScroll, setHasScroll] = React.useState(false);
+  const tabsWrapperRef = React.useRef(null);
+
+  // Services data avec images et contenus
+  const servicesData = [
+    {
+      id: 1,
+      category: 'Construction de bâtiments',
+      title: 'DÉVELOPPEMENT D\'INFRASTRUCTURES, TRAITEMENT DES MINERAIS ET SOLUTIONS CONTRACTUELLES POUR LES MARCHÉS MINIERS',
+      description: 'Dans le secteur minier, Kiewit se spécialise en gestion et réalisation d\'infrastructures minières et de traitement, avec une structure d\'entreprise intégrée garantissant livraison et disposition des professionnels dans les temps prescrits et les délais approuvés.',
+      buttonText: 'En savoir plus sur les marchés miniers',
+      image: '/assets/images/construction-batiments.jpg',
+      icon: <FaBuilding />
+    },
+    {
+      id: 2,
+      category: 'Travaux routiers',
+      title: 'ROUTES, AUTOROUTES ET INFRASTRUCTURES DE TRANSPORT MODERNE',
+      description: 'Nous concevons et réalisons des infrastructures routières durables et performantes. Notre expertise couvre l\'ensemble des travaux routiers, du terrassement à la pose de la chaussée, en passant par les ouvrages d\'art.',
+      buttonText: 'Découvrir nos projets routiers',
+      image: '/assets/images/travaux-routiers.jpg',
+      icon: <FaRoad />
+    },
+    {
+      id: 3,
+      category: 'Hydraulique',
+      title: 'SYSTÈMES HYDRAULIQUES ET GESTION DES RESSOURCES EN EAU',
+      description: 'Spécialistes des ouvrages hydrauliques, nous réalisons barrages, stations de pompage, réseaux d\'assainissement et systèmes d\'irrigation. Notre approche intègre les dernières technologies pour une gestion optimale des ressources.',
+      buttonText: 'Explorer nos solutions hydrauliques',
+      image: '/assets/images/hydraulique.jpg',
+      icon: <FaTint />
+    },
+    {
+      id: 4,
+      category: 'Génie civil',
+      title: 'OUVRAGES D\'ART ET STRUCTURES EXCEPTIONNELLES',
+      description: 'De la conception à la réalisation, nous excellons dans la construction d\'ouvrages d\'art complexes : ponts, viaducs, tunnels et structures spéciales. Notre expertise garantit sécurité, durabilité et respect de l\'environnement.',
+      buttonText: 'Voir nos réalisations en génie civil',
+      image: '/assets/images/genie-civil.jpg',
+      icon: <FaHardHat />
+    },
+    {
+      id: 5,
+      category: 'Bâtiments industriels',
+      title: 'INFRASTRUCTURES INDUSTRIELLES ET BÂTIMENTS TECHNIQUES',
+      description: 'Nous construisons des bâtiments industriels adaptés à vos besoins : usines, entrepôts, hangars et installations techniques. Solutions clé en main avec intégration complète des équipements et des réseaux.',
+      buttonText: 'Consulter nos projets industriels',
+      image: '/assets/images/batiments-industriels.jpg',
+      icon: <FaIndustry />
+    },
+    {
+      id: 6,
+      category: 'Complexes commerciaux',
+      title: 'CENTRES COMMERCIAUX ET INFRASTRUCTURES TERTIAIRES',
+      description: 'Réalisation de complexes commerciaux modernes et fonctionnels. Nous intégrons design architectural, performance énergétique et technologies intelligentes pour créer des espaces commerciaux attractifs et durables.',
+      buttonText: 'Découvrir nos complexes commerciaux',
+      image: '/assets/images/complexes-commerciaux.jpg',
+      icon: <FaWarehouse />
+    },
+    {
+      id: 7,
+      category: 'Maintenance & Réhabilitation',
+      title: 'MAINTENANCE PRÉVENTIVE ET RÉNOVATION D\'INFRASTRUCTURES',
+      description: 'Services complets de maintenance, réparation et réhabilitation d\'infrastructures existantes. Prolongez la durée de vie de vos installations avec nos solutions techniques innovantes et notre expertise en rénovation.',
+      buttonText: 'En savoir plus sur la maintenance',
+      image: '/assets/images/maintenance.jpg',
+      icon: <FaTools />
+    }
+  ];
+
   const processSteps = [
     {
       number: '01',
@@ -35,22 +106,133 @@ const Services = () => {
     }
   ];
 
+  // Fonction pour scroll horizontal uniquement vers l'onglet actif
+  const scrollToActiveTab = (index) => {
+    if (tabsWrapperRef.current) {
+      const activeTab = tabsWrapperRef.current.children[index];
+      if (activeTab) {
+        const wrapperRect = tabsWrapperRef.current.getBoundingClientRect();
+        const tabRect = activeTab.getBoundingClientRect();
+        
+        // Calculer la position de scroll nécessaire (horizontal uniquement)
+        const scrollLeft = tabsWrapperRef.current.scrollLeft;
+        const tabRelativeLeft = tabRect.left - wrapperRect.left;
+        const tabCenter = tabRelativeLeft + (tabRect.width / 2);
+        const wrapperCenter = wrapperRect.width / 2;
+        
+        // Scroll horizontal smooth uniquement
+        const targetScrollLeft = scrollLeft + tabCenter - wrapperCenter;
+        
+        tabsWrapperRef.current.scrollTo({
+          left: targetScrollLeft,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
+
+  // Fonction pour changer de slide
+  const goToSlide = (index) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentSlide(index);
+    
+    // Scroll horizontal uniquement vers l'onglet actif
+    scrollToActiveTab(index);
+    
+    setTimeout(() => setIsAnimating(false), 800);
+  };
+
+  // Auto-play du carrousel
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % servicesData.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [servicesData.length]);
+
+  // Détecter si scroll nécessaire
+  React.useEffect(() => {
+    const checkScroll = () => {
+      if (tabsWrapperRef.current) {
+        const hasScrollableContent = 
+          tabsWrapperRef.current.scrollWidth > tabsWrapperRef.current.clientWidth;
+        setHasScroll(hasScrollableContent);
+        
+        // Ajouter classe CSS si scroll nécessaire
+        if (hasScrollableContent) {
+          tabsWrapperRef.current.classList.add('has-scroll');
+        } else {
+          tabsWrapperRef.current.classList.remove('has-scroll');
+        }
+      }
+    };
+
+    checkScroll();
+    window.addEventListener('resize', checkScroll);
+    return () => window.removeEventListener('resize', checkScroll);
+  }, []);
+
+  // Scroll automatique horizontal vers l'onglet actif lors du changement de slide
+  React.useEffect(() => {
+    scrollToActiveTab(currentSlide);
+  }, [currentSlide]);
+
   return (
     <div className="services-page">
-      {/* Page Header */}
-      <section className="page-header services-header">
-        <div className="header-overlay"></div>
-        <div className="container header-content">
-          <h1 className="page-title">Nos Services</h1>
-          <div className="section-divider"></div>
-          <p className="page-subtitle">
-            Des solutions complètes pour tous vos projets de construction
-          </p>
+      {/* Hero Section - Services Carousel Redesigné */}
+      <section className="services-hero-carousel">
+        <div className="carousel-wrapper">
+          {/* Slides */}
+          <div className="carousel-slides">
+            {servicesData.map((service, index) => (
+              <div
+                key={service.id}
+                className={`carousel-slide ${index === currentSlide ? 'active' : ''} ${
+                  index < currentSlide ? 'prev' : ''
+                } ${index > currentSlide ? 'next' : ''}`}
+              >
+                {/* Background Image */}
+                <div className="slide-background">
+                  <img src={service.image} alt={service.category} />
+                  <div className="slide-overlay"></div>
+                </div>
+
+                {/* Content */}
+                <div className="slide-content-wrapper">
+                  <div className="container">
+                    <div className="slide-content">
+                      <span className="slide-category">{service.category}</span>
+                      <h1 className="slide-title">{service.title}</h1>
+                      <p className="slide-description">{service.description}</p>
+                      <button className="slide-cta-button">
+                        {service.buttonText}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation Tabs - Style de la capture d'écran */}
+          <div className="carousel-navigation-tabs">
+            <div className="container">
+              <div className="nav-tabs-wrapper" ref={tabsWrapperRef}>
+                {servicesData.map((service, index) => (
+                  <button
+                    key={service.id}
+                    className={`nav-tab ${index === currentSlide ? 'active' : ''}`}
+                    onClick={() => goToSlide(index)}
+                  >
+                    <span className="nav-tab-text">{service.category}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-
-      {/* Services Carousel - NOUVEAU */}
-      <ServicesCarousel />
 
       {/* Process Section */}
       <section className="process-section section">
@@ -70,7 +252,7 @@ const Services = () => {
                 <div className="step-number">{step.number}</div>
                 <h3 className="step-title">{step.title}</h3>
                 <p className="step-description">{step.description}</p>
-                <div className="step-arrow">→</div>
+                {index < processSteps.length - 1 && <div className="step-arrow">→</div>}
               </div>
             ))}
           </div>
@@ -174,7 +356,7 @@ const Services = () => {
               Contactez nos experts dès aujourd'hui pour discuter de votre projet. 
               Nous vous accompagnons de la conception à la réalisation.
             </p>
-            <a href="/about" className="cta-button">
+            <a href="/contact" className="cta-button">
               <span>Demander un Devis Gratuit</span>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -188,3 +370,4 @@ const Services = () => {
 };
 
 export default Services;
+
