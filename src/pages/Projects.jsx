@@ -89,28 +89,38 @@ const Projects = () => {
           `[data-category="${category.id}"]`
         );
         const stickyVisual = sectionElement?.querySelector('.sticky-visual');
+        const leftColumn = sectionElement?.querySelector('.split-section__left');
         const rightContent = sectionElement?.querySelector('.split-section__right');
 
-        if (sectionElement && stickyVisual && rightContent) {
-          // Calculer la hauteur de défilement disponible
-          const sectionHeight = sectionElement.offsetHeight;
-          const stickyHeight = stickyVisual.offsetHeight;
-          const rightHeight = rightContent.offsetHeight;
+        if (sectionElement && stickyVisual && leftColumn && rightContent) {
+          // Calculer les hauteurs précises
+          const stickyHeight = stickyVisual.offsetHeight; // 75vh
+          const leftColumnHeight = leftColumn.offsetHeight; // Hauteur de la colonne gauche
+          const rightHeight = rightContent.offsetHeight; // Hauteur totale du contenu droit
           
-          // Distance que le sticky doit parcourir
-          const scrollDistance = rightHeight - stickyHeight;
+          // La distance maximale que le sticky peut parcourir sans dépasser
+          // C'est la différence entre la hauteur de la colonne gauche et la hauteur du sticky
+          const maxScrollDistance = leftColumnHeight - stickyHeight;
+          
+          // On utilise le minimum entre la distance calculée et la hauteur du contenu droit
+          // pour éviter tout dépassement
+          const scrollDistance = Math.min(maxScrollDistance, rightHeight - stickyHeight);
 
-          // Créer l'animation de suivi du scroll
+          // Créer l'animation de suivi du scroll avec la distance précise
           const st = gsap.to(stickyVisual, {
             y: scrollDistance,
             ease: 'none',
             scrollTrigger: {
               trigger: sectionElement,
-              start: 'top top+=144px',
-              end: `bottom bottom`,
-              scrub: 0.5,
+              start: 'top top+=80px', // Démarre quand la section atteint la navbar
+              end: 'bottom bottom', // Se termine quand le bottom de la section atteint le bottom de la viewport
+              scrub: 0.5, // Valeur équilibrée pour un suivi fluide
               invalidateOnRefresh: true,
               markers: false, // Mettre à true pour déboguer
+              onUpdate: (self) => {
+                // Debug optionnel - décommenter pour voir la progression
+                // console.log(`Category: ${category.id}, Progress: ${self.progress.toFixed(3)}, Y: ${(scrollDistance * self.progress).toFixed(2)}px`);
+              }
             }
           });
 
