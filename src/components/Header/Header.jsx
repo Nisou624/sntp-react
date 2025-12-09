@@ -9,7 +9,7 @@ const Header = () => {
   const location = useLocation();
 
   // Pages qui nécessitent du texte foncé au lieu de blanc au top
-  const darkTextPages = ['/faq', '/about', '/implantations'];
+  const darkTextPages = ['/faq', '/implantations', '/nos-directions'];
   const isDarkTextPage = darkTextPages.includes(location.pathname);
 
   useEffect(() => {

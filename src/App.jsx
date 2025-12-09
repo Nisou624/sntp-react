@@ -13,6 +13,13 @@ import SNTPEngineering from './pages/SNTPEngineering';
 import SNTPAnabibe from './pages/SNTPAnabibe';
 import TravauxRoutiers from './pages/TravauxRoutiers';
 import LocationMateriel from './pages/LocationMateriel';
+import TravauxFerroviaires from './pages/TravauxFerroviaires';
+import GenieCivil from './pages/GenieCivil';
+import Hydrauliques from './pages/Hydrauliques';
+import MaintenanceRehabilitation from './pages/MaintenanceRehabilitation';
+import NosDirections from './pages/NosDirections';
+import MotDuPDG from './pages/MotDuPDG';
+import AboutUs from './pages/AboutUs';
 import Blog from './pages/Blog';
 import FAQ from './pages/FAQ';
 import './App.css';
@@ -41,7 +48,8 @@ function AppContent() {
         <PageTransition location={location.pathname}>
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/about" element={<MotDuPDG />} />
             <Route path="/services" element={<Services />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/blog" element={<Blog />} />
@@ -51,6 +59,11 @@ function AppContent() {
             <Route path="/sntp-anabibe" element={<SNTPAnabibe />} />
             <Route path="/travaux-routiers" element={<TravauxRoutiers />} />
             <Route path="/location-materiel" element={<LocationMateriel />} />
+            <Route path="/travaux-ferroviaires" element={<TravauxFerroviaires />} />
+            <Route path="/Hydrauliques" element={<Hydrauliques />} />
+            <Route path="/genie-civil" element={<GenieCivil />} />
+            <Route path="/maintenance-rehabilitation" element={<MaintenanceRehabilitation />} />
+            <Route path="/nos-directions" element={<NosDirections />} />
           </Routes>
         </PageTransition>
       </main>

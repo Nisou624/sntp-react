@@ -257,40 +257,76 @@ const SNTPAnabibe = () => {
         </div>
       </section>
 
-      {/* Section Retrouvez-nous avec carte */}
-      <section className="anabibe-location-section">
+      {/* Section Retrouvez-nous avec Google Maps */}
+      <section id="contact-section" className="anabibe-contact-section">
         <div className="container">
-          <div className="location-layout">
-            <div className="location-map">
+          <h2 className="anabibe-contact-title">Retrouvez-nous</h2>
+          
+          <div className="anabibe-contact-layout">
+            {/* Google Map */}
+            <div className="anabibe-contact-map-container">
               <iframe 
-                src="https://maps.google.com/maps?q=SNTP%20ANABIBE%20FORNAKA&t=m&z=10&output=embed&iwloc=near" 
-                title="SNTP ANABIBE FORNAKA"
-                aria-label="SNTP ANABIBE FORNAKA"
+                src="https://maps.google.com/maps?q=35.75167,-0.01611&t=m&z=16&output=embed&iwloc=near"
+                title="SNTP Anabibe - Zone Industrielle Fornaka" 
+                aria-label="Localisation SNTP Anabibe"
+                className="anabibe-google-map"
                 loading="lazy"
+                allowFullScreen
               ></iframe>
             </div>
-            <div className="location-info">
-              <h1 className="location-title">Retrouvez-nous</h1>
-              <div className="location-details">
-                <h3 className="location-heading">L'adresse :</h3>
-                <p className="location-text">Zone Industrielle, lot n°16, Fornaka, Mostaganem, Algérie, 27160</p>
+
+            {/* Contact Information */}
+            <div className="anabibe-contact-info-wrapper">
+              <div className="anabibe-contact-grid">
+                <div className="anabibe-contact-item">
+                  <h4 className="anabibe-contact-label">L'adresse :</h4>
+                  <p className="anabibe-contact-info">
+                    Zone Industrielle, lot n°16, Fornaka,<br />
+                    Mostaganem, Algérie, 27160
+                  </p>
+                </div>
+                
+                <div className="anabibe-contact-item">
+                  <h4 className="anabibe-contact-label">Numéro de téléphone :</h4>
+                  <p className="anabibe-contact-info">
+                    <a href="tel:0455807030">045 58 07 30</a>
+                  </p>
+                </div>
+
+                <div className="anabibe-contact-item">
+                  <h4 className="anabibe-contact-label">Fax :</h4>
+                  <p className="anabibe-contact-info">
+                    <a href="tel:0455807031">045 58 07 31</a>
+                  </p>
+                </div>
+
+                <div className="anabibe-contact-item">
+                  <h4 className="anabibe-contact-label">Email :</h4>
+                  <p className="anabibe-contact-info">
+                    <a href="mailto:infocontact@sntp.dz">infocontact@sntp.dz</a>
+                  </p>
+                </div>
               </div>
-              <div className="location-details">
-                <h3 className="location-heading">Numéro de téléphone :</h3>
-                <p className="location-text">
-                  <strong>Téléphone:</strong> 045 58 07 30<br />
-                  <strong>Fax:</strong> 045 58 07 31<br />
-                  <strong>Email:</strong> infocontact@sntp.dz
-                </p>
-              </div>
-              <a href="#" className="location-btn">
+
+              <button 
+                className="cta-button primary-button map-button" 
+                onClick={() => window.open('https://maps.app.goo.gl/sRfzua8SfLnRW4Vb8', '_blank', 'noopener,noreferrer')}
+                aria-label="Ouvrir dans Google Maps"
+              >
                 <FaMapPin className="btn-icon" />
-                <span>Localisation</span>
-              </a>
+                Localisation
+              </button>
+
+              <p className="anabibe-contact-cta-text">
+                Contactez dès aujourd'hui <strong>SNTP ANABIBE</strong> pour découvrir nos solutions innovantes 
+                en béton préfabriqué. Nos experts sont à votre disposition pour étudier vos projets d'assainissement, 
+                de drainage et d'hydraulique avec des produits certifiés et durables.
+              </p>
             </div>
           </div>
         </div>
       </section>
+
     </div>
   );
 };

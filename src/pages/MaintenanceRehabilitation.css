@@ -1,0 +1,59 @@
+/* src/pages/MaintenanceRehabilitation.css */
+/* Structure identique avec préfixe mr- */
+
+.maintenance-rehabilitation-page {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #111111;
+}
+
+.mr-hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  /*background-image: url('/wp-content/uploads/2025/07/maintenance-hero.jpg');*/
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+}
+
+.mr-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.85), rgba(17,17,17,0.75));
+}
+
+.mr-hero-content {
+  position: relative;
+  padding: 4rem 1.5rem;
+  max-width: 960px;
+}
+
+.mr-breadcrumb {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #9ca3af;
+  margin-bottom: 0.75rem;
+}
+
+.mr-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding-bottom: 0.4rem;
+  border-bottom: 3px solid #c8102e;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.mr-description {
+  font-size: 1rem;
+  max-width: 620px;
+  line-height: 1.7;
+  color: #e5e5e5;
+}
+
+@import url('./TravauxRoutiers.css');
+
