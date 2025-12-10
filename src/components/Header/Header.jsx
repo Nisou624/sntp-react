@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import MegaMenu from './MegaMenu';
 import './Header.css';
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const location = useLocation();
 
   // Pages qui nécessitent du texte foncé au lieu de blanc au top
-  const darkTextPages = ['/faq', '/implantations', '/nos-directions'];
+  const darkTextPages = [
+    '/faq', 
+    '/about', 
+    '/implantations', 
+    '/nos-engagements', 
+    '/services',
+    '/nos-unites', 
+    '/nos-directions', 
+    '/nos-appels-offres',
+    '/nous-connaitre'
+  ];
   const isDarkTextPage = darkTextPages.includes(location.pathname);
 
   useEffect(() => {
@@ -22,99 +32,88 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    setIsMobileMenuOpen(false);
+    setIsMegaMenuOpen(false);
   }, [location]);
 
+  // Désactiver le scroll quand le mega menu est ouvert
+  useEffect(() => {
+    if (isMegaMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMegaMenuOpen]);
+
+  // Navigation items pour le menu horizontal
   const navItems = [
-    { path: '/', label: 'Accueil' },
-    { path: '/about', label: 'Mot du PDG' },
-    { path: '/services', label: 'Nos services' },
-    { path: '/projects', label: 'Nos projets' },
+    { path: '/nous-connaitre', label: 'Nous connaître' },
+    { path: '/nos-engagements', label: 'Nos engagements' },
+    { path: '/services', label: 'Nos Métiers' },
+    { path: '/projects', label: 'Nos Réalisations' },
+    { path: '/nos-unites', label: 'Nos Unités' },
+    { path: '/nos-directions', label: 'Nos Directions' },
     { path: '/implantations', label: 'Implantations' },
-    { path: '/blog', label: 'Blog' },
-    { path: '/faq', label: 'FAQ' }
+    { path: '/nos-appels-offres', label: "Nos appels d'offres" },
+    { path: '/nous-rejoindre', label: 'Nous Rejoindre' }
   ];
 
   return (
-    <header className={`ct-header ${isSticky ? 'is-sticky' : ''} ${isDarkTextPage ? 'dark-text-mode' : ''}`}>
-      <div className="ct-container">
-        <div className="header-row">
-          <div className="header-logo">
-            <Link to="/" className="site-logo-container">
-              <img
-                src="/logo.png"
-                alt="SNTP"
-                className="logo"
-              />
-            </Link>
-          </div>
+    <>
+      <header className={`ct-header ${isSticky ? 'is-sticky' : ''} ${isDarkTextPage ? 'dark-text-mode' : ''}`}>
+        <div className="ct-container">
+          <div className="header-row">
+            {/* LOGO */}
+            <div className="header-logo">
+              <Link to="/" className="site-logo-container">
+                <img
+                  src="/logo.png"
+                  alt="SNTP"
+                  className="logo"
+                />
+              </Link>
+            </div>
 
-          {/* Desktop Navigation */}
-          <nav className="header-nav desktop-nav">
-            <ul className="nav-menu">
-              {navItems.map((item) => (
-                <li key={item.path} className={location.pathname === item.path ? 'current-menu-item' : ''}>
-                  <Link to={item.path} className="ct-menu-link">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+            {/* MENU HORIZONTAL DESKTOP */}
+            <nav className="header-nav desktop-nav">
+              <ul className="nav-menu">
+                {navItems.map((item) => (
+                  <li key={item.path} className={location.pathname === item.path ? 'current-menu-item' : ''}>
+                    <Link to={item.path} className="ct-menu-link">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-          <div className="header-cta desktop-cta">
-            <Link to="/about" className="ct-button" target="_blank" rel="noopener noreferrer">
-              CONTACTEZ-NOUS
-            </Link>
-          </div>
+            {/* CTA + HAMBURGER */}
+            <div className="header-actions">
+              <Link to="/contact" className="ct-button">
+                CONTACTEZ-NOUS
+              </Link>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="mobile-menu-toggle"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle Menu"
-          >
-            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      <div className={`mobile-menu ${isMobileMenuOpen ? 'is-active' : ''}`}>
-        <div className="mobile-menu-inner">
-          <Link to="/" className="mobile-logo">
-            <img src="/logo.png" alt="SNTP" />
-          </Link>
-          
-          <nav className="mobile-nav">
-            <ul className="mobile-nav-menu">
-              {navItems.map((item) => (
-                <li key={item.path} className={location.pathname === item.path ? 'current-menu-item' : ''}>
-                  <Link to={item.path} className="ct-menu-link">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="mobile-cta">
-            <Link to="/about" className="ct-button">
-              CONTACTEZ-NOUS
-            </Link>
+              <button
+                className={`hamburger-menu ${isMegaMenuOpen ? 'is-active' : ''}`}
+                onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
+                aria-label="Toggle Menu"
+                aria-expanded={isMegaMenuOpen}
+              >
+                <span className="hamburger-line"></span>
+                <span className="hamburger-line"></span>
+                <span className="hamburger-line"></span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      {isMobileMenuOpen && (
-        <div 
-          className="mobile-menu-overlay" 
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
-    </header>
+      {/* MEGA MENU */}
+      <MegaMenu isOpen={isMegaMenuOpen} onClose={() => setIsMegaMenuOpen(false)} />
+    </>
   );
 };
 
 export default Header;
-

@@ -17,7 +17,9 @@ import TravauxFerroviaires from './pages/TravauxFerroviaires';
 import GenieCivil from './pages/GenieCivil';
 import Hydrauliques from './pages/Hydrauliques';
 import MaintenanceRehabilitation from './pages/MaintenanceRehabilitation';
+import BatimentsIndustriels from './pages/BatimentsIndustriels';
 import NosDirections from './pages/NosDirections';
+import NousRejoindre from './pages/NousRejoindre';
 import MotDuPDG from './pages/MotDuPDG';
 import AboutUs from './pages/AboutUs';
 import Blog from './pages/Blog';
@@ -60,10 +62,12 @@ function AppContent() {
             <Route path="/travaux-routiers" element={<TravauxRoutiers />} />
             <Route path="/location-materiel" element={<LocationMateriel />} />
             <Route path="/travaux-ferroviaires" element={<TravauxFerroviaires />} />
-            <Route path="/Hydrauliques" element={<Hydrauliques />} />
+            <Route path="/hydraulique" element={<Hydrauliques />} />
             <Route path="/genie-civil" element={<GenieCivil />} />
             <Route path="/maintenance-rehabilitation" element={<MaintenanceRehabilitation />} />
+            <Route path="/batiments" element={<BatimentsIndustriels />} />
             <Route path="/nos-directions" element={<NosDirections />} />
+            <Route path="/nous-rejoindre" element={<NousRejoindre />} />
           </Routes>
         </PageTransition>
       </main>

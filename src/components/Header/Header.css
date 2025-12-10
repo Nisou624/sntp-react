@@ -1,3 +1,8 @@
+/* ============================================
+   HEADER COMPONENT STYLES
+   ============================================ */
+
+/* Header principal */
 .ct-header {
   position: fixed;
   top: 0;
@@ -9,31 +14,52 @@
   transition: all var(--transition-normal);
 }
 
+/* Header sticky (quand on scroll) */
 .ct-header.is-sticky {
   background: var(--theme-palette-color-8);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 1rem 0;
 }
 
+/* Container principal du header */
 .header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
+/* ============================================
+   LOGO
+   ============================================ */
+.header-logo {
+  flex-shrink: 0;
+  z-index: 1002;
+}
+
+.site-logo-container {
+  display: block;
+}
+
 .header-logo img {
-  height: 40px;
+  height: 55px;
   width: auto;
   transition: var(--transition-fast);
 }
 
+.ct-header.is-sticky .header-logo img {
+  height: 55px;
+}
+
+/* ============================================
+   NAVIGATION DESKTOP (Menu horizontal)
+   ============================================ */
 .desktop-nav {
   flex: 1;
   display: flex;
   justify-content: center;
+  margin: 0 2rem;
 }
 
 .nav-menu {
@@ -41,26 +67,31 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 2rem;
+  gap: 1.5rem;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 .nav-menu li {
   position: relative;
+  white-space: nowrap;
 }
 
-/* Comportement par défaut: texte blanc au top */
+/* Liens de navigation */
 .ct-menu-link {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--theme-palette-color-8);
   text-transform: uppercase;
   padding: 0.5rem 0;
   transition: var(--transition-fast);
   position: relative;
+  display: inline-block;
+  letter-spacing: 0.5px;
 }
 
-/* Texte noir quand sticky (pour toutes les pages) */
+/* Texte noir quand sticky */
 .ct-header.is-sticky .ct-menu-link {
   color: var(--theme-palette-color-2);
 }
@@ -68,6 +99,11 @@
 /* Pages spécifiques: texte noir dès le top */
 .ct-header.dark-text-mode .ct-menu-link {
   color: var(--theme-palette-color-2);
+}
+
+/* Effet hover sur les liens */
+.ct-menu-link:hover {
+  color: var(--primary-red);
 }
 
 /* Animation de soulignement */
@@ -87,7 +123,24 @@
   width: 100%;
 }
 
-/* Bouton CTA */
+/* Item actif */
+.current-menu-item .ct-menu-link {
+  color: var(--primary-red);
+}
+
+/* ============================================
+   HEADER ACTIONS (CTA + HAMBURGER)
+   ============================================ */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   BOUTON CTA (CONTACTEZ-NOUS)
+   ============================================ */
 .ct-button {
   display: inline-block;
   padding: 12px 30px;
@@ -99,107 +152,176 @@
   text-transform: uppercase;
   border-radius: 0;
   transition: var(--transition-fast);
+  border: 2px solid var(--primary-red);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .ct-button:hover {
-  background: var(--theme-palette-color-2);
+  background: transparent;
+  color: var(--primary-red);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(183, 34, 34, 0.3);
 }
 
-/* Mobile Menu Toggle */
-.mobile-menu-toggle {
-  display: none;
-  background: transparent;
-  font-size: 1.5rem;
+.ct-header.is-sticky .ct-button:hover {
+  background: var(--theme-palette-color-2);
   color: var(--theme-palette-color-8);
-  padding: 0.5rem;
-  transition: var(--transition-fast);
+  border-color: var(--theme-palette-color-2);
+}
+
+/* ============================================
+   HAMBURGER MENU BUTTON
+   ============================================ */
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  background: transparent;
   border: none;
   cursor: pointer;
-}
-
-/* Icône mobile - texte noir quand sticky */
-.ct-header.is-sticky .mobile-menu-toggle {
-  color: var(--theme-palette-color-2);
-}
-
-/* Icône mobile - texte noir pour les pages spécifiques */
-.ct-header.dark-text-mode .mobile-menu-toggle {
-  color: var(--theme-palette-color-2);
-}
-
-/* Menu Mobile */
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 300px;
-  height: 100vh;
-  background: var(--primary-dark);
-  z-index: 1001;
-  transition: var(--transition-normal);
-  overflow-y: auto;
-}
-
-.mobile-menu.is-active {
-  right: 0;
-}
-
-.mobile-menu-inner {
-  padding: 2rem;
-}
-
-.mobile-logo img {
-  height: 50px;
-  margin-bottom: 2rem;
-}
-
-.mobile-nav-menu {
-  list-style: none;
   padding: 0;
-  margin: 0 0 2rem 0;
+  z-index: 1002;
+  transition: var(--transition-fast);
 }
 
-.mobile-nav-menu li {
-  margin-bottom: 1rem;
+.hamburger-line {
+  width: 100%;
+  height: 3px;
+  background-color: var(--theme-palette-color-8);
+  transition: all var(--transition-fast);
+  transform-origin: center;
 }
 
-.mobile-nav-menu .ct-menu-link {
-  display: block;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+/* Couleur noire pour pages spécifiques */
+.ct-header.dark-text-mode .hamburger-line,
+.ct-header.is-sticky .hamburger-line {
+  background-color: var(--theme-palette-color-2);
 }
 
-.mobile-menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+/* Animation quand le menu est ouvert */
+.hamburger-menu.is-active .hamburger-line:nth-child(1) {
+  transform: translateY(9.5px) rotate(45deg);
 }
 
-/* Responsive */
+.hamburger-menu.is-active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.is-active .hamburger-line:nth-child(3) {
+  transform: translateY(-9.5px) rotate(-45deg);
+}
+
+/* Hamburger ouvert = couleur rouge */
+.hamburger-menu.is-active .hamburger-line {
+  background-color: var(--primary-red);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Écrans moyens (1280px et moins) */
+@media (max-width: 1280px) {
+  .nav-menu {
+    gap: 1.2rem;
+  }
+  
+  .ct-menu-link {
+    font-size: 0.88rem;
+  }
+  
+  .ct-button {
+    padding: 10px 24px;
+    font-size: 0.95rem;
+  }
+  
+  .header-actions {
+    gap: 1.5rem;
+  }
+}
+
+/* Tablettes (1024px et moins) */
 @media (max-width: 1024px) {
-  .desktop-nav,
-  .desktop-cta {
+  .desktop-nav {
     display: none;
   }
-
-  .mobile-menu-toggle {
-    display: block;
+  
+  .header-row {
+    padding: 0 1.5rem;
+  }
+  
+  .header-actions {
+    gap: 1.5rem;
   }
 }
 
+/* Mobile (768px et moins) */
 @media (max-width: 768px) {
   .header-row {
     padding: 0 1rem;
   }
-
-  .mobile-menu {
-    width: 100%;
+  
+  .ct-header {
+    padding: 1rem 0;
+  }
+  
+  .ct-header.is-sticky {
+    padding: 0.8rem 0;
+  }
+  
+  .header-logo img {
+    height: 35px;
+  }
+  
+  .ct-header.is-sticky .header-logo img {
+    height: 30px;
+  }
+  
+  .header-actions {
+    gap: 1rem;
+  }
+  
+  .ct-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
 }
 
+/* Petits mobiles (480px et moins) */
+@media (max-width: 480px) {
+  .header-row {
+    padding: 0 0.8rem;
+  }
+  
+  .header-logo img {
+    height: 30px;
+  }
+  
+  .ct-button {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+  
+  .hamburger-menu {
+    width: 26px;
+    height: 20px;
+  }
+  
+  .hamburger-line {
+    height: 2.5px;
+  }
+}
+
+/* Accessibilité */
+@media (prefers-contrast: high) {
+  .ct-button {
+    border-width: 3px;
+  }
+  
+  .hamburger-line {
+    height: 4px;
+  }
+}
