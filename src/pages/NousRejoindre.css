@@ -35,7 +35,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 50%, var(--primary-red) 100%);
   overflow: hidden;
 }
 

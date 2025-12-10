@@ -11,6 +11,7 @@ import Services from './pages/Services';
 import Projects from './pages/Projects';
 import SNTPEngineering from './pages/SNTPEngineering';
 import SNTPAnabibe from './pages/SNTPAnabibe';
+import SNTPLogistique from './pages/SNTPLogistique';
 import TravauxRoutiers from './pages/TravauxRoutiers';
 import LocationMateriel from './pages/LocationMateriel';
 import TravauxFerroviaires from './pages/TravauxFerroviaires';
@@ -18,9 +19,16 @@ import GenieCivil from './pages/GenieCivil';
 import Hydrauliques from './pages/Hydrauliques';
 import MaintenanceRehabilitation from './pages/MaintenanceRehabilitation';
 import BatimentsIndustriels from './pages/BatimentsIndustriels';
+import NosEngagements from './pages/NosEngagements';
+import Environnement from './pages/Environnement';
+import RSE from './pages/RSE';
+import Innovation from './pages/Innovation';
+import SanteSecurite from './pages/SanteSecurite';
 import NosDirections from './pages/NosDirections';
 import NousRejoindre from './pages/NousRejoindre';
 import MotDuPDG from './pages/MotDuPDG';
+import Histoire from './pages/Histoire';
+import VisionValeurs from './pages/VisionValeurs';
 import AboutUs from './pages/AboutUs';
 import Blog from './pages/Blog';
 import FAQ from './pages/FAQ';
@@ -52,6 +60,8 @@ function AppContent() {
             <Route path="/" element={<Home />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/about" element={<MotDuPDG />} />
+            <Route path="/histoire" element={<Histoire />} />
+            <Route path="/vision-valeurs" element={<VisionValeurs />} />
             <Route path="/services" element={<Services />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/blog" element={<Blog />} />
@@ -59,6 +69,7 @@ function AppContent() {
             <Route path="/implantations" element={<Implantations />} />
             <Route path="/sntp-engineering" element={<SNTPEngineering />} />
             <Route path="/sntp-anabibe" element={<SNTPAnabibe />} />
+            <Route path="/sntp-logistique" element={<SNTPLogistique />} />
             <Route path="/travaux-routiers" element={<TravauxRoutiers />} />
             <Route path="/location-materiel" element={<LocationMateriel />} />
             <Route path="/travaux-ferroviaires" element={<TravauxFerroviaires />} />
@@ -66,6 +77,11 @@ function AppContent() {
             <Route path="/genie-civil" element={<GenieCivil />} />
             <Route path="/maintenance-rehabilitation" element={<MaintenanceRehabilitation />} />
             <Route path="/batiments" element={<BatimentsIndustriels />} />
+            <Route path="/nos-engagements" element={<NosEngagements />} />
+            <Route path="/environnement" element={<Environnement />} />
+            <Route path="/rse" element={<RSE />} />
+            <Route path="/innovation" element={<Innovation />} />
+            <Route path="/sante-securite" element={<SanteSecurite />} />
             <Route path="/nos-directions" element={<NosDirections />} />
             <Route path="/nous-rejoindre" element={<NousRejoindre />} />
           </Routes>

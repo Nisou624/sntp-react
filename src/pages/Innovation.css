@@ -1,0 +1,424 @@
+/* Hero Section */
+.innovation-hero {
+  position: relative;
+  height: 60vh;
+  min-height: 500px;
+  background: linear-gradient(135deg, #6a1b9a 0%, #9c27b0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.innovation-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="hexagons" width="100" height="86.6" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><path d="M0,0 L50,28.867 L50,57.735 L0,86.602 L-50,57.735 L-50,28.867 Z" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/></pattern></defs><rect width="100%" height="100%" fill="url(%23hexagons)"/></svg>');
+  opacity: 0.4;
+}
+
+.innovation-hero .hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.innovation-hero .hero-subtitle {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: #ce93d8;
+}
+
+.innovation-hero .hero-title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.innovation-hero .hero-description {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Introduction Section */
+.innovation-intro-section {
+  padding: 5rem 0;
+  background: white;
+}
+
+.section-icon {
+  font-size: 3rem;
+  color: #9c27b0;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.section-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #9c27b0, #ce93d8);
+  margin: 2rem auto;
+}
+
+.section-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #666;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.innovation-manifesto {
+  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+  padding: 3rem;
+  border-radius: 15px;
+  margin-top: 3rem;
+  border-left: 5px solid #9c27b0;
+}
+
+.innovation-manifesto h3 {
+  font-size: 1.8rem;
+  color: #6a1b9a;
+  margin-bottom: 1.5rem;
+}
+
+.innovation-manifesto p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* Domains Section */
+.innovation-domains-section {
+  padding: 5rem 0;
+  background: #f8f9fa;
+}
+
+.domains-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.domain-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.domain-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(156, 39, 176, 0.15);
+}
+
+.domain-icon {
+  font-size: 3rem;
+  color: #9c27b0;
+  margin-bottom: 1.5rem;
+}
+
+.domain-card h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.domain-card > p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.domain-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.domain-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.domain-list li svg {
+  color: #9c27b0;
+  flex-shrink: 0;
+}
+
+/* Projects Timeline Section */
+.innovation-projects-section {
+  padding: 5rem 0;
+  background: white;
+}
+
+.projects-timeline {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.projects-timeline::before {
+  content: '';
+  position: absolute;
+  left: 100px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #9c27b0 0%, #ce93d8 100%);
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 180px;
+  margin-bottom: 3rem;
+}
+
+.timeline-year {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #9c27b0 0%, #ba68c8 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
+}
+
+.timeline-content {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 15px;
+  border-left: 4px solid #9c27b0;
+}
+
+.timeline-content h3 {
+  font-size: 1.5rem;
+  color: #6a1b9a;
+  margin-bottom: 1rem;
+}
+
+.timeline-content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #666;
+}
+
+/* Partnerships Section */
+.innovation-partnerships-section {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+}
+
+.partnerships-icon {
+  font-size: 3rem;
+  color: #9c27b0;
+  margin-bottom: 1rem;
+}
+
+.partnerships-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.partnership-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.partnership-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(156, 39, 176, 0.15);
+}
+
+.partnership-card h3 {
+  font-size: 1.3rem;
+  color: #6a1b9a;
+  margin-bottom: 1rem;
+}
+
+.partnership-card p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #666;
+}
+
+/* Culture Section */
+.innovation-culture-section {
+  padding: 5rem 0;
+  background: white;
+}
+
+.culture-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.culture-feature {
+  text-align: center;
+  padding: 2rem;
+}
+
+.culture-icon {
+  font-size: 3rem;
+  color: #9c27b0;
+  margin-bottom: 1.5rem;
+}
+
+.culture-feature h3 {
+  font-size: 1.4rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.culture-feature p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #666;
+}
+
+/* Call to Action Section */
+.innovation-cta-section {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #6a1b9a 0%, #9c27b0 100%);
+  color: white;
+}
+
+.cta-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.cta-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: white;
+  color: #6a1b9a;
+}
+
+.btn-primary:hover {
+  background: #ce93d8;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-secondary:hover {
+  background: white;
+  color: #6a1b9a;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .innovation-hero .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .innovation-hero .hero-description {
+    font-size: 1.1rem;
+  }
+
+  .domains-grid,
+  .partnerships-grid,
+  .culture-features {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-timeline::before {
+    left: 40px;
+  }
+
+  .timeline-item {
+    padding-left: 100px;
+  }
+
+  .timeline-year {
+    width: 60px;
+    height: 60px;
+    font-size: 1.1rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}
+

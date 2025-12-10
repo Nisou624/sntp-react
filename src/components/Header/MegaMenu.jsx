@@ -44,7 +44,7 @@ const MegaMenu = ({ isOpen, onClose }) => {
       items: [
         { path: '/sntp-engineering', label: 'Engineering' },
         { path: '/sntp-anabibe', label: 'Anabib' },
-        { path: '/logistique', label: 'Logistique' }
+        { path: '/sntp-logistique', label: 'Logistique' }
       ]
     }
   ];
