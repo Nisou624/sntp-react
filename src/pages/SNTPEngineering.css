@@ -1,27 +1,21 @@
 /* ========================================
-   VARIABLES ET RESET - PALETTE SNTP
+   SNTP ENGINEERING - PALETTE SNTP UNIFORME
    ======================================== */
+
 :root {
-  /* Couleurs SNTP */
-  --primary-color: #B72222;
-  --secondary-color: #1a1a1a;
-  --accent-red: #8B0000;
-  --text-dark: #1a1a1a;
-  --text-light: #ffffff;
-  --text-gray: #666666;
-  --text-light-gray: #999999;
-  --bg-light: #f5f5f5;
-  --bg-dark: #0d0d0d;
-  --bg-medium: #2a2a2a;
-  --bg-white: #ffffff;
-  
-  /* Transitions et ombres */
+  --sntp-red: #c8102e;
+  --sntp-red-dark: #8B0000;
+  --sntp-black: #000000;
+  --sntp-white: #FFFFFF;
+  --sntp-gray-light: #f5f5f5;
+  --sntp-gray: #cccccc;
+  --sntp-gray-medium: #999999;
+  --sntp-gray-dark: #666666;
+  --sntp-text-dark: #2C2C2C;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
-  
-  /* Typographie */
   --font-main: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
   --font-heading: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
 }
@@ -38,15 +32,12 @@ html {
 
 .sntp-engineering-page {
   font-family: var(--font-main);
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   line-height: 1.6;
   overflow-x: hidden;
-  background: var(--bg-white);
+  background: var(--sntp-white);
 }
 
-/* ========================================
-   HERO SECTION
-   ======================================== */
 .hero-section {
   position: relative;
   min-height: 100vh;
@@ -78,12 +69,7 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(26, 26, 26, 0.85) 0%,
-    rgba(13, 13, 13, 0.9) 40%,
-    rgba(183, 34, 34, 0.25) 100%
-  );
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.9) 40%, rgba(200, 16, 46, 0.25) 100%);
   z-index: 1;
 }
 
@@ -110,7 +96,7 @@ html {
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 900;
-  color: var(--text-light);
+  color: var(--sntp-white);
   margin-bottom: 25px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -120,7 +106,7 @@ html {
 
 .hero-subtitle {
   font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-  color: var(--text-light);
+  color: var(--sntp-white);
   margin-bottom: 35px;
   font-weight: 400;
   line-height: 1.5;
@@ -128,9 +114,9 @@ html {
 }
 
 .hero-subtitle .highlight-text {
-  color: var(--primary-color);
+  color: var(--sntp-red);
   font-weight: 700;
-  text-shadow: 2px 2px 8px rgba(183, 34, 34, 0.6);
+  text-shadow: 2px 2px 8px rgba(200, 16, 46, 0.6);
 }
 
 .hero-description {
@@ -145,23 +131,20 @@ html {
 
 .hero-description .bold-text {
   font-weight: 700;
-  color: var(--text-light);
+  color: var(--sntp-white);
 }
 
-/* ========================================
-   MAIN TITLE SECTION
-   ======================================== */
 .main-title-section {
   padding: 80px 20px 70px;
-  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
+  background: linear-gradient(180deg, var(--sntp-black) 0%, #1a1a1a 100%);
   text-align: center;
-  border-bottom: 1px solid rgba(183, 34, 34, 0.3);
+  border-bottom: 1px solid rgba(200, 16, 46, 0.3);
 }
 
 .section-main-title {
   font-family: var(--font-heading);
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  color: var(--text-light);
+  color: var(--sntp-white);
   margin-bottom: 20px;
   font-weight: 800;
   letter-spacing: 2px;
@@ -170,7 +153,7 @@ html {
 
 .section-subtitle {
   font-size: clamp(1.6rem, 3vw, 2.2rem);
-  color: var(--text-light);
+  color: var(--sntp-white);
   margin-bottom: 25px;
   font-weight: 700;
   line-height: 1.3;
@@ -179,7 +162,7 @@ html {
 .title-underline {
   width: 100px;
   height: 3px;
-  background: var(--primary-color);
+  background: var(--sntp-red);
   margin: 0 auto 30px;
 }
 
@@ -193,12 +176,9 @@ html {
   padding: 0 20px;
 }
 
-/* ========================================
-   DOMAINS SECTION
-   ======================================== */
 .domains-section {
   padding: 90px 20px;
-  background: var(--bg-light);
+  background: var(--sntp-gray-light);
 }
 
 .container {
@@ -215,12 +195,12 @@ html {
 }
 
 .domain-card {
-  background: var(--bg-white);
+  background: var(--sntp-white);
   padding: 45px 35px;
   border-radius: 16px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
-  border-left: 5px solid var(--primary-color);
+  border-left: 5px solid var(--sntp-red);
   position: relative;
   overflow: hidden;
 }
@@ -232,7 +212,7 @@ html {
   left: 0;
   width: 100%;
   height: 5px;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-red));
+  background: linear-gradient(90deg, var(--sntp-red), var(--sntp-red-dark));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s ease;
@@ -255,16 +235,16 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-red));
+  background: linear-gradient(135deg, var(--sntp-red), var(--sntp-red-dark));
   border-radius: 50%;
   padding: 18px;
-  box-shadow: 0 4px 12px rgba(183, 34, 34, 0.3);
+  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.3);
   transition: var(--transition);
 }
 
 .domain-card:hover .domain-icon {
   transform: rotate(360deg) scale(1.1);
-  box-shadow: 0 6px 16px rgba(183, 34, 34, 0.5);
+  box-shadow: 0 6px 16px rgba(200, 16, 46, 0.5);
 }
 
 .domain-icon img {
@@ -275,7 +255,7 @@ html {
 
 .domain-title {
   font-size: 1.6rem;
-  color: var(--secondary-color);
+  color: var(--sntp-text-dark);
   margin-bottom: 22px;
   font-weight: 800;
   line-height: 1.3;
@@ -291,14 +271,14 @@ html {
 .domain-list li {
   padding: 12px 0 12px 35px;
   position: relative;
-  color: var(--text-gray);
+  color: var(--sntp-gray-dark);
   font-size: 1.05rem;
   line-height: 1.7;
   transition: var(--transition);
 }
 
 .domain-list li:hover {
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   padding-left: 40px;
 }
 
@@ -306,7 +286,7 @@ html {
   content: '▸';
   position: absolute;
   left: 0;
-  color: var(--primary-color);
+  color: var(--sntp-red);
   font-size: 1.4rem;
   font-weight: bold;
   transition: var(--transition);
@@ -321,26 +301,23 @@ html {
   margin-top: 25px;
   padding: 18px 20px;
   background: linear-gradient(135deg, #ffe8e8, #fff0f0);
-  border-left: 4px solid var(--primary-color);
+  border-left: 4px solid var(--sntp-red);
   border-radius: 6px;
   font-size: 1rem;
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   box-shadow: var(--shadow-sm);
 }
 
 .domain-innovation strong {
-  color: var(--primary-color);
+  color: var(--sntp-red);
   font-weight: 800;
   text-transform: uppercase;
   font-size: 0.95rem;
 }
 
-/* ========================================
-   SOLUTIONS SECTION
-   ======================================== */
 .solutions-section {
   padding: 110px 20px;
-  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--bg-dark) 40%, var(--accent-red) 100%);
+  background: linear-gradient(135deg, var(--sntp-black) 0%, #0d0d0d 40%, var(--sntp-red-dark) 100%);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -360,7 +337,7 @@ html {
 
 .solutions-title {
   font-size: clamp(2rem, 3.8vw, 3.2rem);
-  color: var(--text-light);
+  color: var(--sntp-white);
   max-width: 950px;
   margin: 0 auto 50px;
   font-weight: 800;
@@ -370,12 +347,9 @@ html {
   z-index: 1;
 }
 
-/* ========================================
-   VALUES SECTION
-   ======================================== */
 .values-section {
   padding: 90px 20px;
-  background: var(--bg-white);
+  background: var(--sntp-white);
 }
 
 .values-grid {
@@ -388,10 +362,10 @@ html {
 .value-card {
   text-align: center;
   padding: 45px 30px;
-  background: var(--bg-light);
+  background: var(--sntp-gray-light);
   border-radius: 12px;
   transition: var(--transition);
-  border-top: 4px solid var(--primary-color);
+  border-top: 4px solid var(--sntp-red);
   position: relative;
   overflow: hidden;
 }
@@ -403,7 +377,7 @@ html {
   left: 50%;
   width: 0;
   height: 4px;
-  background: var(--accent-red);
+  background: var(--sntp-red-dark);
   transition: all 0.4s ease;
   transform: translateX(-50%);
 }
@@ -420,7 +394,7 @@ html {
 
 .value-title {
   font-size: 1.5rem;
-  color: var(--secondary-color);
+  color: var(--sntp-text-dark);
   margin-bottom: 18px;
   font-weight: 800;
   font-family: var(--font-heading);
@@ -428,24 +402,21 @@ html {
 
 .value-description {
   font-size: 1.05rem;
-  color: var(--text-gray);
+  color: var(--sntp-gray-dark);
   line-height: 1.8;
   font-style: italic;
 }
 
-/* ========================================
-   TRANSFORM SECTION
-   ======================================== */
 .transform-section {
   padding: 110px 20px;
-  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--secondary-color) 60%, var(--bg-medium) 100%);
+  background: linear-gradient(180deg, var(--sntp-black) 0%, #1a1a1a 60%, #2a2a2a 100%);
   text-align: center;
   position: relative;
 }
 
 .transform-subtitle {
   font-size: 1.3rem;
-  color: var(--primary-color);
+  color: var(--sntp-red);
   margin-bottom: 20px;
   font-weight: 700;
   letter-spacing: 3px;
@@ -455,7 +426,7 @@ html {
 
 .transform-title {
   font-size: clamp(2.2rem, 4.2vw, 3.6rem);
-  color: var(--text-light);
+  color: var(--sntp-white);
   margin-bottom: 35px;
   font-weight: 800;
   line-height: 1.2;
@@ -473,16 +444,13 @@ html {
 }
 
 .transform-description strong {
-  color: var(--text-light);
+  color: var(--sntp-white);
   font-weight: 800;
 }
 
-/* ========================================
-   TEAM SECTION
-   ======================================== */
 .team-section {
   padding: 90px 20px;
-  background: var(--bg-white);
+  background: var(--sntp-white);
 }
 
 .team-content {
@@ -500,7 +468,7 @@ html {
 
 .team-title {
   font-size: clamp(2rem, 3.5vw, 2.8rem);
-  color: var(--secondary-color);
+  color: var(--sntp-text-dark);
   margin-bottom: 30px;
   font-weight: 800;
   line-height: 1.25;
@@ -509,12 +477,12 @@ html {
 
 .team-description {
   font-size: 1.15rem;
-  color: var(--text-gray);
+  color: var(--sntp-gray-dark);
   line-height: 1.9;
 }
 
 .team-description strong {
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   font-weight: 800;
 }
 
@@ -523,7 +491,7 @@ html {
   overflow: hidden;
   border-radius: 16px;
   box-shadow: var(--shadow-lg);
-  border: 4px solid var(--primary-color);
+  border: 4px solid var(--sntp-red);
 }
 
 .team-image::after {
@@ -533,7 +501,7 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, transparent 0%, rgba(183, 34, 34, 0.1) 100%);
+  background: linear-gradient(135deg, transparent 0%, rgba(200, 16, 46, 0.1) 100%);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -553,12 +521,9 @@ html {
   transform: scale(1.08);
 }
 
-/* ========================================
-   ENGINEERS SECTION
-   ======================================== */
 .engineers-section {
   padding: 110px 20px;
-  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--bg-dark) 60%, var(--bg-medium) 100%);
+  background: linear-gradient(135deg, var(--sntp-black) 0%, #0d0d0d 60%, #2a2a2a 100%);
   position: relative;
 }
 
@@ -576,7 +541,7 @@ html {
   overflow: hidden;
   border-radius: 16px;
   box-shadow: var(--shadow-lg);
-  border: 4px solid var(--primary-color);
+  border: 4px solid var(--sntp-red);
 }
 
 .engineers-image::after {
@@ -586,7 +551,7 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, transparent 0%, rgba(183, 34, 34, 0.15) 100%);
+  background: linear-gradient(135deg, transparent 0%, rgba(200, 16, 46, 0.15) 100%);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -608,12 +573,12 @@ html {
 
 .engineers-info {
   padding: 25px;
-  color: var(--text-light);
+  color: var(--sntp-white);
 }
 
 .engineers-badge {
   display: inline-block;
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-red));
+  background: linear-gradient(135deg, var(--sntp-red), var(--sntp-red-dark));
   color: white;
   padding: 12px 30px;
   border-radius: 50px;
@@ -622,13 +587,13 @@ html {
   letter-spacing: 2px;
   margin-bottom: 25px;
   text-transform: uppercase;
-  box-shadow: 0 4px 12px rgba(183, 34, 34, 0.4);
+  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.4);
   transition: var(--transition);
 }
 
 .engineers-badge:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(183, 34, 34, 0.6);
+  box-shadow: 0 6px 16px rgba(200, 16, 46, 0.6);
 }
 
 .engineers-quote {
@@ -642,7 +607,7 @@ html {
 
 .engineers-subtitle {
   font-size: 1.05rem;
-  color: var(--primary-color);
+  color: var(--sntp-red);
   margin-bottom: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -672,14 +637,14 @@ html {
 
 .engineers-list li:hover {
   padding-left: 40px;
-  color: var(--text-light);
+  color: var(--sntp-white);
 }
 
 .engineers-list li::before {
   content: '✓';
   position: absolute;
   left: 0;
-  color: var(--primary-color);
+  color: var(--sntp-red);
   font-size: 1.5rem;
   font-weight: bold;
   transition: var(--transition);
@@ -689,18 +654,15 @@ html {
   transform: scale(1.2);
 }
 
-/* ========================================
-   CONTACT SECTION AVEC GOOGLE MAPS
-   ======================================== */
 .contact-section {
   padding: 90px 20px;
-  background: var(--bg-light);
+  background: var(--sntp-gray-light);
   text-align: center;
 }
 
 .contact-title {
   font-size: clamp(2.2rem, 4.5vw, 3.5rem);
-  color: var(--secondary-color);
+  color: var(--sntp-text-dark);
   margin-bottom: 60px;
   font-weight: 800;
   font-family: var(--font-heading);
@@ -715,7 +677,6 @@ html {
   margin: 0 auto;
 }
 
-/* Google Map Container */
 .contact-map-container {
   position: relative;
   width: 100%;
@@ -723,7 +684,7 @@ html {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: var(--shadow-lg);
-  border: 4px solid var(--primary-color);
+  border: 4px solid var(--sntp-red);
 }
 
 .google-map {
@@ -738,7 +699,6 @@ html {
   filter: brightness(1) contrast(1) saturate(1);
 }
 
-/* Contact Information Wrapper */
 .contact-info-wrapper {
   display: flex;
   flex-direction: column;
@@ -753,12 +713,12 @@ html {
 }
 
 .contact-item {
-  background: var(--bg-white);
+  background: var(--sntp-white);
   padding: 35px 30px;
   border-radius: 12px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
-  border-left: 4px solid var(--primary-color);
+  border-left: 4px solid var(--sntp-red);
 }
 
 .contact-item:hover {
@@ -769,7 +729,7 @@ html {
 
 .contact-label {
   font-size: 1.3rem;
-  color: var(--primary-color);
+  color: var(--sntp-red);
   margin-bottom: 15px;
   font-weight: 800;
   font-family: var(--font-heading);
@@ -777,13 +737,13 @@ html {
 
 .contact-info {
   font-size: 1.15rem;
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   font-weight: 600;
   line-height: 1.6;
 }
 
 .contact-info a {
-  color: var(--secondary-color);
+  color: var(--sntp-text-dark);
   text-decoration: none;
   transition: var(--transition);
   font-weight: 700;
@@ -797,19 +757,18 @@ html {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--primary-color);
+  background: var(--sntp-red);
   transition: width 0.3s ease;
 }
 
 .contact-info a:hover {
-  color: var(--primary-color);
+  color: var(--sntp-red);
 }
 
 .contact-info a:hover::after {
   width: 100%;
 }
 
-/* Map Button */
 .map-button {
   width: 100%;
   display: flex;
@@ -824,7 +783,7 @@ html {
 
 .contact-cta-text {
   font-size: 1.1rem;
-  color: var(--text-gray);
+  color: var(--sntp-gray-dark);
   line-height: 1.9;
   padding: 25px;
   background: white;
@@ -833,13 +792,10 @@ html {
 }
 
 .contact-cta-text strong {
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   font-weight: 800;
 }
 
-/* ========================================
-   BUTTONS
-   ======================================== */
 .cta-button {
   display: inline-block;
   padding: 18px 45px;
@@ -879,32 +835,29 @@ html {
 }
 
 .primary-button {
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-red));
+  background: linear-gradient(135deg, var(--sntp-red), var(--sntp-red-dark));
   color: white;
 }
 
 .primary-button:hover {
-  background: linear-gradient(135deg, var(--accent-red), var(--primary-color));
+  background: linear-gradient(135deg, var(--sntp-red-dark), var(--sntp-red));
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(183, 34, 34, 0.4);
+  box-shadow: 0 8px 24px rgba(200, 16, 46, 0.4);
 }
 
 .secondary-button {
-  background: linear-gradient(135deg, white, #f5f5f5);
-  color: var(--secondary-color);
+  background: linear-gradient(135deg, white, var(--sntp-gray-light));
+  color: var(--sntp-text-dark);
   border: 3px solid white;
 }
 
 .secondary-button:hover {
-  background: linear-gradient(135deg, #f5f5f5, white);
+  background: linear-gradient(135deg, var(--sntp-gray-light), white);
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  color: var(--primary-color);
+  color: var(--sntp-red);
 }
 
-/* ========================================
-   ANIMATIONS
-   ======================================== */
 .fade-in-section {
   opacity: 0;
   transform: translateY(40px);
@@ -958,9 +911,6 @@ html {
   }
 }
 
-/* ========================================
-   RESPONSIVE DESIGN
-   ======================================== */
 @media (max-width: 1200px) {
   .domains-grid {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -978,27 +928,6 @@ html {
   
   .contact-map-container {
     height: 450px;
-  }
-  
-  .hero-content {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  
-  .hero-text-wrapper {
-    padding-right: 0;
-  }
-  
-  .hero-section {
-    text-align: center;
-  }
-  
-  .hero-logo img {
-    margin: 0 auto;
-  }
-  
-  .hero-underline {
-    margin: 10px auto 0;
   }
 }
 
@@ -1046,7 +975,7 @@ html {
   .contact-item {
     text-align: center;
     border-left: none;
-    border-top: 4px solid var(--primary-color);
+    border-top: 4px solid var(--sntp-red);
   }
   
   .contact-item:hover {
@@ -1064,10 +993,6 @@ html {
   
   .hero-logo img {
     max-width: 180px;
-  }
-  
-  .hero-description-box {
-    padding: 25px 30px;
   }
 }
 
@@ -1110,15 +1035,8 @@ html {
   .contact-map-container {
     height: 350px;
   }
-  
-  .hero-description-box {
-    padding: 20px 25px;
-  }
 }
 
-/* ========================================
-   PRINT STYLES
-   ======================================== */
 @media print {
   .hero-section,
   .cta-button,
@@ -1136,9 +1054,6 @@ html {
   }
 }
 
-/* ========================================
-   ACCESSIBILITY
-   ======================================== */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1149,10 +1064,9 @@ html {
   }
 }
 
-/* Focus styles for accessibility */
 .cta-button:focus,
 .contact-info a:focus {
-  outline: 3px solid var(--primary-color);
+  outline: 3px solid var(--sntp-red);
   outline-offset: 3px;
 }
 

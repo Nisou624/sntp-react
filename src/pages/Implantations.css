@@ -1,5 +1,6 @@
 .implantations-page {
   min-height: 100vh;
+  margin-top: 100px;
   background: #ffffff;
 }
 
@@ -304,7 +305,7 @@
 .map-section {
   position: relative;
   background: #ffffff;
-  padding: 0px 100px 0px 15px;
+  padding: 10px 250px 0px 15px;
   transition: all 0.3s ease;
   overflow: hidden;
 }

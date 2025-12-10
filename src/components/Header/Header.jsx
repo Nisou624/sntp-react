@@ -18,7 +18,6 @@ const Header = () => {
     '/nos-unites', 
     '/nos-directions', 
     '/nos-appels-offres',
-    '/nous-connaitre'
   ];
   const isDarkTextPage = darkTextPages.includes(location.pathname);
 
@@ -91,7 +90,7 @@ const Header = () => {
 
             {/* CTA + HAMBURGER */}
             <div className="header-actions">
-              <Link to="/contact" className="ct-button">
+              <Link to="/about-us#contact-info" className="ct-button">
                 CONTACTEZ-NOUS
               </Link>
 

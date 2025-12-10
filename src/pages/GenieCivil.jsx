@@ -287,7 +287,6 @@ const GenieCivil = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 };

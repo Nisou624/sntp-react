@@ -1,8 +1,19 @@
 /* ========================================
-   SNTP LOGISTIQUE - STYLES COMPLETS
+   SNTP LOGISTIQUE - PALETTE SNTP UNIFORME
    ======================================== */
 
-/* ==================== RESET & BASE ==================== */
+:root {
+  --sntp-red: #c8102e;
+  --sntp-red-dark: #8B0000;
+  --sntp-black: #000000;
+  --sntp-white: #FFFFFF;
+  --sntp-gray-light: #f5f5f5;
+  --sntp-gray: #cccccc;
+  --sntp-gray-medium: #999999;
+  --sntp-gray-dark: #666666;
+  --sntp-text-dark: #2C2C2C;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,19 +22,17 @@
 
 .sntp-logistique-page {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  color: var(--sntp-text-dark);
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* ==================== HERO SECTION ==================== */
 .logistique-hero-section {
   position: relative;
   min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  /*background-image: url('/wp-content/uploads/2025/07/hero-background.jpg');*/
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -36,7 +45,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(183, 34, 34, 0.85), rgba(26, 26, 26, 0.75));
+  background: linear-gradient(135deg, rgba(200, 16, 46, 0.85), rgba(0, 0, 0, 0.75));
   z-index: 1;
 }
 
@@ -46,7 +55,7 @@
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
-  color: #ffffff;
+  color: var(--sntp-white);
 }
 
 .logistique-hero-subtitle {
@@ -79,7 +88,7 @@
 .logistique-hero-divider {
   width: 80px;
   height: 3px;
-  background-color: #ff9800;
+  background-color: var(--sntp-white);
   margin: 20px auto;
 }
 
@@ -91,10 +100,9 @@
   padding: 0 20px;
 }
 
-/* ==================== EXPERTISE SECTION ==================== */
 .logistique-expertise-section {
   padding: 100px 20px;
-  background-color: #f9f9f9;
+  background-color: var(--sntp-gray-light);
 }
 
 .expertise-grid {
@@ -113,7 +121,7 @@
 
 .expertise-label {
   font-size: 0.9rem;
-  color: #B72222;
+  color: var(--sntp-red);
   letter-spacing: 2px;
   font-weight: 600;
   margin-bottom: 15px;
@@ -122,21 +130,21 @@
 .expertise-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--sntp-text-dark);
   margin-bottom: 20px;
 }
 
 .expertise-divider {
   width: 60px;
   height: 3px;
-  background-color: #ff9800;
+  background-color: var(--sntp-red);
   margin: 20px auto;
 }
 
 .expertise-description {
   font-size: 1rem;
   line-height: 1.8;
-  color: #555;
+  color: var(--sntp-gray-dark);
 }
 
 .expertise-image-center {
@@ -157,10 +165,9 @@
   transform: scale(1.1);
 }
 
-/* ==================== SOLUTIONS SECTION ==================== */
 .logistique-solutions-section {
   padding: 80px 20px;
-  background-color: #ffffff;
+  background-color: var(--sntp-white);
 }
 
 .solutions-layout {
@@ -176,7 +183,7 @@
 .solutions-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--sntp-text-dark);
   margin-bottom: 30px;
   line-height: 1.3;
 }
@@ -186,8 +193,8 @@
   align-items: center;
   gap: 10px;
   padding: 15px 35px;
-  background-color: #B72222;
-  color: #ffffff;
+  background-color: var(--sntp-red);
+  color: var(--sntp-white);
   text-decoration: none;
   border-radius: 50px;
   font-weight: 600;
@@ -195,9 +202,9 @@
 }
 
 .solutions-btn:hover {
-  background-color: #8f1b1b;
+  background-color: var(--sntp-red-dark);
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(183, 34, 34, 0.3);
+  box-shadow: 0 5px 15px rgba(200, 16, 46, 0.3);
 }
 
 .solutions-cards-grid {
@@ -208,7 +215,7 @@
 }
 
 .solution-feature-card {
-  background: #ffffff;
+  background: var(--sntp-white);
   padding: 40px 30px;
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
@@ -223,24 +230,23 @@
 
 .feature-icon-wrapper {
   font-size: 3rem;
-  color: #B72222;
+  color: var(--sntp-red);
   margin-bottom: 20px;
 }
 
 .feature-title {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--sntp-text-dark);
   margin-bottom: 15px;
 }
 
 .feature-description {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #666;
+  color: var(--sntp-gray-dark);
 }
 
-/* ==================== FLEET SECTION (Orange) ==================== */
 .logistique-fleet-section {
   padding: 0;
 }
@@ -277,11 +283,11 @@
   flex-direction: column;
   justify-content: center;
   padding: 80px 60px;
-  color: #ffffff;
+  color: var(--sntp-white);
 }
 
-.orange-bg {
-  background-color: #ff9800;
+.red-bg {
+  background-color: var(--sntp-red);
 }
 
 .fleet-title {
@@ -293,7 +299,7 @@
 .fleet-divider {
   width: 60px;
   height: 3px;
-  background-color: #ffffff;
+  background-color: var(--sntp-white);
   margin-bottom: 25px;
 }
 
@@ -308,8 +314,8 @@
   align-items: center;
   gap: 10px;
   padding: 15px 30px;
-  background-color: #ffffff;
-  color: #ff9800;
+  background-color: var(--sntp-white);
+  color: var(--sntp-red);
   text-decoration: none;
   border-radius: 50px;
   font-weight: 600;
@@ -318,11 +324,10 @@
 }
 
 .fleet-btn:hover {
-  background-color: #f5f5f5;
+  background-color: var(--sntp-gray-light);
   transform: translateX(5px);
 }
 
-/* ==================== STORAGE SECTION (Navy) ==================== */
 .logistique-storage-section {
   padding: 0;
 }
@@ -354,11 +359,11 @@
   flex-direction: column;
   justify-content: center;
   padding: 80px 60px;
-  color: #ffffff;
+  color: var(--sntp-white);
 }
 
-.navy-bg {
-  background-color: #1a1a1a;
+.black-bg {
+  background-color: var(--sntp-black);
 }
 
 .storage-title {
@@ -370,7 +375,7 @@
 .storage-divider {
   width: 60px;
   height: 3px;
-  background-color: #ff9800;
+  background-color: var(--sntp-red);
   margin-bottom: 25px;
 }
 
@@ -385,8 +390,8 @@
   align-items: center;
   gap: 10px;
   padding: 15px 30px;
-  background-color: #ff9800;
-  color: #ffffff;
+  background-color: var(--sntp-red);
+  color: var(--sntp-white);
   text-decoration: none;
   border-radius: 50px;
   font-weight: 600;
@@ -395,11 +400,10 @@
 }
 
 .storage-btn:hover {
-  background-color: #e68900;
+  background-color: var(--sntp-red-dark);
   transform: translateX(5px);
 }
 
-/* ==================== DISTRIBUTION SECTION (Navy) ==================== */
 .logistique-distribution-section {
   padding: 0;
 }
@@ -415,7 +419,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 80px 60px;
-  color: #ffffff;
+  color: var(--sntp-white);
 }
 
 .distribution-title {
@@ -427,7 +431,7 @@
 .distribution-divider {
   width: 60px;
   height: 3px;
-  background-color: #ff9800;
+  background-color: var(--sntp-red);
   margin-bottom: 25px;
 }
 
@@ -442,8 +446,8 @@
   align-items: center;
   gap: 10px;
   padding: 15px 30px;
-  background-color: #ff9800;
-  color: #ffffff;
+  background-color: var(--sntp-red);
+  color: var(--sntp-white);
   text-decoration: none;
   border-radius: 50px;
   font-weight: 600;
@@ -452,7 +456,7 @@
 }
 
 .distribution-btn:hover {
-  background-color: #e68900;
+  background-color: var(--sntp-red-dark);
   transform: translateX(5px);
 }
 
@@ -472,7 +476,6 @@
   transform: scale(1.1);
 }
 
-/* ==================== MANAGEMENT SECTION (Orange) ==================== */
 .logistique-management-section {
   padding: 0;
 }
@@ -504,7 +507,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 80px 60px;
-  color: #ffffff;
+  color: var(--sntp-white);
 }
 
 .management-title {
@@ -516,7 +519,7 @@
 .management-divider {
   width: 60px;
   height: 3px;
-  background-color: #ffffff;
+  background-color: var(--sntp-white);
   margin-bottom: 25px;
 }
 
@@ -531,8 +534,8 @@
   align-items: center;
   gap: 10px;
   padding: 15px 30px;
-  background-color: #ffffff;
-  color: #ff9800;
+  background-color: var(--sntp-white);
+  color: var(--sntp-red);
   text-decoration: none;
   border-radius: 50px;
   font-weight: 600;
@@ -541,14 +544,13 @@
 }
 
 .management-btn:hover {
-  background-color: #f5f5f5;
+  background-color: var(--sntp-gray-light);
   transform: translateX(5px);
 }
 
-/* ==================== OBJECTIVE SECTION ==================== */
 .logistique-objective-section {
   padding: 100px 20px;
-  background-color: #f9f9f9;
+  background-color: var(--sntp-gray-light);
 }
 
 .objective-layout {
@@ -566,7 +568,7 @@
 
 .objective-subtitle {
   font-size: 0.9rem;
-  color: #B72222;
+  color: var(--sntp-red);
   letter-spacing: 2px;
   font-weight: 600;
   margin-bottom: 15px;
@@ -575,21 +577,21 @@
 .objective-title {
   font-size: 3rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--sntp-text-dark);
   margin-bottom: 20px;
 }
 
 .objective-divider {
   width: 60px;
   height: 3px;
-  background-color: #ff9800;
+  background-color: var(--sntp-red);
   margin-bottom: 25px;
 }
 
 .objective-description {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #555;
+  color: var(--sntp-gray-dark);
   margin-bottom: 30px;
 }
 
@@ -598,8 +600,8 @@
   align-items: center;
   gap: 10px;
   padding: 15px 35px;
-  background-color: #B72222;
-  color: #ffffff;
+  background-color: var(--sntp-red);
+  color: var(--sntp-white);
   text-decoration: none;
   border-radius: 50px;
   font-weight: 600;
@@ -607,9 +609,9 @@
 }
 
 .objective-btn:hover {
-  background-color: #8f1b1b;
+  background-color: var(--sntp-red-dark);
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(183, 34, 34, 0.3);
+  box-shadow: 0 5px 15px rgba(200, 16, 46, 0.3);
 }
 
 .objective-progress {
@@ -631,41 +633,40 @@
 .progress-label {
   font-size: 1rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--sntp-text-dark);
 }
 
 .progress-percentage {
   font-size: 1rem;
   font-weight: 700;
-  color: #B72222;
+  color: var(--sntp-red);
 }
 
 .progress-bar-container {
   width: 100%;
   height: 10px;
-  background-color: #e0e0e0;
+  background-color: var(--sntp-gray);
   border-radius: 5px;
   overflow: hidden;
 }
 
 .progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #B72222, #ff9800);
+  background: linear-gradient(90deg, var(--sntp-red), var(--sntp-red-dark));
   border-radius: 5px;
   transition: width 1s ease-in-out;
 }
 
-/* ==================== CONTACT SECTION ==================== */
 .logistique-contact-section {
   padding: 100px 20px;
-  background-color: #ffffff;
+  background-color: var(--sntp-white);
 }
 
 .logistique-contact-title {
   font-size: 3rem;
   font-weight: 700;
   text-align: center;
-  color: #1a1a1a;
+  color: var(--sntp-text-dark);
   margin-bottom: 60px;
 }
 
@@ -705,13 +706,13 @@
 
 .logistique-contact-item {
   padding-bottom: 20px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--sntp-gray-light);
 }
 
 .logistique-contact-label {
   font-size: 1rem;
   font-weight: 700;
-  color: #B72222;
+  color: var(--sntp-red);
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -720,17 +721,17 @@
 .logistique-contact-info {
   font-size: 1.1rem;
   line-height: 1.6;
-  color: #333;
+  color: var(--sntp-text-dark);
 }
 
 .logistique-contact-info a {
-  color: #B72222;
+  color: var(--sntp-red);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .logistique-contact-info a:hover {
-  color: #8f1b1b;
+  color: var(--sntp-red-dark);
   text-decoration: underline;
 }
 
@@ -749,14 +750,14 @@
 }
 
 .primary-button {
-  background-color: #B72222;
-  color: #ffffff;
+  background-color: var(--sntp-red);
+  color: var(--sntp-white);
 }
 
 .primary-button:hover {
-  background-color: #8f1b1b;
+  background-color: var(--sntp-red-dark);
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(183, 34, 34, 0.3);
+  box-shadow: 0 5px 15px rgba(200, 16, 46, 0.3);
 }
 
 .map-button {
@@ -772,11 +773,10 @@
 .logistique-contact-cta-text {
   font-size: 1rem;
   line-height: 1.8;
-  color: #555;
+  color: var(--sntp-gray-dark);
   text-align: justify;
 }
 
-/* ==================== ANIMATIONS ==================== */
 .fade-in-section {
   opacity: 0;
   transform: translateY(30px);
@@ -788,7 +788,6 @@
   transform: translateY(0);
 }
 
-/* ==================== RESPONSIVE DESIGN ==================== */
 @media (max-width: 1024px) {
   .expertise-grid {
     grid-template-columns: 1fr;

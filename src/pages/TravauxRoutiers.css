@@ -1,25 +1,19 @@
 /* ====================
-   TRAVAUX ROUTIERS - 100% FIDÈLE À LA CAPTURE D'ÉCRAN
+   TRAVAUX ROUTIERS - PALETTE SNTP UNIFORME
    ==================== */
 
 :root {
-  --primary-red: #FF5E14;
-  --dark-red: #C41E3A;
-  --darker-red: #8B0000;
-  --light-red: #FFE4E9;
-  --pure-white: #FFFFFF;
-  --off-white: #FAFAFA;
-  --light-gray: #F5F5F5;
-  --medium-gray: #E0E0E0;
-  --text-dark: #2C2C2C;
-  --text-gray: #6B6B6B;
-  --blue-dark: #091441;
-  --blue-navy: #1d2d5c;
+  --sntp-red: #c8102e;
+  --sntp-red-dark: #8B0000;
+  --sntp-black: #000000;
+  --sntp-white: #FFFFFF;
+  --sntp-gray-light: #f5f5f5;
+  --sntp-gray: #cccccc;
+  --sntp-gray-medium: #999999;
+  --sntp-gray-dark: #666666;
+  --sntp-text-dark: #2C2C2C;
 }
 
-/* ===========================
-   HERO SECTION
-   =========================== */
 .travaux-hero {
   position: relative;
   min-height: 600px;
@@ -37,7 +31,7 @@
 .travaux-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(9, 20, 65, 0.7) 0%, rgba(9, 20, 65, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.85) 100%);
   z-index: 1;
 }
 
@@ -45,7 +39,7 @@
   position: relative;
   z-index: 2;
   max-width: 800px;
-  color: var(--pure-white);
+  color: var(--sntp-white);
   text-align: left;
   animation: fadeInUp 1s ease-out;
 }
@@ -75,7 +69,7 @@
   font-size: 3.5em;
   font-weight: 800;
   text-transform: capitalize;
-  color: #FFFFFF;
+  color: var(--sntp-white);
   margin-bottom: 0.6em;
   letter-spacing: 1px;
   line-height: 1.2;
@@ -90,11 +84,8 @@
   max-width: 750px;
 }
 
-/* ===========================
-   SECTION MISSION PRINCIPALE AVEC CARTES
-   =========================== */
 .mission-principale-section {
-  background-color: var(--blue-dark);
+  background-color: var(--sntp-black);
   padding: 0;
   margin-top: -100px;
   position: relative;
@@ -102,7 +93,7 @@
 }
 
 .mission-principale-card-white {
-  background-color: #FFFFFF;
+  background-color: var(--sntp-white);
   padding: 4em 3em;
   border-radius: 0;
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15);
@@ -119,7 +110,7 @@
   width: 80px;
   height: 80px;
   margin: 0 auto 1.5em;
-  background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+  background: linear-gradient(135deg, var(--sntp-red), var(--sntp-red-dark));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -128,7 +119,7 @@
 
 .mission-icon-main {
   font-size: 34px;
-  color: var(--pure-white);
+  color: var(--sntp-white);
 }
 
 .mission-subtitle-center {
@@ -136,7 +127,7 @@
   font-size: 1.3em;
   font-weight: 400;
   text-transform: capitalize;
-  color: var(--text-gray);
+  color: var(--sntp-gray-dark);
   margin-bottom: 0.5em;
 }
 
@@ -145,7 +136,7 @@
   font-size: 2.8em;
   font-weight: 700;
   text-transform: capitalize;
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   margin-bottom: 0.8em;
 }
 
@@ -153,17 +144,16 @@
   font-family: "Open Sans", Sans-serif;
   font-size: 1em;
   line-height: 1.7em;
-  color: var(--text-gray);
+  color: var(--sntp-gray-dark);
   max-width: 800px;
   margin: 0 auto 2em;
 }
 
 .mission-description-center strong {
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   font-weight: 700;
 }
 
-/* Grille de 3 cartes horizontales */
 .expertise-cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -185,14 +175,14 @@
   align-items: center;
   justify-content: center;
   font-size: 32px;
-  color: var(--primary-red);
+  color: var(--sntp-red);
 }
 
 .expertise-card-title {
   font-family: "Rajdhani", Sans-serif;
   font-size: 1.4em;
   font-weight: 700;
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   margin-bottom: 0.7em;
 }
 
@@ -200,14 +190,11 @@
   font-family: "Open Sans", Sans-serif;
   font-size: 0.95em;
   line-height: 1.6em;
-  color: var(--text-gray);
+  color: var(--sntp-gray-dark);
 }
 
-/* ===========================
-   SECTION NOTRE SPÉCIALITÉ
-   =========================== */
 .specialite-section {
-  background-color: var(--pure-white);
+  background-color: var(--sntp-white);
   padding: 120px 0;
 }
 
@@ -250,7 +237,7 @@
   font-size: 1.1em;
   font-weight: 600;
   text-transform: uppercase;
-  color: var(--primary-red);
+  color: var(--sntp-red);
   margin-bottom: 0.5em;
   letter-spacing: 2px;
 }
@@ -260,7 +247,7 @@
   font-size: 2.8em;
   font-weight: 800;
   text-transform: capitalize;
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   margin-bottom: 0.8em;
   line-height: 1.2;
 }
@@ -269,7 +256,7 @@
   font-family: "Open Sans", Sans-serif;
   font-size: 1.05em;
   line-height: 1.8em;
-  color: var(--text-gray);
+  color: var(--sntp-gray-dark);
   margin-bottom: 2em;
 }
 
@@ -286,19 +273,16 @@
   margin-bottom: 1em;
   font-family: "Open Sans", Sans-serif;
   font-size: 1em;
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
 }
 
 .feature-bullet {
-  color: var(--primary-red);
+  color: var(--sntp-red);
   font-size: 1.2em;
 }
 
-/* ===========================
-   SECTION DÉSENCLAVER & CONNECTER
-   =========================== */
 .desenclaver-section {
-  background-color: var(--light-gray);
+  background-color: var(--sntp-gray-light);
   padding: 120px 0;
 }
 
@@ -312,7 +296,7 @@
   font-size: 1.1em;
   font-weight: 600;
   text-transform: uppercase;
-  color: var(--primary-red);
+  color: var(--sntp-red);
   margin-bottom: 0.5em;
   letter-spacing: 2px;
 }
@@ -322,14 +306,14 @@
   font-size: 3em;
   font-weight: 800;
   text-transform: capitalize;
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   margin-bottom: 0.5em;
 }
 
 .section-divider-center {
   width: 100px;
   height: 4px;
-  background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+  background: linear-gradient(90deg, transparent, var(--sntp-red), transparent);
   margin: 1em auto;
 }
 
@@ -361,7 +345,7 @@
   font-family: "Rajdhani", Sans-serif;
   font-size: 1.8em;
   font-weight: 700;
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
   margin-bottom: 1.5em;
   line-height: 1.3;
 }
@@ -370,11 +354,10 @@
   font-family: "Open Sans", Sans-serif;
   font-size: 1em;
   line-height: 1.8em;
-  color: var(--text-gray);
+  color: var(--sntp-gray-dark);
   margin-bottom: 1.5em;
 }
 
-/* Barres de progression */
 .progress-bars-container {
   margin-top: 3em;
   display: flex;
@@ -397,36 +380,33 @@
   font-family: "Rajdhani", Sans-serif;
   font-size: 1.1em;
   font-weight: 700;
-  color: var(--text-dark);
+  color: var(--sntp-text-dark);
 }
 
 .progress-percentage-value {
   font-family: "Rajdhani", Sans-serif;
   font-size: 1.1em;
   font-weight: 700;
-  color: var(--primary-red);
+  color: var(--sntp-red);
 }
 
 .progress-bar-background {
   width: 100%;
   height: 10px;
-  background-color: var(--medium-gray);
+  background-color: var(--sntp-gray);
   border-radius: 5px;
   overflow: hidden;
 }
 
 .progress-bar-filled {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary-red), #ff7a3d);
+  background: linear-gradient(90deg, var(--sntp-red), var(--sntp-red-dark));
   border-radius: 5px;
   transition: width 1.5s ease;
 }
 
-/* ===========================
-   SECTION NOTRE CAPACITÉ (FOND SOMBRE)
-   =========================== */
 .capacite-section {
-  background-color: var(--blue-navy);
+  background-color: var(--sntp-black);
   padding: 120px 0;
   position: relative;
 }
@@ -451,7 +431,7 @@
   font-size: 3em;
   font-weight: 800;
   text-transform: capitalize;
-  color: var(--pure-white);
+  color: var(--sntp-white);
   margin-bottom: 0.8em;
 }
 
@@ -464,7 +444,7 @@
 }
 
 .capacite-description-white strong {
-  color: var(--pure-white);
+  color: var(--sntp-white);
   font-weight: 700;
 }
 
@@ -483,15 +463,14 @@
   gap: 0.8em;
   font-family: "Open Sans", Sans-serif;
   font-size: 1em;
-  color: var(--pure-white);
+  color: var(--sntp-white);
 }
 
 .capacite-check-icon {
-  color: var(--primary-red);
+  color: var(--sntp-red);
   font-size: 1.2em;
 }
 
-/* Grille de 4 cartes illustrées */
 .capacite-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -536,16 +515,13 @@
   font-family: "Rajdhani", Sans-serif;
   font-size: 1.4em;
   font-weight: 700;
-  color: var(--pure-white);
+  color: var(--sntp-white);
   margin: 0;
   text-transform: capitalize;
 }
 
-/* ===========================
-   SECTION CTA FINALE
-   =========================== */
 .travaux-cta-finale {
-  background: linear-gradient(135deg, #ff6b35 0%, var(--primary-red) 100%);
+  background: linear-gradient(135deg, var(--sntp-red) 0%, var(--sntp-red-dark) 100%);
   padding: 100px 0;
   position: relative;
   overflow: hidden;
@@ -583,7 +559,7 @@
   font-family: "Rajdhani", Sans-serif;
   font-size: 3.5em;
   font-weight: 900;
-  color: var(--pure-white);
+  color: var(--sntp-white);
   margin-bottom: 0.5em;
   letter-spacing: 1px;
   text-transform: capitalize;
@@ -621,27 +597,27 @@
 }
 
 .cta-btn-primary {
-  background-color: var(--pure-white);
-  color: var(--primary-red);
-  border: 2px solid var(--pure-white);
+  background-color: var(--sntp-white);
+  color: var(--sntp-red);
+  border: 2px solid var(--sntp-white);
 }
 
 .cta-btn-primary:hover {
   background-color: transparent;
-  color: var(--pure-white);
+  color: var(--sntp-white);
   transform: translateY(-2px);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .cta-btn-outline {
   background-color: transparent;
-  color: var(--pure-white);
-  border: 2px solid var(--pure-white);
+  color: var(--sntp-white);
+  border: 2px solid var(--sntp-white);
 }
 
 .cta-btn-outline:hover {
-  background-color: var(--pure-white);
-  color: var(--primary-red);
+  background-color: var(--sntp-white);
+  color: var(--sntp-red);
   transform: translateY(-2px);
 }
 
@@ -658,35 +634,24 @@
   transform: translateY(2px);
 }
 
-/* ===========================
-   CONTAINER
-   =========================== */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2em;
 }
 
-/* ===========================
-   UTILITY CLASSES
-   =========================== */
 .section {
   padding: 120px 0;
 }
 
 .section-gray {
-  background-color: var(--light-gray);
+  background-color: var(--sntp-gray-light);
 }
 
 .section-dark {
-  background-color: var(--blue-navy);
+  background-color: var(--sntp-black);
 }
 
-/* ===========================
-   RESPONSIVE DESIGN
-   =========================== */
-
-/* Tablets */
 @media (max-width: 1024px) {
   .travaux-hero {
     min-height: 550px;
@@ -727,7 +692,6 @@
   }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
   .travaux-hero {
     min-height: 500px;
@@ -774,7 +738,6 @@
   }
 }
 
-/* Small Mobile */
 @media (max-width: 668px) {
   .travaux-title {
     font-size: 1.8em;

@@ -18,7 +18,7 @@ const AboutUs = () => {
       </section>
 
       {/* Contact Info Section */}
-      <section className="contact-info-section">
+      <section className="contact-info-section" id="contact-info">
         <div className="container">
           <div className="section-intro">
             <div className="intro-icon">

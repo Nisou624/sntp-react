@@ -27,6 +27,7 @@ import SanteSecurite from './pages/SanteSecurite';
 import NosDirections from './pages/NosDirections';
 import NousRejoindre from './pages/NousRejoindre';
 import MotDuPDG from './pages/MotDuPDG';
+import NousConnaitre from './pages/NousConnaitre';
 import Histoire from './pages/Histoire';
 import VisionValeurs from './pages/VisionValeurs';
 import AboutUs from './pages/AboutUs';
@@ -35,11 +36,13 @@ import FAQ from './pages/FAQ';
 import './App.css';
 import FloatingChatButton from './components/Chatbot/FloatingChatButton';
 import ChatbotWindow from './components/Chatbot/ChatbotWindow';
+import useScrollToHash from './hooks/useScrollToHash';
 
 function AppContent() {
   const location = useLocation();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
-
+  
+  useScrollToHash();
   const toggleChatbot = () => {
     setIsChatbotOpen(!isChatbotOpen);
   }
@@ -60,6 +63,7 @@ function AppContent() {
             <Route path="/" element={<Home />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/about" element={<MotDuPDG />} />
+            <Route path="/nous-connaitre" element={<NousConnaitre />} />
             <Route path="/histoire" element={<Histoire />} />
             <Route path="/vision-valeurs" element={<VisionValeurs />} />
             <Route path="/services" element={<Services />} />

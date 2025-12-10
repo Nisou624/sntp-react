@@ -9,8 +9,8 @@ const MegaMenu = ({ isOpen, onClose }) => {
       title: 'Nous Connaître',
       items: [
         { path: '/about', label: 'À propos de nous' },
-        { path: '/histoire', label: 'Histoire' },
-        { path: '/vision-valeurs', label: 'Vision et valeurs' }
+        { path: '/nous-connaitre#histoire', label: 'Histoire' },
+        { path: '/nous-connaitre#vision', label: 'Vision et valeurs' }
       ]
     },
     {
@@ -54,13 +54,13 @@ const MegaMenu = ({ isOpen, onClose }) => {
     {
       title: 'Nos Directions',
       items: [
-        { path: '/direction-siege', label: 'Siège' },
-        { path: '/direction-centre', label: 'Direction Centre' },
-        { path: '/direction-oran', label: 'Direction Oran' },
-        { path: '/direction-bejaia', label: 'Direction Béjaïa' },
-        { path: '/direction-annaba', label: 'Direction Annaba' },
-        { path: '/direction-ouargla', label: 'Direction Ouargla' },
-        { path: '/direction-tindouf', label: 'Direction Tindouf' }
+        { path: '/nos-directions', label: 'Siège' },
+        { path: '/nos-directions', label: 'Direction Centre' },
+        { path: '/nos-directions', label: 'Direction Oran' },
+        { path: '/nos-directions', label: 'Direction Béjaïa' },
+        { path: '/nos-directions', label: 'Direction Annaba' },
+        { path: '/nos-directions', label: 'Direction Ouargla' },
+        { path: '/nos-directions', label: 'Direction Tindouf' }
       ]
     },
     {
@@ -79,8 +79,8 @@ const MegaMenu = ({ isOpen, onClose }) => {
       title: 'Nous Rejoindre',
       items: [
         { path: '/nous-rejoindre#work-at-sntp', label: 'Travaillez chez SNTP' },
-        { path: '/profils-postes#job-profiles', label: 'Nos profils de postes' },
-        { path: '/offres-emploi#job-offers', label: "Offres d'emploi" }
+        { path: '/nous-rejoindre#job-profiles', label: 'Nos profils de postes' },
+        { path: '/nous-rejoindre#job-offers', label: "Offres d'emploi" }
       ]
     }
   ];
