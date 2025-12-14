@@ -33,6 +33,7 @@ import VisionValeurs from './pages/VisionValeurs';
 import AboutUs from './pages/AboutUs';
 import Blog from './pages/Blog';
 import FAQ from './pages/FAQ';
+import AppelsOffres from './pages/AppelsOffres';
 import './App.css';
 import FloatingChatButton from './components/Chatbot/FloatingChatButton';
 import ChatbotWindow from './components/Chatbot/ChatbotWindow';
@@ -64,8 +65,6 @@ function AppContent() {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/about" element={<MotDuPDG />} />
             <Route path="/nous-connaitre" element={<NousConnaitre />} />
-            <Route path="/histoire" element={<Histoire />} />
-            <Route path="/vision-valeurs" element={<VisionValeurs />} />
             <Route path="/services" element={<Services />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/blog" element={<Blog />} />
@@ -82,12 +81,9 @@ function AppContent() {
             <Route path="/maintenance-rehabilitation" element={<MaintenanceRehabilitation />} />
             <Route path="/batiments" element={<BatimentsIndustriels />} />
             <Route path="/nos-engagements" element={<NosEngagements />} />
-            <Route path="/environnement" element={<Environnement />} />
-            <Route path="/rse" element={<RSE />} />
-            <Route path="/innovation" element={<Innovation />} />
-            <Route path="/sante-securite" element={<SanteSecurite />} />
             <Route path="/nos-directions" element={<NosDirections />} />
             <Route path="/nous-rejoindre" element={<NousRejoindre />} />
+            <Route path="/nos-appels-offres" element={<AppelsOffres />} />
           </Routes>
         </PageTransition>
       </main>
