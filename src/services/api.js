@@ -129,7 +129,23 @@ export const appelOffresService = {
     } catch (error) {
       throw error;
     }
-  }
+  },
+
+  async getById(id) {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/appels-offres/${id}`);
+      return {
+        success: true,
+        data: response.data
+      };
+    } catch (error) {
+      console.error('Erreur lors de la récupération de l\'appel d\'offre:', error);
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message
+      };
+    }
+  },
 };
 
 export default api;

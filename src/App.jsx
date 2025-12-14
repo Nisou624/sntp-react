@@ -34,6 +34,7 @@ import AboutUs from './pages/AboutUs';
 import Blog from './pages/Blog';
 import FAQ from './pages/FAQ';
 import AppelsOffres from './pages/AppelsOffres';
+import AppelOffreDetails from './pages/AppelOffreDetails';
 import './App.css';
 import FloatingChatButton from './components/Chatbot/FloatingChatButton';
 import ChatbotWindow from './components/Chatbot/ChatbotWindow';
@@ -84,6 +85,7 @@ function AppContent() {
             <Route path="/nos-directions" element={<NosDirections />} />
             <Route path="/nous-rejoindre" element={<NousRejoindre />} />
             <Route path="/nos-appels-offres" element={<AppelsOffres />} />
+            <Route path="/nos-appels-offres/:id" element={<AppelOffreDetails />} />
           </Routes>
         </PageTransition>
       </main>

@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AppelOffreCard.css';
 import { Calendar, MapPin, Clock, DollarSign, FileText, Tag } from 'lucide-react';
 
 const AppelOffreCard = ({ appelOffre }) => {
+  const navigate = useNavigate();
+
   // Formatage de la date
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -57,6 +60,17 @@ const AppelOffreCard = ({ appelOffre }) => {
 
   const joursRestants = getJoursRestants(appelOffre.date_limite_depot);
   const isUrgent = joursRestants !== 'Expiré' && parseInt(joursRestants) <= 7;
+
+  const handleVoirDetails = () => {
+    navigate(`/nos-appels-offres/${appelOffre.id}`);
+  };
+
+  const handleDownloadCahierCharges = (e) => {
+    e.stopPropagation();
+    if (appelOffre.fichier_cahier_charges) {
+      window.open(appelOffre.fichier_cahier_charges, '_blank');
+    }
+  };
 
   return (
     <div className="appel-offre-card">
@@ -129,11 +143,11 @@ const AppelOffreCard = ({ appelOffre }) => {
       </div>
 
       <div className="card-footer">
-        <button className="btn-details">
+        <button onClick={handleVoirDetails} className="btn-details">
           Voir les détails
         </button>
         {appelOffre.fichier_cahier_charges && (
-          <button className="btn-download">
+          <button onClick={handleDownloadCahierCharges} className="btn-download">
             <FileText size={18} />
             Cahier des charges
           </button>
