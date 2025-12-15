@@ -2,9 +2,20 @@ import api from './api';
 
 class AppelOffreService {
   // Obtenir tous les appels d'offres
-  async getAll() {
+  async getAll(filters = {}) {
     try {
-      const response = await api.get('/appels-offres');
+      const params = new URLSearchParams();
+      
+      // Ajouter les filtres
+      if (filters.statut) params.append('statut', filters.statut);
+      if (filters.localisation) params.append('localisation', filters.localisation);
+      if (filters.search) params.append('search', filters.search);
+      if (filters.page) params.append('page', filters.page);
+      if (filters.limit) params.append('limit', filters.limit);
+      if (filters.sortBy) params.append('sortBy', filters.sortBy);
+      if (filters.sortOrder) params.append('sortOrder', filters.sortOrder);
+      
+      const response = await api.get(`/appels-offres?${params.toString()}`);
       return response.data;
     } catch (error) {
       throw error;
