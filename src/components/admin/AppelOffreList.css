@@ -1,0 +1,227 @@
+.list-container {
+  width: 100%;
+}
+
+.table-responsive {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.appels-offres-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.appels-offres-table thead {
+  background: #f7fafc;
+}
+
+.appels-offres-table th {
+  padding: 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.appels-offres-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.2s ease;
+}
+
+.appels-offres-table tbody tr:hover {
+  background-color: #f7fafc;
+}
+
+.appels-offres-table td {
+  padding: 16px;
+  font-size: 14px;
+  color: #2d3748;
+}
+
+.reference {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.titre-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.titre-text {
+  flex: 1;
+  font-weight: 500;
+}
+
+.pdf-link {
+  font-size: 18px;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.pdf-link:hover {
+  transform: scale(1.2);
+}
+
+.statut-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.statut-actif {
+  background-color: #c6f6d5;
+  color: #22543d;
+}
+
+.statut-expire {
+  background-color: #fed7d7;
+  color: #c53030;
+}
+
+.statut-annule {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.btn-edit {
+  background: #bee3f8;
+}
+
+.btn-edit:hover {
+  background: #90cdf4;
+  transform: scale(1.1);
+}
+
+.btn-delete {
+  background: #fed7d7;
+}
+
+.btn-delete:hover {
+  background: #fc8181;
+  transform: scale(1.1);
+}
+
+.loading-container {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  color: #718096;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.empty-state small {
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .appels-offres-table {
+    min-width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
+  .appels-offres-table thead {
+    display: none;
+  }
+
+  .appels-offres-table,
+  .appels-offres-table tbody,
+  .appels-offres-table tr,
+  .appels-offres-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .appels-offres-table tr {
+    margin-bottom: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .appels-offres-table td {
+    padding: 8px 0;
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  .appels-offres-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 45%;
+    padding-right: 10px;
+    font-weight: 600;
+    text-align: left;
+    color: #4a5568;
+  }
+
+  .titre-cell {
+    justify-content: flex-end;
+  }
+
+  .action-buttons {
+    justify-content: flex-end;
+  }
+}
+

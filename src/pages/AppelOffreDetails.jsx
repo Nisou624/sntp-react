@@ -1,376 +1,254 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './AppelOffreDetails.css';
-import { 
-  Calendar, MapPin, Clock, DollarSign, FileText, Tag, 
-  ArrowLeft, Download, Phone, Mail, Building, CheckCircle,
-  AlertCircle, XCircle, Award, Loader
-} from 'lucide-react';
-import { appelOffresService } from '../services/api';
 
-const AppelOffreDetails = () => {
+const AppelOffreDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [appelOffre, setAppelOffre] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
-  // Charger les détails de l'appel d'offre
   useEffect(() => {
-    const loadAppelOffre = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        
-        const response = await appelOffresService.getById(id);
-        
-        if (response.success) {
-          setAppelOffre(response.data);
-        } else {
-          throw new Error('Appel d\'offre non trouvé');
-        }
-      } catch (err) {
-        setError(err.message || 'Une erreur est survenue');
-        console.error('Erreur:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (id) {
-      loadAppelOffre();
-    }
+    loadAppelOffre();
   }, [id]);
 
-  // Formatage de la date
+  const loadAppelOffre = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/appels-offres/${id}`
+      );
+      
+      if (response.data.success) {
+        setAppelOffre(response.data.data);
+      }
+    } catch (err) {
+      setError('Erreur lors du chargement de l\'appel d\'offre');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const formatDate = (dateString) => {
     if (!dateString) return 'Non spécifié';
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('fr-FR', options);
-  };
-
-  // Formatage du montant
-  const formatMontant = (montant) => {
-    if (!montant) return 'Non spécifié';
-    return new Intl.NumberFormat('fr-DZ', {
-      style: 'currency',
-      currency: 'DZD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(montant);
-  };
-
-  // Déterminer l'icône du statut
-  const getStatusIcon = (statut) => {
-    switch (statut) {
-      case 'Ouvert':
-        return <CheckCircle size={24} />;
-      case 'Fermé':
-        return <XCircle size={24} />;
-      case 'Annulé':
-        return <AlertCircle size={24} />;
-      case 'Attribué':
-        return <Award size={24} />;
-      default:
-        return <FileText size={24} />;
-    }
-  };
-
-  // Déterminer la classe du statut
-  const getStatusClass = (statut) => {
-    const classes = {
-      'Ouvert': 'status-ouvert',
-      'Fermé': 'status-ferme',
-      'Annulé': 'status-annule',
-      'Attribué': 'status-attribue'
-    };
-    return classes[statut] || 'status-default';
-  };
-
-  // Calculer les jours restants
-  const getJoursRestants = (dateLimite) => {
-    if (!dateLimite) return null;
-    const today = new Date();
-    const limite = new Date(dateLimite);
-    const diffTime = limite - today;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
-    if (diffDays < 0) return { text: 'Expiré', urgent: false, expired: true };
-    if (diffDays === 0) return { text: 'Aujourd\'hui', urgent: true, expired: false };
-    if (diffDays === 1) return { text: '1 jour restant', urgent: true, expired: false };
-    return { 
-      text: `${diffDays} jours restants`, 
-      urgent: diffDays <= 7, 
-      expired: false 
-    };
+    try {
+      const date = new Date(dateString);
+      
+      // Vérifier si la date est valide
+      if (isNaN(date.getTime())) {
+        return 'Date invalide';
+      }
+      
+      return date.toLocaleDateString('fr-FR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      });
+    } catch (error) {
+      console.error('Erreur de formatage de date:', error);
+      return 'Date invalide';
+    }
   };
 
-  const handleDownloadCahierCharges = () => {
-    if (appelOffre?.fichier_cahier_charges) {
-      // Logique de téléchargement
-      window.open(appelOffre.fichier_cahier_charges, '_blank');
+  const formatMontant = (montant) => {
+    if (!montant || montant === 0) return 'Non spécifié';
+    
+    try {
+      return new Intl.NumberFormat('fr-DZ', {
+        style: 'currency',
+        currency: 'DZD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(montant);
+    } catch (error) {
+      return `${montant.toLocaleString('fr-FR')} DA`;
     }
+  };
+
+  const calculateDaysRemaining = (dateEcheance) => {
+    if (!dateEcheance) return null;
+    
+    try {
+      const deadline = new Date(dateEcheance);
+      const today = new Date();
+      const diffTime = deadline - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (isNaN(diffDays)) return null;
+      
+      return diffDays;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const getStatutBadge = (statut) => {
+    const statuts = {
+      actif: { label: 'Actif', class: 'statut-actif' },
+      expire: { label: 'Expiré', class: 'statut-expire' },
+      annule: { label: 'Annulé', class: 'statut-annule' }
+    };
+    
+    return statuts[statut] || { label: statut, class: '' };
   };
 
   if (loading) {
     return (
-      <div className="details-loading">
-        <Loader className="spinner" size={64} />
-        <p>Chargement des détails...</p>
+      <div className="detail-container">
+        <div className="loading">
+          <div className="spinner"></div>
+          <p>Chargement...</p>
+        </div>
       </div>
     );
   }
 
   if (error || !appelOffre) {
     return (
-      <div className="details-error">
-        <AlertCircle size={64} />
-        <h2>Erreur</h2>
-        <p>{error || 'Appel d\'offre non trouvé'}</p>
-        <button onClick={() => navigate('/nos-appels-offres')} className="btn-back-error">
-          <ArrowLeft size={20} />
-          Retour à la liste
-        </button>
+      <div className="detail-container">
+        <div className="error-message">
+          <p>{error || 'Appel d\'offre non trouvé'}</p>
+          <button onClick={() => navigate('/nos-appels-offres')} className="btn-back">
+            Retour à la liste
+          </button>
+        </div>
       </div>
     );
   }
 
-  const delaiInfo = getJoursRestants(appelOffre.date_limite_depot);
+  const daysRemaining = calculateDaysRemaining(appelOffre.dateEcheance);
+  const statutInfo = getStatutBadge(appelOffre.statut);
 
   return (
-    <div className="appel-offre-details-page">
-      {/* Bouton retour */}
-      <div className="details-header">
-        <button onClick={() => navigate('/nos-appels-offres')} className="btn-back">
-          <ArrowLeft size={20} />
-          Retour à la liste
-        </button>
+    <div className="detail-container">
+      <button onClick={() => navigate('/nos-appels-offres')} className="btn-back">
+        ← Retour à la liste
+      </button>
+
+      <div className="detail-header">
+        <div className="header-content">
+          <h1>{appelOffre.titre || 'Sans titre'}</h1>
+          <span className={`statut-badge ${statutInfo.class}`}>
+            {statutInfo.label}
+          </span>
+        </div>
+        <p className="reference">Référence: {appelOffre.reference || 'N/A'}</p>
       </div>
 
-      {/* En-tête principal */}
-      <div className="details-hero">
-        <div className="hero-content">
-          <div className="hero-badges">
-            <span className={`badge-status ${getStatusClass(appelOffre.statut)}`}>
-              {getStatusIcon(appelOffre.statut)}
-              {appelOffre.statut}
-            </span>
-            <span className="badge-type">
-              <Tag size={18} />
-              {appelOffre.type_marche}
-            </span>
-          </div>
-
-          <span className="hero-numero">{appelOffre.numero_ao}</span>
-          <h1 className="hero-title">{appelOffre.titre}</h1>
-
-          {delaiInfo && (
-            <div className={`hero-deadline ${delaiInfo.urgent ? 'urgent' : ''} ${delaiInfo.expired ? 'expired' : ''}`}>
-              <Clock size={20} />
-              <span>{delaiInfo.text}</span>
+      <div className="detail-body">
+        <div className="main-content">
+          <section className="description-section">
+            <h2>
+              <i className="icon-document"></i>
+              Description du projet
+            </h2>
+            <div className="description-content">
+              {appelOffre.description || 'Aucune description disponible.'}
             </div>
+          </section>
+
+          {appelOffre.pdfPath && (
+            <section className="pdf-section">
+              <h3>Document PDF</h3>
+              <a
+                href={`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${appelOffre.pdfPath}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-download-pdf"
+              >
+                <i className="icon-pdf"></i>
+                Télécharger le cahier des charges
+                {appelOffre.pdfOriginalName && (
+                  <span className="pdf-name">({appelOffre.pdfOriginalName})</span>
+                )}
+              </a>
+            </section>
           )}
         </div>
-      </div>
 
-      {/* Informations principales */}
-      <div className="details-content">
-        <div className="content-grid">
-          {/* Colonne gauche */}
-          <div className="content-main">
-            {/* Description */}
-            <section className="details-section">
-              <h2 className="section-title">
-                <FileText size={24} />
-                Description du projet
-              </h2>
-              <div className="section-content">
-                <p className="description-text">
-                  {appelOffre.description || 'Aucune description disponible.'}
-                </p>
-              </div>
-            </section>
-
-            {/* Conditions de participation */}
-            {appelOffre.conditions_participation && (
-              <section className="details-section">
-                <h2 className="section-title">
-                  <CheckCircle size={24} />
-                  Conditions de participation
-                </h2>
-                <div className="section-content">
-                  <p className="conditions-text">
-                    {appelOffre.conditions_participation}
-                  </p>
-                </div>
-              </section>
-            )}
-
-            {/* Documents requis */}
-            {appelOffre.documents_requis && (
-              <section className="details-section">
-                <h2 className="section-title">
-                  <FileText size={24} />
-                  Documents requis
-                </h2>
-                <div className="section-content">
-                  <div className="documents-list">
-                    {appelOffre.documents_requis.split(',').map((doc, index) => (
-                      <div key={index} className="document-item">
-                        <CheckCircle size={18} className="doc-icon" />
-                        <span>{doc.trim()}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* Cahier des charges */}
-            {appelOffre.fichier_cahier_charges && (
-              <section className="details-section">
-                <h2 className="section-title">
-                  <Download size={24} />
-                  Cahier des charges
-                </h2>
-                <div className="section-content">
-                  <button 
-                    onClick={handleDownloadCahierCharges} 
-                    className="btn-download-cahier"
-                  >
-                    <Download size={20} />
-                    Télécharger le cahier des charges
-                  </button>
-                </div>
-              </section>
-            )}
-          </div>
-
-          {/* Colonne droite - Sidebar */}
-          <div className="content-sidebar">
-            {/* Informations clés */}
-            <div className="sidebar-card">
-              <h3 className="sidebar-title">Informations clés</h3>
-              <div className="info-list">
-                <div className="info-row">
-                  <div className="info-icon-wrapper">
-                    <MapPin size={20} />
-                  </div>
-                  <div className="info-details">
-                    <span className="info-label">Localisation</span>
-                    <span className="info-value">{appelOffre.localisation || 'Non spécifié'}</span>
-                  </div>
-                </div>
-
-                <div className="info-row">
-                  <div className="info-icon-wrapper">
-                    <DollarSign size={20} />
-                  </div>
-                  <div className="info-details">
-                    <span className="info-label">Montant estimatif</span>
-                    <span className="info-value">{formatMontant(appelOffre.montant_estimatif)}</span>
-                  </div>
-                </div>
-
-                <div className="info-row">
-                  <div className="info-icon-wrapper">
-                    <Clock size={20} />
-                  </div>
-                  <div className="info-details">
-                    <span className="info-label">Délai d'exécution</span>
-                    <span className="info-value">{appelOffre.delai_execution || 'Non spécifié'}</span>
-                  </div>
-                </div>
-
-                <div className="info-row">
-                  <div className="info-icon-wrapper">
-                    <DollarSign size={20} />
-                  </div>
-                  <div className="info-details">
-                    <span className="info-label">Cautionnement provisoire</span>
-                    <span className="info-value">{formatMontant(appelOffre.cautionnement_provisoire)}</span>
-                  </div>
-                </div>
+        <aside className="sidebar">
+          <div className="info-card">
+            <h3>Informations clés</h3>
+            
+            <div className="info-item">
+              <i className="icon-location"></i>
+              <div>
+                <span className="label">Localisation</span>
+                <span className="value">{appelOffre.localisation || 'Non spécifié'}</span>
               </div>
             </div>
 
-            {/* Dates importantes */}
-            <div className="sidebar-card">
-              <h3 className="sidebar-title">Dates importantes</h3>
-              <div className="info-list">
-                <div className="info-row">
-                  <div className="info-icon-wrapper">
-                    <Calendar size={20} />
-                  </div>
-                  <div className="info-details">
-                    <span className="info-label">Date de publication</span>
-                    <span className="info-value">{formatDate(appelOffre.date_publication)}</span>
-                  </div>
-                </div>
-
-                <div className="info-row">
-                  <div className="info-icon-wrapper">
-                    <Clock size={20} />
-                  </div>
-                  <div className="info-details">
-                    <span className="info-label">Date limite de dépôt</span>
-                    <span className="info-value highlight">{formatDate(appelOffre.date_limite_depot)}</span>
-                  </div>
-                </div>
-
-                {appelOffre.date_ouverture_plis && (
-                  <div className="info-row">
-                    <div className="info-icon-wrapper">
-                      <Calendar size={20} />
-                    </div>
-                    <div className="info-details">
-                      <span className="info-label">Date d'ouverture des plis</span>
-                      <span className="info-value">{formatDate(appelOffre.date_ouverture_plis)}</span>
-                    </div>
-                  </div>
-                )}
+            <div className="info-item">
+              <i className="icon-money"></i>
+              <div>
+                <span className="label">Montant estimatif</span>
+                <span className="value">{formatMontant(appelOffre.montant)}</span>
               </div>
             </div>
 
-            {/* Maître d'ouvrage */}
-            {appelOffre.maitre_ouvrage && (
-              <div className="sidebar-card">
-                <h3 className="sidebar-title">Maître d'ouvrage</h3>
-                <div className="maitre-ouvrage-info">
-                  <div className="mo-icon">
-                    <Building size={24} />
-                  </div>
-                  <p className="mo-name">{appelOffre.maitre_ouvrage}</p>
-                </div>
+            <div className="info-item">
+              <i className="icon-clock"></i>
+              <div>
+                <span className="label">Délai d'exécution</span>
+                <span className="value">Non spécifié</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <i className="icon-warning"></i>
+              <div>
+                <span className="label">Cautionnement provisoire</span>
+                <span className="value">Non spécifié</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="info-card dates-card">
+            <h3>Dates importantes</h3>
+            
+            <div className="info-item">
+              <i className="icon-calendar"></i>
+              <div>
+                <span className="label">Date de publication</span>
+                <span className="value">{formatDate(appelOffre.datePublication)}</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <i className="icon-deadline"></i>
+              <div>
+                <span className="label">Date limite de dépôt</span>
+                <span className="value date-limite">
+                  {formatDate(appelOffre.dateEcheance)}
+                </span>
+              </div>
+            </div>
+
+            {daysRemaining !== null && daysRemaining >= 0 && (
+              <div className="days-remaining">
+                <strong>{daysRemaining}</strong> jour{daysRemaining > 1 ? 's' : ''} restant{daysRemaining > 1 ? 's' : ''}
               </div>
             )}
 
-            {/* Contact */}
-            {(appelOffre.contact_email || appelOffre.contact_telephone) && (
-              <div className="sidebar-card">
-                <h3 className="sidebar-title">Contact</h3>
-                <div className="contact-info">
-                  {appelOffre.contact_email && (
-                    <a href={`mailto:${appelOffre.contact_email}`} className="contact-item">
-                      <Mail size={20} />
-                      <span>{appelOffre.contact_email}</span>
-                    </a>
-                  )}
-                  {appelOffre.contact_telephone && (
-                    <a href={`tel:${appelOffre.contact_telephone}`} className="contact-item">
-                      <Phone size={20} />
-                      <span>{appelOffre.contact_telephone}</span>
-                    </a>
-                  )}
-                </div>
+            {daysRemaining !== null && daysRemaining < 0 && (
+              <div className="days-remaining expired">
+                Délai expiré
               </div>
             )}
           </div>
-        </div>
+
+          <button className="btn-contact" onClick={() => navigate('/contactez-nous')}>
+            Nous contacter
+          </button>
+        </aside>
       </div>
     </div>
   );
 };
 
-export default AppelOffreDetails;
+export default AppelOffreDetail;
 

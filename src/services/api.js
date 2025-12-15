@@ -15,11 +15,10 @@ const api = axios.create({
 // Intercepteur de requête
 api.interceptors.request.use(
   (config) => {
-    // Vous pouvez ajouter un token d'authentification ici si nécessaire
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    const token = localStorage.getItem('adminToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
@@ -29,20 +28,11 @@ api.interceptors.request.use(
 
 // Intercepteur de réponse
 api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
-    // Gestion centralisée des erreurs
-    if (error.response) {
-      // Erreur de réponse du serveur
-      console.error('Erreur API:', error.response.data);
-    } else if (error.request) {
-      // La requête a été faite mais pas de réponse
-      console.error('Pas de réponse du serveur');
-    } else {
-      // Erreur lors de la configuration de la requête
-      console.error('Erreur:', error.message);
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('adminToken');
+      window.location.href = '/admin/login';
     }
     return Promise.reject(error);
   }
