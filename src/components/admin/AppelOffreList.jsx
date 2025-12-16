@@ -10,13 +10,11 @@ const AppelOffresList = ({ onEdit, onDelete, refreshTrigger }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const limit = 10; // 10 éléments par page
+  const limit = 10;
 
-  // Filtres
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatut, setFilterStatut] = useState('');
 
@@ -83,13 +81,6 @@ const AppelOffresList = ({ onEdit, onDelete, refreshTrigger }) => {
     navigate(`/nos-appels-offres/${id}`);
   };
 
-  const handleDownloadPDF = (id, e) => {
-    e.stopPropagation();
-    const pdfUrl = appelOffreService.getPdfUrl(id);
-    window.open(pdfUrl, '_blank');
-  };
-
-  // Filtrage local (recherche)
   const filteredAppelsOffres = appelsOffres.filter((ao) => {
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
@@ -130,15 +121,15 @@ const AppelOffresList = ({ onEdit, onDelete, refreshTrigger }) => {
   return (
     <div className="liste-container">
       <div className="liste-header">
-        <h1>Appels D'Offres</h1>
-        <p className="subtitle">Consultez tous les appels d'offres de la SNTP</p>
+        <h1>Gestion des Appels D'Offres</h1>
+        <p className="subtitle">Consultez et gérez tous les appels d'offres</p>
       </div>
 
       <div className="liste-filters">
         <div className="search-box">
           <input
             type="text"
-            placeholder="Rechercher un appel d'offre (par titre, numéro ou description)..."
+            placeholder="Rechercher par titre, référence, description..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -203,7 +194,7 @@ const AppelOffresList = ({ onEdit, onDelete, refreshTrigger }) => {
                   <th>Titre</th>
                   <th>Localisation</th>
                   <th>Montant</th>
-                  <th>Date d'échéance</th>
+                  <th>Échéance</th>
                   <th>Statut</th>
                   <th>Actions</th>
                 </tr>
@@ -218,19 +209,13 @@ const AppelOffresList = ({ onEdit, onDelete, refreshTrigger }) => {
                       <div className="titre-cell">
                         <span className="titre-text">{appel.titre || 'Sans titre'}</span>
                         {appel.hasPdf && (
-                          <button
-                            className="pdf-link"
-                            onClick={(e) => handleDownloadPDF(appel.id, e)}
-                            title="Télécharger le PDF"
-                          >
-                            📄
-                          </button>
+                          <span className="pdf-indicator">PDF</span>
                         )}
                       </div>
                     </td>
                     <td data-label="Localisation">{appel.localisation || 'Non spécifié'}</td>
                     <td data-label="Montant">{formatMontant(appel.montant)}</td>
-                    <td data-label="Date d'échéance">{formatDate(appel.dateEcheance)}</td>
+                    <td data-label="Échéance">{formatDate(appel.dateEcheance)}</td>
                     <td data-label="Statut">
                       <span className={`statut-badge statut-${appel.statut}`}>
                         {appel.statut === 'actif' ? 'Actif' : 
@@ -240,25 +225,25 @@ const AppelOffresList = ({ onEdit, onDelete, refreshTrigger }) => {
                     <td data-label="Actions">
                       <div className="action-buttons">
                         <button
-                          className="btn-view"
+                          className="btn-action btn-view"
                           onClick={() => handleViewDetails(appel.id)}
                           title="Voir les détails"
                         >
-                          👁️
+                          Voir
                         </button>
                         <button
-                          className="btn-edit"
+                          className="btn-action btn-edit"
                           onClick={() => onEdit(appel)}
                           title="Modifier"
                         >
-                          ✏️
+                          Modifier
                         </button>
                         <button
-                          className="btn-delete"
+                          className="btn-action btn-delete"
                           onClick={() => onDelete(appel.id)}
                           title="Supprimer"
                         >
-                          🗑️
+                          Supprimer
                         </button>
                       </div>
                     </td>

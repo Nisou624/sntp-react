@@ -1,25 +1,34 @@
 .appels-offres-container {
   min-height: 100vh;
-  background: #f7fafc;
-  padding: 40px 20px;
+  background: var(--sntp-white);
+  padding-top: 80px;
+  padding-bottom: 60px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .appels-offres-header {
   max-width: 1200px;
   margin: 0 auto 40px;
   text-align: center;
+  padding-bottom: 32px;
+  padding-top: 32px;
+  border-bottom: 3px solid var(--sntp-red);
 }
 
 .header-content h1 {
   font-size: 36px;
-  color: #1a202c;
+  color: var(--sntp-black);
   font-weight: 700;
   margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .subtitle {
   font-size: 18px;
-  color: #718096;
+  color: var(--sntp-gray);
+  font-weight: 400;
 }
 
 .appels-offres-filters {
@@ -37,62 +46,63 @@
   position: relative;
 }
 
-.search-box svg {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #a0aec0;
-}
-
 .search-box input {
   width: 100%;
-  padding: 14px 16px 14px 48px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
+  padding: 14px 16px;
+  border: 2px solid var(--sntp-gray-lighter);
+  border-radius: 4px;
   font-size: 15px;
   transition: all 0.3s ease;
-  background: white;
+  background: var(--sntp-white);
+  color: var(--sntp-gray-dark);
 }
 
 .search-box input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: var(--sntp-red);
+  box-shadow: 0 0 0 3px rgba(129, 0, 18, 0.1);
+}
+
+.search-box input::placeholder {
+  color: var(--sntp-gray-light);
 }
 
 .filter-buttons {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .filter-btn {
-  padding: 10px 20px;
-  background: white;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  color: #2d3748;
+  padding: 12px 24px;
+  background: var(--sntp-white);
+  border: 2px solid var(--sntp-gray-lighter);
+  border-radius: 4px;
+  color: var(--sntp-gray-dark);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .filter-btn:hover {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: var(--sntp-red);
+  color: var(--sntp-red);
+  background: var(--sntp-white);
 }
 
 .filter-btn.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: #667eea;
-  color: white;
+  background: var(--sntp-red);
+  border-color: var(--sntp-red);
+  color: var(--sntp-white);
 }
 
 .results-count {
   max-width: 1200px;
   margin: 0 auto 24px;
-  color: #718096;
+  color: var(--sntp-gray);
   font-size: 14px;
   font-weight: 600;
 }
@@ -106,9 +116,9 @@
 }
 
 .appel-card {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--sntp-white);
+  border: 2px solid var(--sntp-gray-lighter);
+  border-radius: 4px;
   overflow: hidden;
   transition: all 0.3s ease;
   display: flex;
@@ -116,8 +126,9 @@
 }
 
 .appel-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  border-color: var(--sntp-red);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(129, 0, 18, 0.15);
 }
 
 .appel-card-header {
@@ -125,43 +136,44 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f7fafc;
-  border-bottom: 1px solid #e2e8f0;
+  background: var(--sntp-gray-lightest);
+  border-bottom: 2px solid var(--sntp-gray-lighter);
 }
 
 .statut-badge {
   display: inline-block;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 2px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .statut-actif {
-  background-color: #c6f6d5;
-  color: #22543d;
+  background-color: var(--sntp-red);
+  color: var(--sntp-white);
 }
 
 .statut-expire {
-  background-color: #fed7d7;
-  color: #c53030;
+  background-color: var(--sntp-gray);
+  color: var(--sntp-white);
 }
 
 .statut-annule {
-  background-color: #e2e8f0;
-  color: #4a5568;
+  background-color: var(--sntp-gray-lighter);
+  color: var(--sntp-gray-dark);
 }
 
 .deadline-badge {
-  background: #fbd38d;
-  color: #7c2d12;
-  padding: 6px 12px;
-  border-radius: 8px;
+  background: var(--sntp-black);
+  color: var(--sntp-white);
+  padding: 6px 14px;
+  border-radius: 2px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .appel-card-content {
@@ -175,21 +187,22 @@
 .appel-titre {
   font-size: 20px;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--sntp-black);
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 .appel-reference {
   font-family: 'Courier New', monospace;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: #667eea;
+  color: var(--sntp-red);
   margin: 0;
+  text-transform: uppercase;
 }
 
 .appel-description {
-  color: #4a5568;
+  color: var(--sntp-gray);
   font-size: 14px;
   line-height: 1.6;
   margin: 0;
@@ -200,51 +213,51 @@
   flex-direction: column;
   gap: 10px;
   margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--sntp-gray-lighter);
 }
 
 .info-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
-  color: #718096;
+  color: var(--sntp-gray);
   font-size: 13px;
+  line-height: 1.5;
 }
 
-.info-item svg {
-  flex-shrink: 0;
-  color: #a0aec0;
+.info-item strong {
+  color: var(--sntp-gray-dark);
+  font-weight: 600;
+  min-width: 100px;
 }
 
 .appel-card-footer {
   padding: 16px 24px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 2px solid var(--sntp-gray-lighter);
+  background: var(--sntp-gray-lightest);
 }
 
 .btn-view-details {
   width: 100%;
-  padding: 12px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
+  padding: 14px 20px;
+  background: var(--sntp-red);
+  color: var(--sntp-white);
+  border: 2px solid var(--sntp-red);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .btn-view-details:hover {
+  background: var(--sntp-red-dark);
+  border-color: var(--sntp-red-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.3);
-}
-
-.btn-view-details svg {
-  width: 16px;
-  height: 16px;
+  box-shadow: 0 4px 12px rgba(129, 0, 18, 0.3);
 }
 
 .loading-state,
@@ -253,20 +266,20 @@
   max-width: 600px;
   margin: 80px auto;
   text-align: center;
-  padding: 40px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 60px 40px;
+  background: var(--sntp-white);
+  border: 2px solid var(--sntp-gray-lighter);
+  border-radius: 4px;
 }
 
 .spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid #e2e8f0;
-  border-top-color: #667eea;
+  border: 4px solid var(--sntp-gray-lighter);
+  border-top-color: var(--sntp-red);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: 0 auto 16px;
+  margin: 0 auto 24px;
 }
 
 @keyframes spin {
@@ -278,27 +291,31 @@
 .loading-state p,
 .error-state p,
 .no-results p {
-  color: #718096;
+  color: var(--sntp-gray-dark);
   font-size: 16px;
-  margin: 0;
+  margin: 0 0 16px;
+  font-weight: 600;
 }
 
 .btn-retry {
-  margin-top: 16px;
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
+  padding: 12px 32px;
+  background: var(--sntp-red);
+  color: var(--sntp-white);
+  border: 2px solid var(--sntp-red);
+  border-radius: 4px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .btn-retry:hover {
+  background: var(--sntp-red-dark);
+  border-color: var(--sntp-red-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(129, 0, 18, 0.3);
 }
 
 /* Responsive */
@@ -310,7 +327,10 @@
 
 @media (max-width: 768px) {
   .appels-offres-container {
-    padding: 24px 16px;
+    padding-top: calc(var(--header-height) + 24px);
+    padding-bottom: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .header-content h1 {
@@ -334,9 +354,29 @@
     justify-content: center;
   }
 
+  .filter-btn {
+    flex: 1;
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
   .appels-offres-grid {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  .appel-card-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-buttons {
+    flex-direction: column;
+  }
+
+  .filter-btn {
+    width: 100%;
   }
 }
 

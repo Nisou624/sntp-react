@@ -4,10 +4,10 @@
    ========================================== */
 
 :root {
-  --primary-red: #E63946;
-  --dark-red: #C1121F;
+  --primary-red: #450107;
+  --dark-red: #531015;
   --blood-red: #8B0000;
-  --light-red: #F77F00;
+  --light-red: #920000;
   --white: #FFFFFF;
   --off-white: #F8F9FA;
   --light-gray: #E9ECEF;
@@ -236,39 +236,40 @@
 }
 
 /* ==========================================
-   SECTION CONTACT
+   LIENS CONTACT SPÉCIFIQUES
    ========================================== */
 
-.footer-contact {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.contact-item {
-  display: flex;
+.contact-link {
+  display: flex !important;
   gap: 12px;
   align-items: flex-start;
   color: var(--light-gray);
   font-size: 14px;
   line-height: 1.6;
   transition: all 0.3s ease;
+  text-decoration: none;
+  padding-left: 0 !important;
 }
 
-.contact-item:hover {
+.contact-link::before {
+  display: none !important;
+}
+
+.contact-link:hover {
+  color: var(--white);
+  padding-left: 0 !important;
   transform: translateX(4px);
 }
 
-.contact-item svg {
+.contact-link svg {
   flex-shrink: 0;
   margin-top: 2px;
   color: var(--primary-red);
   filter: drop-shadow(0 2px 4px rgba(230, 57, 70, 0.3));
 }
 
-.contact-item p {
-  margin: 0;
-  color: var(--light-gray);
+.contact-link span {
+  color: inherit;
 }
 
 /* ==========================================
@@ -431,7 +432,7 @@
     height: 38px;
   }
 
-  .contact-item {
+  .contact-link {
     font-size: 13px;
   }
 
@@ -470,7 +471,8 @@
 
 .footer-links a:focus-visible,
 .social-link:focus-visible,
-.footer-legal a:focus-visible {
+.footer-legal a:focus-visible,
+.contact-link:focus-visible {
   outline: 3px solid var(--primary-red);
   outline-offset: 4px;
   border-radius: 4px;
@@ -481,7 +483,7 @@
   .social-link,
   .footer-links a,
   .footer-legal a,
-  .contact-item {
+  .contact-link {
     transition: none;
     animation: none;
   }

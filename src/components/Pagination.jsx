@@ -9,19 +9,16 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     const maxPagesToShow = 7;
 
     if (totalPages <= maxPagesToShow) {
-      // Afficher toutes les pages si le nombre total est petit
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
-      // Toujours afficher la première page
       pages.push(1);
 
       if (currentPage > 3) {
         pages.push('...');
       }
 
-      // Pages autour de la page courante
       const start = Math.max(2, currentPage - 1);
       const end = Math.min(totalPages - 1, currentPage + 1);
 
@@ -33,7 +30,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         pages.push('...');
       }
 
-      // Toujours afficher la dernière page
       pages.push(totalPages);
     }
 
@@ -66,10 +62,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         disabled={currentPage === 1}
         aria-label="Page précédente"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
-        <span>Précédent</span>
+        <span>← Précédent</span>
       </button>
 
       <div className="pagination-numbers">
@@ -93,10 +86,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         disabled={currentPage === totalPages}
         aria-label="Page suivante"
       >
-        <span>Suivant</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
+        <span>Suivant →</span>
       </button>
     </div>
   );
