@@ -1,170 +1,157 @@
 // src/pages/admin/Dashboard.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
-import appelOffreService from '../../services/appelOffreService';
+import AppelOffresList from '../../components/admin/AppelOffreList';
 import AppelOffreForm from '../../components/admin/AppelOffreForm';
-import AppelOffreList from '../../components/admin/AppelOffreList';
-import Pagination from '../../components/Pagination';
+import ProjetsList from '../../components/admin/ProjetList';
+import ProjetForm from '../../components/admin/ProjetForm';
 import './Dashboard.css';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [appelsOffres, setAppelsOffres] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('appels-offres');
   const [showForm, setShowForm] = useState(false);
-  const [editingAppelOffre, setEditingAppelOffre] = useState(null);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  
-  // États pour la pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
-  const [limit] = useState(10); // Nombre d'éléments par page
-
-  useEffect(() => {
-    loadAppelsOffres();
-  }, [currentPage]); // Recharger quand la page change
-
-  const loadAppelsOffres = async () => {
-    try {
-      setLoading(true);
-      const response = await appelOffreService.getAll({
-        page: currentPage,
-        limit: limit,
-        sortBy: 'datePublication',
-        sortOrder: 'DESC'
-      });
-      
-      if (response.success) {
-        setAppelsOffres(response.data);
-        setTotalPages(response.pagination.totalPages);
-        setTotalItems(response.pagination.total);
-      }
-    } catch (err) {
-      setError('Erreur lors du chargement des appels d\'offres');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleLogout = () => {
     authService.logout();
+    navigate('/admin/login');
   };
 
-  const handleCreateNew = () => {
-    setEditingAppelOffre(null);
+  const handleAdd = () => {
+    setSelectedItem(null);
     setShowForm(true);
   };
 
-  const handleEdit = (appelOffre) => {
-    setEditingAppelOffre(appelOffre);
+  const handleEdit = (item) => {
+    setSelectedItem(item);
     setShowForm(true);
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Êtes-vous sûr de vouloir supprimer cet appel d\'offre ?')) return;
+    const confirmDelete = window.confirm(
+      `Êtes-vous sûr de vouloir supprimer cet élément ?`
+    );
 
-    try {
-      const response = await appelOffreService.delete(id);
-      if (response.success) {
-        setSuccess('Appel d\'offre supprimé avec succès');
-        loadAppelsOffres();
-        setTimeout(() => setSuccess(''), 3000);
+    if (confirmDelete) {
+      try {
+        let response;
+        if (activeTab === 'appels-offres') {
+          const appelOffreService = require('../../services/appelOffreService').default;
+          response = await appelOffreService.delete(id);
+        } else if (activeTab === 'projets') {
+          const projetService = require('../../services/projetService').default;
+          response = await projetService.delete(id);
+        }
+
+        if (response.success) {
+          alert('Élément supprimé avec succès');
+          setRefreshTrigger(prev => prev + 1);
+        }
+      } catch (error) {
+        alert('Erreur lors de la suppression');
+        console.error(error);
       }
-    } catch (err) {
-      setError('Erreur lors de la suppression');
-      setTimeout(() => setError(''), 3000);
     }
   };
 
   const handleFormSuccess = () => {
     setShowForm(false);
-    setEditingAppelOffre(null);
-    setSuccess(editingAppelOffre ? 'Appel d\'offre modifié avec succès' : 'Appel d\'offre créé avec succès');
-    setCurrentPage(1); // Revenir à la première page
-    loadAppelsOffres();
-    setTimeout(() => setSuccess(''), 3000);
+    setSelectedItem(null);
+    setRefreshTrigger(prev => prev + 1);
+    alert(
+      selectedItem
+        ? 'Élément modifié avec succès'
+        : 'Élément créé avec succès'
+    );
   };
 
   const handleFormCancel = () => {
     setShowForm(false);
-    setEditingAppelOffre(null);
-  };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setSelectedItem(null);
   };
 
   return (
     <div className="dashboard-container">
-      {/* Header */}
-      <header className="dashboard-header">
+      <div className="dashboard-header">
         <div className="header-content">
-          <h1>Panel Administration SNTP</h1>
-          <div className="header-actions">
-            <span className="user-info">
-              {authService.getCurrentUser()?.email}
-            </span>
-            <button onClick={handleLogout} className="btn btn-secondary">
-              Déconnexion
-            </button>
-          </div>
+          <h1>Panel Administrateur</h1>
+          <button onClick={handleLogout} className="btn-logout">
+            Déconnexion
+          </button>
         </div>
-      </header>
+      </div>
 
-      {/* Main Content */}
-      <main className="dashboard-main">
-        <div className="content-wrapper">
-          {/* Alerts */}
-          {error && <div className="alert alert-error">{error}</div>}
-          {success && <div className="alert alert-success">{success}</div>}
+      <div className="dashboard-content">
+        <div className="dashboard-tabs">
+          <button
+            className={`tab-btn ${activeTab === 'appels-offres' ? 'active' : ''}`}
+            onClick={() => {
+              setActiveTab('appels-offres');
+              setShowForm(false);
+              setSelectedItem(null);
+            }}
+          >
+            📢 Appels d'Offres
+          </button>
+          <button
+            className={`tab-btn ${activeTab === 'projets' ? 'active' : ''}`}
+            onClick={() => {
+              setActiveTab('projets');
+              setShowForm(false);
+              setSelectedItem(null);
+            }}
+          >
+            🏗️ Projets
+          </button>
+        </div>
 
-          {/* Titre et bouton d'ajout */}
-          <div className="section-header">
-            <h2>Gestion des Appels d'Offres</h2>
-            {!showForm && (
-              <button onClick={handleCreateNew} className="btn btn-primary">
-                Nouvel Appel d'Offre
-              </button>
-            )}
-          </div>
-
-          {/* Affichage du nombre total */}
+        <div className="dashboard-actions">
           {!showForm && (
-            <div className="items-count">
-              Total : {totalItems} appel(s) d'offre
+            <button onClick={handleAdd} className="btn-add">
+              ➕ Ajouter {activeTab === 'appels-offres' ? 'un Appel d\'Offre' : 'un Projet'}
+            </button>
+          )}
+        </div>
+
+        <div className="dashboard-main">
+          {showForm ? (
+            <div>
+              {activeTab === 'appels-offres' ? (
+                <AppelOffreForm
+                  appelOffre={selectedItem}
+                  onSuccess={handleFormSuccess}
+                  onCancel={handleFormCancel}
+                />
+              ) : (
+                <ProjetForm
+                  projet={selectedItem}
+                  onSuccess={handleFormSuccess}
+                  onCancel={handleFormCancel}
+                />
+              )}
+            </div>
+          ) : (
+            <div>
+              {activeTab === 'appels-offres' ? (
+                <AppelOffresList
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                  refreshTrigger={refreshTrigger}
+                />
+              ) : (
+                <ProjetsList
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                  refreshTrigger={refreshTrigger}
+                />
+              )}
             </div>
           )}
-
-          {/* Formulaire ou Liste */}
-          {showForm ? (
-            <AppelOffreForm
-              appelOffre={editingAppelOffre}
-              onSuccess={handleFormSuccess}
-              onCancel={handleFormCancel}
-            />
-          ) : (
-            <>
-              <AppelOffreList
-                appelsOffres={appelsOffres}
-                loading={loading}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-              
-              {/* Pagination */}
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-              />
-            </>
-          )}
         </div>
-      </main>
+      </div>
     </div>
   );
 };
