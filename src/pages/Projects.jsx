@@ -5,7 +5,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-import { projectsData, categories } from '../data/projectsData';
+import projetService from '../services/projetService';
+import { categories } from '../data/projectsData';
 import './Projects.css';
 
 // Register GSAP plugin
@@ -13,22 +14,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const sectionRefs = useRef({});
   const lenisRef = useRef(null);
   const scrollTriggersRef = useRef([]);
-
-  // Grouper les projets par catégorie
-  const projectsByCategory = categories.reduce((acc, category) => {
-    acc[category.id] = category.id === 'all' 
-      ? projectsData 
-      : projectsData.filter(p => p.category === category.id);
-    return acc;
-  }, {});
-
-  // Catégories avec projets
-  const validCategories = categories.filter(cat => 
-    projectsByCategory[cat.id]?.length > 0
-  );
 
   // Descriptions par catégorie
   const categoryDescriptions = {
@@ -39,6 +30,48 @@ const Projects = () => {
     hydraulique: "Projets de gestion de l'eau, barrages et stations d'épuration pour préserver nos ressources hydriques.",
     industriel: "Développement de complexes industriels performants, sécurisés et respectueux des normes environnementales."
   };
+
+  // Charger les projets depuis l'API
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await projetService.getAllProjets({
+          limit: 100,
+          sortBy: 'year',
+          sortOrder: 'DESC'
+        });
+
+        if (response.success && response.data) {
+          setProjects(response.data);
+        } else {
+          throw new Error('Erreur lors du chargement des projets');
+        }
+      } catch (err) {
+        console.error('Erreur:', err);
+        setError('Impossible de charger les projets. Veuillez réessayer.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  // Grouper les projets par catégorie
+  const projectsByCategory = categories.reduce((acc, category) => {
+    acc[category.id] = category.id === 'all' 
+      ? projects 
+      : projects.filter(p => p.category === category.id);
+    return acc;
+  }, {});
+
+  // Catégories avec projets
+  const validCategories = categories.filter(cat => 
+    projectsByCategory[cat.id]?.length > 0
+  );
 
   // Initialisation de Lenis pour smooth scrolling
   useEffect(() => {
@@ -56,100 +89,65 @@ const Projects = () => {
 
     lenisRef.current = lenis;
 
-    // Connecter Lenis avec GSAP ScrollTrigger
-    lenis.on('scroll', () => {
-      ScrollTrigger.update();
-    });
+    lenis.on('scroll', ScrollTrigger.update);
 
-    // Animation frame loop pour Lenis
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
-
     requestAnimationFrame(raf);
 
-    // Cleanup
-    return () => {
-      lenis.destroy();
-    };
+    return () => lenis.destroy();
   }, []);
 
   // Configuration des animations sticky pour chaque section
   useEffect(() => {
-    // Attendre que le DOM soit prêt
+    if (loading || projects.length === 0) return;
+
     const timer = setTimeout(() => {
-      // Nettoyer les anciens ScrollTriggers
       scrollTriggersRef.current.forEach(st => st.kill());
       scrollTriggersRef.current = [];
 
-      // Créer les animations pour chaque section
       validCategories.forEach((category) => {
-        const sectionElement = document.querySelector(
-          `[data-category="${category.id}"]`
-        );
-        const stickyVisual = sectionElement?.querySelector('.sticky-visual');
-        const leftColumn = sectionElement?.querySelector('.split-section__left');
-        const rightContent = sectionElement?.querySelector('.split-section__right');
+        const section = sectionRefs.current[category.id];
+        const visualWrapper = section?.querySelector('.sticky-visual-wrapper');
+        const projectsList = section?.querySelector('.projects-list');
 
-        if (sectionElement && stickyVisual && leftColumn && rightContent) {
-          // Calculer les hauteurs précises
-          const stickyHeight = stickyVisual.offsetHeight; // 75vh
-          const leftColumnHeight = leftColumn.offsetHeight; // Hauteur de la colonne gauche
-          const rightHeight = rightContent.offsetHeight; // Hauteur totale du contenu droit
-          
-          // La distance maximale que le sticky peut parcourir sans dépasser
-          // C'est la différence entre la hauteur de la colonne gauche et la hauteur du sticky
-          const maxScrollDistance = leftColumnHeight - stickyHeight;
-          
-          // On utilise le minimum entre la distance calculée et la hauteur du contenu droit
-          // pour éviter tout dépassement
-          const scrollDistance = Math.min(maxScrollDistance, rightHeight - stickyHeight);
-
-          // Créer l'animation de suivi du scroll avec la distance précise
-          const st = gsap.to(stickyVisual, {
-            y: scrollDistance,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sectionElement,
-              start: 'top top+=80px', // Démarre quand la section atteint la navbar
-              end: 'bottom bottom', // Se termine quand le bottom de la section atteint le bottom de la viewport
-              scrub: 0.5, // Valeur équilibrée pour un suivi fluide
-              invalidateOnRefresh: true,
-              markers: false, // Mettre à true pour déboguer
-              onUpdate: (self) => {
-                // Debug optionnel - décommenter pour voir la progression
-                // console.log(`Category: ${category.id}, Progress: ${self.progress.toFixed(3)}, Y: ${(scrollDistance * self.progress).toFixed(2)}px`);
-              }
-            }
+        if (section && visualWrapper && projectsList) {
+          const st = ScrollTrigger.create({
+            trigger: section,
+            start: 'top 140px',
+            end: () => `+=${projectsList.offsetHeight - visualWrapper.offsetHeight}`,
+            pin: visualWrapper,
+            pinSpacing: false,
+            anticipatePin: 1,
+            markers: false,
           });
 
-          scrollTriggersRef.current.push(st.scrollTrigger);
+          scrollTriggersRef.current.push(st);
         }
       });
-
-      // Rafraîchir ScrollTrigger après création
-      ScrollTrigger.refresh();
     }, 100);
 
     return () => {
       clearTimeout(timer);
       scrollTriggersRef.current.forEach(st => st.kill());
-      scrollTriggersRef.current = [];
     };
-  }, [validCategories, projectsByCategory]);
+  }, [loading, projects, validCategories]);
 
-  // Observer les sections pour mettre à jour la navigation
+  // Observer pour détecter la section active
   useEffect(() => {
+    if (loading || projects.length === 0) return;
+
     const observerOptions = {
       threshold: 0.3,
-      rootMargin: '-150px 0px -150px 0px'
+      rootMargin: '-140px 0px -50% 0px',
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const categoryId = entry.target.dataset.category;
+          const categoryId = entry.target.getAttribute('data-category');
           if (categoryId) {
             setActiveCategory(categoryId);
           }
@@ -166,7 +164,7 @@ const Projects = () => {
         if (element) observer.unobserve(element);
       });
     };
-  }, []);
+  }, [loading, projects]);
 
   // Scroll vers une section spécifique avec Lenis
   const scrollToSection = (categoryId) => {
@@ -182,9 +180,11 @@ const Projects = () => {
 
   // Animation fade-in pour les cartes au scroll
   useEffect(() => {
+    if (loading || projects.length === 0) return;
+
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
+      rootMargin: '0px 0px -100px 0px',
     };
 
     const cardObserver = new IntersectionObserver((entries) => {
@@ -201,12 +201,51 @@ const Projects = () => {
     return () => {
       cards.forEach((card) => cardObserver.unobserve(card));
     };
-  }, [projectsByCategory]);
+  }, [loading, projects]);
 
+  // Affichage du loader
+  if (loading) {
+    return (
+      <div className="projects-page">
+        <Header />
+        <main className="projects-main">
+          <section className="projects-hero">
+            <div className="projects-hero__content">
+              <h1 className="projects-hero__title">Nos Projets</h1>
+              <p className="projects-hero__description">
+                Chargement des projets...
+              </p>
+            </div>
+          </section>
+          <div className="loading">Chargement en cours...</div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Affichage de l'erreur
+  if (error) {
+    return (
+      <div className="projects-page">
+        <Header />
+        <main className="projects-main">
+          <section className="projects-hero">
+            <div className="projects-hero__content">
+              <h1 className="projects-hero__title">Nos Projets</h1>
+              <p className="projects-hero__description">{error}</p>
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Affichage principal
   return (
     <div className="projects-page">
       <Header />
-      
       <main className="projects-main">
         {/* Hero Section */}
         <section className="projects-hero">
@@ -226,9 +265,9 @@ const Projects = () => {
                 key={category.id}
                 onClick={() => scrollToSection(category.id)}
                 className={`nav-button ${activeCategory === category.id ? 'is-active' : ''}`}
-                aria-label={`Voir les projets de la catégorie ${category.name}`}
+                aria-label={`Voir les projets de la catégorie ${category.label}`}
               >
-                {category.name}
+                {category.label}
               </button>
             ))}
           </div>
@@ -237,8 +276,9 @@ const Projects = () => {
         {/* Sections par catégorie */}
         <div className="sections-container">
           {validCategories.map((category) => {
-            const projects = projectsByCategory[category.id];
-            if (!projects || projects.length === 0) return null;
+            const categoryProjects = projectsByCategory[category.id];
+            
+            if (!categoryProjects || categoryProjects.length === 0) return null;
 
             return (
               <section
@@ -253,21 +293,21 @@ const Projects = () => {
                     <div className="sticky-visual">
                       <div className="sticky-visual__image-wrapper">
                         <img
-                          src={projects[0]?.image || '/images/default-project.jpg'}
-                          alt={category.name}
+                          src={categoryProjects[0]?.image || '/images/default-project.jpg'}
+                          alt={category.label}
                           className="sticky-visual__image"
                           loading="lazy"
                         />
                         <div className="sticky-visual__overlay"></div>
                       </div>
                       <div className="sticky-visual__content">
-                        <h2 className="sticky-visual__title">{category.name}</h2>
+                        <h2 className="sticky-visual__title">{category.label}</h2>
                         <p className="sticky-visual__description">
                           {categoryDescriptions[category.id]}
                         </p>
                         <div className="sticky-visual__meta">
                           <span className="sticky-visual__count">
-                            {projects.length} {projects.length > 1 ? 'Projets' : 'Projet'}
+                            {categoryProjects.length} {categoryProjects.length > 1 ? 'Projets' : 'Projet'}
                           </span>
                         </div>
                       </div>
@@ -278,21 +318,18 @@ const Projects = () => {
                 {/* Colonne droite - Liste scrollable */}
                 <div className="split-section__right">
                   <div className="projects-list">
-                    {projects.map((project, index) => (
-                      <article 
-                        key={project.id} 
+                    {categoryProjects.map((project, index) => (
+                      <article
+                        key={project.id}
                         className="project-card"
                         style={{ transitionDelay: `${index * 0.1}s` }}
                       >
-                        <Link 
-                          to={`/projects/${project.id}`} 
-                          className="project-card__link"
-                        >
+                        <Link to={`/projects/${project.id}`} className="project-card__link">
                           {/* Image du projet */}
                           <div className="project-card__image-container">
                             <img
                               src={project.image}
-                              alt={project.title}
+                              alt={project.titre}
                               className="project-card__image"
                               loading="lazy"
                             />
@@ -310,26 +347,16 @@ const Projects = () => {
                               </span>
                             </div>
 
-                            <h3 className="project-card__title">
-                              {project.title}
-                            </h3>
-
-                            {project.description && (
-                              <p className="project-card__description">
-                                {project.description}
-                              </p>
-                            )}
+                            <h3 className="project-card__title">{project.titre}</h3>
+                            <p className="project-card__description">
+                              {project.description}
+                            </p>
 
                             <div className="project-card__footer">
-                              <span 
-                                className={`project-card__status status--${project.status}`}
-                              >
+                              <span className={`project-card__status status--${project.status}`}>
                                 {project.status === 'completed' ? 'Terminé' : 'En cours'}
                               </span>
-                              <span 
-                                className="project-card__arrow" 
-                                aria-hidden="true"
-                              >
+                              <span className="project-card__arrow" aria-hidden="true">
                                 →
                               </span>
                             </div>
@@ -344,11 +371,9 @@ const Projects = () => {
           })}
         </div>
       </main>
-
       <Footer />
     </div>
   );
 };
 
 export default Projects;
-

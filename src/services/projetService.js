@@ -1,53 +1,38 @@
-// src/services/projetService.js
-import axios from 'axios';
+import api from './api';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-
-class ProjetService {
-  // Obtenir tous les projets (sans authentification pour la page publique)
-  async getAll(filters = {}) {
+const projetService = {
+  // Récupérer tous les projets
+  getAllProjets: async (params = {}) => {
     try {
-      const params = new URLSearchParams();
-      
-      // Ajouter les filtres
-      if (filters.category) params.append('category', filters.category);
-      if (filters.status) params.append('status', filters.status);
-      if (filters.search) params.append('search', filters.search);
-      if (filters.page) params.append('page', filters.page);
-      if (filters.limit) params.append('limit', filters.limit);
-      if (filters.sortBy) params.append('sortBy', filters.sortBy);
-      if (filters.sortOrder) params.append('sortOrder', filters.sortOrder);
-      
-      const response = await axios.get(`${API_URL}/projets?${params.toString()}`);
+      const response = await api.get('/projets', { params });
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la récupération des projets:', error);
       throw error;
     }
-  }
+  },
 
-  // Obtenir un projet par ID
-  async getById(id) {
+  // Récupérer un projet par ID
+  getProjetById: async (id) => {
     try {
-      const response = await axios.get(`${API_URL}/projets/${id}`);
+      const response = await api.get(`/projets/${id}`);
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la récupération du projet:', error);
       throw error;
     }
-  }
+  },
 
-  // Obtenir les statistiques
-  async getStatistics() {
+  // Récupérer les statistiques
+  getStatistics: async () => {
     try {
-      const response = await axios.get(`${API_URL}/projets/admin/statistics`);
+      const response = await api.get('/projets/admin/statistics');
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la récupération des statistiques:', error);
       throw error;
     }
   }
-}
+};
 
-export default new ProjetService();
-
+export default projetService;
