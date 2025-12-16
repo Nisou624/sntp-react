@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AppelOffreDetails.css';
+import appelOffreService from '../services/appelOffreService';
 
 const AppelOffreDetail = () => {
   const { id } = useParams();
@@ -150,20 +151,18 @@ const AppelOffreDetail = () => {
               {appelOffre.description || 'Aucune description disponible.'}
             </div>
           </section>
-
-          {appelOffre.pdfPath && (
+          {appelOffre.hasPdf && (
             <section className="pdf-section">
               <h3>Document PDF</h3>
-              <a
-                href={`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${appelOffre.pdfPath}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <a 
+                href={appelOffreService.getPdfUrl(appelOffre.id)}
+                download
                 className="btn-download-pdf"
               >
                 <i className="icon-pdf"></i>
                 Télécharger le cahier des charges
                 {appelOffre.pdfOriginalName && (
-                  <span className="pdf-name">({appelOffre.pdfOriginalName})</span>
+                  <span className="pdf-name">{appelOffre.pdfOriginalName}</span>
                 )}
               </a>
             </section>
