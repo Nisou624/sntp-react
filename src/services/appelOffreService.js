@@ -78,7 +78,7 @@ class AppelOffreService {
   // Obtenir les statistiques
   async getStatistics() {
     try {
-      const response = await api.get('/appels-offres/statistics');
+      const response = await api.get('/appels-offres/admin/statistics');
       return response.data;
     } catch (error) {
       throw error;

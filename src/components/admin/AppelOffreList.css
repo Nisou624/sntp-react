@@ -1,5 +1,83 @@
-.list-container {
+.liste-container {
   width: 100%;
+}
+
+.liste-header {
+  margin-bottom: 32px;
+}
+
+.liste-header h1 {
+  font-size: 28px;
+  color: #1a202c;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #718096;
+  font-size: 16px;
+}
+
+.liste-filters {
+  margin-bottom: 24px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 280px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  color: #2d3748;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+}
+
+.results-info {
+  margin-bottom: 16px;
+  color: #718096;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .table-responsive {
@@ -7,6 +85,7 @@
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  margin-bottom: 24px;
 }
 
 .appels-offres-table {
@@ -62,8 +141,11 @@
 }
 
 .pdf-link {
+  background: none;
+  border: none;
   font-size: 18px;
-  text-decoration: none;
+  cursor: pointer;
+  padding: 4px;
   transition: transform 0.2s ease;
 }
 
@@ -99,6 +181,7 @@
   gap: 8px;
 }
 
+.btn-view,
 .btn-edit,
 .btn-delete {
   padding: 8px 12px;
@@ -107,6 +190,15 @@
   cursor: pointer;
   font-size: 16px;
   transition: all 0.2s ease;
+}
+
+.btn-view {
+  background: #bee3f8;
+}
+
+.btn-view:hover {
+  background: #90cdf4;
+  transform: scale(1.1);
 }
 
 .btn-edit {
@@ -127,7 +219,9 @@
   transform: scale(1.1);
 }
 
-.loading-container {
+.loading,
+.error-message,
+.empty-state {
   text-align: center;
   padding: 60px 20px;
   background: white;
@@ -150,21 +244,35 @@
   }
 }
 
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  background: white;
-  border-radius: 12px;
-  color: #718096;
-}
-
+.loading p,
+.error-message p,
 .empty-state p {
   font-size: 16px;
   margin-bottom: 8px;
+  color: #2d3748;
 }
 
 .empty-state small {
   font-size: 14px;
+  color: #718096;
+}
+
+.btn-retry {
+  margin-top: 16px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-retry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.3);
 }
 
 /* Responsive */
@@ -179,6 +287,19 @@
 }
 
 @media (max-width: 768px) {
+  .liste-filters {
+    flex-direction: column;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .filter-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .appels-offres-table thead {
     display: none;
   }

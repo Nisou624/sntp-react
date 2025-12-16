@@ -1,40 +1,52 @@
 .detail-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  min-height: 100vh;
+  background: #f7fafc;
   padding: 40px 20px;
 }
 
 .btn-back {
-  display: inline-flex;
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
-  background: #f7fafc;
-  border: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  background: white;
+  border: 2px solid #e2e8f0;
   border-radius: 8px;
-  color: #4a5568;
+  color: #2d3748;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-bottom: 24px;
 }
 
 .btn-back:hover {
-  background: #edf2f7;
-  border-color: #cbd5e0;
+  border-color: #667eea;
+  color: #667eea;
+  transform: translateX(-4px);
+}
+
+.btn-back svg {
+  width: 20px;
+  height: 20px;
 }
 
 .detail-header {
-  margin-bottom: 32px;
+  max-width: 1200px;
+  margin: 0 auto 32px;
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .header-content {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .header-content h1 {
@@ -45,40 +57,23 @@
   flex: 1;
 }
 
-.statut-badge {
-  display: inline-block;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.statut-actif {
-  background: #c6f6d5;
-  color: #22543d;
-}
-
-.statut-expire {
-  background: #fed7d7;
-  color: #c53030;
-}
-
-.statut-annule {
-  background: #e2e8f0;
-  color: #4a5568;
+.header-badges {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .reference {
-  font-size: 14px;
-  color: #718096;
   font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: 600;
+  color: #667eea;
+  margin: 0;
 }
 
 .detail-body {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .main-content {
@@ -87,174 +82,178 @@
   gap: 24px;
 }
 
-.description-section {
+section {
   background: white;
+  border-radius: 16px;
   padding: 32px;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.description-section h2 {
+section h2 {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 20px;
-  color: #2d3748;
-  margin-bottom: 20px;
+  font-size: 22px;
+  color: #1a202c;
+  font-weight: 700;
+  margin: 0 0 20px;
   padding-bottom: 16px;
   border-bottom: 2px solid #e2e8f0;
 }
 
+section h2 svg {
+  color: #667eea;
+  flex-shrink: 0;
+}
+
 .description-content {
   color: #4a5568;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.8;
   white-space: pre-wrap;
 }
 
-.pdf-section {
-  background: white;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.pdf-section h3 {
-  font-size: 16px;
-  color: #2d3748;
-  margin-bottom: 16px;
-}
-
-.btn-download-pdf {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 24px;
-  background: #e53e3e;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.btn-download-pdf:hover {
-  background: #c53030;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
-}
-
-.pdf-name {
-  font-size: 12px;
-  font-weight: normal;
-  opacity: 0.9;
-}
-
-.sidebar {
-  display: flex;
-  flex-direction: column;
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
 
 .info-card {
-  background: white;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.info-card h3 {
-  font-size: 16px;
-  color: #2d3748;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #e2e8f0;
-}
-
-.info-item {
   display: flex;
-  gap: 12px;
-  padding: 16px 0;
-  border-bottom: 1px solid #f7fafc;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: #f7fafc;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
 }
 
-.info-item:last-child {
-  border-bottom: none;
+.info-card:hover {
+  border-color: #667eea;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15);
 }
 
-.info-item i {
-  font-size: 20px;
-  color: #e53e3e;
+.info-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
-.info-item > div {
+.info-icon svg {
+  color: white;
+}
+
+.info-content {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
 }
 
-.info-item .label {
-  font-size: 12px;
+.info-label {
+  font-size: 13px;
   color: #718096;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.info-item .value {
-  font-size: 14px;
-  color: #2d3748;
+.info-value {
+  font-size: 16px;
+  color: #1a202c;
   font-weight: 600;
 }
 
-.date-limite {
-  color: #e53e3e;
+.pdf-section {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border: 2px solid #667eea;
 }
 
-.days-remaining {
-  margin-top: 16px;
-  padding: 16px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  text-align: center;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.days-remaining strong {
-  display: block;
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.days-remaining.expired {
-  background: linear-gradient(135deg, #fc8181 0%, #f56565 100%);
-}
-
-.btn-contact {
+.btn-download-pdf {
   width: 100%;
-  padding: 16px;
+  padding: 16px 24px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-.btn-contact:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+.btn-download-pdf:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
 }
 
-.loading, .error-message {
+.btn-download-pdf svg {
+  width: 20px;
+  height: 20px;
+}
+
+.pdf-name {
+  font-size: 13px;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.statut-badge {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statut-actif {
+  background-color: #c6f6d5;
+  color: #22543d;
+}
+
+.statut-expire {
+  background-color: #fed7d7;
+  color: #c53030;
+}
+
+.statut-annule {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+.deadline-badge {
+  background: #fbd38d;
+  color: #7c2d12;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.loading-state,
+.error-state {
+  max-width: 600px;
+  margin: 80px auto;
   text-align: center;
-  padding: 60px 20px;
+  padding: 40px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .spinner {
@@ -268,38 +267,60 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-state p,
+.error-state p {
+  color: #718096;
+  font-size: 16px;
+  margin: 0 0 16px;
 }
 
 /* Responsive */
-@media (max-width: 968px) {
-  .detail-body {
-    grid-template-columns: 1fr;
-  }
-  
-  .sidebar {
-    order: -1;
-  }
-}
-
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .detail-container {
-    padding: 20px 16px;
+    padding: 24px 16px;
   }
-  
+
+  .detail-header {
+    padding: 24px;
+  }
+
   .header-content {
     flex-direction: column;
-    align-items: flex-start;
   }
-  
+
   .header-content h1 {
     font-size: 24px;
   }
-  
-  .description-section,
-  .pdf-section,
-  .info-card {
-    padding: 20px;
+
+  .header-badges {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  section {
+    padding: 24px;
+  }
+
+  section h2 {
+    font-size: 18px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-download-pdf {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pdf-name {
+    text-align: center;
   }
 }
 
