@@ -6,6 +6,7 @@ import AppelOffresList from '../../components/admin/AppelOffreList';
 import AppelOffreForm from '../../components/admin/AppelOffreForm';
 import ProjetsList from '../../components/admin/ProjetList';
 import ProjetForm from '../../components/admin/ProjetForm';
+import { FaNewspaper } from 'react-icons/fa';
 import './Dashboard.css';
 
 const Dashboard = () => {

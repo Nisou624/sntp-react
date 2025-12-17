@@ -36,6 +36,7 @@ const Login = () => {
       const result = await authService.login(formData.email, formData.password);
       
       if (result.success) {
+        localStorage.setItem('token', result.token);
         navigate('/admin/dashboard');
       } else {
         setError(result.message || 'Email ou mot de passe incorrect');

@@ -19,6 +19,7 @@ const Header = () => {
     '/nos-directions', 
     '/nos-appels-offres',
     '/admin/dashboard',
+    '/admin/articles'
   ];
   const isDarkTextPage = darkTextPages.includes(location.pathname);
 
