@@ -174,47 +174,6 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* Footer Info Section */}
-      <section className="footer-info-section">
-        <div className="container">
-          <div className="footer-info-grid">
-            {/* About Column */}
-            <div className="footer-info-col">
-              <p className="footer-info-text">
-                La Société Nationale de Travaux Publics réalise des infrastructures majeures en Algérie, 
-                intégrant études, production, et exécution selon les normes internationales du BTP.
-              </p>
-            </div>
-
-            {/* Services Column */}
-            <div className="footer-info-col">
-              <h4 className="footer-info-title">Services</h4>
-              <ul className="footer-info-list">
-                <li>TRAVAUX PUBLICS</li>
-                <li>SNTP ENGINEERING</li>
-                <li>SNTP ANABIBE</li>
-                <li>LOCATION DE MATÉRIEL</li>
-              </ul>
-            </div>
-
-            {/* Contact Column */}
-            <div className="footer-info-col">
-              <h4 className="footer-info-title">Contactez-nous</h4>
-              <p className="footer-contact-item">
-                Besoin d'aide ou une question ?
-              </p>
-              <p className="footer-contact-item">
-                Tél : 023 86 35 95/99 456
-                <br />
-                Fax : 023 86 36 01
-              </p>
-              <p className="footer-contact-item">
-                Email : <a href="mailto:infocontact@sntp.dz">infocontact@sntp.dz</a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
