@@ -21,6 +21,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import './NousRejoindre.css';
+import { envoyerCandidatureSpontanee } from '../services/candidatureService';
 
 const NousRejoindre = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -359,12 +360,9 @@ const NousRejoindre = () => {
         formDataToSend.append(key, formData[key]);
       });
       
-      const response = await fetch('/api/candidature-spontanee', {
-        method: 'POST',
-        body: formDataToSend
-      });
-      
-      if (response.ok) {
+      const response = await envoyerCandidatureSpontanee(formDataToSend);
+
+      if (response.success) {
         setSubmitStatus('success');
         setFormData({
           civilite: '',
@@ -399,6 +397,15 @@ const NousRejoindre = () => {
     } catch (error) {
       console.error('Erreur lors de l\'envoi:', error);
       setSubmitStatus('error');
+      if(error.errors && Array.isArray(error.errors)){
+        const newErrors = {};
+        error.errors.forEach(err => {
+          if (err.path) {
+            newErrors[err.path] = err.msg;
+          }
+        });
+        setFormErrors(newErrors);
+      }
     } finally {
       setIsSubmitting(false);
     }
