@@ -1,4 +1,3 @@
-// src/components/admin/ProjetForm.jsx
 import React, { useState, useEffect } from 'react';
 import projetService from '../../services/projetService';
 import './ProjetForm.css';
@@ -10,12 +9,11 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
     image: '',
     location: '',
     year: new Date().getFullYear().toString(),
-    status: 'in_progress',
+    status: 'inprogress',
     description: '',
     latitude: '',
     longitude: ''
   });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -27,7 +25,7 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
         image: projet.image || '',
         location: projet.location || '',
         year: projet.year || new Date().getFullYear().toString(),
-        status: projet.status || 'in_progress',
+        status: projet.status || 'inprogress',
         description: projet.description || '',
         latitude: projet.latitude || '',
         longitude: projet.longitude || ''
@@ -51,7 +49,7 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
     try {
       // Valider les coordonnées si fournies
       const dataToSend = { ...formData };
-      
+
       if (dataToSend.latitude) {
         const lat = parseFloat(dataToSend.latitude);
         if (isNaN(lat) || lat < -90 || lat > 90) {
@@ -109,13 +107,8 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
     <div className="form-container">
       <div className="form-card">
         <h3>{projet ? 'Modifier le Projet' : 'Nouveau Projet'}</h3>
-
         <form onSubmit={handleSubmit} className="projet-form">
-          {error && (
-            <div className="alert alert-error">
-              {error}
-            </div>
-          )}
+          {error && <div className="alert alert-error">{error}</div>}
 
           {/* Titre */}
           <div className="form-group">
@@ -225,7 +218,7 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
               disabled={loading}
               required
             >
-              <option value="in_progress">En cours</option>
+              <option value="inprogress">En cours</option>
               <option value="completed">Terminé</option>
             </select>
           </div>

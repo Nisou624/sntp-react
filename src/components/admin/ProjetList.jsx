@@ -1,4 +1,3 @@
-// src/components/admin/ProjetList.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import projetService from '../../services/projetService';
@@ -14,6 +13,7 @@ const ProjetsList = ({ onEdit, onDelete, refreshTrigger }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const limit = 10;
+
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
@@ -55,7 +55,7 @@ const ProjetsList = ({ onEdit, onDelete, refreshTrigger }) => {
   const getStatusLabel = (status) => {
     const labels = {
       'completed': 'Terminé',
-      'in_progress': 'En cours'
+      'inprogress': 'En cours'
     };
     return labels[status] || status;
   };
@@ -79,7 +79,7 @@ const ProjetsList = ({ onEdit, onDelete, refreshTrigger }) => {
       'hydraulique': '💧',
       'industriel': '🏭'
     };
-    return icons[category] || '🏗️';
+    return icons[category] || '📋';
   };
 
   const filteredProjets = projets.filter((projet) => {
@@ -138,63 +138,6 @@ const ProjetsList = ({ onEdit, onDelete, refreshTrigger }) => {
 
         <div className="filter-buttons">
           <button
-            className={`filter-btn ${!filterCategory ? 'active' : ''}`}
-            onClick={() => {
-              setFilterCategory('');
-              setCurrentPage(1);
-            }}
-          >
-            Tous
-          </button>
-          <button
-            className={`filter-btn ${filterCategory === 'routes' ? 'active' : ''}`}
-            onClick={() => {
-              setFilterCategory('routes');
-              setCurrentPage(1);
-            }}
-          >
-            🛣️ Routiers
-          </button>
-          <button
-            className={`filter-btn ${filterCategory === 'batiments' ? 'active' : ''}`}
-            onClick={() => {
-              setFilterCategory('batiments');
-              setCurrentPage(1);
-            }}
-          >
-            🏢 Bâtiments
-          </button>
-          <button
-            className={`filter-btn ${filterCategory === 'ouvrages' ? 'active' : ''}`}
-            onClick={() => {
-              setFilterCategory('ouvrages');
-              setCurrentPage(1);
-            }}
-          >
-            🌉 Ouvrages
-          </button>
-          <button
-            className={`filter-btn ${filterCategory === 'hydraulique' ? 'active' : ''}`}
-            onClick={() => {
-              setFilterCategory('hydraulique');
-              setCurrentPage(1);
-            }}
-          >
-            💧 Hydraulique
-          </button>
-          <button
-            className={`filter-btn ${filterCategory === 'industriel' ? 'active' : ''}`}
-            onClick={() => {
-              setFilterCategory('industriel');
-              setCurrentPage(1);
-            }}
-          >
-            🏭 Industriel
-          </button>
-        </div>
-
-        <div className="filter-buttons">
-          <button
             className={`filter-btn ${!filterStatus ? 'active' : ''}`}
             onClick={() => {
               setFilterStatus('');
@@ -213,9 +156,9 @@ const ProjetsList = ({ onEdit, onDelete, refreshTrigger }) => {
             Terminés
           </button>
           <button
-            className={`filter-btn ${filterStatus === 'in_progress' ? 'active' : ''}`}
+            className={`filter-btn ${filterStatus === 'inprogress' ? 'active' : ''}`}
             onClick={() => {
-              setFilterStatus('in_progress');
+              setFilterStatus('inprogress');
               setCurrentPage(1);
             }}
           >
@@ -225,7 +168,7 @@ const ProjetsList = ({ onEdit, onDelete, refreshTrigger }) => {
       </div>
 
       <div className="results-info">
-        <p>{filteredProjets.length} résultats sur {totalItems}</p>
+        <p>{filteredProjets.length} résultat{filteredProjets.length > 1 ? 's' : ''} sur {totalItems}</p>
       </div>
 
       {filteredProjets.length === 0 ? (

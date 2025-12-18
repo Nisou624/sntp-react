@@ -1,39 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Hero.css';
+import { heroSlides } from '../../data/heroSlides';
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const intervalRef = useRef(null);
 
-  const slides = [
-    {
-      id: 1,
-      image: '/assets/images/hero-slide-1.jpg',
-      title: 'Construire l\'Algérie d\'aujourd\'hui',
-      subtitle: 'Bâtir celle de demain',
-      description: 'En tant qu\'entrepreneur algérien de premier plan dans le secteur des travaux publics, nous concevons et construisons les infrastructures qui nous relient, d\'une wilaya à l\'autre.'
-    },
-    {
-      id: 2,
-      image: '/assets/images/hero-slide-2.jpg',
-      title: 'Excellence et Innovation',
-      subtitle: 'Dans tous nos projets',
-      description: 'Notre expertise couvre tous les domaines de la construction : bâtiments, routes, ouvrages d\'art, hydraulique et génie civil.'
-    },
-    {
-      id: 3,
-      image: '/assets/images/hero-slide-3.jpg',
-      title: 'Des infrastructures durables',
-      subtitle: 'Pour un avenir meilleur',
-      description: 'Nous mettons un point d\'honneur à respecter les délais, les budgets et les normes de qualité les plus strictes.'
-    }
-  ];
-
   // Fonction pour passer au slide suivant
   const goToNextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
   };
 
   // Fonction pour aller à un slide spécifique
@@ -74,7 +51,7 @@ const Hero = () => {
   return (
     <section className="hero-section">
       <div className="hero-carousel">
-        {slides.map((slide, index) => (
+        {heroSlides.map((slide, index) => (
           <div
             key={slide.id}
             className={`hero-slide ${index === currentSlide ? 'active' : ''} ${
@@ -112,7 +89,7 @@ const Hero = () => {
 
       <div className="hero-dots-navigation">
         <div className="dots-container">
-          {slides.map((slide, index) => (
+          {heroSlides.map((slide, index) => (
             <button
               key={index}
               className={`nav-dot ${index === currentSlide ? 'active' : ''}`}
