@@ -482,11 +482,13 @@
 
 .timeline-year {
   display: inline-block;
-  padding: 1.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   background: var(--primary-color);
   color: var(--white);
   border-radius: 50px;
   font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
 }
 
 .timeline-title {
@@ -838,3 +840,619 @@ html {
   }
 }
 
+/* ==========================================
+   FLIPBOOK SECTION - AJOUT POUR LE FLIPBOOK
+   ========================================== */
+.flipbook-section {
+  padding: var(--spacing-xl) 0;
+  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.flipbook-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(220, 20, 60, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl, 6rem);
+  position: relative;
+  z-index: 1;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--color-text-light, #6b6b6b);
+  margin-top: var(--spacing-sm, 1rem);
+  font-weight: 400;
+}
+
+.book-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg, 4rem);
+  position: relative;
+  z-index: 1;
+  perspective: 2000px;
+}
+
+.flipbook {
+  margin: 0 auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.flipbook:hover {
+  transform: translateY(-5px);
+}
+
+/* ==========================================
+   BOOK PAGE STYLES
+   ========================================== */
+.book-page {
+  background-color: white;
+  color: #785e3a;
+  border: solid 1px #c2b5a3;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.book-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.08), transparent);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.page-content {
+  padding: 2.5rem 2rem;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* Cover Page */
+.cover-page {
+  background: linear-gradient(135deg, #1a1a1a 0%, #dc143c 100%);
+  border: none;
+  overflow: hidden;
+}
+
+.cover-page::before {
+  display: none;
+}
+
+.cover-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--color-white, #ffffff);
+}
+
+.cover-title {
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: 8px;
+  margin: 0;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.cover-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 4px;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+
+.cover-year {
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-top: 2rem;
+  opacity: 0.85;
+}
+
+.cover-decoration {
+  margin-top: 3rem;
+}
+
+.cover-icon {
+  width: 80px;
+  height: 80px;
+  color: var(--color-white, #ffffff);
+  opacity: 0.7;
+}
+
+/* Page Header */
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 2px solid var(--color-primary, #dc143c);
+}
+
+.page-year {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary, #dc143c);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.page-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary, #dc143c);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.year-decoration {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-primary, #dc143c), transparent);
+}
+
+/* Page Body */
+.page-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-secondary, #1a1a1a);
+  margin: 0 0 1.3rem 0;
+  line-height: 1.3;
+}
+
+.page-divider {
+  width: 50px;
+  height: 3px;
+  background: var(--color-primary, #dc143c);
+  margin: 0 0 1.3rem 0;
+  border-radius: 2px;
+}
+
+.page-description {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--color-text, #2d2d2d);
+  margin: 0;
+  text-align: justify;
+}
+
+/* Page Footer */
+.page-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.8rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--color-border, #e5e5e5);
+}
+
+.page-number {
+  font-size: 0.875rem;
+  color: var(--color-text-light, #6b6b6b);
+  font-weight: 500;
+}
+
+/* Value Page */
+.value-page {
+  background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.value-icon-large {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 1.3rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary, #dc143c);
+  border-radius: 50%;
+  color: var(--color-white, #ffffff);
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
+}
+
+.value-icon-large svg {
+  width: 36px;
+  height: 36px;
+  stroke: currentColor;
+}
+
+/* Stats Page */
+.stats-page {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: var(--color-white, #ffffff);
+}
+
+.stats-page .page-label {
+  color: var(--color-white, #ffffff);
+}
+
+.stats-page .page-footer {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+.stats-page .page-number {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.stats-grid-book {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.3rem;
+  padding: 0.9rem 0;
+}
+
+.stat-item-book {
+  text-align: center;
+  padding: 1.3rem 0.9rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.stat-item-book:hover {
+  background: rgba(220, 20, 60, 0.2);
+  border-color: var(--color-primary, #dc143c);
+  transform: translateY(-5px);
+}
+
+.stat-number-book {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--color-white, #ffffff);
+  margin-bottom: 0.4rem;
+  line-height: 1;
+}
+
+.stat-label-book {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  line-height: 1.3;
+}
+
+/* Back Cover Page */
+.back-cover-page {
+  background: linear-gradient(135deg, #dc143c 0%, #1a1a1a 100%);
+  border: none;
+}
+
+.back-cover-page::before {
+  display: none;
+}
+
+.back-cover-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--color-white, #ffffff);
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.back-cover-title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 0 0 1.3rem 0;
+  line-height: 1.3;
+}
+
+.back-cover-text {
+  font-size: 0.96rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 2.5rem;
+}
+
+.back-cover-logo {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* ==========================================
+   NAVIGATION CONTROLS
+   ========================================== */
+.flipbook-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 20px;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+/* Boutons de navigation */
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: #2c5aa0;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-primary, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-button:hover:not(.disabled) {
+  background: #1a4480;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-button:active:not(.disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Bouton désactivé */
+.nav-button.disabled {
+  background: #b0b0b0;
+  color: #e0e0e0;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.nav-button.disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+.nav-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Indicateurs de pagination */
+.pagination-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  margin: 0 20px;
+  flex-wrap: wrap;
+  max-width: 400px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d0d0d0;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.dot:hover {
+  background: #a0a0a0;
+  transform: scale(1.3);
+}
+
+.dot.active {
+  background: #2c5aa0;
+  width: 12px;
+  height: 12px;
+  box-shadow: 0 0 8px rgba(44, 90, 160, 0.6);
+}
+
+/* Animations des icônes */
+.prev-button:hover:not(.disabled) .nav-icon {
+  animation: slideLeft 0.6s ease infinite;
+}
+
+.next-button:hover:not(.disabled) .nav-icon {
+  animation: slideRight 0.6s ease infinite;
+}
+
+@keyframes slideLeft {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+}
+
+@keyframes slideRight {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+/* ==========================================
+   RESPONSIVE FLIPBOOK
+   ========================================== */
+@media (max-width: 768px) {
+  .flipbook {
+    transform: scale(0.85);
+  }
+
+  .flipbook-navigation {
+    flex-direction: column;
+    gap: 15px;
+    max-width: 100%;
+  }
+
+  .pagination-dots {
+    order: -1;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .nav-button {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  .page-content {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .cover-title {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+  }
+
+  .cover-subtitle {
+    font-size: 1.125rem;
+  }
+
+  .page-year {
+    font-size: 1.25rem;
+  }
+
+  .page-title {
+    font-size: 1.3rem;
+  }
+
+  .page-description {
+    font-size: 0.85rem;
+  }
+
+  .stats-grid-book {
+    gap: 1rem;
+  }
+
+  .stat-number-book {
+    font-size: 1.7rem;
+  }
+
+  .stat-label-book {
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .flipbook {
+    transform: scale(0.7);
+  }
+
+  .nav-text {
+    display: none;
+  }
+
+  .nav-button {
+    padding: 12px 20px;
+    max-width: 200px;
+  }
+
+  .pagination-dots {
+    gap: 6px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .dot.active {
+    width: 10px;
+    height: 10px;
+  }
+
+  .page-content {
+    padding: 1.25rem 1rem;
+  }
+
+  .cover-title {
+    font-size: 2rem;
+  }
+
+  .page-year {
+    font-size: 1.1rem;
+  }
+
+  .page-title {
+    font-size: 1.2rem;
+  }
+
+  .page-description {
+    font-size: 0.8rem;
+  }
+
+  .value-icon-large {
+    width: 60px;
+    height: 60px;
+  }
+
+  .value-icon-large svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .stat-number-book {
+    font-size: 1.5rem;
+  }
+
+  .back-cover-title {
+    font-size: 1.5rem;
+  }
+
+  .back-cover-logo {
+    font-size: 2rem;
+  }
+}

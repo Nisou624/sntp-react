@@ -40,7 +40,7 @@ const NosEngagements = () => {
       </section>
 
       {/* ENVIRONNEMENT SECTION */}
-      <section className="engagement-section environnement-section">
+      <section className="engagement-section environnement-section" id="environnement-section">
         <div className="container">
           <div className="section-header text-center">
             <div className="section-icon env-icon">
@@ -94,7 +94,7 @@ const NosEngagements = () => {
       </section>
 
       {/* RSE SECTION */}
-      <section className="engagement-section rse-section">
+      <section className="engagement-section rse-section" id="rse-section">
         <div className="container">
           <div className="section-header text-center">
             <div className="section-icon rse-icon">
@@ -151,7 +151,7 @@ const NosEngagements = () => {
       </section>
 
       {/* INNOVATION SECTION */}
-      <section className="engagement-section innovation-section">
+      <section className="engagement-section innovation-section" id="innovation-section">
         <div className="container">
           <div className="section-header text-center">
             <div className="section-icon innovation-icon">
@@ -209,7 +209,7 @@ const NosEngagements = () => {
       </section>
 
       {/* SANTÉ & SÉCURITÉ SECTION */}
-      <section className="engagement-section sante-section">
+      <section className="engagement-section sante-section" id="sante-section">
         <div className="container">
           <div className="section-header text-center">
             <div className="section-icon sante-icon">

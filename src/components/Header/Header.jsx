@@ -13,8 +13,6 @@ const Header = () => {
     '/faq', 
     '/about', 
     '/implantations', 
-    '/nos-engagements', 
-    '/services',
     '/nos-unites', 
     '/nos-directions', 
     '/nos-appels-offres',

@@ -16,10 +16,10 @@ const MegaMenu = ({ isOpen, onClose }) => {
     {
       title: 'Nos Engagements',
       items: [
-        { path: '/environnement', label: 'Environnement' },
-        { path: '/rse', label: 'RSE' },
-        { path: '/innovation', label: 'Innovation' },
-        { path: '/sante-securite', label: 'Santé & Sécurité' }
+        { path: '/nos-engagements#environnement-section', label: 'Environnement' },
+        { path: '/nos-engagements#rse-section', label: 'RSE' },
+        { path: '/nos-engagements#innovation-section', label: 'Innovation' },
+        { path: '/nos-engagements#sante-section', label: 'Santé & Sécurité' }
       ]
     },
     {

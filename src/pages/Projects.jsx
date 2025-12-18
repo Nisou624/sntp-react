@@ -21,23 +21,12 @@ const Projects = () => {
   const lenisRef = useRef(null);
   const scrollTriggersRef = useRef([]);
 
-  // Descriptions par catégorie
-  const categoryDescriptions = {
-    all: "L'ensemble de nos réalisations témoigne de notre expertise dans tous les domaines du génie civil et des travaux publics.",
-    routes: "Construction et réhabilitation d'infrastructures routières modernes, durables et sécurisées pour connecter les territoires.",
-    batiments: "Édification de structures résidentielles et commerciales de haute qualité, alliant design moderne et fonctionnalité.",
-    ouvrages: "Conception et construction d'ouvrages d'art exceptionnels : ponts, viaducs et structures monumentales.",
-    hydraulique: "Projets de gestion de l'eau, barrages et stations d'épuration pour préserver nos ressources hydriques.",
-    industriel: "Développement de complexes industriels performants, sécurisés et respectueux des normes environnementales."
-  };
-
   // Charger les projets depuis l'API
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         setLoading(true);
         setError(null);
-        
         const response = await projetService.getAllProjets({
           limit: 100,
           sortBy: 'year',
@@ -62,16 +51,26 @@ const Projects = () => {
 
   // Grouper les projets par catégorie
   const projectsByCategory = categories.reduce((acc, category) => {
-    acc[category.id] = category.id === 'all' 
-      ? projects 
+    acc[category.id] = category.id === 'all'
+      ? projects
       : projects.filter(p => p.category === category.id);
     return acc;
   }, {});
 
   // Catégories avec projets
-  const validCategories = categories.filter(cat => 
+  const validCategories = categories.filter(cat =>
     projectsByCategory[cat.id]?.length > 0
   );
+
+  // Descriptions par catégorie
+  const categoryDescriptions = {
+    all: "L'ensemble de nos réalisations témoigne de notre expertise dans tous les domaines du génie civil et des travaux publics.",
+    routes: "Construction et réhabilitation d'infrastructures routières modernes, durables et sécurisées pour connecter les territoires.",
+    batiments: "Édification de structures résidentielles et commerciales de haute qualité, alliant design moderne et fonctionnalité.",
+    ouvrages: "Conception et construction d'ouvrages d'art exceptionnels : ponts, viaducs et structures monumentales.",
+    hydraulique: "Projets de gestion de l'eau, barrages et stations d'épuration pour préserver nos ressources hydriques.",
+    industriel: "Développement de complexes industriels performants, sécurisés et respectueux des normes environnementales."
+  };
 
   // Initialisation de Lenis pour smooth scrolling
   useEffect(() => {
@@ -95,12 +94,15 @@ const Projects = () => {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
+
     requestAnimationFrame(raf);
 
-    return () => lenis.destroy();
+    return () => {
+      lenis.destroy();
+    };
   }, []);
 
-  // Configuration des animations sticky pour chaque section
+  // Configuration des animations sticky
   useEffect(() => {
     if (loading || projects.length === 0) return;
 
@@ -108,7 +110,7 @@ const Projects = () => {
       scrollTriggersRef.current.forEach(st => st.kill());
       scrollTriggersRef.current = [];
 
-      validCategories.forEach((category) => {
+      validCategories.forEach(category => {
         const section = sectionRefs.current[category.id];
         const visualWrapper = section?.querySelector('.sticky-visual-wrapper');
         const projectsList = section?.querySelector('.projects-list');
@@ -123,7 +125,6 @@ const Projects = () => {
             anticipatePin: 1,
             markers: false,
           });
-
           scrollTriggersRef.current.push(st);
         }
       });
@@ -135,7 +136,7 @@ const Projects = () => {
     };
   }, [loading, projects, validCategories]);
 
-  // Observer pour détecter la section active
+  // Observer pour section active
   useEffect(() => {
     if (loading || projects.length === 0) return;
 
@@ -145,7 +146,7 @@ const Projects = () => {
     };
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           const categoryId = entry.target.getAttribute('data-category');
           if (categoryId) {
@@ -155,18 +156,18 @@ const Projects = () => {
       });
     }, observerOptions);
 
-    Object.values(sectionRefs.current).forEach((element) => {
+    Object.values(sectionRefs.current).forEach(element => {
       if (element) observer.observe(element);
     });
 
     return () => {
-      Object.values(sectionRefs.current).forEach((element) => {
+      Object.values(sectionRefs.current).forEach(element => {
         if (element) observer.unobserve(element);
       });
     };
   }, [loading, projects]);
 
-  // Scroll vers une section spécifique avec Lenis
+  // Scroll vers section
   const scrollToSection = (categoryId) => {
     const element = sectionRefs.current[categoryId];
     if (element && lenisRef.current) {
@@ -178,7 +179,7 @@ const Projects = () => {
     }
   };
 
-  // Animation fade-in pour les cartes au scroll
+  // Animation fade-in pour les cartes
   useEffect(() => {
     if (loading || projects.length === 0) return;
 
@@ -188,7 +189,7 @@ const Projects = () => {
     };
 
     const cardObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
         }
@@ -196,10 +197,10 @@ const Projects = () => {
     }, observerOptions);
 
     const cards = document.querySelectorAll('.project-card');
-    cards.forEach((card) => cardObserver.observe(card));
+    cards.forEach(card => cardObserver.observe(card));
 
     return () => {
-      cards.forEach((card) => cardObserver.unobserve(card));
+      cards.forEach(card => cardObserver.unobserve(card));
     };
   }, [loading, projects]);
 
@@ -260,7 +261,7 @@ const Projects = () => {
         {/* Navigation sticky */}
         <nav className="projects-nav">
           <div className="projects-nav__container">
-            {validCategories.map((category) => (
+            {validCategories.map(category => (
               <button
                 key={category.id}
                 onClick={() => scrollToSection(category.id)}
@@ -275,7 +276,7 @@ const Projects = () => {
 
         {/* Sections par catégorie */}
         <div className="sections-container">
-          {validCategories.map((category) => {
+          {validCategories.map(category => {
             const categoryProjects = projectsByCategory[category.id];
             
             if (!categoryProjects || categoryProjects.length === 0) return null;
@@ -283,7 +284,7 @@ const Projects = () => {
             return (
               <section
                 key={category.id}
-                ref={(el) => (sectionRefs.current[category.id] = el)}
+                ref={el => (sectionRefs.current[category.id] = el)}
                 data-category={category.id}
                 className="split-section"
               >
@@ -293,13 +294,17 @@ const Projects = () => {
                     <div className="sticky-visual">
                       <div className="sticky-visual__image-wrapper">
                         <img
-                          src={categoryProjects[0]?.image || '/images/default-project.jpg'}
+                          src={projetService.getImageUrl(categoryProjects[0].id)}
                           alt={category.label}
                           className="sticky-visual__image"
                           loading="lazy"
+                          onError={(e) => {
+                            e.target.src = '/images/default-project.jpg';
+                          }}
                         />
                         <div className="sticky-visual__overlay"></div>
                       </div>
+
                       <div className="sticky-visual__content">
                         <h2 className="sticky-visual__title">{category.label}</h2>
                         <p className="sticky-visual__description">
@@ -307,7 +312,8 @@ const Projects = () => {
                         </p>
                         <div className="sticky-visual__meta">
                           <span className="sticky-visual__count">
-                            {categoryProjects.length} {categoryProjects.length > 1 ? 'Projets' : 'Projet'}
+                            {categoryProjects.length}{' '}
+                            {categoryProjects.length > 1 ? 'Projets' : 'Projet'}
                           </span>
                         </div>
                       </div>
@@ -324,14 +330,17 @@ const Projects = () => {
                         className="project-card"
                         style={{ transitionDelay: `${index * 0.1}s` }}
                       >
-                        <Link to={`/projects/${project.id}`} className="project-card__link">
+                        <Link to={`/projects/${project.id}`} className="project-card-link">
                           {/* Image du projet */}
                           <div className="project-card__image-container">
                             <img
-                              src={project.image}
+                              src={projetService.getImageUrl(project.id)}
                               alt={project.titre}
                               className="project-card__image"
                               loading="lazy"
+                              onError={(e) => {
+                                e.target.src = '/images/default-project.jpg';
+                              }}
                             />
                             <div className="project-card__image-overlay"></div>
                           </div>
@@ -342,9 +351,7 @@ const Projects = () => {
                               <span className="project-card__location">
                                 {project.location}
                               </span>
-                              <span className="project-card__year">
-                                {project.year}
-                              </span>
+                              <span className="project-card__year">{project.year}</span>
                             </div>
 
                             <h3 className="project-card__title">{project.titre}</h3>
@@ -377,3 +384,4 @@ const Projects = () => {
 };
 
 export default Projects;
+

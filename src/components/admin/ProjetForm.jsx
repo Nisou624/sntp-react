@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// src/components/admin/ProjetForm.jsx
+import React, { useState, useEffect, useRef } from 'react';
 import projetService from '../../services/projetService';
 import './ProjetForm.css';
 
@@ -6,7 +7,6 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
   const [formData, setFormData] = useState({
     titre: '',
     category: 'routes',
-    image: '',
     location: '',
     year: new Date().getFullYear().toString(),
     status: 'inprogress',
@@ -14,31 +14,107 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
     latitude: '',
     longitude: ''
   });
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (projet) {
       setFormData({
-        titre: projet.titre || '',
+        titre: projet.titre,
         category: projet.category || 'routes',
-        image: projet.image || '',
-        location: projet.location || '',
+        location: projet.location,
         year: projet.year || new Date().getFullYear().toString(),
         status: projet.status || 'inprogress',
-        description: projet.description || '',
+        description: projet.description,
         latitude: projet.latitude || '',
         longitude: projet.longitude || ''
       });
+      
+      // Charger l'image existante
+      if (projet.hasImage) {
+        const imageUrl = projetService.getImageUrl(projet.id);
+        setImagePreview(imageUrl);
+      }
     }
   }, [projet]);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
     setError('');
+  };
+
+  const handleImageChange = (file) => {
+    if (!file) return;
+
+    // Validation du type de fichier
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!validTypes.includes(file.type)) {
+      setError('Seuls les fichiers images sont autorisés (JPEG, PNG, GIF, WebP)');
+      return;
+    }
+
+    // Validation de la taille (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      setError('L\'image ne doit pas dépasser 5MB');
+      return;
+    }
+
+    setImageFile(file);
+    
+    // Créer un aperçu de l'image
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+    setError('');
+  };
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleImageChange(file);
+    }
+  };
+
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      handleImageChange(files[0]);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setImageFile(null);
+    setImagePreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -47,9 +123,21 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
     setError('');
 
     try {
+      // Vérifier si l'utilisateur est connecté
+      const token = localStorage.getItem('adminToken');
+      if (!token) {
+        setError('Vous devez être connecté pour effectuer cette action');
+        setLoading(false);
+        // Rediriger vers la page de connexion après 2 secondes
+        setTimeout(() => {
+          window.location.href = '/admin/login';
+        }, 2000);
+        return;
+      }
+
       // Valider les coordonnées si fournies
       const dataToSend = { ...formData };
-
+      
       if (dataToSend.latitude) {
         const lat = parseFloat(dataToSend.latitude);
         if (isNaN(lat) || lat < -90 || lat > 90) {
@@ -77,10 +165,10 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
       let response;
       if (projet) {
         // Mode édition
-        response = await projetService.update(projet.id, dataToSend);
+        response = await projetService.updateProjet(projet.id, dataToSend, imageFile);
       } else {
         // Mode création
-        response = await projetService.create(dataToSend);
+        response = await projetService.createProjet(dataToSend, imageFile);
       }
 
       if (response.success) {
@@ -89,7 +177,8 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
         setError(response.message || 'Une erreur est survenue');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Une erreur est survenue');
+      console.error('Erreur lors de la soumission:', err);
+      setError(err.message || 'Une erreur est survenue');
     } finally {
       setLoading(false);
     }
@@ -107,8 +196,70 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
     <div className="form-container">
       <div className="form-card">
         <h3>{projet ? 'Modifier le Projet' : 'Nouveau Projet'}</h3>
+        
         <form onSubmit={handleSubmit} className="projet-form">
           {error && <div className="alert alert-error">{error}</div>}
+
+          {/* Upload d'image */}
+          <div className="form-section-header">
+            <h4>Image du Projet</h4>
+            <p className="section-description">
+              Téléchargez une image représentative du projet (max 5MB)
+            </p>
+          </div>
+
+          <div
+            className={`image-upload-zone ${isDragging ? 'dragging' : ''} ${imagePreview ? 'has-image' : ''}`}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+            onClick={() => fileInputRef.current?.click()}
+          >
+            {imagePreview ? (
+              <div className="image-preview-container">
+                <img src={imagePreview} alt="Aperçu" className="image-preview" />
+                <div className="image-overlay">
+                  <button
+                    type="button"
+                    className="btn-remove-image"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemoveImage();
+                    }}
+                  >
+                    <i className="fas fa-trash"></i> Supprimer
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-change-image"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      fileInputRef.current?.click();
+                    }}
+                  >
+                    <i className="fas fa-sync"></i> Changer
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="upload-placeholder">
+                <i className="fas fa-cloud-upload-alt upload-icon"></i>
+                <p className="upload-text">
+                  Cliquez pour sélectionner ou glissez-déposez une image
+                </p>
+                <p className="upload-hint">JPEG, PNG, GIF, WebP (max 5MB)</p>
+              </div>
+            )}
+            
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+              onChange={handleFileInputChange}
+              style={{ display: 'none' }}
+            />
+          </div>
 
           {/* Titre */}
           <div className="form-group">
@@ -123,7 +274,7 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
               onChange={handleChange}
               required
               disabled={loading}
-              placeholder="Ex: Autoroute Est-Ouest"
+              placeholder="Ex : Autoroute Est-Ouest"
             />
           </div>
 
@@ -141,7 +292,7 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
                 disabled={loading}
                 required
               >
-                {categories.map((cat) => (
+                {categories.map(cat => (
                   <option key={cat.value} value={cat.value}>
                     {cat.icon} {cat.label}
                   </option>
@@ -161,9 +312,9 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
                 onChange={handleChange}
                 required
                 disabled={loading}
-                placeholder="Ex: 2024"
+                placeholder="Ex : 2024"
                 pattern="[0-9]{4}"
-                title="Format: YYYY (ex: 2024)"
+                title="Format : YYYY (ex: 2024)"
               />
             </div>
           </div>
@@ -181,28 +332,8 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
               onChange={handleChange}
               required
               disabled={loading}
-              placeholder="Ex: Alger - Oran"
+              placeholder="Ex : Alger - Oran"
             />
-          </div>
-
-          {/* Image URL */}
-          <div className="form-group">
-            <label htmlFor="image">
-              URL de l'Image <span className="required">*</span>
-            </label>
-            <input
-              type="text"
-              id="image"
-              name="image"
-              value={formData.image}
-              onChange={handleChange}
-              required
-              disabled={loading}
-              placeholder="Ex: /assets/images/project-autoroute.jpg"
-            />
-            <small className="form-help">
-              Chemin relatif ou URL complète de l'image du projet
-            </small>
           </div>
 
           {/* Statut */}
@@ -258,7 +389,7 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
                 value={formData.latitude}
                 onChange={handleChange}
                 disabled={loading}
-                placeholder="Ex: 36.7538"
+                placeholder="Ex : 36.7538"
                 pattern="-?[0-9]+\.?[0-9]*"
                 title="Format décimal (ex: 36.7538)"
               />
@@ -274,7 +405,7 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
                 value={formData.longitude}
                 onChange={handleChange}
                 disabled={loading}
-                placeholder="Ex: 3.0588"
+                placeholder="Ex : 3.0588"
                 pattern="-?[0-9]+\.?[0-9]*"
                 title="Format décimal (ex: 3.0588)"
               />
@@ -297,7 +428,7 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
               className="btn btn-primary"
               disabled={loading}
             >
-              {loading ? 'Enregistrement...' : projet ? 'Modifier' : 'Créer'}
+              {loading ? 'Enregistrement...' : (projet ? 'Modifier' : 'Créer')}
             </button>
           </div>
         </form>

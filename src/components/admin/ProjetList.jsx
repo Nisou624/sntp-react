@@ -25,7 +25,7 @@ const ProjetsList = ({ onEdit, onDelete, refreshTrigger }) => {
   const loadProjets = async () => {
     try {
       setLoading(true);
-      const response = await projetService.getAll({
+      const response = await projetService.getAllProjets({
         page: currentPage,
         limit: limit,
         category: filterCategory,
@@ -195,7 +195,13 @@ const ProjetsList = ({ onEdit, onDelete, refreshTrigger }) => {
                 <tr key={projet.id}>
                   <td data-label="Image">
                     <div className="projet-image-thumb">
-                      <img src={projet.image} alt={projet.titre} />
+                      {projet.hasImage ? (
+                        <img src={projetService.getImageUrl(projet.id)} alt={projet.titre} onError={ (e) => {e.target.src = 'https://via.placeholder.com/80x60?text=Pas+d\'image';}} />
+                      ): (
+                        <div className="no-image-placeholder">
+                          <i className="fas fa-image"></i>
+                        </div>
+                      )}
                     </div>
                   </td>
                   <td data-label="Titre">

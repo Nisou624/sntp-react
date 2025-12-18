@@ -1,89 +1,222 @@
-import api from './api';
+// src/services/projetService.js
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 const projetService = {
-  /**
-   * Récupérer tous les projets avec filtres et pagination
-   */
-  getAll: async (params) => {
+  // Récupérer tous les projets
+  getAllProjets: async (params = {}) => {
     try {
-      const queryParams = new URLSearchParams();
-      
-      // Ajouter les paramètres à l'URL
-      if (params?.page) queryParams.append('page', params.page);
-      if (params?.limit) queryParams.append('limit', params.limit);
-      if (params?.category) queryParams.append('category', params.category);
-      if (params?.status) queryParams.append('status', params.status);
-      if (params?.search) queryParams.append('search', params.search);
-      if (params?.sortBy) queryParams.append('sortBy', params.sortBy);
-      if (params?.sortOrder) queryParams.append('sortOrder', params.sortOrder);
-      
-      const response = await api.get(`/projets?${queryParams.toString()}`);
-      return response.data;
+      const queryParams = new URLSearchParams(params);
+      const response = await fetch(`${API_URL}/projets?${queryParams}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await response.json();
+      return data;
     } catch (error) {
       console.error('Erreur lors de la récupération des projets:', error);
       throw error;
     }
   },
 
-  /**
-   * Récupérer un projet par ID
-   */
-  getById: async (id) => {
+  // Récupérer un projet par ID
+  getProjetById: async (id) => {
     try {
-      const response = await api.get(`/projets/${id}`);
-      return response.data;
+      const response = await fetch(`${API_URL}/projets/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await response.json();
+      return data;
     } catch (error) {
-      console.error(`Erreur lors de la récupération du projet ${id}:`, error);
+      console.error('Erreur lors de la récupération du projet:', error);
       throw error;
     }
   },
 
-  /**
-   * Créer un nouveau projet
-   */
-  create: async (projetData) => {
+  // Obtenir l'URL de l'image d'un projet
+  getImageUrl: (id) => {
+    return `${API_URL}/projets/${id}/image`;
+  },
+
+  // Créer un nouveau projet
+  createProjet: async (projetData, imageFile) => {
     try {
-      const response = await api.post('/projets', projetData);
-      return response.data;
+      const formData = new FormData();
+      
+      // Ajouter les champs du projet
+      Object.keys(projetData).forEach(key => {
+        if (projetData[key] !== null && projetData[key] !== undefined) {
+          formData.append(key, projetData[key]);
+        }
+      });
+      
+      // Ajouter le fichier image si présent
+      if (imageFile) {
+        formData.append('image', imageFile);
+      }
+      
+      // CORRECTION ICI : Récupérer le token correctement
+      const token = localStorage.getItem('adminToken');
+      
+      // Debug
+      console.log('📤 Token envoyé:', token ? token.substring(0, 20) + '...' : 'AUCUN TOKEN');
+      
+      if (!token) {
+        throw new Error('Vous devez être connecté pour créer un projet');
+      }
+      
+      const response = await fetch(`${API_URL}/projets`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+          // NE PAS ajouter Content-Type pour FormData - le navigateur le fait automatiquement
+        },
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      // Vérifier si la réponse est une erreur d'authentification
+      if (response.status === 401) {
+        // Token invalide ou expiré
+        localStorage.removeItem('adminToken');
+        throw new Error('Session expirée. Veuillez vous reconnecter.');
+      }
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Erreur lors de la création du projet');
+      }
+      
+      return data;
     } catch (error) {
       console.error('Erreur lors de la création du projet:', error);
       throw error;
     }
   },
 
-  /**
-   * Mettre à jour un projet existant
-   */
-  update: async (id, projetData) => {
+  // Mettre à jour un projet
+  updateProjet: async (id, projetData, imageFile) => {
     try {
-      const response = await api.put(`/projets/${id}`, projetData);
-      return response.data;
+      const formData = new FormData();
+      
+      // Ajouter les champs du projet
+      Object.keys(projetData).forEach(key => {
+        if (projetData[key] !== null && projetData[key] !== undefined) {
+          formData.append(key, projetData[key]);
+        }
+      });
+      
+      // Ajouter le fichier image si présent
+      if (imageFile) {
+        formData.append('image', imageFile);
+      }
+      
+      // CORRECTION ICI : Récupérer le token correctement
+      const token = localStorage.getItem('adminToken');
+      
+      // Debug
+      console.log('📤 Token envoyé:', token ? token.substring(0, 20) + '...' : 'AUCUN TOKEN');
+      
+      if (!token) {
+        throw new Error('Vous devez être connecté pour modifier un projet');
+      }
+      
+      const response = await fetch(`${API_URL}/projets/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`
+          // NE PAS ajouter Content-Type pour FormData
+        },
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      // Vérifier si la réponse est une erreur d'authentification
+      if (response.status === 401) {
+        localStorage.removeItem('adminToken');
+        throw new Error('Session expirée. Veuillez vous reconnecter.');
+      }
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Erreur lors de la mise à jour du projet');
+      }
+      
+      return data;
     } catch (error) {
-      console.error(`Erreur lors de la mise à jour du projet ${id}:`, error);
+      console.error('Erreur lors de la mise à jour du projet:', error);
       throw error;
     }
   },
 
-  /**
-   * Supprimer un projet
-   */
-  delete: async (id) => {
+  // Supprimer un projet
+  deleteProjet: async (id) => {
     try {
-      const response = await api.delete(`/projets/${id}`);
-      return response.data;
+      const token = localStorage.getItem('adminToken');
+      
+      if (!token) {
+        throw new Error('Vous devez être connecté pour supprimer un projet');
+      }
+      
+      const response = await fetch(`${API_URL}/projets/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      const data = await response.json();
+      
+      if (response.status === 401) {
+        localStorage.removeItem('adminToken');
+        throw new Error('Session expirée. Veuillez vous reconnecter.');
+      }
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Erreur lors de la suppression du projet');
+      }
+      
+      return data;
     } catch (error) {
-      console.error(`Erreur lors de la suppression du projet ${id}:`, error);
+      console.error('Erreur lors de la suppression du projet:', error);
       throw error;
     }
   },
 
-  /**
-   * Récupérer les statistiques
-   */
+  // Obtenir les statistiques
   getStatistics: async () => {
     try {
-      const response = await api.get('/projets/admin/statistics');
-      return response.data;
+      const token = localStorage.getItem('adminToken');
+      
+      if (!token) {
+        throw new Error('Vous devez être connecté pour accéder aux statistiques');
+      }
+      
+      const response = await fetch(`${API_URL}/projets/admin/statistics`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      const data = await response.json();
+      
+      if (response.status === 401) {
+        localStorage.removeItem('adminToken');
+        throw new Error('Session expirée. Veuillez vous reconnecter.');
+      }
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Erreur lors de la récupération des statistiques');
+      }
+      
+      return data;
     } catch (error) {
       console.error('Erreur lors de la récupération des statistiques:', error);
       throw error;
