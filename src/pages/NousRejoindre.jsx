@@ -608,7 +608,7 @@ const NousRejoindre = () => {
       </section>
 
       {/* Section Candidature Spontanée */}
-      <section className="spontaneous-application-section" id="spontaneous-application">
+      <section className="spontaneous-application-section" id="candidature-spontanee">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

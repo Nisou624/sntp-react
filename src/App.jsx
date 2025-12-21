@@ -47,6 +47,11 @@ import ProtectedRoute from './components/admin/ProtectedRoute';
 import ArticleList from './components/admin/ArticleList';
 import ArticleForm from './components/admin/ArticleForm';
 import BlogArticle from './pages/BlogArticle';
+import ArticleDetail from './pages/ArticleDetail';
+
+import MentionsMedias from './pages/MentionsMedias';
+import MentionsList from './components/admin/MentionsList';
+import MentionForm from './components/admin/MentionForm';
 
 
 function AppContent() {
@@ -78,7 +83,7 @@ function AppContent() {
             <Route path="/services" element={<Services />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/blog" element={<Blog />} />
-            <Route path='/articles/:slug' element={<BlogArticle />} />
+            <Route path='/articles/:slug' element={<ArticleDetail />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/implantations" element={<Implantations />} />
             <Route path="/sntp-engineering" element={<SNTPEngineering />} />
@@ -96,17 +101,15 @@ function AppContent() {
             <Route path="/nous-rejoindre" element={<NousRejoindre />} />
             <Route path="/nos-appels-offres" element={<AppelsOffres />} />
             <Route path="/nos-appels-offres/:id" element={<AppelOffreDetails />} />
+            <Route path="/mentions-medias" element={<MentionsMedias />} />
             <Route path='/admin/login' element={<Login />} />
             <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}>
-              
               {/* Routes Articles */}
               <Route path="articles" element={<ArticleList />} />
               <Route path="articles/nouveau" element={<ArticleForm />} />
               <Route path="articles/modifier/:id" element={<ArticleForm />} />
             </Route>
 
-            // Dans les routes publiques
-            <Route path="/articles/:slug" element={<BlogArticle />} />
             <Route 
               path='/admin/articles'
               element={
@@ -120,6 +123,38 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <ArticleForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route 
+              path='/admin/articles/modifier/:id'
+              element={
+                <ProtectedRoute>
+                  <ArticleForm />
+                </ProtectedRoute>
+              }
+            />
+             <Route 
+              path='/admin/mentions-medias'
+              element={
+                <ProtectedRoute>
+                  <MentionsList />
+                </ProtectedRoute>
+              }
+            />
+            <Route 
+              path='/admin/mentions-medias/nouveau'
+              element={
+                <ProtectedRoute>
+                  <MentionForm />
+                </ProtectedRoute>
+              }
+            />
+             <Route 
+              path='/admin/mentions-medias/modifier/:id'
+              element={
+                <ProtectedRoute>
+                  <MentionForm />
                 </ProtectedRoute>
               }
             />

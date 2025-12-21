@@ -1,17 +1,19 @@
-// src/pages/Blog.jsx - VERSION AVEC DEBUG
+// src/pages/Blog.jsx - VERSION COMPLÈTE UNIFIÉE
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaCalendarAlt, FaUser, FaTag, FaSearch } from 'react-icons/fa';
+import { FaCalendarAlt, FaUser, FaTag, FaSearch, FaExternalLinkAlt, FaNewspaper, FaVideo, FaMicrophone, FaFileAlt } from 'react-icons/fa';
 import { getAllArticles } from '../services/articleService';
 import { toast } from 'react-toastify';
 import './Blog.css';
 
 const Blog = () => {
   const navigate = useNavigate();
-  const [articles, setArticles] = useState([]);
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStatus, setSelectedStatus] = useState(''); // ⚠️ CHANGÉ: vide pour tout récupérer
+  const [selectedTypeContenu, setSelectedTypeContenu] = useState(''); // '' = tous, 'article', 'mention_media'
+  const [selectedTypeMedia, setSelectedTypeMedia] = useState(''); // Pour filtrer les mentions Médias
+  
   
   const [pagination, setPagination] = useState({
     page: 1,
@@ -20,24 +22,18 @@ const Blog = () => {
     totalPages: 0
   });
 
-  // Charger les articles
+  // Charger les items (articles + mentions médias)
   useEffect(() => {
-    loadArticles();
-  }, [pagination.page, selectedStatus, searchTerm]);
+    loadItems();
+  }, [pagination.page, selectedTypeContenu, selectedTypeMedia, searchTerm]);
 
-  const loadArticles = async () => {
+  const loadItems = async () => {
     try {
       setLoading(true);
-      
-      console.log('🔍 Paramètres de recherche:', {
-        statut: selectedStatus,
-        search: searchTerm,
-        page: pagination.page,
-        limit: pagination.limit
-      });
-
       const response = await getAllArticles({
-        statut: selectedStatus, // Vide = tous les statuts
+        statut: 'publie',
+        typeContenu: selectedTypeContenu,
+        typeMedia: selectedTypeMedia,
         search: searchTerm,
         page: pagination.page,
         limit: pagination.limit,
@@ -45,19 +41,15 @@ const Blog = () => {
         sortOrder: 'DESC'
       });
 
-      console.log('✅ Réponse API complète:', response);
-      console.log('📦 Articles reçus:', response.data);
-      console.log('📊 Pagination:', response.pagination);
-
-      setArticles(response.data || []);
+      setItems(response.data);
       setPagination(prev => ({
         ...prev,
-        total: response.pagination?.total || 0,
-        totalPages: response.pagination?.totalPages || 0
+        total: response.pagination.total,
+        totalPages: response.pagination.totalPages
       }));
     } catch (error) {
-      console.error('❌ Erreur complète:', error);
-      toast.error('Erreur lors du chargement des articles');
+      toast.error('Erreur lors du chargement du contenu');
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -74,9 +66,39 @@ const Blog = () => {
     });
   };
 
-  // Gérer le clic sur un article
-  const handleArticleClick = (slug) => {
-    navigate(`/articles/${slug}`);
+  // Icône selon le type de média
+  const getTypeMediaIcon = (typeMedia) => {
+    const icons = {
+      article: <FaNewspaper />,
+      video: <FaVideo />,
+      podcast: <FaMicrophone />,
+      interview: <FaMicrophone />,
+      communique: <FaFileAlt />
+    };
+    return icons[typeMedia] || <FaNewspaper />;
+  };
+
+  // Label selon le type de média
+  const getTypeMediaLabel = (typeMedia) => {
+    const labels = {
+      article: 'Article',
+      video: 'Vidéo',
+      podcast: 'Podcast',
+      interview: 'Interview',
+      communique: 'Communiqué'
+    };
+    return labels[typeMedia] || 'Article';
+  };
+
+  // Gérer le clic sur un item
+  const handleItemClick = (item) => {
+    if (item.typeContenu === 'mention_media' && item.urlExterne) {
+      // Ouvrir le lien externe pour une mention média
+      window.open(item.urlExterne, '_blank', 'noopener,noreferrer');
+    } else {
+      // Naviguer vers l'article pour un article classique
+      navigate(`/articles/${item.slug}`);
+    }
   };
 
   // Gérer la pagination
@@ -89,7 +111,7 @@ const Blog = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     setPagination(prev => ({ ...prev, page: 1 }));
-    loadArticles();
+    loadItems();
   };
 
   // Tronquer le texte
@@ -99,8 +121,20 @@ const Blog = () => {
     return text.substring(0, maxLength).trim() + '...';
   };
 
-  console.log('🎨 Rendu - Nombre d\'articles:', articles.length);
-  console.log('⏳ Loading:', loading);
+  const pargeTags = (tags) => {
+    if (!tags) return [];
+    if (Array.isArray(tags)) return tags;
+    
+    if (typeof tags === 'string') {
+      try {
+        const parsed = JSON.parse(tags);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return tags.split(',').map(t => t.trim()).filter(t => t);
+      }
+    }
+    return [];
+  }
 
   return (
     <div className="blog-page">
@@ -108,9 +142,9 @@ const Blog = () => {
       <header className="blog-hero-section">
         <div className="container">
           <div className="blog-hero-content">
-            <h1 className="blog-page-title">Blog</h1>
+            <h1 className="blog-page-title">Blog & Médias</h1>
             <p className="blog-hero-description">
-              Découvrez nos dernières actualités, projets et réalisations
+              Découvrez nos dernières actualités, projets et ce que les médias disent de nous
             </p>
             <nav className="blog-breadcrumbs">
               <span className="breadcrumb-item">
@@ -136,7 +170,7 @@ const Blog = () => {
                 <input
                   type="text"
                   className="blog-search-input"
-                  placeholder="Rechercher un article..."
+                  placeholder="Rechercher..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -146,9 +180,93 @@ const Blog = () => {
               </button>
             </form>
 
+            {/* Filtres par type de contenu */}
+            <div className="type-contenu-filters">
+              <button
+                className={`type-filter-btn ${selectedTypeContenu === '' ? 'active' : ''}`}
+                onClick={() => {
+                  setSelectedTypeContenu('');
+                  setSelectedTypeMedia('');
+                  setPagination(prev => ({ ...prev, page: 1 }));
+                }}
+              >
+                Tout
+              </button>
+              <button
+                className={`type-filter-btn ${selectedTypeContenu === 'article' ? 'active' : ''}`}
+                onClick={() => {
+                  setSelectedTypeContenu('article');
+                  setSelectedTypeMedia('');
+                  setPagination(prev => ({ ...prev, page: 1 }));
+                }}
+              >
+                <FaNewspaper /> Articles
+              </button>
+              <button
+                className={`type-filter-btn ${selectedTypeContenu === 'mention_media' ? 'active' : ''}`}
+                onClick={() => {
+                  setSelectedTypeContenu('mention_media');
+                  setPagination(prev => ({ ...prev, page: 1 }));
+                }}
+              >
+                <FaExternalLinkAlt /> Mentions Médias
+              </button>
+            </div>
+
+            {/* Sous-filtres pour mentions médias */}
+            {selectedTypeContenu === 'mention_media' && (
+              <div className="type-media-filters">
+                <button
+                  className={`type-media-btn ${selectedTypeMedia === '' ? 'active' : ''}`}
+                  onClick={() => {
+                    setSelectedTypeMedia('');
+                    setPagination(prev => ({ ...prev, page: 1 }));
+                  }}
+                >
+                  Tous
+                </button>
+                <button
+                  className={`type-media-btn ${selectedTypeMedia === 'article' ? 'active' : ''}`}
+                  onClick={() => {
+                    setSelectedTypeMedia('article');
+                    setPagination(prev => ({ ...prev, page: 1 }));
+                  }}
+                >
+                  <FaNewspaper /> Articles
+                </button>
+                <button
+                  className={`type-media-btn ${selectedTypeMedia === 'video' ? 'active' : ''}`}
+                  onClick={() => {
+                    setSelectedTypeMedia('video');
+                    setPagination(prev => ({ ...prev, page: 1 }));
+                  }}
+                >
+                  <FaVideo /> Vidéos
+                </button>
+                <button
+                  className={`type-media-btn ${selectedTypeMedia === 'podcast' ? 'active' : ''}`}
+                  onClick={() => {
+                    setSelectedTypeMedia('podcast');
+                    setPagination(prev => ({ ...prev, page: 1 }));
+                  }}
+                >
+                  <FaMicrophone /> Podcasts
+                </button>
+                <button
+                  className={`type-media-btn ${selectedTypeMedia === 'interview' ? 'active' : ''}`}
+                  onClick={() => {
+                    setSelectedTypeMedia('interview');
+                    setPagination(prev => ({ ...prev, page: 1 }));
+                  }}
+                >
+                  <FaMicrophone /> Interviews
+                </button>
+              </div>
+            )}
+
             <div className="blog-stats">
               <span className="stats-count">
-                {pagination.total} {pagination.total > 1 ? 'articles' : 'article'} {pagination.total > 1 ? 'trouvés' : 'trouvé'}
+                {pagination.total} {pagination.total > 1 ? 'éléments' : 'élément'}
               </span>
             </div>
           </div>
@@ -156,60 +274,86 @@ const Blog = () => {
           {loading ? (
             <div className="blog-loading">
               <div className="spinner"></div>
-              <p>Chargement des articles...</p>
+              <p>Chargement...</p>
             </div>
-          ) : articles.length === 0 ? (
-            <div className="no-articles">
+          ) : items.length === 0 ? (
+            <div className="no-items">
               <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <h3>Aucun article trouvé</h3>
+              <h3>Aucun contenu trouvé</h3>
               <p>
-                {searchTerm 
-                  ? `Aucun article ne correspond à votre recherche "${searchTerm}"`
-                  : "Aucun article disponible pour le moment."
+                {searchTerm || selectedTypeContenu
+                  ? "Aucun contenu ne correspond à vos critères"
+                  : "Aucun contenu disponible pour le moment."
                 }
               </p>
-              {searchTerm && (
+              {(searchTerm || selectedTypeContenu) && (
                 <button 
                   className="btn-reset-search"
                   onClick={() => {
                     setSearchTerm('');
+                    setSelectedTypeContenu('');
+                    setSelectedTypeMedia('');
                     setPagination(prev => ({ ...prev, page: 1 }));
                   }}
                 >
-                  Réinitialiser la recherche
+                  Réinitialiser les filtres
                 </button>
               )}
-              
-              {/* DEBUG INFO */}
-              <div style={{marginTop: '2rem', padding: '1rem', background: '#f0f0f0', borderRadius: '8px', textAlign: 'left'}}>
-                <h4>Debug Info:</h4>
-                <pre style={{fontSize: '0.85rem', overflow: 'auto'}}>
-                  {JSON.stringify({
-                    articlesCount: articles.length,
-                    loading,
-                    pagination,
-                    selectedStatus,
-                    searchTerm
-                  }, null, 2)}
-                </pre>
-              </div>
             </div>
           ) : (
             <>
               <div className="blog-grid">
-                {articles.map((article) => (
+                {items.map((item) => (
                   <article 
-                    key={article.id} 
-                    className="blog-card"
-                    onClick={() => handleArticleClick(article.slug)}
+                    key={item.id} 
+                    className={`blog-card ${item.typeContenu === 'mention_media' ? 'mention-media-card' : ''} ${item.featured ? 'featured' : ''}`}
+                    onClick={() => handleItemClick(item)}
                   >
-                    {article.imagePrincipale && (
+                    {/* Badge type de contenu */}
+                    <div className="content-type-badge">
+                      {item.typeContenu === 'mention_media' ? (
+                        <>
+                          {getTypeMediaIcon(item.typeMedia)}
+                          <span>{getTypeMediaLabel(item.typeMedia)}</span>
+                        </>
+                      ) : (
+                        <>
+                          <FaNewspaper />
+                          <span>Article SNTP</span>
+                        </>
+                      )}
+                    </div>
+
+                    {/* Featured badge */}
+                    {item.featured && (
+                      <div className="featured-badge-top">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        À la une
+                      </div>
+                    )}
+
+                    {/* Image ou Logo source */}
+                    {item.typeContenu === 'mention_media' && item.logoSource ? (
+                      <div className="blog-card-logo-wrapper">
+                        <img 
+                          src={item.logoSource} 
+                          alt={item.sourceMedia || item.titre}
+                          className="blog-card-logo"
+                          loading="lazy"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                      </div>
+                    ) : item.imageUrl ? (
                       <div className="blog-card-image-wrapper">
                         <img 
-                          src={article.imagePrincipale} 
-                          alt={article.titre}
+                          src={item.imageUrl} 
+                          alt={item.titre}
                           className="blog-card-image"
                           loading="lazy"
                           onError={(e) => {
@@ -218,45 +362,50 @@ const Blog = () => {
                         />
                         <div className="blog-card-overlay"></div>
                       </div>
-                    )}
+                    ) : null}
                     
                     <div className="blog-card-content">
                       <div className="blog-entry-meta">
-                        {article.datePublication && (
-                          <time className="blog-meta-date" dateTime={article.datePublication}>
+                        {item.datePublication && (
+                          <time className="blog-meta-date" dateTime={item.datePublication}>
                             <FaCalendarAlt className="meta-icon" />
-                            {formatDate(article.datePublication)}
+                            {formatDate(item.datePublication)}
                           </time>
                         )}
                         
-                        {article.auteur && (
+                        {item.typeContenu === 'mention_media' && item.sourceMedia ? (
+                          <span className="blog-meta-source">
+                            <FaExternalLinkAlt className="meta-icon" />
+                            {item.sourceMedia}
+                          </span>
+                        ) : item.auteur ? (
                           <span className="blog-meta-author">
                             <FaUser className="meta-icon" />
-                            {article.auteur}
+                            {item.auteur}
                           </span>
-                        )}
+                        ) : null}
                       </div>
 
-                      <h2 className="blog-entry-title">{article.titre}</h2>
+                      <h2 className="blog-entry-title">{item.titre}</h2>
 
-                      {article.extrait && (
+                      {item.extrait && (
                         <div className="blog-entry-excerpt">
-                          <p>{truncateText(article.extrait, 120)}</p>
+                          <p>{truncateText(item.extrait, 120)}</p>
                         </div>
                       )}
 
-                      {article.tags && Array.isArray(article.tags) && article.tags.length > 0 && (
+                      {item.tags && Array.isArray(item.tags) && item.tags.length > 0 && (
                         <div className="blog-tags">
                           <FaTag className="tag-icon" />
                           <div className="blog-tags-list">
-                            {article.tags.slice(0, 3).map((tag, index) => (
+                            {item.tags.slice(0, 3).map((tag, index) => (
                               <span key={index} className="blog-tag">
                                 {tag}
                               </span>
                             ))}
-                            {article.tags.length > 3 && (
+                            {item.tags.length > 3 && (
                               <span className="blog-tag blog-tag-more">
-                                +{article.tags.length - 3}
+                                +{item.tags.length - 3}
                               </span>
                             )}
                           </div>
@@ -265,10 +414,19 @@ const Blog = () => {
 
                       <div className="blog-card-footer">
                         <button className="blog-read-more">
-                          Lire la suite 
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M5 12h14M12 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
+                          {item.typeContenu === 'mention_media' ? (
+                            <>
+                              Voir l'article
+                              <FaExternalLinkAlt />
+                            </>
+                          ) : (
+                            <>
+                              Lire la suite 
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M5 12h14M12 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </>
+                          )}
                         </button>
                       </div>
                     </div>

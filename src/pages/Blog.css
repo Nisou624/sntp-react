@@ -666,4 +666,185 @@
     font-size: 0.9rem;
   }
 }
+/* src/pages/Blog.css - AJOUTS POUR MENTIONS MÉDIAS */
+
+/* ... (garder tout le CSS existant) ... */
+
+/* NOUVEAUX STYLES POUR FILTRES */
+.type-contenu-filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--grey-200);
+}
+
+.type-filter-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--grey-100);
+  color: var(--text-dark);
+  border: 2px solid transparent;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.type-filter-btn:hover {
+  background: var(--grey-200);
+  transform: translateY(-2px);
+}
+
+.type-filter-btn.active {
+  background: var(--primary-red);
+  color: white;
+  border-color: var(--primary-red);
+}
+
+.type-media-filters {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--grey-100);
+  border-radius: 8px;
+}
+
+.type-media-btn {
+  padding: 0.5rem 1rem;
+  background: white;
+  color: var(--text-dark);
+  border: 1px solid var(--grey-200);
+  border-radius: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.type-media-btn:hover {
+  border-color: var(--primary-red);
+  color: var(--primary-red);
+}
+
+.type-media-btn.active {
+  background: var(--primary-red);
+  color: white;
+  border-color: var(--primary-red);
+}
+
+/* STYLES CARTE MENTION MÉDIA */
+.mention-media-card {
+  border-left: 4px solid var(--primary-red);
+}
+
+.mention-media-card:hover {
+  border-left-color: #a00d26;
+}
+
+.content-type-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--text-dark);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.mention-media-card .content-type-badge {
+  background: var(--primary-red);
+  color: white;
+}
+
+.featured-badge-top {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+  z-index: 2;
+}
+
+.blog-card-logo-wrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, #f6f7f7 0%, #e5e7eb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.blog-card-logo {
+  max-width: 60%;
+  max-height: 80%;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: all 0.5s ease;
+}
+
+.blog-card:hover .blog-card-logo {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.blog-meta-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Open Sans', Sans-serif;
+  font-size: 0.85rem;
+  color: var(--primary-red);
+  font-weight: 600;
+}
+
+/* Ajustement responsive */
+@media (max-width: 768px) {
+  .type-contenu-filters,
+  .type-media-filters {
+    gap: 0.5rem;
+  }
+  
+  .type-filter-btn,
+  .type-media-btn {
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+  }
+  
+  .content-type-badge {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
 

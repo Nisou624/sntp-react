@@ -1,19 +1,18 @@
-// src/components/admin/ArticlesList.jsx - VERSION COMPLÈTE
+// src/components/admin/MentionsList.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAllArticles, deleteArticle } from '../../services/articleService';
+import { getAllMentions, deleteMention } from '../../services/mentionMediaService';
 import { toast } from 'react-toastify';
-import { FaEdit, FaTrash, FaEye, FaPlus, FaStar, FaNewspaper, FaExternalLinkAlt } from 'react-icons/fa';
-import './ArticleList.css';
+import { FaEdit, FaTrash, FaExternalLinkAlt, FaPlus, FaStar } from 'react-icons/fa';
+import './MentionsList.css';
 
-const ArticlesList = () => {
+const MentionsList = () => {
   const navigate = useNavigate();
-  const [articles, setArticles] = useState([]);
+  const [mentions, setMentions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     statut: '',
-    typeContenu: '', // Nouveau filtre
-    typeMedia: '',   // Nouveau filtre
+    type: '',
     search: '',
     sortBy: 'datePublication',
     sortOrder: 'DESC'
@@ -26,26 +25,26 @@ const ArticlesList = () => {
   });
 
   useEffect(() => {
-    loadArticles();
+    loadMentions();
   }, [pagination.page, filters]);
 
-  const loadArticles = async () => {
+  const loadMentions = async () => {
     try {
       setLoading(true);
-      const response = await getAllArticles({
+      const response = await getAllMentions({
         page: pagination.page,
         limit: pagination.limit,
         ...filters
       });
 
-      setArticles(response.data);
+      setMentions(response.data);
       setPagination(prev => ({
         ...prev,
         total: response.pagination.total,
         totalPages: response.pagination.totalPages
       }));
     } catch (error) {
-      toast.error('Erreur lors du chargement');
+      toast.error('Erreur lors du chargement des mentions');
       console.error(error);
     } finally {
       setLoading(false);
@@ -55,9 +54,9 @@ const ArticlesList = () => {
   const handleDelete = async (id, titre) => {
     if (window.confirm(`Êtes-vous sûr de vouloir supprimer "${titre}" ?`)) {
       try {
-        await deleteArticle(id);
-        toast.success('Supprimé avec succès');
-        loadArticles();
+        await deleteMention(id);
+        toast.success('Mention supprimée avec succès');
+        loadMentions();
       } catch (error) {
         toast.error('Erreur lors de la suppression');
         console.error(error);
@@ -81,50 +80,41 @@ const ArticlesList = () => {
     });
   };
 
-  const getTypeContentuBadge = (typeContenu) => {
-    return typeContenu === 'mention_media' ? (
-      <span className="type-badge type-mention-media">
-        <FaExternalLinkAlt /> Mention Média
-      </span>
-    ) : (
-      <span className="type-badge type-article">
-        <FaNewspaper /> Article
-      </span>
-    );
+  const getTypeBadge = (type) => {
+    const badges = {
+      article: { label: 'Article', className: 'type-article' },
+      video: { label: 'Vidéo', className: 'type-video' },
+      podcast: { label: 'Podcast', className: 'type-podcast' },
+      interview: { label: 'Interview', className: 'type-interview' },
+      communique: { label: 'Communiqué', className: 'type-communique' }
+    };
+    const badge = badges[type] || badges.article;
+    return <span className={`type-badge ${badge.className}`}>{badge.label}</span>;
   };
 
   const getStatutBadge = (statut) => {
     const badges = {
-      publie: { label: 'Publié', className: 'statut-publie' },
-      brouillon: { label: 'Brouillon', className: 'statut-brouillon' },
+      actif: { label: 'Actif', className: 'statut-actif' },
       archive: { label: 'Archivé', className: 'statut-archive' }
     };
-    const badge = badges[statut] || badges.brouillon;
+    const badge = badges[statut] || badges.actif;
     return <span className={`statut-badge ${badge.className}`}>{badge.label}</span>;
   };
 
-  const handleView = (article) => {
-    if (article.typeContenu === 'mention_media' && article.urlExterne) {
-      window.open(article.urlExterne, '_blank');
-    } else {
-      window.open(`/articles/${article.slug}`, '_blank');
-    }
-  };
-
   return (
-    <div className="articles-list-container">
-      <div className="articles-list-header">
-        <h1>Gestion du Blog & Médias</h1>
+    <div className="mentions-list-container">
+      <div className="mentions-list-header">
+        <h1>Gestion des Mentions Médias</h1>
         <button 
           className="btn-primary"
-          onClick={() => navigate('/admin/articles/nouveau')}
+          onClick={() => navigate('/admin/dashboard/mentions-medias/nouveau')}
         >
-          <FaPlus /> Nouveau contenu
+          <FaPlus /> Nouvelle Mention
         </button>
       </div>
 
       {/* Filtres */}
-      <div className="articles-filters">
+      <div className="mentions-filters">
         <div className="search-form">
           <input
             type="text"
@@ -144,37 +134,23 @@ const ArticlesList = () => {
             className="filter-select"
           >
             <option value="">Tous les statuts</option>
-            <option value="publie">Publié</option>
-            <option value="brouillon">Brouillon</option>
+            <option value="actif">Actif</option>
             <option value="archive">Archivé</option>
           </select>
 
           <select
-            name="typeContenu"
-            value={filters.typeContenu}
+            name="type"
+            value={filters.type}
             onChange={handleFilterChange}
             className="filter-select"
           >
             <option value="">Tous les types</option>
-            <option value="article">Articles</option>
-            <option value="mention_media">Mentions Médias</option>
+            <option value="article">Article</option>
+            <option value="video">Vidéo</option>
+            <option value="podcast">Podcast</option>
+            <option value="interview">Interview</option>
+            <option value="communique">Communiqué</option>
           </select>
-
-          {filters.typeContenu === 'mention_media' && (
-            <select
-              name="typeMedia"
-              value={filters.typeMedia}
-              onChange={handleFilterChange}
-              className="filter-select"
-            >
-              <option value="">Tous les médias</option>
-              <option value="article">Article</option>
-              <option value="video">Vidéo</option>
-              <option value="podcast">Podcast</option>
-              <option value="interview">Interview</option>
-              <option value="communique">Communiqué</option>
-            </select>
-          )}
 
           <select
             name="sortBy"
@@ -184,8 +160,8 @@ const ArticlesList = () => {
           >
             <option value="datePublication">Date de publication</option>
             <option value="titre">Titre</option>
+            <option value="source">Source</option>
             <option value="createdat">Date de création</option>
-            <option value="vues">Vues</option>
           </select>
 
           <select
@@ -203,90 +179,77 @@ const ArticlesList = () => {
       {/* Table */}
       {loading ? (
         <div className="loading">Chargement...</div>
-      ) : articles.length === 0 ? (
+      ) : mentions.length === 0 ? (
         <div className="no-data">
-          <p>Aucun contenu trouvé</p>
+          <p>Aucune mention trouvée</p>
         </div>
       ) : (
         <>
-          <div className="articles-table-wrapper">
-            <table className="articles-table">
+          <div className="mentions-table-wrapper">
+            <table className="mentions-table">
               <thead>
                 <tr>
                   <th>ID</th>
                   <th>Titre</th>
+                  <th>Source</th>
                   <th>Type</th>
-                  <th>Auteur / Source</th>
                   <th>Statut</th>
                   <th>Date pub.</th>
-                  <th>Vues</th>
                   <th>Featured</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {articles.map((article) => (
-                  <tr key={article.id}>
-                    <td>{article.id}</td>
-                    <td className="article-title-cell">
-                      <div className="article-title-wrapper">
-                        {(article.imagePrincipale || article.logoSource) && (
+                {mentions.map((mention) => (
+                  <tr key={mention.id}>
+                    <td>{mention.id}</td>
+                    <td className="mention-title-cell">
+                      <div className="mention-title-wrapper">
+                        {mention.logoSource && (
                           <img 
-                            src={article.imagePrincipale || article.logoSource} 
-                            alt={article.titre}
-                            className="article-thumb"
+                            src={mention.logoSource} 
+                            alt={mention.source}
+                            className="mention-logo-thumb"
                             onError={(e) => e.target.style.display = 'none'}
                           />
                         )}
                         <div>
-                          <div className="article-title">{article.titre}</div>
-                          {article.typeContenu === 'mention_media' && article.urlExterne && (
-                            <a 
-                              href={article.urlExterne}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="article-url"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <FaExternalLinkAlt /> Lien externe
-                            </a>
+                          <div className="mention-title">{mention.titre}</div>
+                          {mention.description && (
+                            <div className="mention-excerpt">
+                              {mention.description.substring(0, 60)}...
+                            </div>
                           )}
                         </div>
                       </div>
                     </td>
-                    <td>{getTypeContentuBadge(article.typeContenu)}</td>
-                    <td>
-                      {article.typeContenu === 'mention_media' 
-                        ? article.sourceMedia || 'N/A'
-                        : article.auteur || 'N/A'
-                      }
-                    </td>
-                    <td>{getStatutBadge(article.statut)}</td>
-                    <td>{formatDate(article.datePublication)}</td>
-                    <td className="text-center">{article.vues || 0}</td>
+                    <td>{mention.source || 'N/A'}</td>
+                    <td>{getTypeBadge(mention.type)}</td>
+                    <td>{getStatutBadge(mention.statut)}</td>
+                    <td>{formatDate(mention.datePublication)}</td>
                     <td className="featured-cell">
-                      {article.featured && (
+                      {mention.featured && (
                         <FaStar className="featured-icon" title="À la une" />
                       )}
                     </td>
                     <td className="actions-cell">
                       <button
                         className="btn-action btn-view"
-                        onClick={() => handleView(article)}
+                        onClick={() => window.open(mention.url, '_blank')}
                         title="Voir"
                       >
-                        <FaEye />
+                        <FaExternalLinkAlt />
                       </button>
                       <button
                         className="btn-action btn-edit"
-                        onClick={() => navigate(`/admin/articles/modifier/${article.id}`)}
+                        onClick={() => navigate(`/admin/dashboard/mentions-medias/modifier/${mention.id}`)}
                         title="Modifier"
                       >
                         <FaEdit />
                       </button>
                       <button
                         className="btn-action btn-delete"
-                        onClick={() => handleDelete(article.id, article.titre)}
+                        onClick={() => handleDelete(mention.id, mention.titre)}
                         title="Supprimer"
                       >
                         <FaTrash />
@@ -308,7 +271,7 @@ const ArticlesList = () => {
               Précédent
             </button>
             <span className="pagination-info">
-              Page {pagination.page} sur {pagination.totalPages} ({pagination.total} éléments)
+              Page {pagination.page} sur {pagination.totalPages} ({pagination.total} mentions)
             </span>
             <button
               className="pagination-btn"
@@ -324,5 +287,4 @@ const ArticlesList = () => {
   );
 };
 
-export default ArticlesList;
-
+export default MentionsList;

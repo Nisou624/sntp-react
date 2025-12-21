@@ -1,67 +1,80 @@
-import api from './api';
-import  { jwtDecode } from 'jwt-decode';
-class AuthService {
-  // Connexion
-  async login(email, password) {
-    try {
-      const response = await api.post('/auth/login', { email, password });
-      
-      if (response.data.success && response.data.token) {
-        localStorage.setItem('adminToken', response.data.token);
-        return { success: true, user: response.data.user };
-      }
-      
-      return { success: false, message: 'Erreur de connexion' };
-    } catch (error) {
-      return {
-        success: false,
-        message: error.response?.data?.message || 'Erreur de connexion'
-      };
+// src/services/authService.js - VERSION COMPLÈTE CORRECTE
+import axios from 'axios';
+
+const API_URL = 'http://localhost:5000/api/auth';
+
+// Clé pour le localStorage
+const TOKEN_KEY = 'adminToken';
+const USER_KEY = 'sntp_user';
+
+// Login
+const login = async (email, password) => {
+  try {
+    const response = await axios.post(`${API_URL}/login`, {
+      email,
+      password
+    });
+
+    if (response.data.success && response.data.token) {
+      // Stocker le token et les infos utilisateur
+      localStorage.setItem(TOKEN_KEY, response.data.token);
+      localStorage.setItem(USER_KEY, JSON.stringify(response.data.user));
     }
+
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: error.message };
   }
+};
 
-  // Déconnexion
-  logout() {
-    localStorage.removeItem('adminToken');
-    window.location.href = '/admin/login';
-  }
+// Logout
+const logout = () => {
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(USER_KEY);
+};
 
-  // Vérifier si l'utilisateur est connecté
-  isAuthenticated() {
-    const token = localStorage.getItem('adminToken');
-    
-    if (!token) return false;
+// Obtenir le token
+const getToken = () => {
+  return localStorage.getItem(TOKEN_KEY);
+};
 
+// Obtenir l'utilisateur connecté
+const getCurrentUser = () => {
+  const userStr = localStorage.getItem(USER_KEY);
+  if (userStr) {
     try {
-      const decoded = jwtDecode(token);
-      const currentTime = Date.now() / 1000;
-      
-      // Vérifier si le token est expiré
-      if (decoded.exp < currentTime) {
-        this.logout();
-        return false;
-      }
-      
-      return true;
+      return JSON.parse(userStr);
     } catch (error) {
-      this.logout();
-      return false;
-    }
-  }
-
-  // Obtenir l'utilisateur courant
-  getCurrentUser() {
-    const token = localStorage.getItem('adminToken');
-    
-    if (!token) return null;
-
-    try {
-      return jwtDecode(token);
-    } catch (error) {
+      console.error('Erreur parsing user:', error);
       return null;
     }
   }
-}
+  return null;
+};
 
-export default new AuthService();
+// Vérifier si l'utilisateur est authentifié
+const isAuthenticated = () => {
+  const token = getToken();
+  return !!token;
+};
+
+// Exporter toutes les fonctions
+const authService = {
+  login,
+  logout,
+  getToken,
+  getCurrentUser,
+  isAuthenticated
+};
+
+export default authService;
+
+// Exports nommés également (au cas où)
+export {
+  login,
+  logout,
+  getToken,
+  getCurrentUser,
+  isAuthenticated
+};
 
