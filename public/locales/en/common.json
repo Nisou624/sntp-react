@@ -1,0 +1,64 @@
+{
+  "header": {
+    "logo_alt": "SNTP Logo",
+    "menu": {
+      "home": "Home",
+      "about": "About Us",
+      "engagements": "Our Commitments",
+      "services": "Our Services",
+      "projects": "Our Projects",
+      "units": "Our Units",
+      "directions": "Our Departments",
+      "locations": "Locations",
+      "tenders": "Our Tenders",
+      "join": "Join Us",
+      "contact": "Contact Us"
+    }
+  },
+  "footer": {
+    "about": "About SNTP",
+    "navigation": "Navigation",
+    "our_units": "Our Units",
+    "contact": "Contact",
+    "follow_us": "Follow Us",
+    "rights": "© {{year}} SNTP - All rights reserved",
+    "designed_by": "Designed by",
+    "links": {
+      "legal": "Legal Notice",
+      "privacy": "Privacy Policy",
+      "sitemap": "Sitemap"
+    }
+  },
+  "buttons": {
+    "learn_more": "Learn More",
+    "contact_us": "Contact Us",
+    "read_more": "Read More",
+    "view_all": "View All",
+    "download": "Download",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close"
+  },
+  "forms": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "subject": "Subject",
+    "required": "This field is required",
+    "invalid_email": "Invalid email",
+    "success": "Form submitted successfully",
+    "error": "An error occurred"
+  },
+  "loading": "Loading...",
+  "error": "Error",
+  "no_results": "No results found",
+  "search_placeholder": "Search..."
+}
+

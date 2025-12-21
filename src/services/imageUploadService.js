@@ -1,0 +1,51 @@
+// src/services/imageUploadService.js
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+
+/**
+ * Upload une image pour le contenu de l'article
+ * @param {File} file - Fichier image
+ * @returns {Promise<string>} - URL de l'image uploadée
+ */
+export const uploadContentImage = async (file) => {
+  try {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const token = localStorage.getItem('token');
+    const response = await axios.post(`${API_URL}/images/upload`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (response.data.success) {
+      // Retourner l'URL complète de l'image
+      return response.data.data.url;
+    } else {
+      throw new Error(response.data.message || 'Erreur lors de l\'upload');
+    }
+  } catch (error) {
+    console.error('Erreur upload image:', error);
+    throw error;
+  }
+};
+
+/**
+ * Valider le type de fichier
+ */
+export const isValidImageFile = (file) => {
+  const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+  return validTypes.includes(file.type);
+};
+
+/**
+ * Valider la taille du fichier (max 5MB)
+ */
+export const isValidImageSize = (file) => {
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  return file.size <= maxSize;
+};
+

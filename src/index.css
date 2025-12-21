@@ -209,3 +209,93 @@ button {
   }
 }
 
+/* Base RTL styles */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] body {
+  font-family: 'Arial', 'Helvetica', sans-serif;
+}
+
+/* Flex direction inversée pour RTL */
+[dir="rtl"] .header-row,
+[dir="rtl"] .footer-row,
+[dir="rtl"] .flex-container {
+  flex-direction: row-reverse;
+}
+
+/* Marges et paddings inversés */
+[dir="rtl"] .ml-1 {
+  margin-left: 0;
+  margin-right: var(--spacing-xs);
+}
+
+[dir="rtl"] .mr-1 {
+  margin-right: 0;
+  margin-left: var(--spacing-xs);
+}
+
+[dir="rtl"] .pl-1 {
+  padding-left: 0;
+  padding-right: var(--spacing-xs);
+}
+
+[dir="rtl"] .pr-1 {
+  padding-right: 0;
+  padding-left: var(--spacing-xs);
+}
+
+/* Alignement du texte */
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Navigation */
+[dir="rtl"] .nav-menu {
+  flex-direction: row-reverse;
+}
+
+/* Formulaires */
+[dir="rtl"] input,
+[dir="rtl"] textarea,
+[dir="rtl"] select {
+  text-align: right;
+}
+
+/* Animations et transitions spécifiques RTL */
+[dir="rtl"] .slide-in-left {
+  animation: slideInRight 0.5s ease-out;
+}
+
+[dir="rtl"] .slide-in-right {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+

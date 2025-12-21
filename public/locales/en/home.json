@@ -1,0 +1,77 @@
+{
+  "hero": {
+    "label": "SNTP",
+    "title": "Building Tomorrow's Algeria",
+    "subtitle": "National leader in public works and construction",
+    "cta_primary": "Discover our projects",
+    "cta_secondary": "Contact us",
+    "slides": [
+      {
+        "title": "Road Infrastructure",
+        "subtitle": "Thousands of kilometers of highways and roads"
+      },
+      {
+        "title": "Engineering Structures",
+        "subtitle": "Large-scale bridges, viaducts and tunnels"
+      },
+      {
+        "title": "Buildings",
+        "subtitle": "Construction and rehabilitation of modern structures"
+      }
+    ]
+  },
+  "about": {
+    "title": "Who are we?",
+    "description": "SNTP is an Algerian public economic company specialized in public works, construction and hydraulics. With several decades of experience, we are a major player in Algeria's infrastructure development.",
+    "stats": {
+      "years": "Years of experience",
+      "projects": "Completed projects",
+      "employees": "Employees",
+      "regions": "Covered regions"
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Recognized expertise in all construction fields",
+    "items": [
+      {
+        "title": "Road Works",
+        "description": "Construction and rehabilitation of roads, highways and urban streets"
+      },
+      {
+        "title": "Engineering Structures",
+        "description": "Design and construction of bridges, viaducts and tunnels"
+      },
+      {
+        "title": "Buildings",
+        "description": "Construction of administrative, industrial and residential structures"
+      },
+      {
+        "title": "Hydraulics",
+        "description": "Sewerage networks, treatment plants and dams"
+      },
+      {
+        "title": "Civil Engineering",
+        "description": "Special foundations and earthworks"
+      },
+      {
+        "title": "Equipment Rental",
+        "description": "Provision of modern construction equipment"
+      }
+    ]
+  },
+  "projects": {
+    "title": "Key Projects",
+    "subtitle": "Discover our major achievements",
+    "view_all": "View all projects"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We are here for all your projects",
+    "form": {
+      "success": "Your message has been sent successfully",
+      "error": "Error sending message"
+    }
+  }
+}
+

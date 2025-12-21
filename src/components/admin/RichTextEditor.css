@@ -1,201 +1,558 @@
-/* src/components/admin/RichTextEditor.css */
-.tiptap-editor-wrapper {
-  border: 1px solid #dcdcde;
-  border-radius: 4px;
-  background: white;
+/* src/components/admin/RichTextEditor.css - IDENTITÉ SNTP */
+
+/* Palette SNTP: Noir #2c2c2c, Rouge #c8102e, Blanc #ffffff, Gris #6c757d */
+
+/* ========================================
+   WRAPPER
+======================================== */
+.sntp-editor-wrapper {
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.tiptap-editor-wrapper.error {
-  border-color: #d63638;
+.sntp-editor-wrapper:focus-within {
+  border-color: #c8102e;
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.1);
 }
 
-.editor-loading {
-  padding: 2rem;
-  text-align: center;
-  color: #6a6f76;
-}
-
-.tiptap-toolbar {
+/* ========================================
+   TOOLBAR - COULEURS SNTP
+======================================== */
+.sntp-toolbar {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0.75rem;
-  background: #f6f7f7;
-  border-bottom: 1px solid #dcdcde;
-  border-radius: 4px 4px 0 0;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #2c2c2c;
+  border-bottom: 3px solid #c8102e;
 }
 
 .toolbar-group {
   display: flex;
-  gap: 0.25rem;
-  padding: 0 0.5rem;
-  border-right: 1px solid #dcdcde;
+  align-items: center;
+  gap: 4px;
 }
 
-.toolbar-group:last-child {
-  border-right: none;
+.toolbar-separator {
+  width: 2px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 6px;
 }
 
-.tiptap-toolbar button {
-  padding: 0.5rem 0.75rem;
-  background: white;
-  border: 1px solid #dcdcde;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
+/* Select pour les titres */
+.heading-select {
+  padding: 8px 14px;
+  border: 2px solid #6c757d;
+  border-radius: 6px;
+  background: #fff;
+  color: #2c2c2c;
+  font-size: 14px;
   font-weight: 600;
-  color: #2c3338;
-  transition: all 0.2s;
-  min-width: 35px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.heading-select:hover {
+  border-color: #c8102e;
+}
+
+.heading-select:focus {
+  outline: none;
+  border-color: #c8102e;
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.1);
+}
+
+/* Boutons de toolbar */
+.sntp-toolbar button {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 4px;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.tiptap-toolbar button:hover:not(:disabled) {
-  background: #e5e7eb;
-  border-color: #c8102e;
+.sntp-toolbar button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
-.tiptap-toolbar button.is-active {
+.sntp-toolbar button.is-active {
   background: #c8102e;
-  color: white;
   border-color: #c8102e;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(200, 16, 46, 0.3);
 }
 
-.tiptap-toolbar button:disabled {
-  opacity: 0.4;
+.sntp-toolbar button:disabled {
+  opacity: 0.3;
   cursor: not-allowed;
 }
 
-.tiptap-content {
-  padding: 1rem;
-  min-height: 300px;
+.sntp-toolbar button.danger {
+  background: rgba(220, 38, 38, 0.1);
 }
 
-.tiptap-content .ProseMirror {
-  outline: none;
-  min-height: 300px;
+.sntp-toolbar button.danger:hover {
+  background: #dc2626;
+  border-color: #dc2626;
 }
 
-.tiptap-content .ProseMirror > * + * {
-  margin-top: 0.75em;
+/* Dropdown pour les images */
+.dropdown-wrapper {
+  position: relative;
 }
 
-.tiptap-content h1 {
-  font-size: 2em;
-  font-weight: 700;
-  line-height: 1.2;
+.dropdown-trigger {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
 }
 
-.tiptap-content h2 {
-  font-size: 1.5em;
-  font-weight: 700;
-  line-height: 1.3;
+.dropdown-arrow {
+  font-size: 10px;
+  opacity: 0.7;
 }
 
-.tiptap-content h3 {
-  font-size: 1.25em;
-  font-weight: 700;
-  line-height: 1.4;
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: #fff;
+  border: 2px solid #c8102e;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  padding: 8px;
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.tiptap-content ul,
-.tiptap-content ol {
-  padding-left: 2em;
+.dropdown-wrapper:hover .dropdown-menu {
+  display: flex;
 }
 
-.tiptap-content li {
-  margin: 0.25em 0;
-}
-
-.tiptap-content blockquote {
-  border-left: 4px solid #c8102e;
-  padding-left: 1em;
-  margin-left: 0;
-  font-style: italic;
-  color: #6a6f76;
-}
-
-.tiptap-content a {
-  color: #2271b1;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.tiptap-content a:hover {
-  color: #135e96;
-}
-
-.tiptap-content img,
-.tiptap-content .editor-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin: 1em 0;
-  display: block;
-}
-
-.tiptap-content hr {
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  background: #fff;
   border: none;
-  border-top: 2px solid #dcdcde;
-  margin: 2em 0;
+  border-radius: 6px;
+  color: #2c2c2c;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.tiptap-content code {
-  background: #f6f7f7;
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
-  font-family: 'Courier New', monospace;
-  font-size: 0.9em;
+.dropdown-item:hover {
+  background: #f8f9fa;
   color: #c8102e;
 }
 
-.tiptap-content pre {
-  background: #1e1e1e;
-  color: #d4d4d4;
-  padding: 1em;
+.dropdown-item svg {
+  font-size: 16px;
+  color: #c8102e;
+}
+
+/* Contrôles de tableau */
+.table-controls button {
+  min-width: 36px;
+  padding: 0 8px;
+  font-size: 14px;
+}
+
+/* ========================================
+   ÉDITEUR - STYLE SNTP
+======================================== */
+.sntp-editor {
+  min-height: 450px;
+  max-height: 650px;
+  overflow-y: auto;
+  background: #fff;
+}
+
+.sntp-editor-content {
+  padding: 28px 36px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #2c2c2c;
+  outline: none;
+}
+
+/* Placeholder */
+.sntp-editor-content .ProseMirror > p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #6c757d;
+  pointer-events: none;
+  height: 0;
+  font-style: italic;
+}
+
+/* Paragraphes */
+.sntp-editor-content p {
+  margin: 0.75rem 0;
+  line-height: 1.75;
+}
+
+/* Titres - Style SNTP */
+.sntp-editor-content h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 2.5rem 0 1.25rem;
+  color: #2c2c2c;
+  letter-spacing: -0.02em;
+  border-bottom: 3px solid #c8102e;
+  padding-bottom: 0.5rem;
+}
+
+.sntp-editor-content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 2rem 0 1rem;
+  color: #2c2c2c;
+  letter-spacing: -0.015em;
+}
+
+.sntp-editor-content h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 1.75rem 0 0.875rem;
+  color: #2c2c2c;
+}
+
+.sntp-editor-content h4 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 1.5rem 0 0.75rem;
+  color: #2c2c2c;
+}
+
+.sntp-editor-content h5 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 1.25rem 0 0.625rem;
+  color: #6c757d;
+}
+
+.sntp-editor-content h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 1rem 0 0.5rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Formatage texte */
+.sntp-editor-content strong {
+  font-weight: 700;
+  color: #2c2c2c;
+}
+
+.sntp-editor-content em {
+  font-style: italic;
+}
+
+.sntp-editor-content u {
+  text-decoration: underline;
+  text-decoration-color: #c8102e;
+}
+
+.sntp-editor-content s {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+/* Code inline */
+.sntp-editor-content code {
+  padding: 0.2em 0.5em;
+  margin: 0 0.1em;
+  font-size: 0.9em;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
   border-radius: 4px;
+  color: #c8102e;
+  font-weight: 600;
+}
+
+/* Bloc de code */
+.sntp-code-block {
+  margin: 1.75rem 0;
+  padding: 1.5rem;
+  background: #2c2c2c;
+  border-left: 4px solid #c8102e;
+  border-radius: 8px;
   overflow-x: auto;
 }
 
-.tiptap-content pre code {
-  background: none;
+.sntp-code-block code {
+  background: transparent;
+  border: none;
+  color: #fff;
   padding: 0;
-  color: inherit;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
-.tiptap-content p.has-text-align-left {
+/* Liens */
+.sntp-link {
+  color: #c8102e;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.sntp-link:hover {
+  border-bottom-color: #c8102e;
+}
+
+/* Listes */
+.sntp-editor-content ul,
+.sntp-editor-content ol {
+  margin: 1.25rem 0;
+  padding-left: 2rem;
+}
+
+.sntp-editor-content li {
+  margin: 0.625rem 0;
+  line-height: 1.75;
+}
+
+.sntp-editor-content ul li::marker {
+  color: #c8102e;
+  font-weight: bold;
+}
+
+.sntp-editor-content ol li::marker {
+  color: #c8102e;
+  font-weight: bold;
+}
+
+/* Citation - Style SNTP */
+.sntp-blockquote {
+  margin: 2rem 0;
+  padding: 1rem 1.75rem;
+  border-left: 5px solid #c8102e;
+  background: #f8f9fa;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #2c2c2c;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Images */
+.sntp-image {
+  max-width: 100%;
+  height: auto;
+  margin: 2rem 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 3px solid #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.sntp-image:hover {
+  box-shadow: 0 8px 24px rgba(200, 16, 46, 0.2);
+  border-color: #c8102e;
+}
+
+/* Ligne horizontale */
+.sntp-editor-content hr {
+  margin: 2.5rem 0;
+  border: none;
+  border-top: 3px solid #c8102e;
+  opacity: 0.3;
+}
+
+/* Surbrillance */
+.sntp-editor-content mark {
+  background: #fff9c4;
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+  color: inherit;
+  font-weight: 500;
+}
+
+/* Tableaux - Style SNTP */
+.sntp-table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sntp-table th,
+.sntp-table td {
+  padding: 14px 18px;
+  border: 2px solid #e5e7eb;
   text-align: left;
 }
 
-.tiptap-content p.has-text-align-center {
-  text-align: center;
+.sntp-table th {
+  background: #2c2c2c;
+  font-weight: 700;
+  color: #fff;
+  border-color: #2c2c2c;
 }
 
-.tiptap-content p.has-text-align-right {
-  text-align: right;
+.sntp-table tr:nth-child(even) {
+  background: #f8f9fa;
 }
 
-/* Responsive */
+.sntp-table tr:hover {
+  background: rgba(200, 16, 46, 0.05);
+}
+
+/* ========================================
+   AIDE RACCOURCIS - STYLE SNTP
+======================================== */
+.sntp-help {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 14px 18px;
+  background: #f8f9fa;
+  border-top: 2px solid #e5e7eb;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.help-section {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.help-section strong {
+  color: #2c2c2c;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.help-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.help-item code {
+  padding: 3px 8px;
+  background: #2c2c2c;
+  color: #fff;
+  border-radius: 4px;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.help-text {
+  color: #6c757d;
+  font-style: italic;
+  font-size: 12px;
+}
+
+/* ========================================
+   SCROLLBAR CUSTOM - COULEURS SNTP
+======================================== */
+.sntp-editor::-webkit-scrollbar {
+  width: 10px;
+}
+
+.sntp-editor::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+.sntp-editor::-webkit-scrollbar-thumb {
+  background: #6c757d;
+  border-radius: 5px;
+}
+
+.sntp-editor::-webkit-scrollbar-thumb:hover {
+  background: #c8102e;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
 @media (max-width: 768px) {
-  .tiptap-toolbar {
-    gap: 0.25rem;
-    padding: 0.5rem;
+  .sntp-toolbar {
+    padding: 10px 12px;
+    gap: 6px;
   }
 
-  .toolbar-group {
-    padding: 0 0.25rem;
+  .sntp-toolbar button {
+    min-width: 34px;
+    height: 34px;
+    font-size: 14px;
   }
 
-  .tiptap-toolbar button {
-    padding: 0.4rem 0.6rem;
-    min-width: 32px;
-    font-size: 0.85rem;
+  .heading-select {
+    min-width: 120px;
+    font-size: 13px;
   }
 
-  .tiptap-content {
-    padding: 0.75rem;
+  .sntp-editor-content {
+    padding: 20px 24px;
+    font-size: 15px;
+  }
+
+  .sntp-editor-content h1 {
+    font-size: 2rem;
+  }
+
+  .sntp-editor-content h2 {
+    font-size: 1.65rem;
+  }
+
+  .sntp-editor-content h3 {
+    font-size: 1.4rem;
+  }
+
+  .sntp-help {
+    font-size: 12px;
+    gap: 10px;
+  }
+
+  .help-section {
+    width: 100%;
   }
 }
 

@@ -1,5 +1,5 @@
-// src/components/admin/RichTextEditor.jsx - CORRECTION DES IMPORTS
-import React from 'react';
+// src/components/admin/RichTextEditor.jsx - VERSION SNTP AVEC UPLOAD
+import React, { useEffect, useRef } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
@@ -7,18 +7,43 @@ import Image from '@tiptap/extension-image';
 import TextAlign from '@tiptap/extension-text-align';
 import { TextStyle } from '@tiptap/extension-text-style';
 import { Color } from '@tiptap/extension-color';
-import { Table } from '@tiptap/extension-table'; // ✅ CORRECTION: Import nommé
-import { TableRow } from '@tiptap/extension-table-row'; // ✅ CORRECTION: Import nommé
-import { TableCell } from '@tiptap/extension-table-cell'; // ✅ CORRECTION: Import nommé
-import { TableHeader } from '@tiptap/extension-table-header'; // ✅ CORRECTION: Import nommé
+import Underline from '@tiptap/extension-underline';
+import Highlight from '@tiptap/extension-highlight';
+import Typography from '@tiptap/extension-typography';
+import Placeholder from '@tiptap/extension-placeholder';
+import Dropcursor from '@tiptap/extension-dropcursor';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
+import { 
+  FaBold, FaItalic, FaUnderline, FaStrikethrough, FaCode, 
+  FaListUl, FaListOl, FaQuoteLeft, FaLink, 
+  FaImage, FaTable, FaHighlighter, FaUndo, FaRedo,
+  FaAlignLeft, FaAlignCenter, FaAlignRight, FaAlignJustify,
+  FaUpload
+} from 'react-icons/fa';
+import { uploadContentImage, isValidImageFile, isValidImageSize } from '../../services/imageUploadService';
 import './RichTextEditor.css';
 
-const RichTextEditor = ({ value, onChange, className }) => {
+const RichTextEditor = ({ value, onChange, className, placeholder = 'Commencez à écrire... Utilisez # pour les titres, ** pour le gras...' }) => {
+  const fileInputRef = useRef(null);
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
         heading: {
           levels: [1, 2, 3, 4, 5, 6],
+        },
+        blockquote: {
+          HTMLAttributes: {
+            class: 'sntp-blockquote',
+          },
+        },
+        codeBlock: {
+          HTMLAttributes: {
+            class: 'sntp-code-block',
+          },
         },
       }),
       Link.configure({
@@ -26,37 +51,151 @@ const RichTextEditor = ({ value, onChange, className }) => {
         HTMLAttributes: {
           target: '_blank',
           rel: 'noopener noreferrer',
+          class: 'sntp-link',
         },
       }),
       Image.configure({
         HTMLAttributes: {
-          class: 'editor-image',
+          class: 'sntp-image',
         },
+        inline: true,
+      }),
+      Dropcursor.configure({
+        color: '#c8102e',
+        width: 3,
       }),
       TextAlign.configure({
         types: ['heading', 'paragraph'],
       }),
       TextStyle,
       Color,
+      Underline,
+      Highlight.configure({
+        multicolor: true,
+      }),
+      Typography,
+      Placeholder.configure({
+        placeholder,
+        showOnlyWhenEditable: true,
+      }),
       Table.configure({
         resizable: true,
+        HTMLAttributes: {
+          class: 'sntp-table',
+        },
       }),
       TableRow,
       TableHeader,
       TableCell,
     ],
     content: value || '',
+    editorProps: {
+      attributes: {
+        class: 'sntp-editor-content',
+      },
+      // Gérer le drop d'images
+      handleDrop: (view, event, slice, moved) => {
+        if (!moved && event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0]) {
+          const file = event.dataTransfer.files[0];
+          
+          if (isValidImageFile(file)) {
+            event.preventDefault();
+            handleImageUpload(file);
+            return true;
+          }
+        }
+        return false;
+      },
+      // Gérer le paste d'images
+      handlePaste: (view, event, slice) => {
+        const items = Array.from(event.clipboardData?.items || []);
+        const imageItem = items.find(item => item.type.startsWith('image/'));
+        
+        if (imageItem) {
+          event.preventDefault();
+          const file = imageItem.getAsFile();
+          if (file) {
+            handleImageUpload(file);
+          }
+          return true;
+        }
+        return false;
+      },
+    },
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       onChange(html);
     },
   });
 
+  useEffect(() => {
+    if (editor && value !== editor.getHTML()) {
+      editor.commands.setContent(value || '');
+    }
+  }, [value, editor]);
+
   if (!editor) {
-    return <div className="editor-loading">Chargement de l'éditeur...</div>;
+    return null;
   }
 
-  const addImage = () => {
+  const setHeading = (level) => {
+    editor.chain().focus().toggleHeading({ level }).run();
+  };
+
+  // Upload d'image
+  const handleImageUpload = async (file) => {
+    if (!file) return;
+
+    // Validation
+    if (!isValidImageFile(file)) {
+      alert('Format de fichier non supporté. Utilisez JPG, PNG, GIF ou WebP.');
+      return;
+    }
+
+    if (!isValidImageSize(file)) {
+      alert('La taille du fichier ne doit pas dépasser 5MB.');
+      return;
+    }
+
+    try {
+      // Afficher un loader
+      editor.chain().focus().insertContent({
+        type: 'paragraph',
+        content: [{ type: 'text', text: '⏳ Upload en cours...' }]
+      }).run();
+
+      // Upload
+      const imageUrl = await uploadContentImage(file);
+
+      // Supprimer le message de chargement et insérer l'image
+      editor.chain()
+        .focus()
+        .deleteNode('paragraph')
+        .setImage({ src: imageUrl })
+        .run();
+
+    } catch (error) {
+      console.error('Erreur upload:', error);
+      alert('Erreur lors de l\'upload de l\'image. Veuillez réessayer.');
+      // Supprimer le message de chargement
+      editor.chain().focus().deleteNode('paragraph').run();
+    }
+  };
+
+  const addImageFromFile = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleImageUpload(file);
+    }
+    // Reset input
+    e.target.value = '';
+  };
+
+  const addImageFromUrl = () => {
     const url = window.prompt('URL de l\'image:');
     if (url) {
       editor.chain().focus().setImage({ src: url }).run();
@@ -67,9 +206,7 @@ const RichTextEditor = ({ value, onChange, className }) => {
     const previousUrl = editor.getAttributes('link').href;
     const url = window.prompt('URL du lien:', previousUrl);
 
-    if (url === null) {
-      return;
-    }
+    if (url === null) return;
 
     if (url === '') {
       editor.chain().focus().extendMarkRange('link').unsetLink().run();
@@ -79,14 +216,10 @@ const RichTextEditor = ({ value, onChange, className }) => {
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   };
 
-  const setColor = () => {
-    const color = window.prompt('Couleur (hex, rgb ou nom):', '#000000');
-    if (color) {
-      editor.chain().focus().setColor(color).run();
-    }
+  const setHighlight = () => {
+    editor.chain().focus().toggleHighlight({ color: '#fff9c4' }).run();
   };
 
-  // ✅ FONCTIONS POUR LES TABLEAUX
   const insertTable = () => {
     editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
   };
@@ -120,53 +253,70 @@ const RichTextEditor = ({ value, onChange, className }) => {
   };
 
   return (
-    <div className={`tiptap-editor-wrapper ${className || ''}`}>
-      <div className="tiptap-toolbar">
-        {/* Titres */}
+    <div className={`sntp-editor-wrapper ${className || ''}`}>
+      {/* Input caché pour l'upload de fichiers */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+        style={{ display: 'none' }}
+        onChange={handleFileInputChange}
+      />
+
+      {/* TOOLBAR PRINCIPALE */}
+      <div className="sntp-toolbar">
+        {/* Groupe Titres */}
         <div className="toolbar-group">
-          <button
-            type="button"
-            onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-            className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
-            title="Titre 1"
+          <select
+            onChange={(e) => {
+              const level = parseInt(e.target.value);
+              if (level) {
+                setHeading(level);
+              } else {
+                editor.chain().focus().setParagraph().run();
+              }
+              e.target.value = '';
+            }}
+            className="heading-select"
+            defaultValue=""
           >
-            H1
-          </button>
-          <button
-            type="button"
-            onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-            className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
-            title="Titre 2"
-          >
-            H2
-          </button>
-          <button
-            type="button"
-            onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-            className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
-            title="Titre 3"
-          >
-            H3
-          </button>
+            <option value="">Texte normal</option>
+            <option value="1">📝 Titre 1</option>
+            <option value="2">📝 Titre 2</option>
+            <option value="3">📝 Titre 3</option>
+            <option value="4">📝 Titre 4</option>
+            <option value="5">📝 Titre 5</option>
+            <option value="6">📝 Titre 6</option>
+          </select>
         </div>
 
-        {/* Formatage texte */}
+        <div className="toolbar-separator"></div>
+
+        {/* Groupe Formatage */}
         <div className="toolbar-group">
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleBold().run()}
             className={editor.isActive('bold') ? 'is-active' : ''}
-            title="Gras"
+            title="Gras (Ctrl+B)"
           >
-            <strong>B</strong>
+            <FaBold />
           </button>
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleItalic().run()}
             className={editor.isActive('italic') ? 'is-active' : ''}
-            title="Italique"
+            title="Italique (Ctrl+I)"
           >
-            <em>I</em>
+            <FaItalic />
+          </button>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleUnderline().run()}
+            className={editor.isActive('underline') ? 'is-active' : ''}
+            title="Souligné (Ctrl+U)"
+          >
+            <FaUnderline />
           </button>
           <button
             type="button"
@@ -174,19 +324,21 @@ const RichTextEditor = ({ value, onChange, className }) => {
             className={editor.isActive('strike') ? 'is-active' : ''}
             title="Barré"
           >
-            <s>S</s>
+            <FaStrikethrough />
           </button>
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleCode().run()}
             className={editor.isActive('code') ? 'is-active' : ''}
-            title="Code"
+            title="Code inline"
           >
-            {'<>'}
+            <FaCode />
           </button>
         </div>
 
-        {/* Alignement */}
+        <div className="toolbar-separator"></div>
+
+        {/* Groupe Alignement */}
         <div className="toolbar-group">
           <button
             type="button"
@@ -194,7 +346,7 @@ const RichTextEditor = ({ value, onChange, className }) => {
             className={editor.isActive({ textAlign: 'left' }) ? 'is-active' : ''}
             title="Aligner à gauche"
           >
-            ⬅
+            <FaAlignLeft />
           </button>
           <button
             type="button"
@@ -202,7 +354,7 @@ const RichTextEditor = ({ value, onChange, className }) => {
             className={editor.isActive({ textAlign: 'center' }) ? 'is-active' : ''}
             title="Centrer"
           >
-            ↔
+            <FaAlignCenter />
           </button>
           <button
             type="button"
@@ -210,7 +362,7 @@ const RichTextEditor = ({ value, onChange, className }) => {
             className={editor.isActive({ textAlign: 'right' }) ? 'is-active' : ''}
             title="Aligner à droite"
           >
-            ➡
+            <FaAlignRight />
           </button>
           <button
             type="button"
@@ -218,11 +370,13 @@ const RichTextEditor = ({ value, onChange, className }) => {
             className={editor.isActive({ textAlign: 'justify' }) ? 'is-active' : ''}
             title="Justifier"
           >
-            ⬌
+            <FaAlignJustify />
           </button>
         </div>
 
-        {/* Listes */}
+        <div className="toolbar-separator"></div>
+
+        {/* Groupe Listes */}
         <div className="toolbar-group">
           <button
             type="button"
@@ -230,7 +384,7 @@ const RichTextEditor = ({ value, onChange, className }) => {
             className={editor.isActive('bulletList') ? 'is-active' : ''}
             title="Liste à puces"
           >
-            •••
+            <FaListUl />
           </button>
           <button
             type="button"
@@ -238,145 +392,131 @@ const RichTextEditor = ({ value, onChange, className }) => {
             className={editor.isActive('orderedList') ? 'is-active' : ''}
             title="Liste numérotée"
           >
-            1. 2. 3.
+            <FaListOl />
           </button>
-        </div>
-
-        {/* Liens et images */}
-        <div className="toolbar-group">
-          <button
-            type="button"
-            onClick={addLink}
-            className={editor.isActive('link') ? 'is-active' : ''}
-            title="Ajouter un lien"
-          >
-            🔗
-          </button>
-          <button
-            type="button"
-            onClick={addImage}
-            title="Ajouter une image"
-          >
-            🖼️
-          </button>
-        </div>
-
-        {/* Citation et ligne */}
-        <div className="toolbar-group">
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
             className={editor.isActive('blockquote') ? 'is-active' : ''}
             title="Citation"
           >
-            "
-          </button>
-          <button
-            type="button"
-            onClick={() => editor.chain().focus().setHorizontalRule().run()}
-            title="Ligne horizontale"
-          >
-            ―
+            <FaQuoteLeft />
           </button>
         </div>
 
-        {/* ✅ TABLEAUX */}
+        <div className="toolbar-separator"></div>
+
+        {/* Groupe Insertion */}
         <div className="toolbar-group">
+          <button
+            type="button"
+            onClick={addLink}
+            className={editor.isActive('link') ? 'is-active' : ''}
+            title="Insérer un lien"
+          >
+            <FaLink />
+          </button>
+          
+          {/* Bouton Image avec menu déroulant */}
+          <div className="dropdown-wrapper">
+            <button
+              type="button"
+              className="dropdown-trigger"
+              title="Insérer une image"
+            >
+              <FaImage />
+              <span className="dropdown-arrow">▼</span>
+            </button>
+            <div className="dropdown-menu">
+              <button type="button" onClick={addImageFromFile} className="dropdown-item">
+                <FaUpload /> Importer depuis PC
+              </button>
+              <button type="button" onClick={addImageFromUrl} className="dropdown-item">
+                <FaLink /> Depuis une URL
+              </button>
+            </div>
+          </div>
+
           <button
             type="button"
             onClick={insertTable}
             title="Insérer un tableau"
           >
-            📊
+            <FaTable />
           </button>
-          {editor.isActive('table') && (
-            <>
-              <button
-                type="button"
-                onClick={addColumnBefore}
-                title="Ajouter colonne avant"
-              >
-                ⬅️+
-              </button>
-              <button
-                type="button"
-                onClick={addColumnAfter}
-                title="Ajouter colonne après"
-              >
-                +➡️
-              </button>
-              <button
-                type="button"
-                onClick={deleteColumn}
-                title="Supprimer colonne"
-              >
-                ❌|
-              </button>
-              <button
-                type="button"
-                onClick={addRowBefore}
-                title="Ajouter ligne avant"
-              >
-                ⬆️+
-              </button>
-              <button
-                type="button"
-                onClick={addRowAfter}
-                title="Ajouter ligne après"
-              >
-                +⬇️
-              </button>
-              <button
-                type="button"
-                onClick={deleteRow}
-                title="Supprimer ligne"
-              >
-                ❌―
-              </button>
-              <button
-                type="button"
-                onClick={deleteTable}
-                title="Supprimer tableau"
-              >
-                ❌📊
-              </button>
-            </>
-          )}
         </div>
 
-        {/* Couleur */}
+        <div className="toolbar-separator"></div>
+
+        {/* Groupe Style */}
         <div className="toolbar-group">
           <button
             type="button"
-            onClick={setColor}
-            title="Couleur du texte"
+            onClick={setHighlight}
+            className={editor.isActive('highlight') ? 'is-active' : ''}
+            title="Surbrillance"
           >
-            🎨
+            <FaHighlighter />
           </button>
         </div>
 
-        {/* Annuler/Refaire */}
+        <div className="toolbar-separator"></div>
+
+        {/* Groupe Annuler/Refaire */}
         <div className="toolbar-group">
           <button
             type="button"
             onClick={() => editor.chain().focus().undo().run()}
             disabled={!editor.can().undo()}
-            title="Annuler"
+            title="Annuler (Ctrl+Z)"
           >
-            ↶
+            <FaUndo />
           </button>
           <button
             type="button"
             onClick={() => editor.chain().focus().redo().run()}
             disabled={!editor.can().redo()}
-            title="Refaire"
+            title="Refaire (Ctrl+Y)"
           >
-            ↷
+            <FaRedo />
           </button>
         </div>
+
+        {/* Contrôles de tableau */}
+        {editor.isActive('table') && (
+          <>
+            <div className="toolbar-separator"></div>
+            <div className="toolbar-group table-controls">
+              <button type="button" onClick={addColumnBefore} title="Colonne avant">⬅️+</button>
+              <button type="button" onClick={addColumnAfter} title="Colonne après">+➡️</button>
+              <button type="button" onClick={deleteColumn} title="Supprimer colonne">❌|</button>
+              <button type="button" onClick={addRowBefore} title="Ligne avant">⬆️+</button>
+              <button type="button" onClick={addRowAfter} title="Ligne après">+⬇️</button>
+              <button type="button" onClick={deleteRow} title="Supprimer ligne">❌―</button>
+              <button type="button" onClick={deleteTable} title="Supprimer tableau" className="danger">❌📊</button>
+            </div>
+          </>
+        )}
       </div>
 
-      <EditorContent editor={editor} className="tiptap-content" />
+      {/* ÉDITEUR */}
+      <EditorContent editor={editor} className="sntp-editor" />
+
+      {/* AIDE RACCOURCIS */}
+      <div className="sntp-help">
+        <div className="help-section">
+          <strong>Markdown:</strong>
+          <span className="help-item"><code>#</code> Titre</span>
+          <span className="help-item"><code>**gras**</code></span>
+          <span className="help-item"><code>*italique*</code></span>
+          <span className="help-item"><code>`code`</code></span>
+          <span className="help-item"><code>- liste</code></span>
+        </div>
+        <div className="help-section">
+          <strong>Images:</strong>
+          <span className="help-text">Glissez-déposez ou collez directement vos images</span>
+        </div>
+      </div>
     </div>
   );
 };

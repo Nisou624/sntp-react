@@ -1,0 +1,64 @@
+{
+  "header": {
+    "logo_alt": "SNTP Logo",
+    "menu": {
+      "home": "Accueil",
+      "about": "Nous connaître",
+      "engagements": "Nos engagements",
+      "services": "Nos Métiers",
+      "projects": "Nos Réalisations",
+      "units": "Nos Unités",
+      "directions": "Nos Directions",
+      "locations": "Implantations",
+      "tenders": "Nos appels d'offres",
+      "join": "Nous Rejoindre",
+      "contact": "Contactez-nous"
+    }
+  },
+  "footer": {
+    "about": "À propos de SNTP",
+    "navigation": "Navigation",
+    "our_units": "Nos Unités",
+    "contact": "Contact",
+    "follow_us": "Suivez-nous",
+    "rights": "© {{year}} SNTP - Tous droits réservés",
+    "designed_by": "Conçu par",
+    "links": {
+      "legal": "Mentions légales",
+      "privacy": "Politique de confidentialité",
+      "sitemap": "Plan du site"
+    }
+  },
+  "buttons": {
+    "learn_more": "En savoir plus",
+    "contact_us": "Contactez-nous",
+    "read_more": "Lire la suite",
+    "view_all": "Voir tout",
+    "download": "Télécharger",
+    "submit": "Envoyer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "close": "Fermer"
+  },
+  "forms": {
+    "name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "message": "Message",
+    "subject": "Sujet",
+    "required": "Ce champ est requis",
+    "invalid_email": "Email invalide",
+    "success": "Formulaire envoyé avec succès",
+    "error": "Une erreur s'est produite"
+  },
+  "loading": "Chargement...",
+  "error": "Erreur",
+  "no_results": "Aucun résultat trouvé",
+  "search_placeholder": "Rechercher..."
+}
+

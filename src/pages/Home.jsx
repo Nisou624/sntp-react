@@ -1,14 +1,25 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero/Hero';
 import { FaBuilding, FaRoad, FaTruck, FaHardHat, FaCogs, FaChartLine, FaIndustry } from 'react-icons/fa';
 import './Home.css';
 
 const Home = () => {
+
+  const { t } = useTranslation(['common', 'home']);
+
   return (
     <div className="home-page">
       {/* Hero Section - Carrousel existant conservé */}
-      <Hero />
+      <Hero 
+        slides={t('home:hero.slides', { returnObjects: true})}
+        label={t('home:hero.label')}
+        title={t('home:hero.title')}
+        subtitle={t('home:hero.subtitle')}
+        ctaPrimary={t('home:hero.cta_primary')}
+        ctaSecondary={t('home:hero.cta_secondary')}
+      />
 
       {/* Stats Section Overlapping - Exactement comme HTML statique */}
       <section className="stats-overlap-section">

@@ -1,0 +1,77 @@
+{
+  "hero": {
+    "label": "LA SNTP",
+    "title": "Construire l'Algérie de demain",
+    "subtitle": "Leader national des travaux publics et du bâtiment",
+    "cta_primary": "Découvrir nos projets",
+    "cta_secondary": "Nous contacter",
+    "slides": [
+      {
+        "title": "Infrastructure Routière",
+        "subtitle": "Des milliers de kilomètres d'autoroutes et de routes"
+      },
+      {
+        "title": "Ouvrages d'Art",
+        "subtitle": "Ponts, viaducs et tunnels d'envergure"
+      },
+      {
+        "title": "Bâtiments",
+        "subtitle": "Construction et réhabilitation de structures modernes"
+      }
+    ]
+  },
+  "about": {
+    "title": "Qui sommes-nous ?",
+    "description": "La SNTP est une entreprise publique économique algérienne spécialisée dans les travaux publics, le bâtiment et l'hydraulique. Forte de plusieurs décennies d'expérience, nous sommes un acteur majeur du développement des infrastructures en Algérie.",
+    "stats": {
+      "years": "Années d'expérience",
+      "projects": "Projets réalisés",
+      "employees": "Employés",
+      "regions": "Wilayas couvertes"
+    }
+  },
+  "services": {
+    "title": "Nos Métiers",
+    "subtitle": "Une expertise reconnue dans tous les domaines du BTP",
+    "items": [
+      {
+        "title": "Travaux Routiers",
+        "description": "Construction et réhabilitation de routes, autoroutes et voiries urbaines"
+      },
+      {
+        "title": "Ouvrages d'Art",
+        "description": "Conception et réalisation de ponts, viaducs et tunnels"
+      },
+      {
+        "title": "Bâtiments",
+        "description": "Construction de structures administratives, industrielles et résidentielles"
+      },
+      {
+        "title": "Hydraulique",
+        "description": "Réseaux d'assainissement, stations de traitement et barrages"
+      },
+      {
+        "title": "Génie Civil",
+        "description": "Fondations spéciales et travaux de terrassement"
+      },
+      {
+        "title": "Location",
+        "description": "Mise à disposition de matériel de chantier moderne"
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projets Phares",
+    "subtitle": "Découvrez nos réalisations majeures",
+    "view_all": "Voir tous les projets"
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Nous sommes à votre écoute pour tous vos projets",
+    "form": {
+      "success": "Votre message a été envoyé avec succès",
+      "error": "Erreur lors de l'envoi du message"
+    }
+  }
+}
+

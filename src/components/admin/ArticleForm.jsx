@@ -332,7 +332,7 @@ const ArticleForm = () => {
             </label>
             <RichTextEditor
               value={formData.contenu}
-              onChange={handleQuillChange}
+              onChange={(html) => setFormData(prev => ({ ...prev, contenu: html}))}
               className={errors.contenu ? 'error' : ''}
             />
             {errors.contenu && <span className="error-message">{errors.contenu}</span>}
@@ -616,7 +616,7 @@ const ArticleForm = () => {
         <div className="form-actions">
           <button
             type="button"
-            onClick={() => navigate('/admin/dashboard/articles')}
+            onClick={() => navigate('/admin/articles')}
             className="btn-secondary"
             disabled={loading}
           >

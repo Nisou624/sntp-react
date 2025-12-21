@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Implantations from './pages/Implantations';
@@ -53,10 +54,20 @@ import MentionsMedias from './pages/MentionsMedias';
 import MentionsList from './components/admin/MentionsList';
 import MentionForm from './components/admin/MentionForm';
 
+import './i18n/config';
+
 
 function AppContent() {
   const location = useLocation();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    document.documentElement.setAttribute('lang', i18n.language);
+    document.documentElement.setAttribute('dir', i18n.language === 'ar' ? 'rtl': 'ltr');
+
+  }, [i18n.language]);
+  
   
   useScrollToHash();
   const toggleChatbot = () => {

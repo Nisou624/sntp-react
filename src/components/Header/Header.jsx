@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import MegaMenu from './MegaMenu';
+import LanguageSwitcher from '../../i18n/LanguageSwitcher';
 import './Header.css';
 
 const Header = () => {
+  const { t } = useTranslation(['common']);
   const [isSticky, setIsSticky] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const location = useLocation();
@@ -48,15 +51,15 @@ const Header = () => {
 
   // Navigation items pour le menu horizontal
   const navItems = [
-    { path: '/nous-connaitre', label: 'Nous connaître' },
-    { path: '/nos-engagements', label: 'Nos engagements' },
-    { path: '/services', label: 'Nos Métiers' },
-    { path: '/projects', label: 'Nos Réalisations' },
-    { path: '/nos-unites', label: 'Nos Unités' },
-    { path: '/nos-directions', label: 'Nos Directions' },
-    { path: '/implantations', label: 'Implantations' },
-    { path: '/nos-appels-offres', label: "Nos appels d'offres" },
-    { path: '/nous-rejoindre', label: 'Nous Rejoindre' }
+    { path: '/nous-connaitre', label: t('header.menu.about') },
+    { path: '/nos-engagements', label: t('header.menu.engagements') },
+    { path: '/services', label: t('header.menu.services') },
+    { path: '/projects', label: t('header.menu.projects') },
+    { path: '/nos-unites', label: t('header.menu.units') },
+    { path: '/nos-directions', label: t('header.menu.directions') },
+    { path: '/implantations', label: t('header.menu.locations') },
+    { path: '/nos-appels-offres', label: t('header.menu.tenders') },
+    { path: '/nous-rejoindre', label: t('header.menu.join') }
   ];
 
   return (
@@ -69,7 +72,7 @@ const Header = () => {
               <Link to="/" className="site-logo-container">
                 <img
                   src="/logo.png"
-                  alt="SNTP"
+                  alt={t('header.logo_alt')}
                   className="logo"
                 />
               </Link>
@@ -90,8 +93,9 @@ const Header = () => {
 
             {/* CTA + HAMBURGER */}
             <div className="header-actions">
+              <LanguageSwitcher />
               <Link to="/about-us#contact-info" className="ct-button">
-                CONTACTEZ-NOUS
+                {t('header.menu.contact')} 
               </Link>
 
               <button
