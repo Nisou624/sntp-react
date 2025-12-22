@@ -7,12 +7,13 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
     titre: '',
     description: '',
     datePublication: '',
-    dateEcheance: '',
+    dateEcheance: '', // CHANGÉ de dateLimite à dateEcheance
     reference: '',
     montant: '',
     localisation: '',
     statut: 'actif'
   });
+
   const [pdfFile, setPdfFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -23,7 +24,7 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
         titre: appelOffre.titre || '',
         description: appelOffre.description || '',
         datePublication: appelOffre.datePublication ? appelOffre.datePublication.split('T')[0] : '',
-        dateEcheance: appelOffre.dateEcheance ? appelOffre.dateEcheance.split('T')[0] : '',
+        dateEcheance: appelOffre.dateEcheance ? appelOffre.dateEcheance.split('T')[0] : '', // CHANGÉ
         reference: appelOffre.reference || '',
         montant: appelOffre.montant || '',
         localisation: appelOffre.localisation || '',
@@ -42,7 +43,6 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    
     if (file) {
       // Vérifier que c'est un PDF
       if (file.type !== 'application/pdf') {
@@ -72,12 +72,14 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
       // Créer un FormData pour l'upload
       const data = new FormData();
       
+      // Ajouter tous les champs
       Object.keys(formData).forEach(key => {
         if (formData[key]) {
           data.append(key, formData[key]);
         }
       });
 
+      // Ajouter le PDF si présent
       if (pdfFile) {
         data.append('pdf', pdfFile);
       }
@@ -117,7 +119,7 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="titre">Titre *</label>
+              <label htmlFor="titre">Titre</label>
               <input
                 type="text"
                 id="titre"
@@ -130,7 +132,7 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="reference">Référence *</label>
+              <label htmlFor="reference">Référence</label>
               <input
                 type="text"
                 id="reference"
@@ -144,7 +146,7 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Description *</label>
+            <label htmlFor="description">Description</label>
             <textarea
               id="description"
               name="description"
@@ -158,7 +160,7 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="datePublication">Date de Publication *</label>
+              <label htmlFor="datePublication">Date de Publication</label>
               <input
                 type="date"
                 id="datePublication"
@@ -171,12 +173,12 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="dateEcheance">Date d'Échéance *</label>
+              <label htmlFor="dateEcheance">Date d'échéance</label> {/* CHANGÉ le label */}
               <input
                 type="date"
                 id="dateEcheance"
-                name="dateEcheance"
-                value={formData.dateEcheance}
+                name="dateEcheance" // CHANGÉ de dateLimite à dateEcheance
+                value={formData.dateEcheance} // CHANGÉ
                 onChange={handleChange}
                 required
                 disabled={loading}
@@ -199,7 +201,7 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="localisation">Localisation *</label>
+              <label htmlFor="localisation">Localisation</label>
               <input
                 type="text"
                 id="localisation"
@@ -231,11 +233,9 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
 
             <div className="form-group">
               <label htmlFor="pdf">
-                Fichier PDF {!appelOffre && '*'}
+                Fichier PDF
                 {appelOffre && appelOffre.pdfOriginalName && (
-                  <span className="file-info">
-                    (Actuel: {appelOffre.pdfOriginalName})
-                  </span>
+                  <span className="file-info"> (Actuel: {appelOffre.pdfOriginalName})</span>
                 )}
               </label>
               <input
@@ -265,7 +265,7 @@ const AppelOffreForm = ({ appelOffre, onSuccess, onCancel }) => {
               className="btn btn-primary"
               disabled={loading}
             >
-              {loading ? 'Enregistrement...' : appelOffre ? 'Modifier' : 'Créer'}
+              {loading ? 'Enregistrement...' : (appelOffre ? 'Modifier' : 'Créer')}
             </button>
           </div>
         </form>
