@@ -1,4 +1,4 @@
-import api from './api';
+import api from '../config/api';
 
 const mfaService = {
   // Initier l'authentification MFA
@@ -39,3 +39,4 @@ const mfaService = {
 };
 
 export default mfaService;
+

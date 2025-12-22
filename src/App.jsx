@@ -29,6 +29,7 @@ import NosDirections from './pages/NosDirections';
 import NousRejoindre from './pages/NousRejoindre';
 import MotDuPDG from './pages/MotDuPDG';
 import NousConnaitre from './pages/NousConnaitre';
+import NosUnites from './pages/NosUnites';
 import Histoire from './pages/Histoire';
 import VisionValeurs from './pages/VisionValeurs';
 import AboutUs from './pages/AboutUs';
@@ -112,6 +113,7 @@ function AppContent() {
             <Route path="/nous-rejoindre" element={<NousRejoindre />} />
             <Route path="/nos-appels-offres" element={<AppelsOffres />} />
             <Route path="/nos-appels-offres/:id" element={<AppelOffreDetails />} />
+            <Route path='/nos-unites' element={<NosUnites />} />
             <Route path="/mentions-medias" element={<MentionsMedias />} />
             <Route path='/admin/login' element={<Login />} />
             <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}>

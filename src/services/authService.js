@@ -1,7 +1,7 @@
 const authService = {
   // Vérifier si l'utilisateur est authentifié
   isAuthenticated: () => {
-    const token = localStorage.getItem('adminToken');
+    const token = sessionStorage.getItem('adminToken');
     if (!token) return false;
 
     try {
@@ -11,32 +11,32 @@ const authService = {
       
       if (Date.now() > expiration) {
         console.log('⚠️ Token expiré');
-        localStorage.removeItem('adminToken');
+        sessionStorage.removeItem('adminToken');
         return false;
       }
       
       return true;
     } catch (error) {
       console.error('❌ Erreur validation token:', error);
-      localStorage.removeItem('adminToken');
+      sessionStorage.removeItem('adminToken');
       return false;
     }
   },
 
   // Obtenir le token
   getToken: () => {
-    return localStorage.getItem('adminToken');
+    return sessionStorage.getItem('adminToken');
   },
 
   // Déconnexion
   logout: () => {
-    localStorage.removeItem('adminToken');
+    sessionStorage.removeItem('adminToken');
     window.location.href = '/admin/login';
   },
 
   // Obtenir les informations utilisateur depuis le token
   getUserFromToken: () => {
-    const token = localStorage.getItem('adminToken');
+    const token = sessionStorage.getItem('adminToken');
     if (!token) return null;
 
     try {

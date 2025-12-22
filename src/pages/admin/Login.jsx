@@ -101,7 +101,7 @@ const Login = () => {
       
       if (result.success) {
         if (result.completed) {
-          localStorage.setItem('adminToken', result.token);
+          sessionStorage.setItem('adminToken', result.token);
           setMessage('🎉 Authentification réussie ! Redirection...');
           setTimeout(() => {
             navigate('/admin/dashboard');
