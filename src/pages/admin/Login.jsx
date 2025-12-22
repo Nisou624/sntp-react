@@ -1,23 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
+import mfaService from '../../services/mfaService';
 import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const [stage, setStage] = useState('login'); // 'login' ou 'mfa'
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
+  const [mfaData, setMfaData] = useState({
+    sessionId: '',
+    currentStep: 1,
+    totalSteps: 1, // ← Ajouté
+    numbersToSelect: [],
+    timeRemaining: 120,
+    selectedNumber: null
+  });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // Rediriger si déjà connecté
     if (authService.isAuthenticated()) {
       navigate('/admin/dashboard');
     }
   }, [navigate]);
+
+  useEffect(() => {
+    let timer;
+    if (stage === 'mfa' && mfaData.timeRemaining > 0) {
+      timer = setInterval(() => {
+        setMfaData(prev => ({
+          ...prev,
+          timeRemaining: prev.timeRemaining - 1
+        }));
+      }, 1000);
+    }
+
+    if (mfaData.timeRemaining === 0 && stage === 'mfa') {
+      setError('⏱️ Délai expiré. Veuillez vous reconnecter.');
+      setTimeout(() => {
+        handleCancelMFA();
+      }, 2000);
+    }
+
+    return () => clearInterval(timer);
+  }, [stage, mfaData.timeRemaining]);
 
   const handleChange = (e) => {
     setFormData({
@@ -31,78 +62,235 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setMessage('');
 
     try {
-      const result = await authService.login(formData.email, formData.password);
+      const result = await mfaService.initiateMFA(formData.email, formData.password);
       
       if (result.success) {
-        localStorage.setItem('token', result.token);
-        navigate('/admin/dashboard');
+        setMfaData({
+          sessionId: result.sessionId,
+          currentStep: result.step,
+          totalSteps: result.totalSteps, // ← Ajouté
+          numbersToSelect: result.numbersToSelect,
+          timeRemaining: result.expiresIn,
+          selectedNumber: null
+        });
+        setStage('mfa');
+        setMessage('📧 Email envoyé ! Consultez votre boîte mail pour voir le code correct.');
       } else {
-        setError(result.message || 'Email ou mot de passe incorrect');
+        setError(result.message || 'Identifiants incorrects');
       }
     } catch (err) {
-      setError('Une erreur est survenue. Veuillez réessayer.');
+      setError(err.message || 'Erreur lors de la connexion');
     } finally {
       setLoading(false);
     }
   };
 
+  const handleNumberClick = async (number) => {
+    if (loading) return;
+
+    setLoading(true);
+    setError('');
+    setMessage('');
+    setMfaData(prev => ({ ...prev, selectedNumber: number }));
+
+    try {
+      const result = await mfaService.verifyStep(mfaData.sessionId, number);
+      
+      if (result.success) {
+        if (result.completed) {
+          localStorage.setItem('adminToken', result.token);
+          setMessage('🎉 Authentification réussie ! Redirection...');
+          setTimeout(() => {
+            navigate('/admin/dashboard');
+          }, 1000);
+        } else {
+          setMfaData({
+            sessionId: mfaData.sessionId,
+            currentStep: result.step,
+            totalSteps: result.totalSteps || mfaData.totalSteps, // ← Ajouté
+            numbersToSelect: result.numbersToSelect,
+            timeRemaining: result.expiresIn,
+            selectedNumber: null
+          });
+          setMessage(`✅ Étape ${result.step - 1}/5 validée ! Consultez votre email pour le code de l'étape ${result.step}.`);
+        }
+      } else {
+        setError(result.message || 'Nombre incorrect');
+        setMfaData(prev => ({ ...prev, selectedNumber: null }));
+        
+        if (result.locked) {
+          setTimeout(() => {
+            handleCancelMFA();
+          }, 3000);
+        }
+      }
+    } catch (err) {
+      setError(err.message || 'Erreur lors de la vérification');
+      setMfaData(prev => ({ ...prev, selectedNumber: null }));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCancelMFA = async () => {
+    if (mfaData.sessionId) {
+      try {
+        await mfaService.cancelMFA(mfaData.sessionId);
+      } catch (err) {
+        console.error('Erreur annulation MFA:', err);
+      }
+    }
+    setStage('login');
+    setMfaData({
+      sessionId: '',
+      currentStep: 1,
+      numbersToSelect: [],
+      timeRemaining: 120,
+      selectedNumber: null
+    });
+    setError('');
+    setMessage('');
+  };
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
   return (
     <div className="login-container">
       <div className="login-card">
-        <div className="login-header">
-          <h1>Panel Administration</h1>
-          <p>SNTP - Gestion des Appels d'Offres</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="login-form">
-          {error && (
-            <div className="alert alert-error">
-              {error}
+        {stage === 'login' ? (
+          <>
+            <div className="login-header">
+              <h1>Panel Administration</h1>
+              <p>SNTP - Gestion des Appels d'Offres</p>
             </div>
-          )}
 
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="admin@sntp.com"
-              disabled={loading}
-            />
-          </div>
+            <form onSubmit={handleSubmit} className="login-form">
+              {error && (
+                <div className="alert alert-error">
+                  {error}
+                </div>
+              )}
 
-          <div className="form-group">
-            <label htmlFor="password">Mot de passe</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              placeholder="••••••••"
-              disabled={loading}
-            />
-          </div>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="admin@sntp.com"
+                  disabled={loading}
+                  autoComplete="email"
+                />
+              </div>
 
-          <button 
-            type="submit" 
-            className="btn btn-primary"
-            disabled={loading}
-          >
-            {loading ? 'Connexion...' : 'Se connecter'}
-          </button>
-        </form>
+              <div className="form-group">
+                <label htmlFor="password">Mot de passe</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  placeholder="••••••••"
+                  disabled={loading}
+                  autoComplete="current-password"
+                />
+              </div>
+
+              <button 
+                type="submit" 
+                className="btn btn-primary"
+                disabled={loading}
+              >
+                {loading ? 'Connexion...' : 'Se connecter'}
+              </button>
+            </form>
+          </>
+        ) : (
+          <>
+            <div className="mfa-header">
+              <h1>🔐 Authentification MFA</h1>
+              <p>Étape {mfaData.currentStep} sur {mfaData.totalSteps}</p>
+              <div className="mfa-timer">
+                <span className={mfaData.timeRemaining < 30 ? 'timer-warning' : ''}>
+                  ⏱️ {formatTime(mfaData.timeRemaining)}
+                </span>
+              </div>
+            </div>
+
+            <div className="mfa-content">
+              {message && (
+                <div className="alert alert-success">
+                  {message}
+                </div>
+              )}
+
+              {error && (
+                <div className="alert alert-error">
+                  {error}
+                </div>
+              )}
+
+              <div className="mfa-instructions">
+                <p className="instruction-header">
+                  <strong>📧 Consultez votre email envoyé à :</strong>
+                </p>
+                <p className="email-display">{formData.email}</p>
+                <p className="instruction-text">
+                  Vous y trouverez un <strong>code à 2 chiffres</strong>.<br />
+                  Cliquez sur ce code parmi les 3 nombres ci-dessous.
+                </p>
+              </div>
+
+              <div className="numbers-grid">
+                {mfaData.numbersToSelect.map((number, index) => (
+                  <button
+                    key={index}
+                    className={`number-button ${mfaData.selectedNumber === number ? 'selected' : ''}`}
+                    onClick={() => handleNumberClick(number)}
+                    disabled={loading}
+                  >
+                    {number}
+                  </button>
+                ))}
+              </div>
+
+              <div className="mfa-progress">
+                <div className="progress-bar">
+                  <div 
+                    className="progress-fill" 
+                    style={{ width: `${(mfaData.currentStep / 5) * 100}%` }}
+                  ></div>
+                </div>
+                <p className="progress-text">
+                  Progression : {mfaData.currentStep}/{mfaData.totalSteps} étapes
+                </p>
+              </div>
+
+              <button 
+                onClick={handleCancelMFA}
+                className="btn btn-secondary"
+                disabled={loading}
+              >
+                Annuler et recommencer
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 };
 
 export default Login;
-
