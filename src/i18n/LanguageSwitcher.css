@@ -10,13 +10,11 @@
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: var(--sntp-white);
-  border: 2px solid var(--sntp-gray-lighter);
-  border-radius: 4px;
+  background: transparent;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  color: var(--sntp-gray-dark);
+  color: var(--sntp-white);
   transition: all 0.3s ease;
 }
 

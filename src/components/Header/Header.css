@@ -27,7 +27,7 @@
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
 /* ============================================
@@ -59,7 +59,7 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  margin: 0 2rem;
+  margin: 0 1rem;
 }
 
 .nav-menu {
@@ -100,6 +100,17 @@
 .ct-header.dark-text-mode .ct-menu-link {
   color: var(--theme-palette-color-2);
 }
+
+/* Texte noir quand sticky */
+.langue-switch.is-sticky .language-switcher .language-button{
+  color: var(--theme-palette-color-2);
+}
+
+/* Pages spécifiques: texte noir dès le top */
+.langue-switch.dark-text-mode .language-switcher .language-button {
+  color: var(--theme-palette-color-2);
+}
+
 
 /* Effet hover sur les liens */
 .ct-menu-link:hover {

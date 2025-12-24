@@ -16,7 +16,6 @@ const Header = () => {
     '/faq', 
     '/about', 
     '/implantations', 
-    '/nos-unites', 
     '/nos-directions', 
     '/nos-appels-offres',
     '/admin/dashboard',
@@ -93,7 +92,10 @@ const Header = () => {
 
             {/* CTA + HAMBURGER */}
             <div className="header-actions">
-              <LanguageSwitcher />
+{/*              <div className={`langue-switch ${isSticky ? 'is-sticky' : ''} ${isDarkTextPage ? 'dark-text-mode' : ''}`}>
+                <LanguageSwitcher />
+              </div>
+*/}
               <Link to="/about-us#contact-info" className="ct-button">
                 {t('header.menu.contact')} 
               </Link>

@@ -421,4 +421,27 @@
     padding: 12px;
   }
 }
+/* Message aucun résultat */
+.no-results {
+  padding: 40px 20px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.no-results p {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Style pour les liens email */
+.detail-section a {
+  color: #dc2626;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.detail-section a:hover {
+  color: #991b1b;
+  text-decoration: underline;
+}
 
