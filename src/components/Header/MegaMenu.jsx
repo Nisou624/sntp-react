@@ -9,7 +9,7 @@ const MegaMenu = ({ isOpen, onClose }) => {
       title: 'Nous Connaître',
       items: [
         { path: '/about', label: 'Mot du PDG' },
-        { path: '/about', label: 'À propos de nous' },
+        { path: '/about-us', label: 'À propos de nous' },
         { path: '/nous-connaitre#histoire', label: 'Histoire' },
         { path: '/nous-connaitre#vision', label: 'Vision et valeurs' }
       ]

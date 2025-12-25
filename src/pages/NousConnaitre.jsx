@@ -1,5 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import HTMLFlipBook from 'react-pageflip';
+import { 
+  FaLightbulb, 
+  FaHandshake, 
+  FaShieldAlt, 
+  FaTrophy,
+  FaChevronLeft,
+  FaChevronRight,
+  FaBuilding
+} from 'react-icons/fa';
 import './NousConnaitre.css';
 
 const NousConnaitre = () => {
@@ -16,13 +25,15 @@ const NousConnaitre = () => {
     const observerCallback = (entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
+          entry.target.classList.add('NousConnaitre-animate-in');
         }
       });
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-    const animatedElements = document.querySelectorAll('.value-card, .stat-item, .mission-card, .value-item, .animate-on-scroll');
+    const animatedElements = document.querySelectorAll(
+      '.NousConnaitre-value-card, .NousConnaitre-stat-item, .NousConnaitre-mission-card, .NousConnaitre-value-item, .NousConnaitre-animate-on-scroll'
+    );
     
     animatedElements.forEach(element => observer.observe(element));
 
@@ -34,7 +45,7 @@ const NousConnaitre = () => {
   // Données de la timeline convertie en pages de livre
   const historyPages = [
     {
-      year: '1970',
+      year: '1967',
       title: 'Fondation de la SNTP',
       description: 'Création de la Société Nationale des Travaux Publics avec pour mission de participer au développement des infrastructures nationales.',
       image: null
@@ -77,69 +88,25 @@ const NousConnaitre = () => {
     }
   ];
 
-  // Valeurs pour les cartes (section Nos Valeurs)
-  const values = [
-    {
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <polygon points="12 2 2 7 12 12 22 7 12 2" />
-          <polyline points="2 17 12 22 22 17" />
-          <polyline points="2 12 12 17 22 12" />
-        </svg>
-      ),
-      title: 'Excellence',
-      description: 'Nous visons l\'excellence dans chacun de nos projets, en appliquant les meilleurs standards de qualité.'
-    },
-    {
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12 2L2 7l10 5 10-5-10-5z" />
-          <path d="M2 17l10 5 10-5" />
-          <path d="M2 12l10 5 10-5" />
-        </svg>
-      ),
-      title: 'Innovation',
-      description: 'L\'innovation est au cœur de notre stratégie. Nous investissons constamment dans les nouvelles technologies.'
-    },
-    {
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-          <circle cx="9" cy="7" r="4" />
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-        </svg>
-      ),
-      title: 'Engagement',
-      description: 'Notre engagement envers nos clients, nos collaborateurs et la société est total.'
-    },
-    {
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-          <polyline points="22 4 12 14.01 9 11.01" />
-        </svg>
-      ),
-      title: 'Intégrité',
-      description: 'L\'intégrité guide toutes nos actions. Nous respectons les normes éthiques les plus strictes.'
-    }
-  ];
-
   // Valeurs pour le FlipBook
   const valuesForBook = [
     {
+      icon: <FaTrophy />,
       title: 'Excellence',
       description: 'Nous visons l\'excellence dans chacun de nos projets, en appliquant les meilleurs standards de qualité.'
     },
     {
+      icon: <FaLightbulb />,
       title: 'Innovation',
       description: 'L\'innovation est au cœur de notre stratégie. Nous investissons constamment dans les nouvelles technologies.'
     },
     {
+      icon: <FaHandshake />,
       title: 'Engagement',
       description: 'Notre engagement envers nos clients, nos collaborateurs et la société est total.'
     },
     {
+      icon: <FaShieldAlt />,
       title: 'Intégrité',
       description: 'L\'intégrité guide toutes nos actions. Nous respectons les normes éthiques les plus strictes.'
     }
@@ -150,11 +117,11 @@ const NousConnaitre = () => {
     { number: '50+', label: 'Années d\'Expérience' },
     { number: '500+', label: 'Projets Réalisés' },
     { number: '2000+', label: 'Collaborateurs' },
-    { number: '48', label: 'Wilayas Couvertes' }
+    { number: '15', label: 'Wilayas Couvertes' }
   ];
 
   // Calculer le nombre total de pages
-  const allPagesCount = 1 + historyPages.length + valuesForBook.length + 1 + 1; // Cover + History + Values + Stats + BackCover
+  const allPagesCount = 1 + historyPages.length + valuesForBook.length + 1 + 1;
 
   // Gestion du changement de page
   const onPageFlip = (e) => {
@@ -188,107 +155,107 @@ const NousConnaitre = () => {
   }, [allPagesCount]);
 
   return (
-    <div className="nos-engagements-page">
+    <div className="NousConnaitre-nos-engagements-page">
       {/* Hero Section */}
-      <section className="engagements-hero">
-        <div className="hero-overlay"></div>
-        <div className="hero-content">
-          <p className="hero-label">Nos Engagements</p>
-          <h1 className="hero-title">Vision, Valeurs & Histoire</h1>
-          <div className="hero-divider"></div>
-          <p className="hero-subtitle">Plus de 50 ans d'excellence au service du développement</p>
+      <section className="NousConnaitre-engagements-hero">
+        <div className="NousConnaitre-hero-overlay"></div>
+        <div className="NousConnaitre-hero-content">
+          <div className="NousConnaitre-hero-label">SNTP - Depuis 1967</div>
+          <h1 className="NousConnaitre-hero-title">Nos Engagements</h1>
+          <div className="NousConnaitre-hero-divider"></div>
+          <p className="NousConnaitre-hero-subtitle">
+            Plus de 50 ans d'excellence au service du développement
+          </p>
         </div>
       </section>
 
-      {/* Introduction Section */}
-      <section className="histoire-intro" id="histoire">
-        <div className="container-narrow">
-          <div className="intro-content">
-            <h2 className="section-title">Un Héritage d'Excellence</h2>
-            <div className="intro-text-wrapper">
-              <p className="intro-text">
-                Depuis sa création, la SNTP s'est imposée comme un acteur majeur du secteur de la 
-                construction et des travaux publics en Algérie. Notre histoire est celle d'une 
-                entreprise qui a su évoluer, innover et s'adapter aux défis de chaque époque.
+      {/* Histoire Intro Section */}
+      <section className="NousConnaitre-histoire-intro NousConnaitre-section">
+        <div className="container">
+          <div className="NousConnaitre-intro-content">
+            <div className="NousConnaitre-section-header">
+              <span className="NousConnaitre-section-badge">Notre Histoire</span>
+              <h2 className="NousConnaitre-section-title">
+                Plus de 50 ans d'excellence au service du développement
+              </h2>
+              <div className="NousConnaitre-section-divider"></div>
+            </div>
+
+            <div className="NousConnaitre-intro-text-wrapper">
+              <p className="NousConnaitre-intro-text">
+                Depuis sa création en 1967, la <strong>SNTP</strong> s'est imposée comme un acteur majeur 
+                du secteur de la construction et des travaux publics en Algérie. Notre histoire est celle 
+                d'une entreprise qui a su évoluer, innover et s'adapter aux défis de chaque époque.
               </p>
-              <p className="intro-text">
-                Au fil des décennies, nous avons participé à la construction des infrastructures 
-                qui ont façonné le visage moderne de l'Algérie, contribuant ainsi au développement 
-                économique et social du pays.
+              <p className="NousConnaitre-intro-text">
+                Au fil des décennies, nous avons participé à la construction des infrastructures qui ont 
+                façonné le visage moderne de l'Algérie, contribuant ainsi au développement économique et 
+                social du pays.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Flip Book Section - REMPLACE LA TIMELINE */}
-      <section className="flipbook-section">
+      {/* FlipBook Section */}
+      <section className="NousConnaitre-flipbook-section NousConnaitre-section">
         <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Notre Parcours en Images</h2>
-            <p className="section-subtitle">Feuilletez notre histoire à travers les décennies</p>
+          <div className="NousConnaitre-section-header">
+            <h2 className="NousConnaitre-section-title">Feuilletez notre histoire à travers les décennies</h2>
+            <p className="NousConnaitre-section-subtitle">
+              Découvrez les moments clés qui ont façonné notre parcours
+            </p>
           </div>
 
-          <div className="book-container">
+          <div className="NousConnaitre-book-container">
             <HTMLFlipBook
               ref={bookRef}
-              width={370}
-              height={500}
-              size="fixed"
+              width={450}
+              height={600}
+              size="stretch"
               minWidth={315}
               maxWidth={1000}
-              minHeight={420}
-              maxHeight={1350}
-              maxShadowOpacity={0.5}
-              showCover={true}
-              mobileScrollSupport={true}
-              className="flipbook"
-              startPage={0}
+              minHeight={400}
+              maxHeight={1533}
               drawShadow={true}
               flippingTime={1000}
               usePortrait={true}
               startZIndex={0}
               autoSize={true}
-              clickEventForward={true}
-              useMouseEvents={true}
-              swipeDistance={30}
-              showPageCorners={true}
-              disableFlipByClick={false}
+              maxShadowOpacity={0.5}
+              showCover={true}
+              mobileScrollSupport={true}
               onFlip={onPageFlip}
+              className="NousConnaitre-flipbook"
+              style={{}}
             >
               {/* Cover Page */}
-              <div className="book-page cover-page">
-                <div className="page-content">
-                  <div className="cover-content">
-                    <h1 className="cover-title">SNTP</h1>
-                    <div className="cover-subtitle">Notre Histoire</div>
-                    <div className="cover-year">1970 - 2024</div>
-                    <div className="cover-decoration">
-                      <svg viewBox="0 0 100 100" className="cover-icon">
-                        <polygon points="50 5 95 25 50 45 5 25 50 5" fill="currentColor" opacity="0.3"/>
-                        <polygon points="5 65 50 85 95 65" fill="currentColor" opacity="0.5"/>
-                        <polygon points="5 40 50 60 95 40" fill="currentColor" opacity="0.7"/>
-                      </svg>
-                    </div>
+              <div className="NousConnaitre-book-page NousConnaitre-cover-page">
+                <div className="NousConnaitre-cover-content">
+                  <h1 className="NousConnaitre-cover-title">SNTP</h1>
+                  <p className="NousConnaitre-cover-subtitle">Notre Histoire</p>
+                  <p className="NousConnaitre-cover-year">1967 - 2024</p>
+                  <div className="NousConnaitre-cover-decoration">
+                    <FaBuilding className="NousConnaitre-cover-icon" />
                   </div>
                 </div>
               </div>
 
               {/* History Pages */}
               {historyPages.map((page, index) => (
-                <div className="book-page" key={index}>
-                  <div className="page-content">
-                    <div className="page-header">
-                      <span className="page-year">{page.year}</span>
-                      <div className="year-decoration"></div>
+                <div key={`history-${index}`} className="NousConnaitre-book-page">
+                  <div className="NousConnaitre-page-content">
+                    <div className="NousConnaitre-page-header">
+                      <div className="NousConnaitre-page-year">{page.year}</div>
+                      <div className="NousConnaitre-year-decoration"></div>
                     </div>
-                    <div className="page-body">
-                      <h3 className="page-title">{page.title}</h3>
-                      <div className="page-divider"></div>
-                      <p className="page-description">{page.description}</p>
+                    <div className="NousConnaitre-page-body">
+                      <h3 className="NousConnaitre-page-title">{page.title}</h3>
+                      <div className="NousConnaitre-page-divider"></div>
+                      <p className="NousConnaitre-page-description">{page.description}</p>
                     </div>
-                    <div className="page-footer">
-                      <span className="page-number">{index + 1}</span>
+                    <div className="NousConnaitre-page-footer">
+                      <span className="NousConnaitre-page-number">Page {index + 2}</span>
                     </div>
                   </div>
                 </div>
@@ -296,183 +263,130 @@ const NousConnaitre = () => {
 
               {/* Values Pages */}
               {valuesForBook.map((value, index) => (
-                <div className="book-page value-page" key={`value-${index}`}>
-                  <div className="page-content">
-                    <div className="page-header">
-                      <span className="page-label">Nos Valeurs</span>
+                <div key={`value-${index}`} className="NousConnaitre-book-page NousConnaitre-value-page">
+                  <div className="NousConnaitre-page-content">
+                    <div className="NousConnaitre-page-header">
+                      <span className="NousConnaitre-page-label">Nos Valeurs</span>
+                      <div className="NousConnaitre-year-decoration"></div>
                     </div>
-                    <div className="page-body">
-                      <div className="value-icon-large">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                          <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                          <path d="M2 17l10 5 10-5" />
-                          <path d="M2 12l10 5 10-5" />
-                        </svg>
+                    <div className="NousConnaitre-page-body">
+                      <div className="NousConnaitre-value-icon-large">
+                        {value.icon}
                       </div>
-                      <h3 className="page-title">{value.title}</h3>
-                      <div className="page-divider"></div>
-                      <p className="page-description">{value.description}</p>
+                      <h3 className="NousConnaitre-page-title">{value.title}</h3>
+                      <div className="NousConnaitre-page-divider"></div>
+                      <p className="NousConnaitre-page-description">{value.description}</p>
                     </div>
-                    <div className="page-footer">
-                      <span className="page-number">{historyPages.length + index + 1}</span>
+                    <div className="NousConnaitre-page-footer">
+                      <span className="NousConnaitre-page-number">Page {historyPages.length + index + 2}</span>
                     </div>
                   </div>
                 </div>
               ))}
 
               {/* Stats Page */}
-              <div className="book-page stats-page">
-                <div className="page-content">
-                  <div className="page-header">
-                    <span className="page-label">En Chiffres</span>
+              <div className="NousConnaitre-book-page NousConnaitre-stats-page">
+                <div className="NousConnaitre-page-content">
+                  <div className="NousConnaitre-page-header">
+                    <span className="NousConnaitre-page-label">Chiffres Clés</span>
+                    <div className="NousConnaitre-year-decoration"></div>
                   </div>
-                  <div className="page-body">
-                    <div className="stats-grid-book">
+                  <div className="NousConnaitre-page-body">
+                    <h3 className="NousConnaitre-page-title" style={{ color: '#fff', marginBottom: '2rem' }}>
+                      Plus de 50 ans d'excellence au service du développement des infrastructures en Algérie
+                    </h3>
+                    <div className="NousConnaitre-stats-grid-book">
                       {stats.map((stat, index) => (
-                        <div key={index} className="stat-item-book">
-                          <div className="stat-number-book">{stat.number}</div>
-                          <div className="stat-label-book">{stat.label}</div>
+                        <div key={index} className="NousConnaitre-stat-item-book">
+                          <div className="NousConnaitre-stat-number-book">{stat.number}</div>
+                          <div className="NousConnaitre-stat-label-book">{stat.label}</div>
                         </div>
                       ))}
                     </div>
                   </div>
-                  <div className="page-footer">
-                    <span className="page-number">{historyPages.length + valuesForBook.length + 1}</span>
+                  <div className="NousConnaitre-page-footer">
+                    <span className="NousConnaitre-page-number">Page {historyPages.length + valuesForBook.length + 2}</span>
                   </div>
                 </div>
               </div>
 
               {/* Back Cover */}
-              <div className="book-page back-cover-page">
-                <div className="page-content">
-                  <div className="back-cover-content">
-                    <h2 className="back-cover-title">Construire l'Avenir Ensemble</h2>
-                    <p className="back-cover-text">
-                      Plus de 50 ans d'excellence au service du développement des infrastructures en Algérie
-                    </p>
-                    <div className="back-cover-logo">SNTP</div>
-                  </div>
+              <div className="NousConnaitre-book-page NousConnaitre-back-cover-page">
+                <div className="NousConnaitre-back-cover-content">
+                  <h2 className="NousConnaitre-back-cover-title">
+                    Notre histoire est riche d'enseignements et de réalisations qui font aujourd'hui notre fierté.
+                  </h2>
+                  <p className="NousConnaitre-back-cover-text">
+                    Découvrez comment notre expérience et notre expertise peuvent donner vie à vos projets
+                  </p>
+                  <div className="NousConnaitre-back-cover-logo">SNTP</div>
                 </div>
               </div>
             </HTMLFlipBook>
 
             {/* Navigation Controls */}
-            <div className="flipbook-navigation">
-              {/* Bouton Précédent */}
+            <div className="NousConnaitre-flipbook-navigation">
               <button
-                className={`nav-button prev-button ${currentPage === 0 ? 'disabled' : ''}`}
+                className={`NousConnaitre-nav-button NousConnaitre-prev-button ${currentPage === 0 ? 'NousConnaitre-disabled' : ''}`}
                 onClick={goToPrevPage}
                 disabled={currentPage === 0}
               >
-                <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-                <span className="nav-text">Précédent</span>
+                <FaChevronLeft className="NousConnaitre-nav-icon" />
+                <span className="NousConnaitre-nav-text">Précédent</span>
               </button>
 
-              {/* Indicateurs de pagination (points) */}
-              <div className="pagination-dots">
-                {[...Array(totalPages)].map((_, index) => (
+              <div className="NousConnaitre-pagination-dots">
+                {Array.from({ length: totalPages }, (_, i) => (
                   <button
-                    key={index}
-                    className={`dot ${currentPage === index ? 'active' : ''}`}
-                    onClick={() => goToPage(index)}
-                    aria-label={`Aller à la page ${index + 1}`}
+                    key={i}
+                    className={`NousConnaitre-dot ${currentPage === i ? 'NousConnaitre-active' : ''}`}
+                    onClick={() => goToPage(i)}
+                    aria-label={`Page ${i + 1}`}
                   />
                 ))}
               </div>
 
-              {/* Bouton Suivant */}
               <button
-                className={`nav-button next-button ${currentPage === totalPages - 1 ? 'disabled' : ''}`}
+                className={`NousConnaitre-nav-button NousConnaitre-next-button ${currentPage === totalPages - 1 ? 'NousConnaitre-disabled' : ''}`}
                 onClick={goToNextPage}
                 disabled={currentPage === totalPages - 1}
               >
-                <span className="nav-text">Suivant</span>
-                <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
+                <span className="NousConnaitre-nav-text">Suivant</span>
+                <FaChevronRight className="NousConnaitre-nav-icon" />
               </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section - SECTION NOS VALEURS CONSERVÉE */}
-      <section className="values-section">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Nos Valeurs</h2>
-            <p className="section-subtitle">Les principes qui guident notre action</p>
-          </div>
-
-          <div className="values-grid">
-            {values.map((value, index) => (
-              <div key={index} className="value-card">
-                <div className="value-icon">{value.icon}</div>
-                <h3 className="value-title">{value.title}</h3>
-                <p className="value-text">{value.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Heritage Section */}
-      <section className="heritage-section">
-        <div className="container">
-          <div className="heritage-content">
-            <div className="heritage-text">
-              <h2 className="section-title">Un Héritage à Préserver</h2>
-              <p className="heritage-paragraph">
-                Notre histoire est riche d'enseignements et de réalisations qui font aujourd'hui 
-                notre fierté. Chaque projet achevé, chaque infrastructure construite, chaque 
-                innovation mise en œuvre contribue à bâtir notre héritage.
-              </p>
-              <p className="heritage-paragraph">
-                Au-delà des réalisations matérielles, c'est avant tout un héritage humain 
-                que nous cultivons : celui du savoir-faire, de la transmission des compétences, 
-                de la passion du métier.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Vision Section */}
-      <section className="vision-section section" id="vision">
+      <section className="NousConnaitre-vision-section NousConnaitre-section">
         <div className="container">
-          <div className="vision-content animate-on-scroll">
-            <div className="vision-text">
-              <span className="vision-badge">Notre Vision</span>
-              <h2 className="section-title">Bâtir un Avenir Durable</h2>
-              <div className="section-divider"></div>
-              <p className="vision-paragraph">
-                Notre vision est de devenir le leader incontesté du secteur de la construction 
-                et des travaux publics en Algérie, reconnu pour son innovation, son excellence 
-                opérationnelle et son engagement envers le développement durable.
+          <div className="NousConnaitre-section-header">
+            <span className="NousConnaitre-vision-badge">Notre Vision</span>
+            <h2 className="NousConnaitre-section-title">Les principes qui guident notre action</h2>
+            <div className="NousConnaitre-section-divider"></div>
+          </div>
+
+          <div className="NousConnaitre-vision-content">
+            <div className="NousConnaitre-vision-text">
+              <p className="NousConnaitre-vision-paragraph">
+                Notre vision est de devenir le leader incontesté du secteur de la construction et des travaux publics en Algérie, 
+                reconnu pour son innovation, son excellence opérationnelle et son engagement envers le développement durable.
               </p>
-              <p className="vision-paragraph">
-                Nous aspirons à transformer le paysage urbain et rural algérien en réalisant 
-                des infrastructures modernes, intelligentes et respectueuses de l'environnement. 
-                Notre ambition est de contribuer activement à la construction d'une Algérie 
-                prospère, connectée et durable pour les générations futures.
+              <p className="NousConnaitre-vision-paragraph">
+                Nous aspirons à transformer le paysage urbain et rural algérien en réalisant des infrastructures modernes, 
+                intelligentes et respectueuses de l'environnement.
               </p>
-              <p className="vision-paragraph">
-                En combinant expertise technique, innovation technologique et responsabilité 
-                sociale, nous visons à créer de la valeur pour toutes nos parties prenantes : 
-                clients, collaborateurs, partenaires et la société dans son ensemble.
+              <p className="NousConnaitre-vision-paragraph">
+                En combinant expertise technique, innovation technologique et responsabilité sociale, nous visons à créer de la valeur 
+                pour toutes nos parties prenantes : clients, collaborateurs, partenaires et la société dans son ensemble.
               </p>
             </div>
-            <div className="vision-image">
-              <div className="vision-image-wrapper">
-                <div className="image-placeholder">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                    <line x1="12" y1="22.08" x2="12" y2="12"/>
-                  </svg>
-                </div>
+
+            <div className="NousConnaitre-vision-image-wrapper">
+              <div className="NousConnaitre-image-placeholder">
+                <FaBuilding />
               </div>
             </div>
           </div>
@@ -480,61 +394,44 @@ const NousConnaitre = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="mission-section section">
+      <section className="NousConnaitre-mission-section NousConnaitre-section">
         <div className="container">
-          <div className="section-header text-center">
-            <span className="section-badge">Notre Mission</span>
-            <h2 className="section-title">Ce Qui Nous Guide</h2>
-            <div className="section-divider"></div>
-            <p className="section-description">
-              Notre mission est de fournir des solutions de construction innovantes et durables 
-              qui dépassent les attentes de nos clients
-            </p>
+          <div className="NousConnaitre-section-header">
+            <span className="NousConnaitre-section-badge">Notre Mission</span>
+            <h2 className="NousConnaitre-section-title">
+              Notre mission est de fournir des solutions de construction innovantes et durables
+            </h2>
+            <div className="NousConnaitre-section-divider"></div>
           </div>
 
-          <div className="mission-grid">
-            <div className="mission-card animate-on-scroll">
-              <div className="mission-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                  <path d="M2 17l10 5 10-5"/>
-                  <path d="M2 12l10 5 10-5"/>
-                </svg>
+          <div className="NousConnaitre-mission-grid">
+            <div className="NousConnaitre-mission-card">
+              <div className="NousConnaitre-mission-icon">
+                <FaTrophy />
               </div>
-              <h3 className="mission-title">Excellence Technique</h3>
-              <p className="mission-text">
-                Garantir la qualité et la durabilité de chacune de nos réalisations en 
-                appliquant les meilleurs standards internationaux de construction.
+              <h3 className="NousConnaitre-mission-title">Qualité</h3>
+              <p className="NousConnaitre-mission-text">
+                Garantir la qualité et la durabilité de chacune de nos réalisations en appliquant les meilleurs standards internationaux.
               </p>
             </div>
 
-            <div className="mission-card animate-on-scroll">
-              <div className="mission-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                  <line x1="9" y1="9" x2="9.01" y2="9"/>
-                  <line x1="15" y1="9" x2="15.01" y2="9"/>
-                </svg>
+            <div className="NousConnaitre-mission-card">
+              <div className="NousConnaitre-mission-icon">
+                <FaHandshake />
               </div>
-              <h3 className="mission-title">Satisfaction Client</h3>
-              <p className="mission-text">
-                Placer nos clients au cœur de nos préoccupations en offrant un service 
-                personnalisé, réactif et orienté vers leurs besoins spécifiques.
+              <h3 className="NousConnaitre-mission-title">Service Client</h3>
+              <p className="NousConnaitre-mission-text">
+                Placer nos clients au cœur de nos préoccupations en offrant un service personnalisé et réactif.
               </p>
             </div>
 
-            <div className="mission-card animate-on-scroll">
-              <div className="mission-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                  <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
+            <div className="NousConnaitre-mission-card">
+              <div className="NousConnaitre-mission-icon">
+                <FaLightbulb />
               </div>
-              <h3 className="mission-title">Développement Durable</h3>
-              <p className="mission-text">
-                Intégrer les principes du développement durable dans tous nos projets pour 
-                minimiser notre empreinte environnementale et sociale.
+              <h3 className="NousConnaitre-mission-title">Durabilité</h3>
+              <p className="NousConnaitre-mission-text">
+                Intégrer les principes du développement durable dans tous nos projets pour minimiser notre empreinte environnementale.
               </p>
             </div>
           </div>
@@ -542,133 +439,117 @@ const NousConnaitre = () => {
       </section>
 
       {/* Core Values Section */}
-      <section className="core-values-section section">
+      <section className="NousConnaitre-core-values-section NousConnaitre-section">
         <div className="container">
-          <div className="section-header text-center">
-            <span className="section-badge">Nos Valeurs Fondamentales</span>
-            <h2 className="section-title">Les Piliers de Notre Succès</h2>
-            <div className="section-divider"></div>
+          <div className="NousConnaitre-section-header">
+            <span className="NousConnaitre-section-badge">Nos Valeurs</span>
+            <h2 className="NousConnaitre-section-title">Les valeurs qui nous définissent</h2>
+            <div className="NousConnaitre-section-divider"></div>
           </div>
 
-          <div className="values-container">
-            <div className="value-item animate-on-scroll">
-              <div className="value-number">01</div>
-              <div className="value-content">
-                <h3 className="value-title">Excellence</h3>
-                <p className="value-description">
-                  Nous poursuivons l'excellence dans chaque aspect de notre travail, de la 
-                  conception à la livraison finale. Notre engagement envers la qualité se 
-                  reflète dans chaque détail de nos projets. Nous fixons des standards élevés 
-                  et nous nous efforçons constamment de les dépasser.
+          <div className="NousConnaitre-values-container">
+            <div className="NousConnaitre-value-item">
+              <div className="NousConnaitre-value-number">01</div>
+              <div className="NousConnaitre-value-content">
+                <h3 className="NousConnaitre-value-title">Excellence</h3>
+                <p className="NousConnaitre-value-description">
+                  Nous poursuivons l'excellence dans chaque aspect de notre travail, de la conception à la livraison finale. 
+                  Notre engagement envers la qualité se reflète dans chaque détail de nos projets.
                 </p>
-                <ul className="value-points">
-                  <li>Standards de qualité internationaux</li>
-                  <li>Processus rigoureux de contrôle qualité</li>
-                  <li>Amélioration continue de nos pratiques</li>
-                </ul>
               </div>
             </div>
 
-            <div className="value-item animate-on-scroll">
-              <div className="value-number">02</div>
-              <div className="value-content">
-                <h3 className="value-title">Innovation</h3>
-                <p className="value-description">
-                  L'innovation est au cœur de notre stratégie de développement. Nous investissons 
-                  dans la recherche et le développement pour adopter les technologies les plus 
-                  avancées et proposer des solutions créatives à nos clients.
+            <div className="NousConnaitre-value-item">
+              <div className="NousConnaitre-value-number">02</div>
+              <div className="NousConnaitre-value-content">
+                <h3 className="NousConnaitre-value-title">Innovation</h3>
+                <p className="NousConnaitre-value-description">
+                  L'innovation est au cœur de notre stratégie de développement. Nous investissons dans la recherche et le développement 
+                  pour adopter les technologies les plus avancées.
                 </p>
-                <ul className="value-points">
-                  <li>Adoption des dernières technologies BIM</li>
-                  <li>Méthodes de construction innovantes</li>
-                  <li>Solutions durables et écologiques</li>
-                </ul>
               </div>
             </div>
 
-            <div className="value-item animate-on-scroll">
-              <div className="value-number">03</div>
-              <div className="value-content">
-                <h3 className="value-title">Intégrité</h3>
-                <p className="value-description">
-                  L'intégrité guide toutes nos décisions et actions. Nous opérons avec 
-                  transparence, honnêteté et respect envers tous nos partenaires. Notre 
-                  réputation repose sur la confiance que nous inspirons.
+            <div className="NousConnaitre-value-item">
+              <div className="NousConnaitre-value-number">03</div>
+              <div className="NousConnaitre-value-content">
+                <h3 className="NousConnaitre-value-title">Intégrité</h3>
+                <p className="NousConnaitre-value-description">
+                  L'intégrité guide toutes nos décisions et actions. Nous opérons avec transparence, honnêteté et respect envers 
+                  tous nos partenaires.
                 </p>
-                <ul className="value-points">
-                  <li>Transparence dans nos relations</li>
-                  <li>Respect des engagements contractuels</li>
-                  <li>Éthique des affaires irréprochable</li>
-                </ul>
               </div>
             </div>
 
-            <div className="value-item animate-on-scroll">
-              <div className="value-number">04</div>
-              <div className="value-content">
-                <h3 className="value-title">Sécurité</h3>
-                <p className="value-description">
-                  La sécurité de nos collaborateurs, de nos partenaires et du public est notre 
-                  priorité absolue. Nous mettons en place des protocoles stricts et veillons à 
-                  leur application rigoureuse sur tous nos chantiers.
+            <div className="NousConnaitre-value-item">
+              <div className="NousConnaitre-value-number">04</div>
+              <div className="NousConnaitre-value-content">
+                <h3 className="NousConnaitre-value-title">Sécurité</h3>
+                <p className="NousConnaitre-value-description">
+                  La sécurité de nos collaborateurs et partenaires est notre priorité absolue. Nous mettons en place des protocoles 
+                  stricts sur tous nos chantiers.
                 </p>
-                <ul className="value-points">
-                  <li>Politique zéro accident</li>
-                  <li>Formation continue en sécurité</li>
-                  <li>Équipements de protection modernes</li>
-                </ul>
               </div>
             </div>
 
-            <div className="value-item animate-on-scroll">
-              <div className="value-number">05</div>
-              <div className="value-content">
-                <h3 className="value-title">Collaboration</h3>
-                <p className="value-description">
-                  Le travail d'équipe et la collaboration sont essentiels à notre réussite. 
-                  Nous favorisons un environnement où chacun peut contribuer, partager ses idées 
-                  et granir professionnellement.
+            <div className="NousConnaitre-value-item">
+              <div className="NousConnaitre-value-number">05</div>
+              <div className="NousConnaitre-value-content">
+                <h3 className="NousConnaitre-value-title">Collaboration</h3>
+                <p className="NousConnaitre-value-description">
+                  Le travail d'équipe et la collaboration sont essentiels à notre réussite. Nous favorisons un environnement où 
+                  chacun peut contribuer et grandir professionnellement.
                 </p>
-                <ul className="value-points">
-                  <li>Culture du travail d'équipe</li>
-                  <li>Communication ouverte et transparente</li>
-                  <li>Partenariats stratégiques durables</li>
-                </ul>
               </div>
             </div>
 
-            <div className="value-item animate-on-scroll">
-              <div className="value-number">06</div>
-              <div className="value-content">
-                <h3 className="value-title">Responsabilité</h3>
-                <p className="value-description">
-                  Nous assumons pleinement nos responsabilités envers la société et 
-                  l'environnement. Notre engagement va au-delà de la simple conformité 
-                  réglementaire pour créer un impact positif durable.
+            <div className="NousConnaitre-value-item">
+              <div className="NousConnaitre-value-number">06</div>
+              <div className="NousConnaitre-value-content">
+                <h3 className="NousConnaitre-value-title">Responsabilité</h3>
+                <p className="NousConnaitre-value-description">
+                  Nous assumons pleinement nos responsabilités envers la société et l'environnement. Notre engagement va au-delà 
+                  de la simple conformité réglementaire.
                 </p>
-                <ul className="value-points">
-                  <li>Engagement environnemental fort</li>
-                  <li>Contribution au développement local</li>
-                  <li>Projets sociaux et éducatifs</li>
-                </ul>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="cta-section">
-        <div className="cta-overlay"></div>
-        <div className="container-narrow">
-          <div className="cta-content">
-            <h2 className="cta-title">Construire l'Avenir Ensemble</h2>
-            <p className="cta-text">
-              Découvrez comment notre expérience et notre expertise peuvent donner vie à vos projets
+      {/* Heritage Section */}
+      <section className="NousConnaitre-heritage-section NousConnaitre-section">
+        <div className="NousConnaitre-heritage-content">
+          <div className="NousConnaitre-heritage-text">
+            <h2 className="NousConnaitre-section-title" style={{ color: '#fff' }}>Notre Héritage</h2>
+            <p className="NousConnaitre-heritage-paragraph">
+              Notre histoire est riche d'enseignements et de réalisations qui font aujourd'hui notre fierté. Chaque projet achevé, 
+              chaque infrastructure construite, chaque innovation mise en œuvre contribue à bâtir notre héritage.
             </p>
-            <div className="cta-buttons">
-              <a href="/projects" className="cta-btn primary">Nos Projets</a>
-              <a href="/nous-rejoindre" className="cta-btn secondary">Nous Rejoindre</a>
+            <p className="NousConnaitre-heritage-paragraph">
+              Au-delà des réalisations matérielles, c'est avant tout un héritage humain que nous cultivons : celui du savoir-faire, 
+              de la transmission des compétences, de la passion du métier.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="NousConnaitre-cta-section">
+        <div className="NousConnaitre-cta-overlay"></div>
+        <div className="container">
+          <div className="NousConnaitre-cta-content">
+            <h2 className="NousConnaitre-cta-title">Découvrez comment notre expérience peut donner vie à vos projets</h2>
+            <p className="NousConnaitre-cta-text">
+              Rejoignez-nous dans notre mission de construire l'Algérie de demain
+            </p>
+            <div className="NousConnaitre-cta-buttons">
+              <a href="/contact" className="NousConnaitre-cta-btn NousConnaitre-primary">
+                Contactez-nous
+              </a>
+              <a href="/projets" className="NousConnaitre-cta-btn NousConnaitre-secondary">
+                Voir nos projets
+              </a>
             </div>
           </div>
         </div>
@@ -678,3 +559,4 @@ const NousConnaitre = () => {
 };
 
 export default NousConnaitre;
+

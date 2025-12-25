@@ -1,26 +1,60 @@
 /* ====================
-   HOME PAGE STYLES - VERSION HTML STATIQUE
-   ==================== */
+   HOME PAGE STYLES - PALETTE SNTP OFFICIELLE
+==================== */
 
-.home-page {
-  padding-top: 0;
+:root {
+  /* Couleurs principales SNTP */
+  --sntp-red-darker: #5A000D;
+  --sntp-red-dark: #810012;
+  --sntp-red: #C1121F;
+  --sntp-red-light: #D32F2F;
+  --sntp-red-lighter: #E57373;
+  --sntp-red-lightest: #FFEBEE;
+  
+  /* Noir et gris */
+  --sntp-black: #0D1B2A;
+  --sntp-gray-darkest: #3b3b3b;
+  --sntp-gray-dark: #415A77;
+  --sntp-gray: #778DA9;
+  --sntp-gray-light: #B0C4DE;
+  --sntp-gray-lighter: #E0E1DD;
+  --sntp-gray-lightest: #F5F5F5;
+  
+  /* Blanc */
+  --sntp-white: #FFFFFF;
+  --sntp-white-soft: #FAFAFA;
+  
+  /* Couleurs fonctionnelles */
+  --sntp-success: #2E7D32;
+  --sntp-success-light: #E8F5E9;
+  --sntp-warning: #ED6C02;
+  --sntp-warning-light: #FFF4E5;
+  --sntp-error: #D32F2F;
+  --sntp-error-light: #FFEBEE;
+  --sntp-info: #0288D1;
+  --sntp-info-light: #E1F5FE;
 }
 
-/* Stats Overlap Section - Exactement comme HTML */
-.stats-overlap-section {
+.Home-page .hero-overlay {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* ==================== Stats Overlap Section ==================== */
+.Home-stats-overlap-section {
   position: relative;
   z-index: 10;
   padding: 0 0 80px 0;
+  margin-top: -40px;
 }
 
-.stats-overlap-grid {
+.Home-stats-overlap-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2em;
 }
 
-.stat-overlap-card {
-  background: #ffffff;
+.Home-stat-overlap-card {
+  background: var(--sntp-white);
   padding: 3em 2em;
   box-shadow: 0px 32px 10px -23px rgba(0, 0, 0, 0.39);
   display: flex;
@@ -30,77 +64,77 @@
   border-bottom: 3px solid transparent;
 }
 
-.stat-overlap-card:hover {
-  border-bottom-color: #FF5E14;
+.Home-stat-overlap-card:hover {
+  border-bottom-color: var(--sntp-red);
   transform: translateY(-10px);
-  box-shadow: 0px 40px 20px -20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 40px 20px -20px rgba(193, 18, 31, 0.4);
 }
 
-.stat-overlap-icon {
+.Home-stat-overlap-icon {
   font-size: 50px;
-  color: #FF5E14;
+  color: var(--sntp-red);
   flex-shrink: 0;
 }
 
-.stat-overlap-content {
+.Home-stat-overlap-content {
   flex: 1;
 }
 
-.stat-overlap-number {
+.Home-stat-overlap-number {
   font-family: "Rajdhani", Sans-serif;
   font-size: 3em;
   font-weight: 800;
-  color: #091441;
+  color: var(--sntp-black);
   line-height: 1;
   margin-bottom: 0.2em;
 }
 
-.stat-overlap-label {
+.Home-stat-overlap-label {
   font-family: "Open Sans", Sans-serif;
   font-size: 1em;
   font-weight: 600;
-  color: #7A7A7A;
+  color: var(--sntp-gray-dark);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-/* About Preview Section - Exactement comme HTML */
-.about-preview-section {
-  background-color: #ffffff;
+/* ==================== About Preview Section ==================== */
+.Home-about-preview-section {
+  background-color: var(--sntp-white);
   padding: 80px 0;
 }
 
-.about-preview-grid {
+.Home-about-preview-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4em;
   align-items: center;
 }
 
-.about-preview-image {
+.Home-about-preview-image {
   position: relative;
 }
 
-.about-preview-image img {
+.Home-about-preview-image img {
   width: 100%;
   height: auto;
   border-radius: 10px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
-.experience-badge {
+.Home-experience-badge {
   position: absolute;
   bottom: -30px;
   right: 30px;
-  background: linear-gradient(135deg, #FF5E14 0%, #ff3600 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--sntp-red) 0%, var(--sntp-red-dark) 100%);
+  color: var(--sntp-white);
   padding: 2em;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(255, 94, 20, 0.4);
+  box-shadow: 0 10px 30px rgba(193, 18, 31, 0.4);
 }
 
-.experience-number {
+.Home-experience-number {
   font-family: "Rajdhani", Sans-serif;
   font-size: 3em;
   font-weight: 800;
@@ -108,7 +142,7 @@
   margin-bottom: 0.2em;
 }
 
-.experience-text {
+.Home-experience-text {
   font-family: "Open Sans", Sans-serif;
   font-size: 0.9em;
   font-weight: 600;
@@ -116,57 +150,57 @@
   letter-spacing: 1px;
 }
 
-.about-preview-content {
+.Home-about-preview-content {
   padding-left: 2em;
 }
 
-.section-subtitle {
+.Home-section-subtitle {
   font-family: "Rajdhani", Sans-serif;
   font-size: 1.5em;
   font-weight: 400;
   text-transform: uppercase;
-  color: #FF5E14;
+  color: var(--sntp-red);
   margin-bottom: 0.5em;
   letter-spacing: 2px;
 }
 
-.section-title {
+.Home-section-title {
   font-family: "Rajdhani", Sans-serif;
   font-size: 3em;
   font-weight: 700;
-  color: #091441;
+  color: var(--sntp-black);
   margin-bottom: 0.5em;
   line-height: 1.2;
 }
 
-.section-divider {
+.Home-section-divider {
   width: 214px;
   height: 6.5px;
   background: repeating-linear-gradient(
     90deg,
-    #FF5E14,
-    #FF5E14 12.2px,
+    var(--sntp-red),
+    var(--sntp-red) 12.2px,
     transparent 12.2px,
     transparent 24.4px
   );
   margin-bottom: 1.5em;
 }
 
-.about-preview-text {
+.Home-about-preview-text {
   font-family: "Open Sans", Sans-serif;
   font-size: 1.1em;
   line-height: 1.8em;
-  color: #7A7A7A;
+  color: var(--sntp-gray-dark);
   margin-bottom: 2em;
 }
 
-.about-features-list {
+.Home-about-features-list {
   list-style: none;
   padding: 0;
   margin: 2em 0;
 }
 
-.about-features-list li {
+.Home-about-features-list li {
   display: flex;
   align-items: flex-start;
   gap: 15px;
@@ -174,15 +208,17 @@
   font-family: "Open Sans", Sans-serif;
   font-size: 1em;
   line-height: 1.6em;
-  color: #091441;
+  color: var(--sntp-black);
 }
 
-.check-icon {
+.Home-check-icon {
   flex-shrink: 0;
   margin-top: 4px;
+  color: var(--sntp-success);
+  font-size: 1.2em;
 }
 
-.btn-primary {
+.Home-btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 15px;
@@ -192,71 +228,70 @@
   font-weight: 600;
   text-transform: uppercase;
   text-decoration: none;
-  background-color: #FF5E14;
-  color: #FFFFFF;
+  background-color: var(--sntp-red);
+  color: var(--sntp-white);
   border-radius: 5px;
   transition: all 0.3s ease;
   margin-top: 1em;
 }
 
-.btn-primary:hover {
-  background-color: #091441;
+.Home-btn-primary:hover {
+  background-color: var(--sntp-gray-darkest);
   transform: translateX(5px);
+  box-shadow: 0 5px 20px rgba(193, 18, 31, 0.3);
 }
 
-.btn-arrow {
+.Home-btn-arrow {
   width: 16px;
   height: 16px;
   transition: transform 0.3s ease;
 }
 
-.btn-primary:hover .btn-arrow {
+.Home-btn-primary:hover .Home-btn-arrow {
   transform: translateX(5px);
 }
 
-/* Services Section - 3 Cartes comme HTML */
-/* Services Section - 4 CARTES */
-.services-section {
-  background-color: #f8f9fa;
+/* ==================== Services Section - 4 Cartes ==================== */
+.Home-services-section {
+  background-color: var(--sntp-gray-lightest);
   padding: 100px 0;
 }
 
-.section-header-center {
+.Home-section-header-center {
   text-align: center;
   margin-bottom: 4em;
 }
 
-.section-divider-center {
+.Home-section-divider-center {
   width: 214px;
   height: 6.5px;
   background: repeating-linear-gradient(
     90deg,
-    #FF5E14,
-    #FF5E14 12.2px,
+    var(--sntp-red),
+    var(--sntp-red) 12.2px,
     transparent 12.2px,
     transparent 24.4px
   );
   margin: 0 auto 1.5em;
 }
 
-.section-description {
+.Home-section-description {
   font-family: "Open Sans", Sans-serif;
   font-size: 1.2em;
   line-height: 1.8em;
-  color: #7A7A7A;
+  color: var(--sntp-gray-dark);
   max-width: 700px;
   margin: 0 auto;
 }
 
-/* Grille de 4 services */
-.services-grid-four {
+.Home-services-grid-four {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2em;
 }
 
-.service-card-modern {
-  background: #ffffff;
+.Home-service-card-modern {
+  background: var(--sntp-white);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -267,33 +302,33 @@
   border-bottom: 3px solid transparent;
 }
 
-.service-card-modern:hover {
+.Home-service-card-modern:hover {
   transform: translateY(-10px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  border-bottom-color: #FF5E14;
+  border-bottom-color: var(--sntp-red);
 }
 
-.service-card-image {
+.Home-service-card-image {
   position: relative;
   height: 250px;
   overflow: hidden;
 }
 
-.service-card-image img {
+.Home-service-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-.service-card-modern:hover .service-card-image img {
+.Home-service-card-modern:hover .Home-service-card-image img {
   transform: scale(1.1);
 }
 
-.service-card-overlay {
+.Home-service-card-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(9, 20, 65, 0.85);
+  background: rgba(13, 27, 42, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -301,54 +336,54 @@
   transition: opacity 0.3s ease;
 }
 
-.service-card-modern:hover .service-card-overlay {
+.Home-service-card-modern:hover .Home-service-card-overlay {
   opacity: 1;
 }
 
-.service-card-icon-large {
+.Home-service-card-icon-large {
   font-size: 80px;
-  color: #ffffff;
+  color: var(--sntp-white);
 }
 
-.service-card-content {
+.Home-service-card-content {
   padding: 2.5em;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.service-card-icon {
+.Home-service-card-icon {
   font-size: 45px;
-  color: #FF5E14;
+  color: var(--sntp-red);
   margin-bottom: 1em;
 }
 
-.service-card-title {
+.Home-service-card-title {
   font-family: "Rajdhani", Sans-serif;
   font-size: 1.5em;
   font-weight: 700;
   text-transform: uppercase;
-  color: #091441;
+  color: var(--sntp-black);
   margin-bottom: 0.5em;
 }
 
-.service-card-divider {
+.Home-service-card-divider {
   width: 50px;
   height: 3px;
-  background-color: #FF5E14;
+  background-color: var(--sntp-red);
   margin-bottom: 1em;
 }
 
-.service-card-text {
+.Home-service-card-text {
   font-family: "Open Sans", Sans-serif;
   font-size: 1em;
   line-height: 1.6em;
-  color: #7A7A7A;
+  color: var(--sntp-gray-dark);
   margin-bottom: 1.5em;
   flex: 1;
 }
 
-.service-card-link {
+.Home-service-card-link {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -356,57 +391,39 @@
   font-size: 1em;
   font-weight: 600;
   text-transform: uppercase;
-  color: #FF5E14;
+  color: var(--sntp-red);
   transition: all 0.3s ease;
 }
 
-.service-card-modern:hover .service-card-link {
-  color: #091441;
+.Home-service-card-modern:hover .Home-service-card-link {
+  color: var(--sntp-gray-darkest);
   gap: 15px;
 }
 
-.service-arrow {
+.Home-service-arrow {
   width: 14px;
   height: 14px;
   transition: transform 0.3s ease;
 }
 
-.service-card-modern:hover .service-arrow {
+.Home-service-card-modern:hover .Home-service-arrow {
   transform: translateX(5px);
 }
 
-/* Responsive Design pour 4 services */
-@media (max-width: 1400px) {
-  .services-grid-four {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .services-grid-four {
-    grid-template-columns: 1fr;
-  }
-  
-  .service-card-content {
-    padding: 2em 1.5em;
-  }
-}
-
-
-/* Projects Showcase - Comme HTML */
-.projects-showcase-section {
-  background-color: #ffffff;
+/* ==================== Projects Showcase Section ==================== */
+.Home-projects-showcase-section {
+  background-color: var(--sntp-white);
   padding: 100px 0;
 }
 
-.projects-grid-three {
+.Home-projects-grid-three {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2em;
   margin-top: 3em;
 }
 
-.project-card-modern {
+.Home-project-card-modern {
   position: relative;
   overflow: hidden;
   border-radius: 10px;
@@ -414,85 +431,86 @@
   transition: all 0.3s ease;
 }
 
-.project-card-modern:hover {
+.Home-project-card-modern:hover {
   transform: translateY(-10px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-.project-card-modern img {
+.Home-project-card-modern img {
   width: 100%;
   height: 400px;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-.project-card-modern:hover img {
+.Home-project-card-modern:hover img {
   transform: scale(1.1);
 }
 
-.project-card-content {
+.Home-project-card-content {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   padding: 2em;
-  background: linear-gradient(to top, rgba(9, 20, 65, 0.95) 0%, rgba(9, 20, 65, 0) 100%);
-  color: #ffffff;
+  background: linear-gradient(to top, rgba(13, 27, 42, 0.95) 0%, rgba(13, 27, 42, 0) 100%);
+  color: var(--sntp-white);
 }
 
-.project-card-title {
+.Home-project-card-title {
   font-family: "Rajdhani", Sans-serif;
   font-size: 1.8em;
   font-weight: 700;
   margin-bottom: 0.5em;
 }
 
-.project-card-desc {
+.Home-project-card-desc {
   font-family: "Open Sans", Sans-serif;
   font-size: 1em;
   margin-bottom: 1em;
   opacity: 0.95;
 }
 
-.project-card-link {
+.Home-project-card-link {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   font-family: "Rajdhani", Sans-serif;
   font-size: 1em;
   font-weight: 600;
-  color: #FF5E14;
+  color: var(--sntp-red-lighter);
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
-.project-card-link:hover {
+.Home-project-card-link:hover {
   gap: 15px;
+  color: var(--sntp-white);
 }
 
-.arrow-right {
+.Home-arrow-right {
   font-size: 1.2em;
   transition: transform 0.3s ease;
 }
 
-.project-card-link:hover .arrow-right {
+.Home-project-card-link:hover .Home-arrow-right {
   transform: translateX(5px);
 }
 
-.projects-cta-center {
+.Home-projects-cta-center {
   text-align: center;
   margin-top: 3em;
 }
 
-/* CTA Section - Comme HTML */
-.cta-section-home {
-  background: linear-gradient(135deg, #FF5E14 0%, #ff3600 100%);
+/* ==================== CTA Section ==================== */
+.Home-cta-section-home {
+  background: linear-gradient(135deg, var(--sntp-red) 0%, var(--sntp-red-dark) 100%);
   padding: 100px 0;
   position: relative;
   overflow: hidden;
 }
 
-.cta-section-home::before {
+.Home-cta-section-home::before {
   content: "";
   position: absolute;
   top: -50%;
@@ -503,7 +521,7 @@
   border-radius: 50%;
 }
 
-.cta-section-home::after {
+.Home-cta-section-home::after {
   content: "";
   position: absolute;
   bottom: -30%;
@@ -514,23 +532,23 @@
   border-radius: 50%;
 }
 
-.cta-content-home {
+.Home-cta-content-home {
   position: relative;
   z-index: 2;
   text-align: center;
   max-width: 800px;
   margin: 0 auto;
-  color: #ffffff;
+  color: var(--sntp-white);
 }
 
-.cta-title-home {
+.Home-cta-title-home {
   font-family: "Rajdhani", Sans-serif;
   font-size: 3.5em;
   font-weight: 800;
   margin-bottom: 0.5em;
 }
 
-.cta-text-home {
+.Home-cta-text-home {
   font-family: "Open Sans", Sans-serif;
   font-size: 1.3em;
   line-height: 1.8em;
@@ -538,7 +556,7 @@
   opacity: 0.95;
 }
 
-.btn-white {
+.Home-btn-white {
   display: inline-flex;
   align-items: center;
   gap: 15px;
@@ -548,49 +566,51 @@
   font-weight: 600;
   text-transform: uppercase;
   text-decoration: none;
-  background-color: #ffffff;
-  color: #FF5E14;
+  background-color: var(--sntp-white);
+  color: var(--sntp-red);
   border-radius: 5px;
   transition: all 0.3s ease;
 }
 
-.btn-white:hover {
-  background-color: #091441;
-  color: #ffffff;
+.Home-btn-white:hover {
+  background-color: var(--sntp-gray-darkest);
+  color: var(--sntp-white);
   transform: translateY(-3px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive Design */
+/* ==================== Responsive Design ==================== */
+@media (max-width: 1400px) {
+  .Home-services-grid-four {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 1200px) {
-  .stats-overlap-grid {
+  .Home-stats-overlap-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
-  .services-grid-three {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .projects-grid-three {
+
+  .Home-projects-grid-three {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 1024px) {
-  .about-preview-grid {
+  .Home-about-preview-grid {
     grid-template-columns: 1fr;
     gap: 3em;
   }
-  
-  .about-preview-image {
+
+  .Home-about-preview-image {
     order: -1;
   }
-  
-  .about-preview-content {
+
+  .Home-about-preview-content {
     padding-left: 0;
   }
-  
-  .experience-badge {
+
+  .Home-experience-badge {
     right: 20px;
     bottom: -20px;
     padding: 1.5em;
@@ -598,80 +618,84 @@
 }
 
 @media (max-width: 768px) {
-  .stats-overlap-section {
+  .Home-page {
+    padding-top: 70px;
+  }
+
+  .Home-stats-overlap-section {
     margin-top: 0;
     padding: 40px 0;
   }
-  
-  .stats-overlap-grid {
+
+  .Home-stats-overlap-grid {
     grid-template-columns: 1fr;
     gap: 1.5em;
   }
-  
-  .stat-overlap-card {
+
+  .Home-stat-overlap-card {
     padding: 2em 1.5em;
   }
-  
-  .section-title {
+
+  .Home-section-title {
     font-size: 2.5em;
   }
-  
-  .services-grid-three {
+
+  .Home-services-grid-four {
     grid-template-columns: 1fr;
   }
-  
-  .projects-grid-three {
+
+  .Home-projects-grid-three {
     grid-template-columns: 1fr;
   }
-  
-  .project-card-modern img {
+
+  .Home-project-card-modern img {
     height: 350px;
   }
-  
-  .cta-title-home {
+
+  .Home-cta-title-home {
     font-size: 2.5em;
   }
-  
-  .cta-text-home {
+
+  .Home-cta-text-home {
     font-size: 1.1em;
   }
 }
 
 @media (max-width: 668px) {
-  .stats-overlap-card {
+  .Home-stat-overlap-card {
     flex-direction: column;
     text-align: center;
   }
-  
-  .section-title {
+
+  .Home-section-title {
     font-size: 2em;
   }
-  
-  .section-subtitle {
+
+  .Home-section-subtitle {
     font-size: 1.2em;
   }
-  
-  .about-preview-section,
-  .services-section,
-  .projects-showcase-section,
-  .cta-section-home {
+
+  .Home-about-preview-section,
+  .Home-services-section,
+  .Home-projects-showcase-section,
+  .Home-cta-section-home {
     padding: 60px 0;
   }
-  
-  .service-card-content {
+
+  .Home-service-card-content {
     padding: 2em 1.5em;
   }
-  
-  .project-card-content {
+
+  .Home-project-card-content {
     padding: 1.5em;
   }
-  
-  .cta-title-home {
+
+  .Home-cta-title-home {
     font-size: 2em;
   }
-  
-  .btn-primary,
-  .btn-white {
+
+  .Home-btn-primary,
+  .Home-btn-white {
     padding: 12px 25px;
     font-size: 0.95em;
   }
