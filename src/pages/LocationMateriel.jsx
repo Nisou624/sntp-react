@@ -1,122 +1,146 @@
 import React from 'react';
-import { FaTruck, FaTools, FaCogs, FaHeadset, FaCheckCircle, FaPhoneAlt } from 'react-icons/fa';
+import { FaTruck, FaTools, FaCogs, FaHeadset, FaCheckCircle, FaPhoneAlt, FaArrowRight } from 'react-icons/fa';
 import './LocationMateriel.css';
 
 const LocationMateriel = () => {
-  // Catégories d'équipements - Contenu exact de la page HTML WordPress
+  // Catégories d'équipements
   const equipmentCategories = [
     {
       id: 1,
       icon: <FaTruck />,
-      title: "Équipements béton",
-      description: "Camions malaxeurs, centrales mobile"
+      title: 'Engins de Terrassement',
+      description: 'Bulldozers, pelles hydrauliques, niveleuses, compacteurs vibrants pour tous travaux de terrassement et préparation de terrain.'
     },
     {
       id: 2,
       icon: <FaTools />,
-      title: "Matériel annexe",
-      description: "Groupes électrogènes, compresseurs, bungalows de chantier"
+      title: 'Matériel de Construction',
+      description: 'Grues mobiles, bétonnières, échafaudages, coffrages et équipements pour bâtiment et génie civil.'
     },
     {
       id: 3,
       icon: <FaCogs />,
-      title: "Engins de terrassement",
-      description: "Pelles, chargeuses, bulldozers, scrapers"
-    },
-    {
-      id: 4,
-      icon: <FaTruck />,
-      title: "Engins de compactage",
-      description: "Rouleaux monocylindres, tandem vibrants"
-    },
-    {
-      id: 5,
-      icon: <FaTools />,
-      title: "Matériel de levage",
-      description: "Grues mobiles, nacelles, chariots télescopiques"
-    },
-    {
-      id: 6,
-      icon: <FaCogs />,
-      title: "Équipement de transport",
-      description: "Camions bennes, semi-remorques, tracteurs"
+      title: 'Équipements Spécialisés',
+      description: 'Matériel ferroviaire, équipements routiers, systèmes de forage et machines pour travaux spécifiques.'
     }
   ];
 
-  // Caractéristiques de la flotte - Contenu exact de la page HTML
-  const fleetFeatures = [
-    "Puissance",
-    "Disponibilité",
-    "Fiabilité"
+  // Caractéristiques de l'armada
+  const armadaFeatures = [
+    'Équipements modernes et régulièrement renouvelés',
+    'Maintenance préventive et curative assurée',
+    'Disponibilité immédiate sur tout le territoire',
+    'Support technique et formation inclus',
+    'Flexibilité des durées de location',
+    'Assistance 24/7 en cas d\'urgence'
   ];
 
   return (
-    <div className="location-materiel-page">
-      {/* Hero Section - Contenu exact de la page WordPress */}
-      <header className="location-hero">
-        <div className="location-hero-overlay"></div>
-        <div className="container location-hero-content">
-          <h4 className="location-subtitle">Une flotte à la hauteur de vos projets</h4>
-          <h1 className="location-title">LOCATION DE MATÉRIEL</h1>
-          <div className="hero-divider"></div>
-          <p className="location-description">
-            Forte de son envergure nationale, la Société Nationale des Travaux Publics met à la disposition de ses clients publics et privés une <strong>offre complète de location d'engins et de matériel de chantier</strong>, pour tous types de projets d'infrastructure, de bâtiment, ou d'aménagement.
-          </p>
+    <div className="LocationMateriel-page">
+      {/* Hero Section */}
+      <section 
+        className="LocationMateriel-hero"
+        style={{
+          backgroundImage: 'url(https://via.placeholder.com/1920x1080/1B263B/FFFFFF?text=Location+Materiel+SNTP)'
+        }}
+      >
+        <div className="LocationMateriel-hero-overlay"></div>
+        <div className="LocationMateriel-container">
+          <div className="LocationMateriel-hero-content">
+            <p className="LocationMateriel-subtitle">
+              Solutions Professionnelles
+            </p>
+            <h1 className="LocationMateriel-title">
+              Location de Matériel
+            </h1>
+            <div className="LocationMateriel-hero-divider"></div>
+            <p className="LocationMateriel-description">
+              La SNTP met à votre disposition son <strong>parc de matériel moderne et performant</strong> pour 
+              accompagner vos projets de construction, terrassement et travaux publics. Une flotte diversifiée, 
+              parfaitement entretenue et immédiatement disponible.
+            </p>
+          </div>
         </div>
-      </header>
+      </section>
 
-      {/* Section Catégories d'équipements - Contenu exact */}
-      <section className="equipements-categories-section section">
-        <div className="container">
-          <div className="categories-grid">
+      {/* Section Catégories d'Équipements */}
+      <section className="LocationMateriel-categories-section">
+        <div className="LocationMateriel-container">
+          <div className="LocationMateriel-section-header">
+            <p className="LocationMateriel-section-subtitle">Notre Offre</p>
+            <h2 className="LocationMateriel-section-title">
+              Catégories d'Équipements Disponibles
+            </h2>
+            <div className="LocationMateriel-section-divider"></div>
+            <p className="LocationMateriel-armada-description">
+              Un large choix de matériel professionnel adapté à tous vos besoins, 
+              du terrassement aux travaux spécialisés.
+            </p>
+          </div>
+
+          <div className="LocationMateriel-categories-grid">
             {equipmentCategories.map((category) => (
-              <div key={category.id} className="category-card">
-                <div className="category-icon-wrapper">
+              <div key={category.id} className="LocationMateriel-category-card">
+                <div className="LocationMateriel-category-icon-wrapper">
                   {category.icon}
                 </div>
-                <h3 className="category-card-title">{category.title}</h3>
-                <div className="category-divider"></div>
-                <p className="category-description">{category.description}</p>
+                <h3 className="LocationMateriel-category-card-title">
+                  {category.title}
+                </h3>
+                <div className="LocationMateriel-category-divider"></div>
+                <p className="LocationMateriel-category-description">
+                  {category.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Section "Une armada d'engins" - Contenu exact */}
-      <section className="armada-section section-gray">
-        <div className="container">
-          <div className="armada-grid">
-            <div className="armada-content">
-              <h4 className="section-subtitle">opérationnelle pour répondre à toutes les exigences terrain.</h4>
-              <h2 className="section-title">Une armada d'engins</h2>
-              <div className="section-divider"></div>
-              <p className="armada-description">
-                Notre service repose sur une approche simple : <strong>vous fournir des équipements puissants, immédiatement disponibles, parfaitement entretenus, et adaptés à chaque mission.</strong>
+      {/* Section Armada */}
+      <section className="LocationMateriel-armada-section">
+        <div className="LocationMateriel-container">
+          <div className="LocationMateriel-armada-grid">
+            {/* Contenu texte */}
+            <div className="LocationMateriel-armada-content">
+              <p className="LocationMateriel-section-subtitle">Excellence & Fiabilité</p>
+              <h2 className="LocationMateriel-section-title">
+                Une Armada à Votre Service
+              </h2>
+              <div className="LocationMateriel-section-divider"></div>
+              <p className="LocationMateriel-armada-description">
+                Notre service repose sur une approche simple : <strong>vous fournir des équipements 
+                puissants, immédiatement disponibles, parfaitement entretenus, et adaptés à chaque mission.</strong>
               </p>
-              
-              <div className="armada-features-list">
-                {fleetFeatures.map((feature, index) => (
-                  <div key={index} className="armada-feature-item">
-                    <div className="feature-icon-wrapper">
-                      <FaCheckCircle className="feature-check-icon" />
+              <p className="LocationMateriel-armada-description">
+                Chaque machine de notre flotte est soumise à un programme de maintenance rigoureux 
+                garantissant performance optimale et sécurité maximale sur vos chantiers.
+              </p>
+
+              {/* Liste des caractéristiques */}
+              <div className="LocationMateriel-armada-features-list">
+                {armadaFeatures.map((feature, index) => (
+                  <div key={index} className="LocationMateriel-armada-feature-item">
+                    <div className="LocationMateriel-feature-icon-wrapper">
+                      <FaCheckCircle className="LocationMateriel-feature-check-icon" />
                     </div>
-                    <span className="feature-text">{feature}</span>
+                    <span className="LocationMateriel-feature-text">{feature}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="armada-image-wrapper">
-              <div className="image-container">
-                <img 
-                  src="/wp-content/uploads/elementor/thumbs/image-from-rawpixel-id-83704-jpeg-r85dio3bt7yx7cbp0y2qgdfogan565evpp44kte7zk.jpg" 
-                  alt="Engins de chantier SNTP"
-                  className="armada-img"
+            {/* Image */}
+            <div className="LocationMateriel-armada-image-wrapper">
+              <div className="LocationMateriel-image-container">
+                <img
+                  src="https://via.placeholder.com/600x800/415A77/FFFFFF?text=Parc+Materiel"
+                  alt="Parc matériel SNTP"
+                  className="LocationMateriel-armada-img"
                 />
-                <div className="image-overlay-badge">
-                  <FaCheckCircle className="overlay-icon" />
-                  <span>Flotte moderne et entretenue</span>
+                <div className="LocationMateriel-image-overlay-badge">
+                  <FaTruck className="LocationMateriel-overlay-icon" />
+                  <span>Plus de 500 équipements disponibles</span>
                 </div>
               </div>
             </div>
@@ -124,23 +148,29 @@ const LocationMateriel = () => {
         </div>
       </section>
 
-      {/* Section CTA finale - Contenu exact */}
-      <section className="location-cta-section">
-        <div className="container">
-          <div className="location-cta-content">
-            <h2 className="cta-main-title">
-              Chaque projet a ses exigences. Notre équipe vous accompagne pour dimensionner précisément vos besoins, assurer la logistique, et garantir une disponibilité sans rupture tout au long de votre chantier.
+      {/* Section CTA Finale */}
+      <section className="LocationMateriel-cta-section">
+        <div className="LocationMateriel-container">
+          <div className="LocationMateriel-cta-content">
+            <h2 className="LocationMateriel-cta-main-title">
+              Besoin d'un équipement spécifique ? Notre équipe est à votre écoute pour vous conseiller 
+              et vous proposer la solution la plus adaptée à votre projet.
             </h2>
-            <div className="cta-buttons">
-              <a href="/about-us" className="hero-btn hero-btn-primary">
-                <span>Contactez-nous</span>
-                <svg className="btn-icon" viewBox="0 0 448 512" width="16" height="16">
-                  <path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>
-                </svg>
+
+            <div className="LocationMateriel-cta-buttons">
+              <a 
+                href="/contact" 
+                className="LocationMateriel-hero-btn LocationMateriel-hero-btn-primary"
+              >
+                <FaArrowRight className="LocationMateriel-btn-icon" />
+                Demander un Devis
               </a>
-              <a href="tel:023812345" className="hero-btn hero-btn-outline">
-                <FaPhoneAlt className="btn-icon-phone" />
-                <span>023 81 23 45</span>
+              <a 
+                href="tel:+213XXXXXXXXX" 
+                className="LocationMateriel-hero-btn LocationMateriel-hero-btn-outline"
+              >
+                <FaPhoneAlt className="LocationMateriel-btn-icon LocationMateriel-btn-icon-phone" />
+                Appelez-nous
               </a>
             </div>
           </div>

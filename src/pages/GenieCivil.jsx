@@ -1,293 +1,285 @@
-// src/pages/GenieCivil.jsx
-import React from "react";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
-import "./GenieCivil.css";
+import React from 'react';
+import { FaBuilding, FaHardHat, FaCheckCircle, FaRuler, FaCogs } from 'react-icons/fa';
+import './GenieCivil.css';
 
 const GenieCivil = () => {
+  // Introduction cards
+  const introCards = [
+    {
+      id: 1,
+      icon: <FaBuilding />,
+      title: 'Bâtiments Publics',
+      text: 'Réalisation de bâtiments administratifs, établissements d\'enseignement et de santé en tous corps d\'états avec respect des normes parasismiques.'
+    },
+    {
+      id: 2,
+      icon: <FaBuilding />,
+      title: 'Ouvrages d\'Art',
+      text: 'Construction de ponts, viaducs, passages supérieurs et inférieurs avec maîtrise des techniques de coffrage et de précontrainte.'
+    },
+    {
+      id: 3,
+      icon: <FaHardHat />,
+      title: 'Expertise Technique',
+      text: 'Études de sol, dimensionnement des structures, calculs parasismiques et contrôle qualité selon les normes DTU et RPA.'
+    }
+  ];
+
+  // Domaines d'intervention
+  const domains = [
+    {
+      id: 1,
+      title: 'Terrassement & Fondations',
+      text: 'Terrassements en déblai/remblai, fondations superficielles et profondes (pieux, micropieux, barrettes) adaptées aux contraintes géotechniques.'
+    },
+    {
+      id: 2,
+      title: 'Gros Œuvre Béton Armé',
+      text: 'Réalisation de structures en béton armé : poteaux, poutres, dalles, voiles, avec ferraillage conformes aux plans d\'exécution et normes parasismiques.'
+    },
+    {
+      id: 3,
+      title: 'Second Œuvre',
+      text: 'Corps d\'états secondaires : maçonnerie, plâtrerie, menuiserie, revêtements, étanchéité et isolation thermique et acoustique.'
+    },
+    {
+      id: 4,
+      title: 'VRD & Aménagements',
+      text: 'Voiries, réseaux divers (AEP, assainissement, électricité), espaces verts et aménagements extérieurs pour livraison clés en main.'
+    },
+    {
+      id: 5,
+      title: 'Ouvrages Hydrauliques',
+      text: 'Châteaux d\'eau, réservoirs, stations de pompage et bassins en béton armé avec étanchéité garantie.'
+    },
+    {
+      id: 6,
+      title: 'Infrastructures Ferroviaires',
+      text: 'Terrassements, ouvrages d\'art, murs de soutènement et plateformes pour projets ferroviaires et métro.'
+    }
+  ];
+
+  // Méthodologie
+  const methodology = [
+    {
+      id: 1,
+      step: '01',
+      title: 'Études & Conception',
+      text: 'Études géotechniques, relevés topographiques, conception architecturale et plans d\'exécution tous corps d\'états.'
+    },
+    {
+      id: 2,
+      step: '02',
+      title: 'Préparation de Chantier',
+      text: 'Installation de chantier, mobilisation des équipes et matériel, établissement du planning d\'exécution détaillé.'
+    },
+    {
+      id: 3,
+      step: '03',
+      title: 'Exécution & Contrôle',
+      text: 'Réalisation des travaux selon planning avec contrôles qualité permanents : essais béton, ferraillage, étanchéité.'
+    },
+    {
+      id: 4,
+      step: '04',
+      title: 'Livraison & Garanties',
+      text: 'Réception des ouvrages, levée des réserves, mise en service et activation des garanties décennales et biennales.'
+    }
+  ];
+
+  // Statistiques
+  const stats = [
+    {
+      id: 1,
+      value: '500+',
+      label: 'Projets Réalisés',
+      desc: 'Bâtiments et ouvrages livrés'
+    },
+    {
+      id: 2,
+      value: '60 ans',
+      label: 'Expérience',
+      desc: 'Au service du génie civil'
+    },
+    {
+      id: 3,
+      value: '100%',
+      label: 'Normes Respectées',
+      desc: 'Conformité RPA & DTU'
+    },
+    {
+      id: 4,
+      value: '48 wilayas',
+      label: 'Couverture Nationale',
+      desc: 'Présence sur tout le territoire'
+    }
+  ];
+
   return (
-    <>
-      <Header />
-      <main className="gc-page">
-        {/* Hero Section */}
-        <section className="gc-hero">
-          <div className="gc-hero-overlay" />
-          <div className="gc-hero-content container">
-            <p className="gc-hero-kicker">Pôle Génie Civil</p>
-            <h1 className="gc-hero-title">Génie Civil & Ouvrages d'Art</h1>
-            <p className="gc-hero-subtitle">
-              Créée en 1977, la Société Nationale des Travaux Publics (SNTP) est un acteur
-              majeur du génie civil en Algérie. Elle met au service des grands projets
-              nationaux ses moyens de production performants et une main-d’œuvre
-              expérimentée pour la réalisation de bâtiments publics spécialisés, d’ouvrages
-              d’art et d’infrastructures stratégiques à l’échelle du territoire.
+    <div className="GenieCivil-page">
+      {/* Hero Section */}
+      <section 
+        className="GenieCivil-hero"
+        style={{
+          backgroundImage: 'url(https://via.placeholder.com/1920x1080/1B263B/FFFFFF?text=Genie+Civil+SNTP)'
+        }}
+      >
+        <div className="GenieCivil-hero-overlay"></div>
+        <div className="GenieCivil-container">
+          <div className="GenieCivil-hero-content">
+            <p className="GenieCivil-hero-kicker">
+              Accueil / Services / Génie Civil
             </p>
-            <div className="gc-hero-actions">
-              <a href="#domaines" className="gc-btn gc-btn-primary">
-                Explorer nos domaines
+            <h1 className="GenieCivil-hero-title">
+              Génie Civil
+            </h1>
+            <p className="GenieCivil-hero-subtitle">
+              Conception, construction et réhabilitation d'ouvrages de génie civil : bâtiments publics, 
+              ouvrages d'art, infrastructures hydrauliques et ferroviaires avec maîtrise complète des 
+              techniques de construction moderne.
+            </p>
+            <div className="GenieCivil-hero-actions">
+              <a href="/contact" className="GenieCivil-btn GenieCivil-btn-primary">
+                <FaBuilding style={{ marginRight: '8px' }} />
+                Demander un Devis
               </a>
-              <a href="#contact" className="gc-btn gc-btn-outline">
-                Demander un devis
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Introduction / Présentation */}
-        <section className="gc-section gc-intro">
-          <div className="container">
-            <div className="gc-section-header">
-              <h2 className="gc-section-title">Une expertise reconnue</h2>
-              <p className="gc-section-subtitle">
-                Depuis plus de quatre décennies, la SNTP développe un savoir‑faire reconnu
-                dans la construction d’infrastructures routières, aéroportuaires, hydrauliques
-                et de bâtiments publics. Adossée à un parc matériel important et à des équipes
-                d’ingénieurs et de techniciens qualifiés, l’entreprise est en mesure de
-                prendre en charge des projets complexes, de la phase d’études jusqu’à la
-                livraison, dans le respect des normes algériennes en vigueur, des exigences
-                de sécurité et des contraintes environnementales. Sa politique de
-                spécialisation, de renouveau et de persévérance en fait aujourd’hui un modèle
-                économique stable, efficace et exemplaire au service du développement
-                national.
-              </p>
-            </div>
-
-            <div className="gc-intro-grid">
-              <article className="gc-intro-card">
-                <div className="gc-intro-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    <polyline points="9 22 9 12 15 12 15 22" />
-                  </svg>
-                </div>
-                <h3 className="gc-intro-title">Bâtiments Publics Spécialisés</h3>
-                <p className="gc-intro-text">
-                  Réalisation de bâtiments administratifs, équipements publics et
-                  établissements d’enseignement ou de santé, en tous corps d’états. La SNTP
-                  assure la maîtrise d’ouvrage de bout en bout : terrassements, gros œuvre,
-                  second œuvre et VRD, dans le respect des normes parasismiques et des
-                  référentiels techniques en vigueur en Algérie.
-                </p>
-              </article>
-
-              <article className="gc-intro-card">
-                <div className="gc-intro-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                  </svg>
-                </div>
-                <h3 className="gc-intro-title">Ouvrages d'Art</h3>
-                <p className="gc-intro-text">
-                  Études et construction d’ouvrages d’art en béton armé ou précontraint :
-                  ponts, viaducs, dalots, passages supérieurs et inférieurs, murs de
-                  soutènement et ouvrages de protection. La SNTP intervient sur les grands
-                  projets d’infrastructures routières et aéroportuaires en apportant des
-                  solutions durables et sécurisées.
-                </p>
-              </article>
-
-              <article className="gc-intro-card">
-                <div className="gc-intro-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M12 6v6l4 2" />
-                  </svg>
-                </div>
-                <h3 className="gc-intro-title">Travaux de VRD</h3>
-                <p className="gc-intro-text">
-                  Travaux de voirie et réseaux divers (VRD) et amélioration urbaine : voies
-                  d’accès, trottoirs, réseaux d’assainissement et d’adduction, aménagements de
-                  placettes publiques et d’espaces collectifs. Ces interventions contribuent à
-                  la fonctionnalité et à l’embellissement du tissu urbain.
-                </p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        {/* Domaines d'intervention */}
-        <section id="domaines" className="gc-section gc-domains">
-          <div className="container">
-            <div className="gc-section-header">
-              <h2 className="gc-section-title">Domaines d'intervention</h2>
-              <p className="gc-section-subtitle">
-                La SNTP intervient sur l’ensemble du cycle de vie des projets de génie civil,
-                des études préalables jusqu’à la réception des ouvrages. Forte de ses
-                équipements de travaux publics et de son organisation certifiée ISO 9001,
-                elle contribue aux grands programmes nationaux en matière de routes,
-                autoroutes, aéroports, hydraulique et bâtiments publics.
-              </p>
-            </div>
-
-            <div className="gc-domains-grid">
-              <div className="gc-domain-card">
-                <h3 className="gc-domain-title">Bâtiments Publics & Administratifs</h3>
-                <p className="gc-domain-text">
-                  Construction de bâtiments administratifs, équipements publics, centres de
-                  formation, établissements scolaires et universitaires ou bâtiments
-                  industriels. La SNTP réalise ces ouvrages en tous corps d’états, depuis les
-                  fondations jusqu’aux finitions et aux aménagements extérieurs, dans le
-                  respect des délais et des exigences fonctionnelles des maîtres d’ouvrage.
-                </p>
-              </div>
-
-              <div className="gc-domain-card">
-                <h3 className="gc-domain-title">Infrastructures Énergétiques</h3>
-                <p className="gc-domain-text">
-                  Travaux d’infrastructures routières et autoroutières (terrassements en grande
-                  masse, corps de chaussée, ouvrages annexes) ainsi que réalisation
-                  d’ouvrages de génie civil aéroportuaire : pistes d’atterrissage,
-                  taxiways, aires de stationnement et ouvrages de protection. La SNTP participe
-                  ainsi à l’extension et à la modernisation du réseau de transport national.
-                </p>
-              </div>
-
-              <div className="gc-domain-card">
-                <h3 className="gc-domain-title">Ponts & Viaducs</h3>
-                <p className="gc-domain-text">
-                  Conception et réalisation de ponts, viaducs et dalots en béton armé,
-                  précontraint ou à tablier mixte, permettant le franchissement de vallées,
-                  oueds, voies ferrées et autres infrastructures. Les équipes de la SNTP
-                  maîtrisent les différentes techniques de fondations profondes, de pose de
-                  poutres et de construction de tabliers.
-                </p>
-              </div>
-
-              <div className="gc-domain-card">
-                <h3 className="gc-domain-title">Infrastructures Hydrauliques</h3>
-                <p className="gc-domain-text">
-                  Travaux de génie civil pour les infrastructures hydrauliques : réservoirs de
-                  stockage, stations de traitement et de pompage, bassins de rétention,
-                  réseaux d’adduction et d’assainissement. Ces ouvrages contribuent à
-                  l’alimentation en eau potable, à l’irrigation et à la protection contre les
-                  inondations.
-                </p>
-              </div>
-
-              <div className="gc-domain-card">
-                <h3 className="gc-domain-title">VRD & Aménagement Urbain</h3>
-                <p className="gc-domain-text">
-                  Travaux de voirie et réseaux divers, amélioration urbaine, construction et
-                  rénovation de placettes publiques, trottoirs, parkings et espaces
-                  piétonniers. La SNTP intervient sur l’ensemble des couches de voirie, la
-                  mise en œuvre des revêtements, la pose de bordures et la mise à niveau des
-                  réseaux enterrés.
-                </p>
-              </div>
-
-              <div className="gc-domain-card">
-                <h3 className="gc-domain-title">Structures Métalliques</h3>
-                <p className="gc-domain-text">
-                  Réalisation d’ouvrages de génie civil spécifiques pour les secteurs
-                  énergétique, industriel et logistique : massifs de fondation pour
-                  équipements, bâtiments techniques, structures métalliques légères,
-                  plateformes et bases de vie. La SNTP adapte ses solutions aux besoins
-                  particuliers de chaque projet et aux contraintes des sites.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Méthodologie & Savoir-faire */}
-        <section className="gc-section gc-methodology">
-          <div className="container">
-            <div className="gc-section-header">
-              <h2 className="gc-section-title">Notre méthodologie</h2>
-              <p className="gc-section-subtitle">
-                La SNTP s’appuie sur une organisation intégrée combinant bureau d’études,
-                services méthodes, conduite de travaux et contrôle qualité. Cette
-                structuration permet de sécuriser chaque phase du projet et d’assurer la
-                conformité des ouvrages livrés aux exigences des maîtres d’ouvrage et aux
-                normes nationales.
-              </p>
-            </div>
-
-            <div className="gc-methodology-timeline">
-              <div className="gc-timeline-item">
-                <div className="gc-timeline-marker">01</div>
-                <div className="gc-timeline-content">
-                  <h3 className="gc-timeline-title">Études & Conception</h3>
-                  <p className="gc-timeline-text">
-                    Analyse du cahier des charges, études de faisabilité et d’implantation,
-                    études géotechniques et structurelles, dimensionnement selon les normes
-                    algériennes et préparation des plans d’exécution. Les contraintes
-                    parasismiques, d’exploitation et d’entretien sont intégrées dès la phase de
-                    conception.
-                  </p>
-                </div>
-              </div>
-
-              <div className="gc-timeline-item">
-                <div className="gc-timeline-marker">02</div>
-                <div className="gc-timeline-content">
-                  <h3 className="gc-timeline-title">Préparation & Planification</h3>
-                  <p className="gc-timeline-text">
-                    Élaboration du planning détaillé des travaux, installation de chantier,
-                    définition des procédures HSE, mobilisation des équipes, du matériel de
-                    travaux publics et des matériaux de construction (agrégats, béton, produits
-                    ferreux, etc.). Cette phase garantit une exécution maîtrisée et une bonne
-                    coordination des intervenants.
-                  </p>
-                </div>
-              </div>
-
-              <div className="gc-timeline-item">
-                <div className="gc-timeline-marker">03</div>
-                <div className="gc-timeline-content">
-                  <h3 className="gc-timeline-title">Réalisation & Contrôle</h3>
-                  <p className="gc-timeline-text">
-                    Exécution des terrassements, fondations, ouvrages en béton armé, structures
-                    et finitions conformément aux plans d’exécution. Des contrôles qualité
-                    réguliers sont réalisés sur chantier et en laboratoire (béton, matériaux,
-                    géométrie), dans le cadre d’un système de management certifié ISO 9001, afin
-                    d’assurer la conformité et la durabilité des ouvrages.
-                  </p>
-                </div>
-              </div>
-
-              <div className="gc-timeline-item">
-                <div className="gc-timeline-marker">04</div>
-                <div className="gc-timeline-content">
-                  <h3 className="gc-timeline-title">Livraison & Suivi</h3>
-                  <p className="gc-timeline-text">
-                    Organisation des réceptions provisoires et définitives, constitution des
-                    dossiers d’ouvrage exécuté (DOE), mise à disposition de la documentation
-                    technique et accompagnement des maîtres d’ouvrage lors de la mise en service.
-                    La SNTP reste mobilisée pour les interventions de garantie et le suivi
-                    technique des ouvrages livrés.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA / Contact */}
-        <section id="contact" className="gc-section gc-cta">
-          <div className="container gc-cta-inner">
-            <div className="gc-cta-text">
-              <h2 className="gc-cta-title">Confiez-nous votre projet</h2>
-              <p className="gc-cta-subtitle">
-                Vous avez un projet de construction, de réhabilitation ou
-                d'ouvrage d'art ? Basée sur une politique de spécialisation, de
-                renouveau et de persévérance, la SNTP met à votre disposition
-                ses équipes d'ingénieurs, sa main-d'œuvre compétente et ses
-                équipements performants pour une solution sur mesure.
-              </p>
-            </div>
-            <div className="gc-cta-actions">
-              <a href="/contact" className="gc-btn gc-btn-primary">
-                Contacter la SNTP
-              </a>
-              <a href="/services" className="gc-btn gc-btn-outline-light">
-                Découvrir tous nos services
+              <a href="/projets" className="GenieCivil-btn GenieCivil-btn-outline">
+                Nos Réalisations
               </a>
             </div>
           </div>
-        </section>
-      </main>
-    </>
+        </div>
+      </section>
+
+      {/* Section Introduction */}
+      <section className="GenieCivil-section GenieCivil-intro">
+        <div className="GenieCivil-container">
+          <div className="GenieCivil-section-header">
+            <h2 className="GenieCivil-section-title">
+              Notre Expertise
+            </h2>
+            <p className="GenieCivil-section-subtitle">
+              La SNTP maîtrise l'ensemble du cycle de construction : de la conception à la livraison 
+              clés en main, en passant par tous les corps d'états.
+            </p>
+          </div>
+
+          <div className="GenieCivil-intro-grid">
+            {introCards.map((card) => (
+              <div key={card.id} className="GenieCivil-intro-card">
+                <div className="GenieCivil-intro-icon">
+                  {card.icon}
+                </div>
+                <h3 className="GenieCivil-intro-title">{card.title}</h3>
+                <p className="GenieCivil-intro-text">{card.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Domaines */}
+      <section className="GenieCivil-section GenieCivil-domains">
+        <div className="GenieCivil-container">
+          <div className="GenieCivil-section-header">
+            <h2 className="GenieCivil-section-title">
+              Domaines d'Intervention
+            </h2>
+            <p className="GenieCivil-section-subtitle">
+              Une gamme complète de prestations pour tous vos projets de génie civil, 
+              du terrassement à la finition.
+            </p>
+          </div>
+
+          <div className="GenieCivil-domains-grid">
+            {domains.map((domain) => (
+              <div key={domain.id} className="GenieCivil-domain-card">
+                <h3 className="GenieCivil-domain-title">{domain.title}</h3>
+                <p className="GenieCivil-domain-text">{domain.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Méthodologie */}
+      <section className="GenieCivil-section">
+        <div className="GenieCivil-container">
+          <div className="GenieCivil-section-header">
+            <h2 className="GenieCivil-section-title">
+              Notre Méthodologie
+            </h2>
+            <p className="GenieCivil-section-subtitle">
+              Un processus éprouvé garantissant qualité, délais et conformité aux normes.
+            </p>
+          </div>
+
+          <div className="GenieCivil-methodology-timeline">
+            {methodology.map((item) => (
+              <div key={item.id} className="GenieCivil-timeline-item">
+                <div className="GenieCivil-timeline-marker">
+                  {item.step}
+                </div>
+                <div className="GenieCivil-timeline-content">
+                  <h3 className="GenieCivil-timeline-title">{item.title}</h3>
+                  <p className="GenieCivil-timeline-text">{item.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Statistiques */}
+      <section className="GenieCivil-section GenieCivil-stats">
+        <div className="GenieCivil-container">
+          <div className="GenieCivil-section-header">
+            <h2 className="GenieCivil-section-title">
+              Notre Performance
+            </h2>
+            <p className="GenieCivil-section-subtitle">
+              Des chiffres qui témoignent de notre engagement et de notre excellence.
+            </p>
+          </div>
+
+          <div className="GenieCivil-stats-grid">
+            {stats.map((stat) => (
+              <div key={stat.id} className="GenieCivil-stat-card">
+                <div className="GenieCivil-stat-value">{stat.value}</div>
+                <div className="GenieCivil-stat-label">{stat.label}</div>
+                <p className="GenieCivil-stat-desc">{stat.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section CTA */}
+      <section className="GenieCivil-section GenieCivil-cta">
+        <div className="GenieCivil-container">
+          <div className="GenieCivil-cta-inner">
+            <div>
+              <h2 className="GenieCivil-cta-title">
+                Un Projet de Génie Civil ?
+              </h2>
+              <p className="GenieCivil-cta-subtitle">
+                Confiez-nous votre projet et bénéficiez de notre expertise reconnue dans 
+                la réalisation d'ouvrages durables et conformes aux normes les plus strictes.
+              </p>
+            </div>
+            <div className="GenieCivil-cta-actions">
+              <a href="/contact" className="GenieCivil-btn GenieCivil-btn-primary">
+                <FaCheckCircle style={{ marginRight: '8px' }} />
+                Contactez-nous
+              </a>
+              <a href="/brochure-genie-civil.pdf" className="GenieCivil-btn GenieCivil-btn-outline-light">
+                Télécharger la Brochure
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 

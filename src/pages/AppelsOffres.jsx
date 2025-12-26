@@ -86,11 +86,11 @@ const AppelsOffres = () => {
   const getStatutBadge = (statut) => {
     switch (statut) {
       case 'actif':
-        return { class: 'statut-actif', label: 'Actif' };
+        return { class: 'AppelsOffres-statut-actif', label: 'Actif' };
       case 'expire':
-        return { class: 'statut-expire', label: 'Expiré' };
+        return { class: 'AppelsOffres-statut-expire', label: 'Expiré' };
       case 'annule':
-        return { class: 'statut-annule', label: 'Annulé' };
+        return { class: 'AppelsOffres-statut-annule', label: 'Annulé' };
       default:
         return { class: '', label: statut };
     }
@@ -120,9 +120,9 @@ const AppelsOffres = () => {
 
   if (loading) {
     return (
-      <div className="appels-offres-container">
-        <div className="loading-state">
-          <div className="spinner"></div>
+      <div className="AppelsOffres-container">
+        <div className="AppelsOffres-loading-state">
+          <div className="AppelsOffres-spinner"></div>
           <p>Chargement des appels d'offres...</p>
         </div>
       </div>
@@ -131,10 +131,10 @@ const AppelsOffres = () => {
 
   if (error) {
     return (
-      <div className="appels-offres-container">
-        <div className="error-state">
+      <div className="AppelsOffres-container">
+        <div className="AppelsOffres-error-state">
           <p>{error}</p>
-          <button onClick={loadAppelsOffres} className="btn-retry">
+          <button onClick={loadAppelsOffres} className="AppelsOffres-btn-retry">
             Réessayer
           </button>
         </div>
@@ -143,18 +143,18 @@ const AppelsOffres = () => {
   }
 
   return (
-    <div className="appels-offres-container">
-      <div className="appels-offres-header">
-        <div className="header-content">
+    <div className="AppelsOffres-container">
+      <div className="AppelsOffres-header">
+        <div className="AppelsOffres-header-content">
           <h1>Nos Appels d'Offres</h1>
-          <p className="subtitle">
+          <p className="AppelsOffres-subtitle">
             Consultez tous les appels d'offres de la SNTP
           </p>
         </div>
       </div>
 
-      <div className="appels-offres-filters">
-        <div className="search-box">
+      <div className="AppelsOffres-filters">
+        <div className="AppelsOffres-search-box">
           <input
             type="text"
             placeholder="Rechercher par titre, référence, description..."
@@ -163,9 +163,9 @@ const AppelsOffres = () => {
           />
         </div>
 
-        <div className="filter-buttons">
+        <div className="AppelsOffres-filter-buttons">
           <button
-            className={`filter-btn ${filterStatut === 'actif' ? 'active' : ''}`}
+            className={`AppelsOffres-filter-btn ${filterStatut === 'actif' ? 'AppelsOffres-active' : ''}`}
             onClick={() => {
               setFilterStatut('actif');
               setCurrentPage(1);
@@ -174,7 +174,7 @@ const AppelsOffres = () => {
             Actifs
           </button>
           <button
-            className={`filter-btn ${filterStatut === 'expire' ? 'active' : ''}`}
+            className={`AppelsOffres-filter-btn ${filterStatut === 'expire' ? 'AppelsOffres-active' : ''}`}
             onClick={() => {
               setFilterStatut('expire');
               setCurrentPage(1);
@@ -183,7 +183,7 @@ const AppelsOffres = () => {
             Expirés
           </button>
           <button
-            className={`filter-btn ${filterStatut === '' ? 'active' : ''}`}
+            className={`AppelsOffres-filter-btn ${filterStatut === '' ? 'AppelsOffres-active' : ''}`}
             onClick={() => {
               setFilterStatut('');
               setCurrentPage(1);
@@ -194,38 +194,38 @@ const AppelsOffres = () => {
         </div>
       </div>
 
-      <div className="results-count">
+      <div className="AppelsOffres-results-count">
         {filteredAppelsOffres.length} résultat{filteredAppelsOffres.length > 1 ? 's' : ''} sur {totalItems}
       </div>
 
       {filteredAppelsOffres.length === 0 ? (
-        <div className="no-results">
+        <div className="AppelsOffres-no-results">
           <p>Aucun appel d'offre trouvé</p>
         </div>
       ) : (
-        <div className="appels-offres-grid">
+        <div className="AppelsOffres-grid">
           {filteredAppelsOffres.map((appel) => {
             const statutInfo = getStatutBadge(appel.statut);
             const daysRemaining = calculateDaysRemaining(appel.dateEcheance);
 
             return (
-              <article key={appel.id} className="appel-card">
-                <div className="appel-card-header">
-                  <span className={`statut-badge ${statutInfo.class}`}>
+              <article key={appel.id} className="AppelsOffres-card">
+                <div className="AppelsOffres-card-header">
+                  <span className={`AppelsOffres-statut-badge ${statutInfo.class}`}>
                     {statutInfo.label}
                   </span>
                   {daysRemaining !== null && daysRemaining > 0 && appel.statut === 'actif' && (
-                    <span className="deadline-badge">
+                    <span className="AppelsOffres-deadline-badge">
                       {daysRemaining}J restant{daysRemaining > 1 ? 's' : ''}
                     </span>
                   )}
                 </div>
 
-                <div className="appel-card-content">
-                  <h3 className="appel-titre">{appel.titre || 'Sans titre'}</h3>
-                  <p className="appel-reference">Réf: {appel.reference || 'N/A'}</p>
+                <div className="AppelsOffres-card-content">
+                  <h3 className="AppelsOffres-titre">{appel.titre || 'Sans titre'}</h3>
+                  <p className="AppelsOffres-reference">Réf: {appel.reference || 'N/A'}</p>
 
-                  <p className="appel-description">
+                  <p className="AppelsOffres-description">
                     {appel.description ? 
                       (appel.description.length > 150 
                         ? appel.description.substring(0, 150) + '...' 
@@ -233,19 +233,19 @@ const AppelsOffres = () => {
                       : 'Aucune description disponible.'}
                   </p>
 
-                  <div className="appel-info">
-                    <div className="info-item">
+                  <div className="AppelsOffres-info">
+                    <div className="AppelsOffres-info-item">
                       <strong>Localisation:</strong>
                       <span>{appel.localisation || 'Non spécifié'}</span>
                     </div>
 
-                    <div className="info-item">
+                    <div className="AppelsOffres-info-item">
                       <strong>Échéance:</strong>
                       <span>{formatDate(appel.dateEcheance)}</span>
                     </div>
 
                     {appel.montant && (
-                      <div className="info-item">
+                      <div className="AppelsOffres-info-item">
                         <strong>Montant:</strong>
                         <span>{formatMontant(appel.montant)}</span>
                       </div>
@@ -253,9 +253,9 @@ const AppelsOffres = () => {
                   </div>
                 </div>
 
-                <div className="appel-card-footer">
+                <div className="AppelsOffres-card-footer">
                   <button
-                    className="btn-view-details"
+                    className="AppelsOffres-btn-details"
                     onClick={() => handleViewDetails(appel.id)}
                   >
                     Voir les détails

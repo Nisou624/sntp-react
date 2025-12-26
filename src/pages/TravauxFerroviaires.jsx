@@ -1,215 +1,278 @@
-// src/pages/TravauxFerroviaires.jsx
-import React from "react";
-import "./TravauxFerroviaires.css";
+import React from 'react';
+import { FaTrain, FaTools, FaHardHat, FaCogs, FaCheckCircle } from 'react-icons/fa';
+import './TravauxFerroviaires.css';
 
 const TravauxFerroviaires = () => {
+  // Cartes Introduction
+  const introCards = [
+    {
+      id: 1,
+      title: 'Expertise Reconnue',
+      text: 'Plus de 60 ans d\'expérience dans la construction et la maintenance d\'infrastructures ferroviaires en Algérie.'
+    },
+    {
+      id: 2,
+      title: 'Technologies Avancées',
+      text: 'Équipements de pointe et méthodes de construction conformes aux normes internationales les plus exigeantes.'
+    },
+    {
+      id: 3,
+      title: 'Équipes Qualifiées',
+      text: 'Personnel hautement qualifié et certifié pour tous types de projets ferroviaires, du tramway au train à grande vitesse.'
+    }
+  ];
+
+  // Activités principales
+  const activities = [
+    {
+      id: 1,
+      title: 'Terrassements & Plate-forme',
+      text: 'Ouverture de tracés, déblais/remblais, stabilité des talus, traitement de sols, couches de forme et couches de protection de la plate-forme ferroviaire, avec maîtrise des déformations différées et du drainage longitudinal et transversal.'
+    },
+    {
+      id: 2,
+      title: 'Voie Ferrée',
+      text: 'Pose de voie ballastée ou sur dalle béton, rails (UIC 60, UIC 54), traverses (bois, béton), ballast calibré, appareils de voie (aiguillages), soudure aluminothermique, nivellement et alignement laser, bourrage mécanique et stabilisation dynamique.'
+    },
+    {
+      id: 3,
+      title: 'Caténaire & Électrification',
+      text: 'Installation de la ligne aérienne de contact (LAC), poteaux et portiques caténaires, sous-stations électriques de traction, systèmes de mise à la terre et de protection, conformité avec les normes SNCF/UIC/EN pour une alimentation fiable et sécurisée.'
+    },
+    {
+      id: 4,
+      title: 'Signalisation Ferroviaire',
+      text: 'Systèmes de signalisation automatique (block automatique lumineux – BAL), contrôle-commande centralisé, détection de trains par circuits de voie ou compteurs d\'essieux, passages à niveau automatiques, télécommunications et SCADA ferroviaire.'
+    },
+    {
+      id: 5,
+      title: 'Ouvrages d\'Art',
+      text: 'Conception et réalisation de ponts-rails, viaducs ferroviaires, tunnels et tranchées couvertes, murs de soutènement et ouvrages hydrauliques spécifiques pour protéger l\'infrastructure contre les crues et l\'érosion.'
+    },
+    {
+      id: 6,
+      title: 'Gares & Équipements',
+      text: 'Construction et aménagement de gares voyageurs, quais (hauteur normalisée 55 ou 76 cm), passerelles et souterrains piétons, systèmes d\'information voyageurs (SIV), éclairage et vidéosurveillance, accessibilité PMR.'
+    }
+  ];
+
+  // Parc matériel
+  const equipmentCategories = [
+    {
+      id: 1,
+      title: 'Engins de Terrassement',
+      items: [
+        'Bulldozers et niveleuses',
+        'Pelles hydrauliques',
+        'Compacteurs vibrants',
+        'Camions-bennes'
+      ]
+    },
+    {
+      id: 2,
+      title: 'Matériel Voie',
+      items: [
+        'Bourreuses mécaniques',
+        'Dégarnisseuses de ballast',
+        'Machines à souder les rails',
+        'Dresseuses de voie'
+      ]
+    },
+    {
+      id: 3,
+      title: 'Équipements Spécialisés',
+      items: [
+        'Portiques caténaires mobiles',
+        'Nacelles et plateformes élévatrices',
+        'Groupes électrogènes de chantier',
+        'Stations de soudure aluminothermique'
+      ]
+    }
+  ];
+
+  // Statistiques / Atouts
+  const stats = [
+    {
+      id: 1,
+      label: 'Expérience',
+      value: '60+ ans',
+      desc: 'D\'expertise dans le ferroviaire algérien'
+    },
+    {
+      id: 2,
+      label: 'Projets',
+      value: '100+',
+      desc: 'Projets ferroviaires réalisés avec succès'
+    },
+    {
+      id: 3,
+      label: 'Conformité',
+      value: '100%',
+      desc: 'Respect des normes internationales'
+    }
+  ];
+
   return (
-    <main className="tf-page">
-      {/* Hero section */}
-      <section className="tf-hero">
-        <div className="tf-hero-overlay" />
-        <div className="tf-hero-content container">
-          <p className="tf-hero-kicker">Pôle Infrastructures Ferroviaires</p>
-          <h1 className="tf-hero-title">Travaux ferroviaires</h1>
-          <p className="tf-hero-subtitle">
-            La SNTP met son expertise en génie civil et son armada de matériel
-            au service de la réalisation et de la modernisation des
-            infrastructures ferroviaires à l'échelle nationale.
-          </p>
-          <div className="tf-hero-actions">
-            <a href="#activites" className="tf-btn tf-btn-primary">
-              Découvrir nos activités
-            </a>
-            <a href="#contact" className="tf-btn tf-btn-outline">
-              Discuter de votre projet
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Présentation générale */}
-      <section className="tf-section tf-intro container">
-        <div className="tf-section-header">
-          <h2 className="tf-section-title">Une offre ferroviaire intégrée</h2>
-          <p className="tf-section-subtitle">
-            Forte de plusieurs décennies d'expérience dans les travaux
-            d'infrastructures, la SNTP intervient sur l'ensemble du cycle de
-            vie d'un projet ferroviaire : études d'exécution, travaux de
-            terrassement, réalisation de la plate-forme, ouvrages d'art,
-            pose de voie et entretien.
-          </p>
-        </div>
-
-        <div className="tf-intro-grid">
-          <div className="tf-intro-card">
-            <h3 className="tf-intro-title">Génie civil ferroviaire</h3>
-            <p className="tf-intro-text">
-              Réalisation de plates-formes ferroviaires complètes : terrassements
-              en déblais/remblais, couches de forme, drainage et ouvrages
-              hydrauliques associés, en respectant les exigences géométriques
-              et géotechniques des lignes modernes.
+    <div className="TravauxFerroviaires-page">
+      {/* Hero Section */}
+      <section 
+        className="TravauxFerroviaires-hero"
+        style={{
+          backgroundImage: 'url(https://via.placeholder.com/1920x1080/1B263B/FFFFFF?text=Travaux+Ferroviaires+SNTP)'
+        }}
+      >
+        <div className="TravauxFerroviaires-hero-overlay"></div>
+        <div className="TravauxFerroviaires-container">
+          <div className="TravauxFerroviaires-hero-content">
+            <p className="TravauxFerroviaires-hero-kicker">
+              Accueil / Services / Travaux Ferroviaires
             </p>
-          </div>
-          <div className="tf-intro-card">
-            <h3 className="tf-intro-title">Réseau national en expansion</h3>
-            <p className="tf-intro-text">
-              Les investissements structurants de l'État dans le transport
-              ferroviaire nécessitent des acteurs capables d'intervenir sur
-              des linéaires importants et dans des environnements variés,
-              du Nord dense au Haut-Plateau et au Sud.
+            <h1 className="TravauxFerroviaires-hero-title">
+              Travaux Ferroviaires
+            </h1>
+            <p className="TravauxFerroviaires-hero-subtitle">
+              Conception, construction et maintenance d'infrastructures ferroviaires modernes : 
+              voies ferrées, tramways, métros et systèmes de transport guidé.
             </p>
-          </div>
-          <div className="tf-intro-card">
-            <h3 className="tf-intro-title">Armada de matériel</h3>
-            <p className="tf-intro-text">
-              La SNTP dispose d'un parc d'engins spécialisés et de forte capacité
-              qui lui permet de tenir les cadences de chantier, même sur des
-              projets lourds combinant voies ferrées, routes et ouvrages d'art.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Activités principales */}
-      <section id="activites" className="tf-section tf-activities">
-        <div className="container">
-          <div className="tf-section-header">
-            <h2 className="tf-section-title">Domaines d'intervention</h2>
-            <p className="tf-section-subtitle">
-              Les équipes SNTP interviennent sur toutes les phases clés d'un
-              projet ferroviaire, depuis la préparation du corridor jusqu'au
-              suivi de l'exploitation.
-            </p>
-          </div>
-
-          <div className="tf-activities-grid">
-            <article className="tf-activity-card">
-              <h3 className="tf-activity-title">Terrassements & plate-forme</h3>
-              <p className="tf-activity-text">
-                Ouverture de tracés, déblais/remblais, stabilité des talus,
-                traitement de sols, couches de forme et couches de protection
-                de la plate-forme ferroviaire, avec maîtrise des déformations
-                différées et du drainage longitudinal et transversal.
-              </p>
-            </article>
-
-            <article className="tf-activity-card">
-              <h3 className="tf-activity-title">Ouvrages d'art ferroviaires</h3>
-              <p className="tf-activity-text">
-                Construction de ponts-rails, viaducs, passages inférieurs et
-                supérieurs, murs de soutènement et ouvrages hydrauliques
-                nécessaires au bon fonctionnement et à la pérennité de la
-                ligne ferroviaire.
-              </p>
-            </article>
-
-            <article className="tf-activity-card">
-              <h3 className="tf-activity-title">Pose de voie & superstructure</h3>
-              <p className="tf-activity-text">
-                Mise en place du ballast, dressage, nivellement, pose des
-                traverses et des rails, soudage, réglage et bourrage de la
-                géométrie de voie afin d'atteindre les performances exigées
-                en vitesse et en confort.
-              </p>
-            </article>
-
-            <article className="tf-activity-card">
-              <h3 className="tf-activity-title">Réhabilitation & entretien</h3>
-              <p className="tf-activity-text">
-                Opérations de renouvellement de voie, renforcement de
-                plate-forme, réparation d'ouvrages d'art, reprofilage et
-                bourrage mécanique pour rallonger la durée de vie de
-                l'infrastructure ferroviaire existante.
-              </p>
-            </article>
-
-            <article className="tf-activity-card">
-              <h3 className="tf-activity-title">Interfaces routières & hydrauliques</h3>
-              <p className="tf-activity-text">
-                Réalisation coordonnée des accès routiers, déviations, chemins
-                d'exploitation, bassins de rétention et ouvrages de franchissement,
-                en s'appuyant sur l'expertise historique de la SNTP en travaux
-                routiers et hydrauliques.
-              </p>
-            </article>
-
-            <article className="tf-activity-card">
-              <h3 className="tf-activity-title">Assistance à la maîtrise d'ouvrage</h3>
-              <p className="tf-activity-text">
-                Appui technique à la définition des solutions constructives,
-                à la planification des phasages, au suivi de la conformité et
-                à la coordination avec les autres corps d'état intervenant sur
-                la ligne ferroviaire.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* Parc matériel ferroviaire */}
-      <section className="tf-section tf-equipment">
-        <div className="container">
-          <div className="tf-section-header">
-            <h2 className="tf-section-title">Un parc matériel dimensionné</h2>
-            <p className="tf-section-subtitle">
-              L'armada de matériel de la SNTP couvre à la fois les besoins
-              lourds de terrassement et les opérations fines sur la voie,
-              garantissant productivité et régularité d'exécution.
-            </p>
-          </div>
-
-          <div className="tf-equipment-grid">
-            <div className="tf-equipment-block">
-              <h3 className="tf-equipment-title">Terrassement & plate-forme</h3>
-              <ul className="tf-equipment-list">
-                <li>Bulldozers, pelles hydrauliques grande capacité</li>
-                <li>Niveleuses, compacteurs lisses et pieds dameurs</li>
-                <li>Tracteurs et dumpers pour le transport des déblais</li>
-              </ul>
-            </div>
-            <div className="tf-equipment-block">
-              <h3 className="tf-equipment-title">Travaux de voie</h3>
-              <ul className="tf-equipment-list">
-                <li>Trains de pose de voie et wagons de transport de rails</li>
-                <li>Bourreuses mécaniques pour dressage et nivellement</li>
-                <li>Engins de reprofilage et de réglage du ballast</li>
-              </ul>
-            </div>
-            <div className="tf-equipment-block">
-              <h3 className="tf-equipment-title">Ouvrages d'art & logistique</h3>
-              <ul className="tf-equipment-list">
-                <li>Grues mobiles et grues sur chenilles</li>
-                <li>Centrales à béton, coffrages et équipements de levage</li>
-                <li>Ateliers mobiles pour maintenance des équipements</li>
-              </ul>
+            <div className="TravauxFerroviaires-hero-actions">
+              <a href="/contact" className="TravauxFerroviaires-btn TravauxFerroviaires-btn-primary">
+                <FaTrain style={{ marginRight: '8px' }} />
+                Demander un Devis
+              </a>
+              <a href="/projets" className="TravauxFerroviaires-btn TravauxFerroviaires-btn-outline">
+                Nos Réalisations
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Appel à action / Contact */}
-      <section id="contact" className="tf-section tf-contact">
-        <div className="container tf-contact-inner">
-          <div className="tf-contact-text">
-            <h2 className="tf-contact-title">Parlons de votre projet ferroviaire</h2>
-            <p className="tf-contact-subtitle">
-              Vous préparez un projet de nouvelle ligne, de modernisation ou de
-              réhabilitation d'infrastructure ferroviaire ? La SNTP met ses
-              équipes et son parc matériel à votre disposition pour concevoir
-              un schéma d'intervention adapté.
+      {/* Section Introduction */}
+      <section className="TravauxFerroviaires-section TravauxFerroviaires-intro">
+        <div className="TravauxFerroviaires-container">
+          <div className="TravauxFerroviaires-section-header">
+            <h2 className="TravauxFerroviaires-section-title">
+              Notre Savoir-Faire Ferroviaire
+            </h2>
+            <p className="TravauxFerroviaires-section-subtitle">
+              La SNTP possède une expertise complète dans tous les domaines du ferroviaire, 
+              de la conception à la mise en service, en passant par la construction et la maintenance.
             </p>
           </div>
-          <div className="tf-contact-actions">
-            <a href="/contact" className="tf-btn tf-btn-primary">
-              Contacter la SNTP
-            </a>
-            <a href="/services" className="tf-btn tf-btn-outline">
-              Découvrir tous nos métiers
-            </a>
+
+          <div className="TravauxFerroviaires-intro-grid">
+            {introCards.map((card) => (
+              <div key={card.id} className="TravauxFerroviaires-intro-card">
+                <h3 className="TravauxFerroviaires-intro-title">{card.title}</h3>
+                <p className="TravauxFerroviaires-intro-text">{card.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-    </main>
+
+      {/* Section Activités */}
+      <section className="TravauxFerroviaires-section TravauxFerroviaires-activities">
+        <div className="TravauxFerroviaires-container">
+          <div className="TravauxFerroviaires-section-header">
+            <h2 className="TravauxFerroviaires-section-title">
+              Nos Activités Principales
+            </h2>
+            <p className="TravauxFerroviaires-section-subtitle">
+              Nous intervenons sur l'ensemble du cycle de vie des infrastructures ferroviaires, 
+              avec une maîtrise technique reconnue.
+            </p>
+          </div>
+
+          <div className="TravauxFerroviaires-activities-grid">
+            {activities.map((activity) => (
+              <div key={activity.id} className="TravauxFerroviaires-activity-card">
+                <h3 className="TravauxFerroviaires-activity-title">{activity.title}</h3>
+                <p className="TravauxFerroviaires-activity-text">{activity.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Parc Matériel */}
+      <section className="TravauxFerroviaires-section">
+        <div className="TravauxFerroviaires-container">
+          <div className="TravauxFerroviaires-section-header">
+            <h2 className="TravauxFerroviaires-section-title">
+              Parc Matériel & Équipements
+            </h2>
+            <p className="TravauxFerroviaires-section-subtitle">
+              Un parc de matériel moderne et performant pour garantir la qualité et 
+              l'efficacité de nos interventions.
+            </p>
+          </div>
+
+          <div className="TravauxFerroviaires-equipment-grid">
+            {equipmentCategories.map((category) => (
+              <div key={category.id} className="TravauxFerroviaires-equipment-block">
+                <h3 className="TravauxFerroviaires-equipment-title">{category.title}</h3>
+                <ul className="TravauxFerroviaires-equipment-list">
+                  {category.items.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Chiffres Clés */}
+      <section className="TravauxFerroviaires-section TravauxFerroviaires-stats">
+        <div className="TravauxFerroviaires-container">
+          <div className="TravauxFerroviaires-section-header">
+            <h2 className="TravauxFerroviaires-section-title">
+              Nos Atouts en Chiffres
+            </h2>
+            <p className="TravauxFerroviaires-section-subtitle">
+              Des indicateurs qui témoignent de notre engagement et de notre excellence.
+            </p>
+          </div>
+
+          <div className="TravauxFerroviaires-stats-grid">
+            {stats.map((stat) => (
+              <div key={stat.id} className="TravauxFerroviaires-stat-card">
+                <div className="TravauxFerroviaires-stat-label">{stat.label}</div>
+                <div className="TravauxFerroviaires-stat-value">{stat.value}</div>
+                <div className="TravauxFerroviaires-stat-desc">{stat.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Contact / CTA */}
+      <section className="TravauxFerroviaires-section TravauxFerroviaires-contact">
+        <div className="TravauxFerroviaires-container">
+          <div className="TravauxFerroviaires-contact-inner">
+            <div>
+              <h2 className="TravauxFerroviaires-contact-title">
+                Un Projet Ferroviaire ?
+              </h2>
+              <p className="TravauxFerroviaires-contact-subtitle">
+                Discutons de vos besoins et découvrez comment notre expertise peut faire 
+                la différence sur votre projet.
+              </p>
+            </div>
+            <div className="TravauxFerroviaires-contact-actions">
+              <a href="/contact" className="TravauxFerroviaires-btn TravauxFerroviaires-btn-primary">
+                <FaCheckCircle style={{ marginRight: '8px' }} />
+                Contactez-nous
+              </a>
+              <a href="/brochure-ferroviaire.pdf" className="TravauxFerroviaires-btn TravauxFerroviaires-btn-outline">
+                Télécharger la Brochure
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 

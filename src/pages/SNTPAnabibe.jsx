@@ -1,8 +1,8 @@
 import React from 'react';
-import { 
-  FaMapMarkedAlt, 
-  FaPeopleArrows, 
-  FaLeaf, 
+import {
+  FaMapMarkedAlt,
+  FaPeopleArrows,
+  FaLeaf,
   FaProjectDiagram,
   FaArrowRight,
   FaAngleRight,
@@ -17,96 +17,122 @@ const SNTPAnabibe = () => {
     {
       id: 1,
       icon: <FaMapMarkedAlt />,
-      title: "Excellence Technique",
-      description: "Innovation et précision dans chaque projet, des études à la réalisation."
+      title: 'Excellence Technique',
+      description: 'Solutions innovantes en béton préfabriqué avec certification ISO et normes internationales.'
     },
     {
       id: 2,
       icon: <FaPeopleArrows />,
-      title: "Engagement Social",
-      description: "Formation et insertion des compétences locales pour un développement durable."
+      title: 'Engagement Client',
+      description: 'Accompagnement personnalisé de vos projets d\'assainissement et d\'hydraulique.'
     },
     {
       id: 3,
       icon: <FaLeaf />,
-      title: "Durabilité",
-      description: "Solutions éco-responsables et optimisation des ressources pour des infrastructures pérennes."
+      title: 'Durabilité',
+      description: 'Produits éco-responsables garantis 50 ans avec traitement anti-érosion avancé.'
     },
     {
       id: 4,
       icon: <FaProjectDiagram />,
-      title: "Intégrité",
-      description: "Transparence, éthique et respect strict des engagements contractuels."
+      title: 'Intégrité',
+      description: 'Transparence totale sur nos processus de fabrication et contrôle qualité.'
     }
   ];
 
+  // Progress bars data
+  const progressData = [
+    { label: 'Qualité Produits', percentage: 95 },
+    { label: 'Satisfaction Client', percentage: 92 },
+    { label: 'Innovation', percentage: 88 }
+  ];
+
+  const handleMapClick = () => {
+    window.open('https://maps.app.goo.gl/yourLocationLink', '_blank', 'noopener,noreferrer');
+  };
+
   return (
-    <div className="sntp-anabibe-page">
+    <div className="Anabibe-page">
       {/* Hero Section */}
-      <header className="anabibe-hero-section">
-        <div className="anabibe-hero-overlay"></div>
-        <div className="container anabibe-hero-content">
-          <h4 className="anabibe-hero-subtitle">L'Art De L'écoulement Durable</h4>
-          <div className="anabibe-hero-logo">
-            <img src="/wp-content/uploads/2025/07/1Couleur-22-1024x512.png" alt="SNTP ANABIBE Logo" />
+      <section 
+        className="Anabibe-hero-section"
+        style={{
+          backgroundImage: 'url(https://via.placeholder.com/1920x650/1B263B/FFFFFF?text=SNTP+Anabibe+Hero)'
+        }}
+      >
+        <div className="Anabibe-hero-overlay"></div>
+        <div className="Anabibe-hero-content">
+          <p className="Anabibe-hero-subtitle">Filiale SNTP</p>
+          <div className="Anabibe-hero-logo">
+            <img src="https://via.placeholder.com/400x100/C1121F/FFFFFF?text=SNTP+ANABIBE+Logo" alt="SNTP Anabibe Logo" />
           </div>
-          <h1 className="anabibe-hero-title">SNTP ANABIBE</h1>
-          <div className="anabibe-hero-divider"></div>
-          <p className="anabibe-hero-description">
-            <em>Fabricant de buses en béton haute-résistance pour réseaux d'assainissement, drainage agricole et infrastructures urbaines.</em>
+          <h1 className="Anabibe-hero-title">
+            Leader du Béton Préfabriqué en Algérie
+          </h1>
+          <div className="Anabibe-hero-divider"></div>
+          <p className="Anabibe-hero-description">
+            Nous révolutionnons le béton depuis 20 ans. Nos buses allient résistance exceptionnelle et design hydrodynamique pour des écoulements parfaits. Solutions durables certifiées ISO.
           </p>
         </div>
-      </header>
+      </section>
 
-      {/* Section Innovation + Durabilité avec image centrale */}
-      <section className="anabibe-expertise-section">
-        <div className="container">
-          <div className="expertise-grid">
-            <div className="expertise-card">
-              <h4 className="expertise-label">EXPERTISE</h4>
-              <h2 className="expertise-title">INNOVATION</h2>
-              <div className="expertise-divider"></div>
-              <p className="expertise-description">
-                Nous révolutionnons le béton depuis 20 ans. Nos buses allient résistance exceptionnelle et design hydrodynamique pour des écoulements parfaits. Solutions durables certifiées ISO.
+      {/* Section Expertise (Innovation + Durabilité) */}
+      <section className="Anabibe-expertise-section">
+        <div className="Anabibe-container-full">
+          <div className="Anabibe-expertise-grid">
+            {/* Card Innovation */}
+            <div className="Anabibe-expertise-card">
+              <p className="Anabibe-expertise-label">Notre Force</p>
+              <h2 className="Anabibe-expertise-title">Innovation</h2>
+              <div className="Anabibe-expertise-divider"></div>
+              <p className="Anabibe-expertise-description">
+                Nos buses garantissent 50 ans de service sans faille. Béton haute performance, traitement anti-érosion, joints étanches. Protection active des ressources hydrauliques et des sols.
               </p>
             </div>
 
-            <div className="expertise-image-center">
-              <img src="/wp-content/uploads/2025/07/image-from-rawpixel-id-83704-jpeg.jpg" alt="Plans et chantier" />
+            {/* Image Center */}
+            <div className="Anabibe-expertise-image-center">
+              <img src="https://via.placeholder.com/320x373/C1121F/FFFFFF?text=Product" alt="Produit SNTP Anabibe" />
             </div>
 
-            <div className="expertise-card">
-              <h4 className="expertise-label">ENGAGEMENT</h4>
-              <h2 className="expertise-title">DURABILITÉ</h2>
-              <div className="expertise-divider"></div>
-              <p className="expertise-description">
-                Nos buses garantissent 50 ans de service sans faille. Béton haute performance, traitement anti-érosion, joints étanches. Protection active des ressources hydrauliques et des sols.
+            {/* Card Durabilité */}
+            <div className="Anabibe-expertise-card">
+              <p className="Anabibe-expertise-label">Notre Engagement</p>
+              <h2 className="Anabibe-expertise-title">Durabilité</h2>
+              <div className="Anabibe-expertise-divider"></div>
+              <p className="Anabibe-expertise-description">
+                Solutions éco-responsables avec béton recyclable, gestion optimisée des ressources en eau et réduction de l'empreinte carbone sur l'ensemble du cycle de vie.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section Des Solutions Techniques */}
-      <section className="anabibe-solutions-section">
-        <div className="container">
-          <div className="solutions-layout">
-            <div className="solutions-text">
-              <h2 className="solutions-title">Des solutions techniques qui transforment durablement les territoires</h2>
-              <a href="/projects" className="solutions-btn">
+      {/* Section Solutions Techniques */}
+      <section className="Anabibe-solutions-section">
+        <div className="Anabibe-container">
+          <div className="Anabibe-solutions-layout">
+            {/* Texte gauche */}
+            <div className="Anabibe-solutions-text">
+              <h2 className="Anabibe-solutions-title">
+                Solutions Techniques Complètes Pour Tous Vos Projets
+              </h2>
+              <a href="/contact" className="Anabibe-solutions-btn">
+                En savoir plus
                 <FaArrowRight className="btn-icon" />
-                <span>Nos projets</span>
               </a>
             </div>
-            <div className="solutions-cards-wrapper">
-              <div className="solutions-cards-grid">
+
+            {/* Cards droite */}
+            <div className="Anabibe-solutions-cards-wrapper">
+              <div className="Anabibe-solutions-cards-grid">
                 {featuresCards.map((card) => (
-                  <div key={card.id} className="solution-feature-card">
-                    <div className="feature-icon-wrapper">
+                  <div key={card.id} className="Anabibe-solution-feature-card">
+                    <div className="Anabibe-feature-icon-wrapper">
                       {card.icon}
                     </div>
-                    <h3 className="feature-title">{card.title}</h3>
-                    <p className="feature-description">{card.description}</p>
+                    <h3 className="Anabibe-feature-title">{card.title}</h3>
+                    <p className="Anabibe-feature-description">{card.description}</p>
                   </div>
                 ))}
               </div>
@@ -115,218 +141,197 @@ const SNTPAnabibe = () => {
         </div>
       </section>
 
-      {/* Section Parc Industriel Performant (Orange) */}
-      <section className="anabibe-industrial-section">
-        <div className="container-full">
-          <div className="industrial-grid">
-            <div className="industrial-image">
-              <img src="/wp-content/uploads/2025/07/image-warehouse.jpg" alt="Parc industriel" />
+      {/* Section Parc Industriel Performant */}
+      <section className="Anabibe-industrial-section">
+        <div className="Anabibe-container-full">
+          <div className="Anabibe-industrial-grid">
+            <div className="Anabibe-industrial-image">
+              <img src="https://via.placeholder.com/600x500/1B263B/FFFFFF?text=Industrial+Park" alt="Parc Industriel" />
             </div>
-            <div className="industrial-content orange-bg">
-              <h2 className="industrial-title">Parc industriel performant</h2>
-              <div className="industrial-divider"></div>
-              <p className="industrial-description">
+            <div className="Anabibe-industrial-content Anabibe-red-bg">
+              <h2 className="Anabibe-industrial-title">Parc Industriel Performant</h2>
+              <div className="Anabibe-industrial-divider"></div>
+              <p className="Anabibe-industrial-description">
                 Dans 70 hectares installé principalement généralement l'équipement, intégrant un centre d'usinage, un four de préchauffe et un vaste stock de produits finis. Dotation logistique complète et méthodes modernes pour garantir vos projets.
               </p>
-              <a href="#" className="industrial-btn">
-                LEARN MORE <FaArrowRight />
+              <a href="/nos-unites" className="Anabibe-industrial-btn">
+                Découvrir
+                <FaAngleRight />
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section Solutions Complètes (Bleu Navy) */}
-      <section className="anabibe-complete-solutions-section">
-        <div className="container-full">
-          <div className="complete-solutions-grid">
-            <div className="complete-solutions-image">
-              <img src="/wp-content/uploads/2025/07/construction-site-machines.jpg" alt="Chantier avec engins" />
-            </div>
-            <div className="complete-solutions-content navy-bg">
-              <h2 className="complete-solutions-title">Solutions Complètes d'Infrastructures Modernes</h2>
-              <div className="complete-solutions-divider"></div>
-              <p className="complete-solutions-description">
-                Grâce à Loiseau, notre partenaire locale tous les besoins en assainissement, drainage hydraulique urbaine, agricole et industrielle. Etudes, fourniture, pose pour des fils de machines durables.
+      {/* Section Solutions Complètes */}
+      <section className="Anabibe-complete-solutions-section">
+        <div className="Anabibe-container-full">
+          <div className="Anabibe-complete-solutions-grid">
+            <div className="Anabibe-complete-solutions-content Anabibe-navy-bg">
+              <h2 className="Anabibe-complete-solutions-title">Solutions Complètes d'Assainissement</h2>
+              <div className="Anabibe-complete-solutions-divider"></div>
+              <p className="Anabibe-complete-solutions-description">
+                Grâce à notre expertise, nous couvrons tous les besoins en assainissement, drainage hydraulique urbaine, agricole et industrielle. Études, fourniture, pose pour des solutions durables.
               </p>
-              <a href="#" className="complete-solutions-btn">
-                LEARN MORE <FaArrowRight />
+              <a href="/services" className="Anabibe-complete-solutions-btn">
+                En savoir plus
+                <FaAngleRight />
               </a>
+            </div>
+            <div className="Anabibe-complete-solutions-image">
+              <img src="https://via.placeholder.com/600x500/C1121F/FFFFFF?text=Solutions" alt="Solutions Complètes" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section Résistance Certifiée (Navy) */}
-      <section className="anabibe-resistance-section">
-        <div className="container-full">
-          <div className="resistance-grid">
-            <div className="resistance-content navy-bg">
-              <h2 className="resistance-title">Résistance Certifiée En Conditions Extrêmes</h2>
-              <div className="resistance-divider"></div>
-              <p className="resistance-description">
-                Conçus pour résister à 45 bars en test, nos tuyaux assurent une performance inégalée dans les sols instables, les zones sismiques et les milieux corrosifs
+      {/* Section Résistance Certifiée */}
+      <section className="Anabibe-resistance-section">
+        <div className="Anabibe-container-full">
+          <div className="Anabibe-resistance-grid">
+            <div className="Anabibe-resistance-image">
+              <img src="https://via.placeholder.com/600x500/1B263B/FFFFFF?text=Resistance" alt="Résistance" />
+            </div>
+            <div className="Anabibe-resistance-content Anabibe-red-bg">
+              <h2 className="Anabibe-resistance-title">Résistance Certifiée Jusqu'à 45 Bars</h2>
+              <div className="Anabibe-resistance-divider"></div>
+              <p className="Anabibe-resistance-description">
+                Conçus pour résister à 45 bars en test, nos tuyaux assurent une performance inégalée dans les sols instables, les zones sismiques et les milieux corrosifs.
               </p>
-              <a href="#" className="resistance-btn">
-                LEARN MORE <FaAngleRight />
+              <a href="/produits" className="Anabibe-resistance-btn">
+                Nos produits
+                <FaAngleRight />
               </a>
-            </div>
-            <div className="resistance-image">
-              <img src="/wp-content/uploads/2025/07/construction-site-machines.jpg" alt="Chantier" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section Optimisation Logistique (Orange) */}
-      <section className="anabibe-optimization-section">
-        <div className="container-full">
-          <div className="optimization-grid">
-            <div className="optimization-image">
-              <img src="/wp-content/uploads/2025/07/construction-site-machines.jpg" alt="Chantier" />
-            </div>
-            <div className="optimization-content orange-bg">
-              <h2 className="optimization-title">Optimisation Logistique Et Installation Simplifiée</h2>
-              <div className="optimization-divider"></div>
-              <p className="optimization-description">
+      {/* Section Optimisation Logistique */}
+      <section className="Anabibe-optimization-section">
+        <div className="Anabibe-container-full">
+          <div className="Anabibe-optimization-grid">
+            <div className="Anabibe-optimization-content Anabibe-navy-bg">
+              <h2 className="Anabibe-optimization-title">Optimisation Logistique</h2>
+              <div className="Anabibe-optimization-divider"></div>
+              <p className="Anabibe-optimization-description">
                 La longueur standard de 6 mètres réduit les coûts de manutention, facilite le stockage et permet une pose rapide grâce à un système d'emboîtement breveté.
               </p>
-              <a href="#" className="optimization-btn">
-                LEARN MORE <FaLongArrowAltRight />
+              <a href="/innovation" className="Anabibe-optimization-btn">
+                Innovation
+                <FaAngleRight />
               </a>
+            </div>
+            <div className="Anabibe-optimization-image">
+              <img src="https://via.placeholder.com/600x500/C1121F/FFFFFF?text=Logistics" alt="Logistique" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section Notre Objectif avec barres de progression */}
-      <section className="anabibe-objective-section">
-        <div className="container">
-          <div className="objective-layout">
-            <div className="objective-text">
-              <h3 className="objective-subtitle">SNTP ANABIBE</h3>
-              <h2 className="objective-title">Notre Objectif</h2>
-              <div className="objective-divider"></div>
-              <p className="objective-description">
+      {/* Section Notre Objectif (Progress Bars) */}
+      <section className="Anabibe-objective-section">
+        <div className="Anabibe-container">
+          <div className="Anabibe-objective-layout">
+            {/* Texte gauche */}
+            <div className="Anabibe-objective-text">
+              <p className="Anabibe-objective-subtitle">Notre Objectif</p>
+              <h2 className="Anabibe-objective-title">Excellence à Chaque Étape</h2>
+              <div className="Anabibe-objective-divider"></div>
+              <p className="Anabibe-objective-description">
                 Chaque buse en béton qui sort de nos ateliers porte en elle notre savoir-faire artisanal allié à une précision industrielle.
               </p>
-              <a href="#" className="objective-btn">
-                <FaArrowRight className="btn-icon" />
-                <span>A propos</span>
+              <a href="/qualite" className="Anabibe-objective-btn">
+                Notre démarche qualité
+                <FaLongArrowAltRight />
               </a>
             </div>
-            <div className="objective-progress">
-              <div className="progress-item">
-                <div className="progress-header">
-                  <span className="progress-label">Fabrication & Développement</span>
-                  <span className="progress-percentage">70%</span>
+
+            {/* Progress bars droite */}
+            <div className="Anabibe-objective-progress">
+              {progressData.map((item, index) => (
+                <div key={index} className="Anabibe-progress-item">
+                  <div className="Anabibe-progress-header">
+                    <span className="Anabibe-progress-label">{item.label}</span>
+                    <span className="Anabibe-progress-percentage">{item.percentage}%</span>
+                  </div>
+                  <div className="Anabibe-progress-bar-container">
+                    <div 
+                      className="Anabibe-progress-bar-fill"
+                      style={{ width: `${item.percentage}%` }}
+                    ></div>
+                  </div>
                 </div>
-                <div className="progress-bar-container">
-                  <div className="progress-bar-fill" style={{ width: '70%' }}></div>
-                </div>
-              </div>
-              <div className="progress-item">
-                <div className="progress-header">
-                  <span className="progress-label">Chaine de Production Robotisée</span>
-                  <span className="progress-percentage">75%</span>
-                </div>
-                <div className="progress-bar-container">
-                  <div className="progress-bar-fill" style={{ width: '75%' }}></div>
-                </div>
-              </div>
-              <div className="progress-item">
-                <div className="progress-header">
-                  <span className="progress-label">Livres en Production Nationale</span>
-                  <span className="progress-percentage">85%</span>
-                </div>
-                <div className="progress-bar-container">
-                  <div className="progress-bar-fill" style={{ width: '85%' }}></div>
-                </div>
-              </div>
-              <div className="progress-item">
-                <div className="progress-header">
-                  <span className="progress-label">Durabilité Chez Valeur Ajoutée</span>
-                  <span className="progress-percentage">90%</span>
-                </div>
-                <div className="progress-bar-container">
-                  <div className="progress-bar-fill" style={{ width: '90%' }}></div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section Retrouvez-nous avec Google Maps */}
-      <section id="contact-section" className="anabibe-contact-section">
-        <div className="container">
-          <h2 className="anabibe-contact-title">Retrouvez-nous</h2>
+      {/* Section Contact (Carte + Infos) */}
+      <section className="Anabibe-contact-section">
+        <div className="Anabibe-container">
+          <h2 className="Anabibe-contact-title">Retrouvez-nous</h2>
           
-          <div className="anabibe-contact-layout">
+          <div className="Anabibe-contact-layout">
             {/* Google Map */}
-            <div className="anabibe-contact-map-container">
-              <iframe 
-                src="https://maps.google.com/maps?q=35.75167,-0.01611&t=m&z=16&output=embed&iwloc=near"
-                title="SNTP Anabibe - Zone Industrielle Fornaka" 
-                aria-label="Localisation SNTP Anabibe"
-                className="anabibe-google-map"
+            <div className="Anabibe-contact-map-container">
+              <iframe
+                className="Anabibe-google-map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3196.2836746374243!2d0.1106!3d35.9867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDQ3JzEyLjEiTiAzwrAwMCczOC4yIkU!5e0!3m2!1sfr!2sdz!4v1234567890"
+                allowFullScreen=""
                 loading="lazy"
-                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Localisation SNTP Anabibe"
               ></iframe>
             </div>
 
-            {/* Contact Information */}
-            <div className="anabibe-contact-info-wrapper">
-              <div className="anabibe-contact-grid">
-                <div className="anabibe-contact-item">
-                  <h4 className="anabibe-contact-label">L'adresse :</h4>
-                  <p className="anabibe-contact-info">
+            {/* Contact Info */}
+            <div className="Anabibe-contact-info-wrapper">
+              <div className="Anabibe-contact-grid">
+                <div className="Anabibe-contact-item">
+                  <h3 className="Anabibe-contact-label">📍 Adresse</h3>
+                  <p className="Anabibe-contact-info">
                     Zone Industrielle, lot n°16, Fornaka,<br />
                     Mostaganem, Algérie, 27160
                   </p>
                 </div>
-                
-                <div className="anabibe-contact-item">
-                  <h4 className="anabibe-contact-label">Numéro de téléphone :</h4>
-                  <p className="anabibe-contact-info">
-                    <a href="tel:0455807030">045 58 07 30</a>
+
+                <div className="Anabibe-contact-item">
+                  <h3 className="Anabibe-contact-label">📞 Téléphone</h3>
+                  <p className="Anabibe-contact-info">
+                    <a href="tel:+213123456789">+213 (0) 45 XX XX XX</a>
                   </p>
                 </div>
 
-                <div className="anabibe-contact-item">
-                  <h4 className="anabibe-contact-label">Fax :</h4>
-                  <p className="anabibe-contact-info">
-                    <a href="tel:0455807031">045 58 07 31</a>
-                  </p>
-                </div>
-
-                <div className="anabibe-contact-item">
-                  <h4 className="anabibe-contact-label">Email :</h4>
-                  <p className="anabibe-contact-info">
-                    <a href="mailto:infocontact@sntp.dz">infocontact@sntp.dz</a>
+                <div className="Anabibe-contact-item">
+                  <h3 className="Anabibe-contact-label">✉️ Email</h3>
+                  <p className="Anabibe-contact-info">
+                    <a href="mailto:anabibe@sntp.dz">anabibe@sntp.dz</a>
                   </p>
                 </div>
               </div>
 
-              <button 
-                className="cta-button primary-button map-button" 
-                onClick={() => window.open('https://maps.app.goo.gl/sRfzua8SfLnRW4Vb8', '_blank', 'noopener,noreferrer')}
-                aria-label="Ouvrir dans Google Maps"
+              <div className="Anabibe-contact-cta-text">
+                <p>
+                  Contactez dès aujourd'hui <strong>SNTP ANABIBE</strong> pour découvrir nos solutions innovantes
+                  en béton préfabriqué. Nos experts sont à votre disposition pour étudier vos projets d'assainissement,
+                  de drainage et d'hydraulique avec des produits certifiés et durables.
+                </p>
+              </div>
+
+              <a 
+                href="#map"
+                className="Anabibe-solutions-btn Anabibe-map-button"
+                onClick={handleMapClick}
               >
                 <FaMapPin className="btn-icon" />
-                Localisation
-              </button>
-
-              <p className="anabibe-contact-cta-text">
-                Contactez dès aujourd'hui <strong>SNTP ANABIBE</strong> pour découvrir nos solutions innovantes 
-                en béton préfabriqué. Nos experts sont à votre disposition pour étudier vos projets d'assainissement, 
-                de drainage et d'hydraulique avec des produits certifiés et durables.
-              </p>
+                Voir sur Google Maps
+              </a>
             </div>
           </div>
         </div>
       </section>
-
     </div>
   );
 };

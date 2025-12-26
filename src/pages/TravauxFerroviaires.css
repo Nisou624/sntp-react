@@ -1,88 +1,90 @@
-/* src/pages/TravauxFerroviaires.css */
+/* ====================
+   TRAVAUX FERROVIAIRES - PALETTE SNTP 100%
+==================== */
 
-/* Palette de base SNTP */
 :root {
-  --tf-red: #c8102e;        /* rouge principal */
-  --tf-red-dark: #9c0c24;   /* rouge foncé hover */
-  --tf-black: #111111;      /* noir / presque noir */
-  --tf-grey-900: #1f1f1f;
-  --tf-grey-700: #4b4b4b;
-  --tf-grey-500: #9ca3af;
-  --tf-grey-200: #e5e7eb;
-  --tf-grey-100: #f3f4f6;
-  --tf-white: #ffffff;
+  /* Palette SNTP Officielle */
+  --sntp-red-darker: #5A000D;
+  --sntp-red-dark: #810012;
+  --sntp-red: #C1121F;
+  --sntp-red-light: #D32F2F;
+  
+  --sntp-black: #0D1B2A;
+  --sntp-gray-darkest: #1B263B;
+  --sntp-gray-dark: #415A77;
+  --sntp-gray: #778DA9;
+  --sntp-gray-light: #B0C4DE;
+  --sntp-gray-lighter: #E0E1DD;
+  --sntp-gray-lightest: #F5F5F5;
+  
+  --sntp-white: #FFFFFF;
+  --sntp-text-dark: #2C2C2C;
 }
 
-.tf-page {
-  background-color: var(--tf-grey-100);
-  color: var(--tf-black);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+.TravauxFerroviaires-page {
+  background-color: var(--sntp-gray-lightest);
+  color: var(--sntp-black);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* Hero */
-.tf-hero {
+/* ==================== HERO ==================== */
+.TravauxFerroviaires-hero {
   position: relative;
   min-height: 60vh;
   display: flex;
   align-items: center;
-  /*background-image: url("/images/ferroviaire-hero.jpg");*/
   background-size: cover;
   background-position: center;
-  color: var(--tf-white);
+  color: var(--sntp-white);
 }
 
-.tf-hero-overlay {
+.TravauxFerroviaires-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.9),
-    rgba(17, 17, 17, 0.85)
-  );
+  background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(13, 27, 42, 0.85));
 }
 
-.tf-hero-content {
+.TravauxFerroviaires-hero-content {
   position: relative;
   padding: 4rem 1.5rem;
   max-width: 960px;
 }
 
-.tf-hero-kicker {
+.TravauxFerroviaires-hero-kicker {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: var(--tf-grey-500);
+  color: var(--sntp-gray);
   margin-bottom: 0.75rem;
 }
 
-.tf-hero-title {
+.TravauxFerroviaires-hero-title {
   display: inline-block;
   font-size: 2.6rem;
   font-weight: 800;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   padding-bottom: 0.4rem;
-  border-bottom: 3px solid var(--tf-red);
+  border-bottom: 3px solid var(--sntp-red);
   margin-bottom: 1rem;
 }
 
-.tf-hero-subtitle {
+.TravauxFerroviaires-hero-subtitle {
   font-size: 1rem;
   max-width: 620px;
   line-height: 1.7;
   color: #e5e5e5;
 }
 
-.tf-hero-actions {
+.TravauxFerroviaires-hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
   margin-top: 2.2rem;
 }
 
-/* Boutons */
-.tf-btn {
+/* ==================== BOUTONS ==================== */
+.TravauxFerroviaires-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -92,69 +94,68 @@
   font-weight: 600;
   border: 1px solid transparent;
   text-decoration: none;
-  transition: transform 0.16s ease, box-shadow 0.16s ease,
-    background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.09em;
 }
 
-.tf-btn-primary {
-  background-color: var(--tf-red);
-  border-color: var(--tf-red);
-  color: var(--tf-white);
-  box-shadow: 0 9px 25px rgba(200, 16, 46, 0.45);
+.TravauxFerroviaires-btn-primary {
+  background-color: var(--sntp-red);
+  border-color: var(--sntp-red);
+  color: var(--sntp-white);
+  box-shadow: 0 9px 25px rgba(193, 18, 31, 0.45);
 }
 
-.tf-btn-primary:hover {
-  background-color: var(--tf-red-dark);
-  border-color: var(--tf-red-dark);
+.TravauxFerroviaires-btn-primary:hover {
+  background-color: var(--sntp-red-dark);
+  border-color: var(--sntp-red-dark);
   transform: translateY(-1px);
-  box-shadow: 0 12px 30px rgba(156, 12, 36, 0.6);
+  box-shadow: 0 12px 30px rgba(129, 0, 18, 0.6);
 }
 
-.tf-btn-outline {
+.TravauxFerroviaires-btn-outline {
   background-color: transparent;
   border-color: #ffffff40;
-  color: var(--tf-white);
+  color: var(--sntp-white);
 }
 
-.tf-btn-outline:hover {
+.TravauxFerroviaires-btn-outline:hover {
   background-color: #ffffff10;
   transform: translateY(-1px);
 }
 
-/* Sections génériques */
-.tf-section {
+/* ==================== SECTIONS ==================== */
+.TravauxFerroviaires-section {
   padding: 4rem 1.5rem;
 }
 
-.tf-section:nth-of-type(odd) {
-  background-color: var(--tf-white);
+.TravauxFerroviaires-section:nth-of-type(odd) {
+  background-color: var(--sntp-white);
 }
 
-.tf-section:nth-of-type(even) {
-  background-color: var(--tf-grey-100);
+.TravauxFerroviaires-section:nth-of-type(even) {
+  background-color: var(--sntp-gray-lightest);
 }
 
-.tf-section-header {
+.TravauxFerroviaires-section-header {
   max-width: 880px;
   margin: 0 auto 2.6rem auto;
   text-align: center;
 }
 
-.tf-section-title {
+.TravauxFerroviaires-section-title {
   font-size: 1.9rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: var(--tf-black);
+  color: var(--sntp-black);
   margin-bottom: 0.75rem;
   position: relative;
   display: inline-block;
 }
 
-.tf-section-title::after {
+.TravauxFerroviaires-section-title::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -162,178 +163,168 @@
   bottom: -0.35rem;
   width: 56px;
   height: 3px;
-  background: var(--tf-red);
+  background: var(--sntp-red);
 }
 
-.tf-section-subtitle {
+.TravauxFerroviaires-section-subtitle {
   margin-top: 1.2rem;
   font-size: 0.96rem;
-  color: var(--tf-grey-700);
+  color: var(--sntp-gray-dark);
   line-height: 1.8;
 }
 
-/* Intro */
-.tf-intro {
+/* ==================== INTRO ==================== */
+.TravauxFerroviaires-intro {
   padding-top: 3.2rem;
 }
 
-.tf-intro-grid {
+.TravauxFerroviaires-intro-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.6rem;
 }
 
-.tf-intro-card {
-  background-color: var(--tf-white);
+.TravauxFerroviaires-intro-card {
+  background-color: var(--sntp-white);
   border-radius: 0.9rem;
   padding: 1.6rem 1.5rem;
-  border: 1px solid var(--tf-grey-200);
+  border: 1px solid var(--sntp-gray-lighter);
   box-shadow: 0 10px 28px rgba(15, 15, 15, 0.06);
   position: relative;
   overflow: hidden;
-  transition: transform 0.16s ease, box-shadow 0.16s ease,
-    border-color 0.16s ease;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
 }
 
-.tf-intro-card::before {
+.TravauxFerroviaires-intro-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(200, 16, 46, 0.09),
-    transparent 65%
-  );
+  background: linear-gradient(135deg, rgba(193, 18, 31, 0.09), transparent 65%);
   opacity: 0;
   transition: opacity 0.16s ease;
 }
 
-.tf-intro-card:hover {
+.TravauxFerroviaires-intro-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-  border-color: rgba(200, 16, 46, 0.4);
+  border-color: rgba(193, 18, 31, 0.4);
 }
 
-.tf-intro-card:hover::before {
+.TravauxFerroviaires-intro-card:hover::before {
   opacity: 1;
 }
 
-.tf-intro-title {
+.TravauxFerroviaires-intro-title {
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--tf-grey-900);
+  color: var(--sntp-gray-darkest);
   margin-bottom: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
 }
 
-.tf-intro-text {
+.TravauxFerroviaires-intro-text {
   font-size: 0.95rem;
-  color: var(--tf-grey-700);
+  color: var(--sntp-gray-dark);
   line-height: 1.8;
 }
 
-/* Activités */
-.tf-activities {
-  background-image: radial-gradient(circle at top left, #ffffff, #f3f4f6);
+/* ==================== ACTIVITÉS ==================== */
+.TravauxFerroviaires-activities {
+  background-image: radial-gradient(circle at top left, #ffffff, #f5f5f5);
 }
 
-.tf-activities-grid {
+.TravauxFerroviaires-activities-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.6rem;
 }
 
-.tf-activity-card {
-  background-color: var(--tf-white);
+.TravauxFerroviaires-activity-card {
+  background-color: var(--sntp-white);
   border-radius: 0.9rem;
   padding: 1.7rem 1.6rem;
-  border: 1px solid var(--tf-grey-200);
+  border: 1px solid var(--sntp-gray-lighter);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
-  transition: transform 0.16s ease, box-shadow 0.16s ease,
-    border-color 0.16s ease;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
 }
 
-.tf-activity-card::before {
+.TravauxFerroviaires-activity-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(17, 17, 17, 0.85),
-    rgba(200, 16, 46, 0.95)
-  );
+  background: linear-gradient(135deg, rgba(13, 27, 42, 0.85), rgba(193, 18, 31, 0.95));
   mix-blend-mode: multiply;
   opacity: 0;
   transition: opacity 0.18s ease;
 }
 
-.tf-activity-card:hover {
+.TravauxFerroviaires-activity-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
-  border-color: rgba(17, 17, 17, 0.8);
+  border-color: rgba(13, 27, 42, 0.8);
 }
 
-.tf-activity-card:hover::before {
+.TravauxFerroviaires-activity-card:hover::before {
   opacity: 0.06;
 }
 
-.tf-activity-title {
+.TravauxFerroviaires-activity-title {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--tf-grey-900);
+  color: var(--sntp-gray-darkest);
   margin-bottom: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
-.tf-activity-text {
+.TravauxFerroviaires-activity-text {
   font-size: 0.95rem;
-  color: var(--tf-grey-700);
+  color: var(--sntp-gray-dark);
   line-height: 1.8;
 }
 
-/* Parc matériel */
-.tf-equipment-grid {
+/* ==================== PARC MATÉRIEL ==================== */
+.TravauxFerroviaires-equipment-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.6rem;
 }
 
-.tf-equipment-block {
-  background-color: var(--tf-white);
+.TravauxFerroviaires-equipment-block {
+  background-color: var(--sntp-white);
   border-radius: 0.9rem;
   padding: 1.7rem 1.6rem;
-  border: 1px solid var(--tf-grey-200);
+  border: 1px solid var(--sntp-gray-lighter);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
 }
 
-.tf-equipment-title {
+.TravauxFerroviaires-equipment-title {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--tf-grey-900);
+  color: var(--sntp-gray-darkest);
   margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
-.tf-equipment-list {
+.TravauxFerroviaires-equipment-list {
   list-style: none;
   padding-left: 0;
   margin: 0;
   font-size: 0.94rem;
-  color: var(--tf-grey-700);
+  color: var(--sntp-gray-dark);
 }
 
-.tf-equipment-list li {
+.TravauxFerroviaires-equipment-list li {
   position: relative;
   padding-left: 1.3rem;
   line-height: 1.8;
 }
 
-.tf-equipment-list li::before {
+.TravauxFerroviaires-equipment-list li::before {
   content: "";
   position: absolute;
   left: 0.4rem;
@@ -341,74 +332,66 @@
   width: 6px;
   height: 6px;
   border-radius: 999px;
-  background-color: var(--tf-red);
+  background-color: var(--sntp-red);
 }
 
-/* Chiffres / atouts */
-.tf-stats {
-  background-color: var(--tf-black);
-  color: var(--tf-white);
+/* ==================== STATS ==================== */
+.TravauxFerroviaires-stats {
+  background-color: var(--sntp-black);
+  color: var(--sntp-white);
 }
 
-.tf-stats .tf-section-title {
-  color: var(--tf-white);
+.TravauxFerroviaires-stats .TravauxFerroviaires-section-title {
+  color: var(--sntp-white);
 }
 
-.tf-stats .tf-section-subtitle {
-  color: var(--tf-grey-500);
+.TravauxFerroviaires-stats .TravauxFerroviaires-section-subtitle {
+  color: var(--sntp-gray);
 }
 
-.tf-stats-grid {
+.TravauxFerroviaires-stats-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.6rem;
   margin-top: 1.2rem;
 }
 
-.tf-stat-card {
-  background: linear-gradient(
-    135deg,
-    #191919,
-    #2a2a2a
-  );
+.TravauxFerroviaires-stat-card {
+  background: linear-gradient(135deg, #1B263B, #2a2a2a);
   border-radius: 0.9rem;
   padding: 1.7rem 1.6rem;
-  border: 1px solid rgba(148, 163, 184, 0.4);
+  border: 1px solid rgba(176, 196, 222, 0.4);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
 }
 
-.tf-stat-label {
+.TravauxFerroviaires-stat-label {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: var(--tf-grey-500);
+  color: var(--sntp-gray);
   margin-bottom: 0.3rem;
 }
 
-.tf-stat-value {
+.TravauxFerroviaires-stat-value {
   font-size: 1.6rem;
   font-weight: 800;
-  color: var(--tf-white);
+  color: var(--sntp-white);
   margin-bottom: 0.6rem;
 }
 
-.tf-stat-desc {
+.TravauxFerroviaires-stat-desc {
   font-size: 0.94rem;
   color: #e5e5e5;
   line-height: 1.8;
 }
 
-/* Contact / CTA */
-.tf-contact {
-  background: linear-gradient(
-    135deg,
-    var(--tf-red),
-    #111111
-  );
-  color: var(--tf-white);
+/* ==================== CONTACT / CTA ==================== */
+.TravauxFerroviaires-contact {
+  background: linear-gradient(135deg, var(--sntp-red), var(--sntp-black));
+  color: var(--sntp-white);
 }
 
-.tf-contact-inner {
+.TravauxFerroviaires-contact-inner {
   max-width: 960px;
   margin: 0 auto;
   display: flex;
@@ -417,7 +400,7 @@
   gap: 2.2rem;
 }
 
-.tf-contact-title {
+.TravauxFerroviaires-contact-title {
   font-size: 1.7rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -425,70 +408,96 @@
   margin-bottom: 0.6rem;
 }
 
-.tf-contact-subtitle {
+.TravauxFerroviaires-contact-subtitle {
   font-size: 0.96rem;
   color: #f3f4f6;
   line-height: 1.8;
 }
 
-.tf-contact-actions {
+.TravauxFerroviaires-contact-actions {
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
 }
 
-/* Container utilitaire (comme dans le reste de l’app) */
-.container {
+/* ==================== CONTAINER ==================== */
+.TravauxFerroviaires-container {
   max-width: 1120px;
   margin: 0 auto;
 }
 
-/* Responsive */
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 1024px) {
-  .tf-hero {
+  .TravauxFerroviaires-hero {
     min-height: 52vh;
   }
 
-  .tf-intro-grid,
-  .tf-activities-grid,
-  .tf-equipment-grid,
-  .tf-stats-grid {
+  .TravauxFerroviaires-intro-grid,
+  .TravauxFerroviaires-activities-grid,
+  .TravauxFerroviaires-equipment-grid,
+  .TravauxFerroviaires-stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .tf-contact-inner {
+  .TravauxFerroviaires-contact-inner {
     flex-direction: column;
     align-items: flex-start;
   }
 }
 
 @media (max-width: 768px) {
-  .tf-hero-content {
+  .TravauxFerroviaires-hero-content {
     padding: 3rem 1rem;
   }
 
-  .tf-hero-title {
+  .TravauxFerroviaires-hero-title {
     font-size: 2.1rem;
   }
 
-  .tf-intro-grid,
-  .tf-activities-grid,
-  .tf-equipment-grid,
-  .tf-stats-grid {
+  .TravauxFerroviaires-intro-grid,
+  .TravauxFerroviaires-activities-grid,
+  .TravauxFerroviaires-equipment-grid,
+  .TravauxFerroviaires-stats-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .tf-hero-actions {
+  .TravauxFerroviaires-hero-actions {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .tf-section {
+  .TravauxFerroviaires-section {
     padding: 3.2rem 1rem;
   }
 
-  .tf-contact-inner {
+  .TravauxFerroviaires-contact-inner {
     padding: 0;
   }
+}
+
+@media (max-width: 480px) {
+  .TravauxFerroviaires-hero-title {
+    font-size: 1.8rem;
+  }
+
+  .TravauxFerroviaires-section-title {
+    font-size: 1.6rem;
+  }
+
+  .TravauxFerroviaires-contact-title {
+    font-size: 1.4rem;
+  }
+}
+
+/* Selection */
+::selection {
+  background-color: var(--sntp-red);
+  color: var(--sntp-white);
+}
+
+/* Focus states */
+*:focus-visible {
+  outline: 2px solid var(--sntp-red);
+  outline-offset: 2px;
 }
 

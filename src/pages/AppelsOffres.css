@@ -1,37 +1,71 @@
-.appels-offres-container {
+/* ========================================
+   APPELS OFFRES PAGE - PALETTE SNTP
+   ======================================== */
+
+.AppelsOffres-container {
   min-height: 100vh;
-  background: var(--sntp-white);
-  padding-top: 80px;
+  background: #F5F3F4;
+  padding-top: 100px;
   padding-bottom: 60px;
   padding-left: 20px;
   padding-right: 20px;
 }
 
-.appels-offres-header {
+/* ========================================
+   HEADER
+   ======================================== */
+
+.AppelsOffres-header {
   max-width: 1200px;
   margin: 0 auto 40px;
   text-align: center;
-  padding-bottom: 32px;
-  padding-top: 32px;
-  border-bottom: 3px solid var(--sntp-red);
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #1B263B 0%, #0D1321 100%);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
 }
 
-.header-content h1 {
-  font-size: 36px;
-  color: var(--sntp-black);
-  font-weight: 700;
-  margin-bottom: 12px;
+.AppelsOffres-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(90deg, rgba(193, 18, 31, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(193, 18, 31, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.5;
+}
+
+.AppelsOffres-header-content {
+  position: relative;
+  z-index: 1;
+}
+
+.AppelsOffres-header-content h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  color: #F5F3F4;
+  font-weight: 800;
+  margin-bottom: 16px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.subtitle {
-  font-size: 18px;
-  color: var(--sntp-gray);
+.AppelsOffres-subtitle {
+  font-size: clamp(14px, 2vw, 18px);
+  color: rgba(245, 243, 244, 0.85);
   font-weight: 400;
+  line-height: 1.6;
 }
 
-.appels-offres-filters {
+/* ========================================
+   FILTRES
+   ======================================== */
+
+.AppelsOffres-filters {
   max-width: 1200px;
   margin: 0 auto 32px;
   display: flex;
@@ -40,211 +74,231 @@
   align-items: center;
 }
 
-.search-box {
+.AppelsOffres-search-box {
   flex: 1;
   min-width: 280px;
   position: relative;
 }
 
-.search-box input {
+.AppelsOffres-search-box input {
   width: 100%;
-  padding: 14px 16px;
-  border: 2px solid var(--sntp-gray-lighter);
-  border-radius: 4px;
+  padding: 16px 20px;
+  border: 2px solid rgba(27, 38, 59, 0.15);
+  border-radius: 8px;
   font-size: 15px;
   transition: all 0.3s ease;
-  background: var(--sntp-white);
-  color: var(--sntp-gray-dark);
+  background: #FFFFFF;
+  color: #1B263B;
+  font-weight: 500;
 }
 
-.search-box input:focus {
+.AppelsOffres-search-box input:focus {
   outline: none;
-  border-color: var(--sntp-red);
-  box-shadow: 0 0 0 3px rgba(129, 0, 18, 0.1);
+  border-color: #C1121F;
+  box-shadow: 0 0 0 3px rgba(193, 18, 31, 0.1);
 }
 
-.search-box input::placeholder {
-  color: var(--sntp-gray-light);
+.AppelsOffres-search-box input::placeholder {
+  color: rgba(27, 38, 59, 0.5);
 }
 
-.filter-buttons {
+.AppelsOffres-filter-buttons {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-.filter-btn {
-  padding: 12px 24px;
-  background: var(--sntp-white);
-  border: 2px solid var(--sntp-gray-lighter);
-  border-radius: 4px;
-  color: var(--sntp-gray-dark);
+.AppelsOffres-filter-btn {
+  padding: 14px 28px;
+  background: #FFFFFF;
+  border: 2px solid rgba(27, 38, 59, 0.15);
+  border-radius: 8px;
+  color: #1B263B;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.filter-btn:hover {
-  border-color: var(--sntp-red);
-  color: var(--sntp-red);
-  background: var(--sntp-white);
+.AppelsOffres-filter-btn:hover {
+  border-color: #C1121F;
+  color: #C1121F;
+  background: rgba(193, 18, 31, 0.05);
 }
 
-.filter-btn.active {
-  background: var(--sntp-red);
-  border-color: var(--sntp-red);
-  color: var(--sntp-white);
+.AppelsOffres-filter-btn.AppelsOffres-active {
+  background: #C1121F;
+  border-color: #C1121F;
+  color: #F5F3F4;
 }
 
-.results-count {
+/* ========================================
+   RESULTS COUNT
+   ======================================== */
+
+.AppelsOffres-results-count {
   max-width: 1200px;
   margin: 0 auto 24px;
-  color: var(--sntp-gray);
+  color: #1B263B;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.appels-offres-grid {
+/* ========================================
+   GRID
+   ======================================== */
+
+.AppelsOffres-grid {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 40px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 24px;
+  gap: 28px;
 }
 
-.appel-card {
-  background: var(--sntp-white);
-  border: 2px solid var(--sntp-gray-lighter);
-  border-radius: 4px;
+/* ========================================
+   CARD
+   ======================================== */
+
+.AppelsOffres-card {
+  background: #FFFFFF;
+  border: 2px solid rgba(27, 38, 59, 0.1);
+  border-radius: 8px;
   overflow: hidden;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 2px 12px rgba(27, 38, 59, 0.08);
 }
 
-.appel-card:hover {
-  border-color: var(--sntp-red);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(129, 0, 18, 0.15);
+.AppelsOffres-card:hover {
+  border-color: #C1121F;
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(193, 18, 31, 0.2);
 }
 
-.appel-card-header {
-  padding: 16px;
+.AppelsOffres-card-header {
+  padding: 18px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--sntp-gray-lightest);
-  border-bottom: 2px solid var(--sntp-gray-lighter);
+  background: linear-gradient(135deg, #F5F3F4 0%, #E0E1DD 100%);
+  border-bottom: 3px solid #C1121F;
 }
 
-.statut-badge {
+.AppelsOffres-statut-badge {
   display: inline-block;
-  padding: 6px 14px;
-  border-radius: 2px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 2px solid;
+}
+
+.AppelsOffres-statut-badge.AppelsOffres-statut-actif {
+  background-color: #D1FAE5;
+  color: #065F46;
+  border-color: #10B981;
+}
+
+.AppelsOffres-statut-badge.AppelsOffres-statut-expire {
+  background-color: rgba(27, 38, 59, 0.1);
+  color: #1B263B;
+  border-color: #415A77;
+}
+
+.AppelsOffres-statut-badge.AppelsOffres-statut-annule {
+  background-color: #FEE2E2;
+  color: #991B1B;
+  border-color: #DC2626;
+}
+
+.AppelsOffres-deadline-badge {
+  background: #1B263B;
+  color: #F5F3F4;
+  padding: 8px 16px;
+  border-radius: 6px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.statut-actif {
-  background-color: var(--sntp-red);
-  color: var(--sntp-white);
-}
-
-.statut-expire {
-  background-color: var(--sntp-gray);
-  color: var(--sntp-white);
-}
-
-.statut-annule {
-  background-color: var(--sntp-gray-lighter);
-  color: var(--sntp-gray-dark);
-}
-
-.deadline-badge {
-  background: var(--sntp-black);
-  color: var(--sntp-white);
-  padding: 6px 14px;
-  border-radius: 2px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.appel-card-content {
+.AppelsOffres-card-content {
   padding: 24px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
-.appel-titre {
+.AppelsOffres-titre {
   font-size: 20px;
   font-weight: 700;
-  color: var(--sntp-black);
+  color: #1B263B;
   margin: 0;
   line-height: 1.4;
 }
 
-.appel-reference {
+.AppelsOffres-reference {
   font-family: 'Courier New', monospace;
   font-size: 13px;
-  font-weight: 600;
-  color: var(--sntp-red);
+  font-weight: 700;
+  color: #C1121F;
   margin: 0;
   text-transform: uppercase;
 }
 
-.appel-description {
-  color: var(--sntp-gray);
+.AppelsOffres-description {
+  color: #415A77;
   font-size: 14px;
   line-height: 1.6;
   margin: 0;
 }
 
-.appel-info {
+.AppelsOffres-info {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: auto;
   padding-top: 16px;
-  border-top: 1px solid var(--sntp-gray-lighter);
+  border-top: 2px solid rgba(27, 38, 59, 0.1);
 }
 
-.info-item {
+.AppelsOffres-info-item {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  color: var(--sntp-gray);
+  color: #415A77;
   font-size: 13px;
   line-height: 1.5;
 }
 
-.info-item strong {
-  color: var(--sntp-gray-dark);
-  font-weight: 600;
+.AppelsOffres-info-item strong {
+  color: #1B263B;
+  font-weight: 700;
   min-width: 100px;
 }
 
-.appel-card-footer {
-  padding: 16px 24px;
-  border-top: 2px solid var(--sntp-gray-lighter);
-  background: var(--sntp-gray-lightest);
+.AppelsOffres-card-footer {
+  padding: 18px 24px;
+  border-top: 2px solid rgba(27, 38, 59, 0.1);
+  background: rgba(245, 243, 244, 0.5);
 }
 
-.btn-view-details {
+.AppelsOffres-btn-details {
   width: 100%;
   padding: 14px 20px;
-  background: var(--sntp-red);
-  color: var(--sntp-white);
-  border: 2px solid var(--sntp-red);
-  border-radius: 4px;
+  background: #C1121F;
+  color: #F5F3F4;
+  border: none;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -253,56 +307,60 @@
   letter-spacing: 0.5px;
 }
 
-.btn-view-details:hover {
-  background: var(--sntp-red-dark);
-  border-color: var(--sntp-red-dark);
+.AppelsOffres-btn-details:hover {
+  background: #8B0D15;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(129, 0, 18, 0.3);
+  box-shadow: 0 6px 16px rgba(193, 18, 31, 0.4);
 }
 
-.loading-state,
-.error-state,
-.no-results {
+/* ========================================
+   LOADING, ERROR, NO RESULTS
+   ======================================== */
+
+.AppelsOffres-loading-state,
+.AppelsOffres-error-state,
+.AppelsOffres-no-results {
   max-width: 600px;
   margin: 80px auto;
   text-align: center;
   padding: 60px 40px;
-  background: var(--sntp-white);
-  border: 2px solid var(--sntp-gray-lighter);
-  border-radius: 4px;
+  background: #FFFFFF;
+  border: 2px solid rgba(27, 38, 59, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(27, 38, 59, 0.08);
 }
 
-.spinner {
+.AppelsOffres-spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid var(--sntp-gray-lighter);
-  border-top-color: var(--sntp-red);
+  border: 4px solid rgba(27, 38, 59, 0.15);
+  border-top-color: #C1121F;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: AppelsOffres-spin 1s linear infinite;
   margin: 0 auto 24px;
 }
 
-@keyframes spin {
+@keyframes AppelsOffres-spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-.loading-state p,
-.error-state p,
-.no-results p {
-  color: var(--sntp-gray-dark);
+.AppelsOffres-loading-state p,
+.AppelsOffres-error-state p,
+.AppelsOffres-no-results p {
+  color: #1B263B;
   font-size: 16px;
   margin: 0 0 16px;
   font-weight: 600;
 }
 
-.btn-retry {
-  padding: 12px 32px;
-  background: var(--sntp-red);
-  color: var(--sntp-white);
-  border: 2px solid var(--sntp-red);
-  border-radius: 4px;
+.AppelsOffres-btn-retry {
+  padding: 14px 32px;
+  background: #C1121F;
+  color: #F5F3F4;
+  border: none;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -311,71 +369,70 @@
   letter-spacing: 0.5px;
 }
 
-.btn-retry:hover {
-  background: var(--sntp-red-dark);
-  border-color: var(--sntp-red-dark);
+.AppelsOffres-btn-retry:hover {
+  background: #8B0D15;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(129, 0, 18, 0.3);
+  box-shadow: 0 4px 12px rgba(193, 18, 31, 0.3);
 }
 
-/* Responsive */
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
 @media (max-width: 1024px) {
-  .appels-offres-grid {
+  .AppelsOffres-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
 }
 
 @media (max-width: 768px) {
-  .appels-offres-container {
-    padding-top: calc(var(--header-height) + 24px);
+  .AppelsOffres-container {
+    padding-top: 90px;
     padding-bottom: 40px;
     padding-left: 16px;
     padding-right: 16px;
   }
 
-  .header-content h1 {
-    font-size: 28px;
+  .AppelsOffres-header {
+    padding: 32px 20px;
+    margin-bottom: 32px;
   }
 
-  .subtitle {
-    font-size: 16px;
-  }
-
-  .appels-offres-filters {
+  .AppelsOffres-filters {
     flex-direction: column;
   }
 
-  .search-box {
+  .AppelsOffres-search-box {
     width: 100%;
   }
 
-  .filter-buttons {
+  .AppelsOffres-filter-buttons {
     width: 100%;
     justify-content: center;
   }
 
-  .filter-btn {
+  .AppelsOffres-filter-btn {
     flex: 1;
-    padding: 10px 16px;
+    padding: 12px 20px;
     font-size: 12px;
   }
 
-  .appels-offres-grid {
+  .AppelsOffres-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 20px;
   }
 
-  .appel-card-content {
+  .AppelsOffres-card-content {
     padding: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .filter-buttons {
+  .AppelsOffres-filter-buttons {
     flex-direction: column;
   }
 
-  .filter-btn {
+  .AppelsOffres-filter-btn {
     width: 100%;
   }
 }

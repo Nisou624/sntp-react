@@ -101,12 +101,12 @@ export const projectsData = [
 ];
 
 export const categories = [
-  { id: 'all', label: 'Tous les Projets', icon: '🏗️' },
-  { id: 'routes', label: 'Travaux Routiers', icon: '🛣️' },
-  { id: 'batiments', label: 'Bâtiments', icon: '🏢' },
-  { id: 'ouvrages', label: "Ouvrages d'Art", icon: '🌉' },
-  { id: 'hydraulique', label: 'Hydraulique', icon: '💧' },
-  { id: 'industriel', label: 'Industriel', icon: '🏭' }
+  { id: 'all', label: 'Tous les Projets'},
+  { id: 'routes', label: 'Travaux Routiers'},
+  { id: 'batiments', label: 'Bâtiments'},
+  { id: 'ouvrages', label: "Ouvrages d'Art"},
+  { id: 'hydraulique', label: 'Hydraulique'},
+  { id: 'industriel', label: 'Industriel'}
 ];
 
 export const statusOptions = [

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import './Pagination.css';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
@@ -55,22 +56,27 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   };
 
   return (
-    <div className="pagination-container">
+    <div className="Pagination-container">
+      {/* Bouton Précédent */}
       <button
-        className="pagination-btn pagination-prev"
         onClick={handlePrevious}
         disabled={currentPage === 1}
+        className="Pagination-btn Pagination-btn-prev"
         aria-label="Page précédente"
       >
-        <span>← Précédent</span>
+        <ChevronLeft size={18} />
+        <span>Précédent</span>
       </button>
 
-      <div className="pagination-numbers">
+      {/* Numéros de page */}
+      <div className="Pagination-numbers">
         {getPageNumbers().map((page, index) => (
           <button
             key={index}
-            className={`pagination-number ${page === currentPage ? 'active' : ''} ${page === '...' ? 'dots' : ''}`}
             onClick={() => handlePageClick(page)}
+            className={`Pagination-number ${
+              page === currentPage ? 'Pagination-active' : ''
+            } ${page === '...' ? 'Pagination-dots' : ''}`}
             disabled={page === '...'}
             aria-label={page === '...' ? 'Plus de pages' : `Page ${page}`}
             aria-current={page === currentPage ? 'page' : undefined}
@@ -80,13 +86,15 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         ))}
       </div>
 
+      {/* Bouton Suivant */}
       <button
-        className="pagination-btn pagination-next"
         onClick={handleNext}
         disabled={currentPage === totalPages}
+        className="Pagination-btn Pagination-btn-next"
         aria-label="Page suivante"
       >
-        <span>Suivant →</span>
+        <span>Suivant</span>
+        <ChevronRight size={18} />
       </button>
     </div>
   );

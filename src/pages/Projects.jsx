@@ -13,10 +13,11 @@ import './Projects.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeCategory, setActiveCategory] = useState(null);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const sectionRefs = useRef({});
   const lenisRef = useRef(null);
   const scrollTriggersRef = useRef([]);
@@ -49,22 +50,46 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
-  // Grouper les projets par catégorie
-  const projectsByCategory = categories.reduce((acc, category) => {
-    acc[category.id] = category.id === 'all'
-      ? projects
-      : projects.filter(p => p.category === category.id);
-    return acc;
-  }, {});
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
 
-  // Catégories avec projets
-  const validCategories = categories.filter(cat =>
-    projectsByCategory[cat.id]?.length > 0
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, {
+        duration: 1.5,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth'});
+    }
+  };
+
+  // Grouper les projets par catégorie (SANS "all")
+  const projectsByCategory = categories
+    .filter(cat => cat.id !== 'all')
+    .reduce((acc, category) => {
+      acc[category.id] = projects.filter(p => p.category === category.id);
+      return acc;
+    }, {});
+
+  // Catégories avec projets (exclure "all" et catégories vides)
+  const validCategories = categories.filter(
+    cat => cat.id !== 'all' && projectsByCategory[cat.id]?.length > 0
   );
 
   // Descriptions par catégorie
   const categoryDescriptions = {
-    all: "L'ensemble de nos réalisations témoigne de notre expertise dans tous les domaines du génie civil et des travaux publics.",
     routes: "Construction et réhabilitation d'infrastructures routières modernes, durables et sécurisées pour connecter les territoires.",
     batiments: "Édification de structures résidentielles et commerciales de haute qualité, alliant design moderne et fonctionnalité.",
     ouvrages: "Conception et construction d'ouvrages d'art exceptionnels : ponts, viaducs et structures monumentales.",
@@ -87,7 +112,6 @@ const Projects = () => {
     });
 
     lenisRef.current = lenis;
-
     lenis.on('scroll', ScrollTrigger.update);
 
     function raf(time) {
@@ -112,8 +136,8 @@ const Projects = () => {
 
       validCategories.forEach(category => {
         const section = sectionRefs.current[category.id];
-        const visualWrapper = section?.querySelector('.sticky-visual-wrapper');
-        const projectsList = section?.querySelector('.projects-list');
+        const visualWrapper = section?.querySelector('.Projects-sticky-visual-wrapper');
+        const projectsList = section?.querySelector('.Projects-list');
 
         if (section && visualWrapper && projectsList) {
           const st = ScrollTrigger.create({
@@ -125,6 +149,7 @@ const Projects = () => {
             anticipatePin: 1,
             markers: false,
           });
+
           scrollTriggersRef.current.push(st);
         }
       });
@@ -167,18 +192,6 @@ const Projects = () => {
     };
   }, [loading, projects]);
 
-  // Scroll vers section
-  const scrollToSection = (categoryId) => {
-    const element = sectionRefs.current[categoryId];
-    if (element && lenisRef.current) {
-      const offsetTop = element.offsetTop - 140;
-      lenisRef.current.scrollTo(offsetTop, {
-        duration: 1.5,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-    }
-  };
-
   // Animation fade-in pour les cartes
   useEffect(() => {
     if (loading || projects.length === 0) return;
@@ -191,12 +204,12 @@ const Projects = () => {
     const cardObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
+          entry.target.classList.add('Projects-is-visible');
         }
       });
     }, observerOptions);
 
-    const cards = document.querySelectorAll('.project-card');
+    const cards = document.querySelectorAll('.Projects-card');
     cards.forEach(card => cardObserver.observe(card));
 
     return () => {
@@ -204,180 +217,190 @@ const Projects = () => {
     };
   }, [loading, projects]);
 
+  // Définir la première catégorie comme active par défaut
+  useEffect(() => {
+    if (validCategories.length > 0 && !activeCategory) {
+      setActiveCategory(validCategories[0].id);
+    }
+  }, [validCategories, activeCategory]);
+
+  // Scroll vers section
+  const scrollToSection = (categoryId) => {
+    const element = sectionRefs.current[categoryId];
+    if (element && lenisRef.current) {
+      const offsetTop = element.offsetTop - 140;
+      lenisRef.current.scrollTo(offsetTop, {
+        duration: 1.5,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    }
+  };
+
   // Affichage du loader
   if (loading) {
     return (
-      <div className="projects-page">
+      <div className="Projects-page">
         <Header />
-        <main className="projects-main">
-          <section className="projects-hero">
-            <div className="projects-hero__content">
-              <h1 className="projects-hero__title">Nos Projets</h1>
-              <p className="projects-hero__description">
-                Chargement des projets...
-              </p>
-            </div>
-          </section>
-          <div className="loading">Chargement en cours...</div>
-        </main>
+        <div className="Projects-loader">
+          <p>Chargement des projets...</p>
+        </div>
         <Footer />
       </div>
     );
   }
 
-  // Affichage de l'erreur
+  // Affichage erreur
   if (error) {
     return (
-      <div className="projects-page">
+      <div className="Projects-page">
         <Header />
-        <main className="projects-main">
-          <section className="projects-hero">
-            <div className="projects-hero__content">
-              <h1 className="projects-hero__title">Nos Projets</h1>
-              <p className="projects-hero__description">{error}</p>
-            </div>
-          </section>
-        </main>
+        <div className="Projects-error">
+          <p>{error}</p>
+        </div>
         <Footer />
       </div>
     );
-  }
+  }  
 
-  // Affichage principal
   return (
-    <div className="projects-page">
+    <div className="Projects-page">
       <Header />
-      <main className="projects-main">
+
+      <main className="Projects-main">
         {/* Hero Section */}
-        <section className="projects-hero">
-          <div className="projects-hero__content">
-            <h1 className="projects-hero__title">Nos Projets</h1>
-            <p className="projects-hero__description">
-              Découvrez nos réalisations dans le domaine des travaux publics et du génie civil
+        <section className="Projects-hero">
+          <div className="Projects-hero-content">
+            <h1 className="Projects-hero-title">Nos Réalisations</h1>
+            <div className="Projects-hero-divider"></div>
+            <p className="Projects-hero-description">
+              Découvrez nos projets dans le domaine des travaux publics et du génie civil
             </p>
           </div>
         </section>
 
-        {/* Navigation sticky */}
-        <nav className="projects-nav">
-          <div className="projects-nav__container">
-            {validCategories.map(category => (
+        {/* Navigation Sticky */}
+        <nav className="Projects-nav">
+          <div className="Projects-nav-container">
+            {validCategories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => scrollToSection(category.id)}
-                className={`nav-button ${activeCategory === category.id ? 'is-active' : ''}`}
-                aria-label={`Voir les projets de la catégorie ${category.label}`}
+                className={`Projects-nav-button ${
+                  activeCategory === category.id ? 'Projects-is-active' : ''
+                }`}
               >
-                {category.label}
+                {category.icon} {category.label}
               </button>
             ))}
           </div>
         </nav>
 
-        {/* Sections par catégorie */}
-        <div className="sections-container">
-          {validCategories.map(category => {
-            const categoryProjects = projectsByCategory[category.id];
-            
-            if (!categoryProjects || categoryProjects.length === 0) return null;
-
-            return (
-              <section
-                key={category.id}
-                ref={el => (sectionRefs.current[category.id] = el)}
-                data-category={category.id}
-                className="split-section"
-              >
-                {/* Colonne gauche - Visual qui suit le scroll */}
-                <div className="split-section__left">
-                  <div className="sticky-visual-wrapper">
-                    <div className="sticky-visual">
-                      <div className="sticky-visual__image-wrapper">
-                        <img
-                          src={projetService.getImageUrl(categoryProjects[0].id)}
-                          alt={category.label}
-                          className="sticky-visual__image"
-                          loading="lazy"
-                          onError={(e) => {
-                            e.target.src = '/images/default-project.jpg';
-                          }}
-                        />
-                        <div className="sticky-visual__overlay"></div>
-                      </div>
-
-                      <div className="sticky-visual__content">
-                        <h2 className="sticky-visual__title">{category.label}</h2>
-                        <p className="sticky-visual__description">
-                          {categoryDescriptions[category.id]}
-                        </p>
-                        <div className="sticky-visual__meta">
-                          <span className="sticky-visual__count">
-                            {categoryProjects.length}{' '}
-                            {categoryProjects.length > 1 ? 'Projets' : 'Projet'}
-                          </span>
-                        </div>
+        {/* Sections Container */}
+        <div className="Projects-sections-container">
+          {validCategories.map((category) => (
+            <section
+              key={category.id}
+              ref={(el) => (sectionRefs.current[category.id] = el)}
+              data-category={category.id}
+              className="Projects-split-section"
+            >
+              {/* Colonne Gauche - Sticky Visual */}
+              <div className="Projects-split-section-left">
+                <div className="Projects-sticky-visual-wrapper">
+                  <div className="Projects-sticky-visual">
+                    <div className="Projects-sticky-visual-image-wrapper">
+                      <img
+                        src={
+                          projectsByCategory[category.id][0]
+                            ? projetService.getImageUrl(projectsByCategory[category.id][0].id)
+                            : 'https://via.placeholder.com/800x600/1B263B/FFFFFF?text=Projet'
+                        }
+                        alt={category.label}
+                        className="Projects-sticky-visual-image"
+                      />
+                    </div>
+                    <div className="Projects-sticky-visual-overlay"></div>
+                    <div className="Projects-sticky-visual-content">
+                      <h2 className="Projects-sticky-visual-title">{category.label}</h2>
+                      <p className="Projects-sticky-visual-description">
+                        {categoryDescriptions[category.id]}
+                      </p>
+                      <div className="Projects-sticky-visual-meta">
+                        <span className="Projects-sticky-visual-count">
+                          {projectsByCategory[category.id].length} projet
+                          {projectsByCategory[category.id].length > 1 ? 's' : ''}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* Colonne droite - Liste scrollable */}
-                <div className="split-section__right">
-                  <div className="projects-list">
-                    {categoryProjects.map((project, index) => (
-                      <article
-                        key={project.id}
-                        className="project-card"
-                        style={{ transitionDelay: `${index * 0.1}s` }}
+              {/* Colonne Droite - Liste des Projets */}
+              <div className="Projects-split-section-right">
+                <div className="Projects-list">
+                  {projectsByCategory[category.id].map((project) => (
+                    <article key={project.id} className="Projects-card">
+                      <Link
+                        to={`/projects/${project.id}`}
+                        className="Projects-card-link"
                       >
-                        <Link to={`/projects/${project.id}`} className="project-card-link">
-                          {/* Image du projet */}
-                          <div className="project-card__image-container">
-                            <img
-                              src={projetService.getImageUrl(project.id)}
-                              alt={project.titre}
-                              className="project-card__image"
-                              loading="lazy"
-                              onError={(e) => {
-                                e.target.src = '/images/default-project.jpg';
-                              }}
-                            />
-                            <div className="project-card__image-overlay"></div>
+                        <div className="Projects-card-image-container">
+                          <img
+                            src={projetService.getImageUrl(project.id)}
+                            alt={project.titre}
+                            className="Projects-card-image"
+                          />
+                          <div className="Projects-card-image-overlay"></div>
+                        </div>
+
+                        <div className="Projects-card-content">
+                          <div className="Projects-card-header">
+                            <span className="Projects-card-location">{project.location}</span>
+                            <span className="Projects-card-year">{project.year}</span>
                           </div>
 
-                          {/* Contenu du projet */}
-                          <div className="project-card__content">
-                            <div className="project-card__header">
-                              <span className="project-card__location">
-                                {project.location}
-                              </span>
-                              <span className="project-card__year">{project.year}</span>
-                            </div>
+                          <h3 className="Projects-card-title">{project.titre}</h3>
+                          <p className="Projects-card-description">{project.description}</p>
 
-                            <h3 className="project-card__title">{project.titre}</h3>
-                            <p className="project-card__description">
-                              {project.description}
-                            </p>
-
-                            <div className="project-card__footer">
-                              <span className={`project-card__status status--${project.status}`}>
-                                {project.status === 'completed' ? 'Terminé' : 'En cours'}
-                              </span>
-                              <span className="project-card__arrow" aria-hidden="true">
-                                →
-                              </span>
-                            </div>
+                          <div className="Projects-card-footer">
+                            <span
+                              className={`Projects-card-status Projects-status--${project.status}`}
+                            >
+                              {project.status === 'completed' ? 'Terminé' : 'En cours'}
+                            </span>
+                            <span className="Projects-card-arrow">→</span>
                           </div>
-                        </Link>
-                      </article>
-                    ))}
-                  </div>
+                        </div>
+                      </Link>
+                    </article>
+                  ))}
                 </div>
-              </section>
-            );
-          })}
+              </div>
+            </section>
+          ))}
         </div>
       </main>
+      
+      {/* Bouton Scroll to Top */}
+      <button 
+        onClick={scrollToTop}
+        className={`Projects-scroll-top-btn ${showScrollTop ? `Projects-scroll-top-visible` : ''}`}
+        aria-label="Retour en haut">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+      </button>
+        
       <Footer />
     </div>
   );

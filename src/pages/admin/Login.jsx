@@ -14,7 +14,7 @@ const Login = () => {
   const [mfaData, setMfaData] = useState({
     sessionId: '',
     currentStep: 1,
-    totalSteps: 1, // ← Ajouté
+    totalSteps: 1,
     numbersToSelect: [],
     timeRemaining: 120,
     selectedNumber: null
@@ -66,12 +66,12 @@ const Login = () => {
 
     try {
       const result = await mfaService.initiateMFA(formData.email, formData.password);
-      
+
       if (result.success) {
         setMfaData({
           sessionId: result.sessionId,
           currentStep: result.step,
-          totalSteps: result.totalSteps, // ← Ajouté
+          totalSteps: result.totalSteps,
           numbersToSelect: result.numbersToSelect,
           timeRemaining: result.expiresIn,
           selectedNumber: null
@@ -98,7 +98,7 @@ const Login = () => {
 
     try {
       const result = await mfaService.verifyStep(mfaData.sessionId, number);
-      
+
       if (result.success) {
         if (result.completed) {
           sessionStorage.setItem('adminToken', result.token);
@@ -110,7 +110,7 @@ const Login = () => {
           setMfaData({
             sessionId: mfaData.sessionId,
             currentStep: result.step,
-            totalSteps: result.totalSteps || mfaData.totalSteps, // ← Ajouté
+            totalSteps: result.totalSteps || mfaData.totalSteps,
             numbersToSelect: result.numbersToSelect,
             timeRemaining: result.expiresIn,
             selectedNumber: null
@@ -120,7 +120,6 @@ const Login = () => {
       } else {
         setError(result.message || 'Nombre incorrect');
         setMfaData(prev => ({ ...prev, selectedNumber: null }));
-        
         if (result.locked) {
           setTimeout(() => {
             handleCancelMFA();
@@ -143,10 +142,12 @@ const Login = () => {
         console.error('Erreur annulation MFA:', err);
       }
     }
+
     setStage('login');
     setMfaData({
       sessionId: '',
       currentStep: 1,
+      totalSteps: 1,
       numbersToSelect: [],
       timeRemaining: 120,
       selectedNumber: null
@@ -162,23 +163,20 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
+    <div className="Login-container">
+      <div className="Login-card">
         {stage === 'login' ? (
           <>
-            <div className="login-header">
-              <h1>Panel Administration</h1>
-              <p>SNTP - Gestion des Appels d'Offres</p>
+            <div className="Login-header">
+              <h1>SNTP - Gestion des Appels d'Offres</h1>
+              <p>Connectez-vous pour accéder à l'administration</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="login-form">
-              {error && (
-                <div className="alert alert-error">
-                  {error}
-                </div>
-              )}
+            <form className="Login-form" onSubmit={handleSubmit}>
+              {error && <div className="Login-alert Login-alert-error">{error}</div>}
+              {message && <div className="Login-alert Login-alert-success">{message}</div>}
 
-              <div className="form-group">
+              <div className="Login-form-group">
                 <label htmlFor="email">Email</label>
                 <input
                   type="email"
@@ -187,13 +185,12 @@ const Login = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  placeholder="admin@sntp.com"
                   disabled={loading}
-                  autoComplete="email"
+                  placeholder="admin@sntp.dz"
                 />
               </div>
 
-              <div className="form-group">
+              <div className="Login-form-group">
                 <label htmlFor="password">Mot de passe</label>
                 <input
                   type="password"
@@ -202,62 +199,53 @@ const Login = () => {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  placeholder="••••••••"
                   disabled={loading}
-                  autoComplete="current-password"
+                  placeholder="••••••••"
                 />
               </div>
 
-              <button 
-                type="submit" 
-                className="btn btn-primary"
+              <button
+                type="submit"
+                className="Login-btn Login-btn-primary"
                 disabled={loading}
               >
-                {loading ? 'Connexion...' : 'Se connecter'}
+                {loading ? 'Connexion en cours...' : 'Se connecter'}
               </button>
             </form>
           </>
         ) : (
           <>
-            <div className="mfa-header">
-              <h1>🔐 Authentification MFA</h1>
+            <div className="Login-mfa-header">
+              <h1>Authentification Multi-Facteurs</h1>
               <p>Étape {mfaData.currentStep} sur {mfaData.totalSteps}</p>
-              <div className="mfa-timer">
-                <span className={mfaData.timeRemaining < 30 ? 'timer-warning' : ''}>
-                  ⏱️ {formatTime(mfaData.timeRemaining)}
-                </span>
+              <div className={`Login-mfa-timer ${mfaData.timeRemaining <= 30 ? 'Login-timer-warning' : ''}`}>
+                ⏱️ {formatTime(mfaData.timeRemaining)}
               </div>
             </div>
 
-            <div className="mfa-content">
-              {message && (
-                <div className="alert alert-success">
-                  {message}
-                </div>
-              )}
+            <div className="Login-mfa-content">
+              {error && <div className="Login-alert Login-alert-error">{error}</div>}
+              {message && <div className="Login-alert Login-alert-success">{message}</div>}
 
-              {error && (
-                <div className="alert alert-error">
-                  {error}
+              <div className="Login-mfa-instructions">
+                <div className="Login-instruction-header">
+                  📧 Consultez votre email envoyé à :
                 </div>
-              )}
-
-              <div className="mfa-instructions">
-                <p className="instruction-header">
-                  <strong>📧 Consultez votre email envoyé à :</strong>
-                </p>
-                <p className="email-display">{formData.email}</p>
-                <p className="instruction-text">
-                  Vous y trouverez un <strong>code à 2 chiffres</strong>.<br />
+                <div className="Login-email-display">{formData.email}</div>
+                <div className="Login-instruction-text">
+                  Vous y trouverez un <strong>code à 2 chiffres</strong>.
+                  <br />
                   Cliquez sur ce code parmi les 3 nombres ci-dessous.
-                </p>
+                </div>
               </div>
 
-              <div className="numbers-grid">
+              <div className="Login-numbers-grid">
                 {mfaData.numbersToSelect.map((number, index) => (
                   <button
                     key={index}
-                    className={`number-button ${mfaData.selectedNumber === number ? 'selected' : ''}`}
+                    className={`Login-number-button ${
+                      mfaData.selectedNumber === number ? 'Login-selected' : ''
+                    }`}
                     onClick={() => handleNumberClick(number)}
                     disabled={loading}
                   >
@@ -266,24 +254,26 @@ const Login = () => {
                 ))}
               </div>
 
-              <div className="mfa-progress">
-                <div className="progress-bar">
-                  <div 
-                    className="progress-fill" 
-                    style={{ width: `${(mfaData.currentStep / 5) * 100}%` }}
+              <div className="Login-mfa-progress">
+                <div className="Login-progress-bar">
+                  <div
+                    className="Login-progress-fill"
+                    style={{
+                      width: `${(mfaData.currentStep / mfaData.totalSteps) * 100}%`
+                    }}
                   ></div>
                 </div>
-                <p className="progress-text">
+                <p className="Login-progress-text">
                   Progression : {mfaData.currentStep}/{mfaData.totalSteps} étapes
                 </p>
               </div>
 
-              <button 
+              <button
+                className="Login-btn Login-btn-secondary"
                 onClick={handleCancelMFA}
-                className="btn btn-secondary"
                 disabled={loading}
               >
-                Annuler et recommencer
+                Annuler et retourner à la connexion
               </button>
             </div>
           </>
@@ -294,3 +284,4 @@ const Login = () => {
 };
 
 export default Login;
+

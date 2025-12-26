@@ -1,429 +1,310 @@
-// src/pages/BatimentsIndustriels.jsx
-import React from "react";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
-import "./BatimentsIndustriels.css";
+import React from 'react';
+import { FaIndustry, FaHardHat, FaCogs, FaCheckCircle, FaBuilding, FaWarehouse } from 'react-icons/fa';
+import './BatimentsIndustriels.css';
 
 const BatimentsIndustriels = () => {
+  // Introduction cards
+  const introCards = [
+    {
+      id: 1,
+      icon: <FaIndustry />,
+      title: 'Expertise Complète',
+      text: 'Conception, construction et livraison clés en main de bâtiments industriels adaptés à vos besoins spécifiques.'
+    },
+    {
+      id: 2,
+      icon: <FaHardHat />,
+      title: 'Normes Internationales',
+      text: 'Respect rigoureux des standards de qualité, sécurité et performance pour des infrastructures durables.'
+    },
+    {
+      id: 3,
+      icon: <FaCogs />,
+      title: 'Solutions Sur Mesure',
+      text: 'Adaptation à tous secteurs : agroalimentaire, chimie, logistique, production manufacturière et plus encore.'
+    }
+  ];
+
+  // Projets phares
+  const projects = [
+    {
+      id: 1,
+      title: 'Usine de Tuyaux en Béton',
+      location: 'Fornaka, Mostaganem',
+      description: 'Construction d\'une usine moderne de production de tuyaux en béton comprimé sur 12 hectares, équipée de technologies de pointe pour la fabrication de tuyaux géants à l\'échelle nationale.',
+      specs: [
+        { label: 'Surface', value: '12 hectares' },
+        { label: 'Capacité', value: 'Production industrielle' },
+        { label: 'Technologie', value: 'Haute performance' }
+      ]
+    },
+    {
+      id: 2,
+      title: 'Complexe Industriel',
+      location: 'Zone Industrielle',
+      description: 'Réalisation d\'un complexe multi-usage intégrant ateliers de production, zones de stockage, bureaux administratifs et infrastructures techniques complètes.',
+      specs: [
+        { label: 'Type', value: 'Multi-usage' },
+        { label: 'Zones', value: 'Production + Stockage + Admin' },
+        { label: 'Livraison', value: 'Clés en main' }
+      ]
+    }
+  ];
+
+  // Types de bâtiments
+  const buildingTypes = [
+    {
+      id: 1,
+      title: 'Usines & Unités de Production',
+      text: 'Halls industriels équipés pour processus de fabrication, avec systèmes de ventilation, électrification industrielle et sols techniques résistants.'
+    },
+    {
+      id: 2,
+      title: 'Entrepôts & Plateformes Logistiques',
+      text: 'Espaces de stockage optimisés avec quais de chargement, systèmes de manutention et zones de préparation de commandes.'
+    },
+    {
+      id: 3,
+      title: 'Ateliers & Zones Techniques',
+      text: 'Espaces techniques spécialisés pour maintenance, assemblage et réparation avec installations adaptées aux équipements lourds.'
+    }
+  ];
+
+  // Expertise technique
+  const expertise = [
+    {
+      id: 1,
+      number: '01',
+      title: 'Structure & Charpente',
+      text: 'Structures métalliques ou béton armé calculées selon normes parasismiques, avec portées optimisées pour maximiser l\'espace utile.'
+    },
+    {
+      id: 2,
+      number: '02',
+      title: 'Couverture & Étanchéité',
+      text: 'Toitures industrielles performantes avec isolation thermique renforcée, évacuation des eaux pluviales et lanterneaux pour éclairage naturel.'
+    },
+    {
+      id: 3,
+      number: '03',
+      title: 'Réseaux & Fluides',
+      text: 'Installation complète des réseaux électriques haute et basse tension, fluides industriels, ventilation, climatisation et systèmes de sécurité incendie.'
+    }
+  ];
+
+  // Avantages
+  const advantages = [
+    {
+      id: 1,
+      title: 'Conception Optimisée',
+      text: 'Études techniques approfondies pour des bâtiments parfaitement adaptés à vos process industriels et contraintes d\'exploitation.'
+    },
+    {
+      id: 2,
+      title: 'Délais Maîtrisés',
+      text: 'Planification rigoureuse et coordination efficace des corps de métier pour respecter les échéances de mise en service.'
+    },
+    {
+      id: 3,
+      title: 'Qualité Garantie',
+      text: 'Matériaux certifiés, contrôles qualité à chaque étape et garanties décennales pour une tranquillité totale.'
+    }
+  ];
+
   return (
-    <>
-      <Header />
-      <main className="bi-page">
-        {/* Hero Section */}
-        <section className="bi-hero">
-          <div className="bi-hero-overlay" />
-          <div className="bi-hero-content container">
-            <p className="bi-hero-kicker">Infrastructures Industrielles</p>
-            <h1 className="bi-hero-title">Bâtiments Industriels</h1>
-            <p className="bi-hero-subtitle">
-              La SNTP conçoit et réalise des infrastructures industrielles de
-              grande envergure : usines de production, hangars métalliques,
-              ateliers spécialisés et zones techniques adaptées aux exigences
-              les plus rigoureuses du secteur industriel algérien.
+    <div className="BatimentsIndustriels-page">
+      {/* Hero Section */}
+      <section 
+        className="BatimentsIndustriels-hero"
+        style={{
+          backgroundImage: 'url(https://via.placeholder.com/1920x1080/1B263B/FFFFFF?text=Batiments+Industriels+SNTP)'
+        }}
+      >
+        <div className="BatimentsIndustriels-hero-overlay"></div>
+        <div className="BatimentsIndustriels-container">
+          <div className="BatimentsIndustriels-hero-content">
+            <p className="BatimentsIndustriels-hero-kicker">
+              Accueil / Services / Bâtiments Industriels
             </p>
-            <div className="bi-hero-actions">
-              <a href="#realisations" className="bi-btn bi-btn-primary">
-                Nos réalisations
+            <h1 className="BatimentsIndustriels-hero-title">
+              Bâtiments Industriels
+            </h1>
+            <p className="BatimentsIndustriels-hero-subtitle">
+              Construction de bâtiments industriels performants : usines, entrepôts, ateliers et 
+              plateformes logistiques conçus pour optimiser vos opérations de production et stockage.
+            </p>
+            <div className="BatimentsIndustriels-hero-actions">
+              <a href="/contact" className="BatimentsIndustriels-btn BatimentsIndustriels-btn-primary">
+                <FaBuilding style={{ marginRight: '8px' }} />
+                Demander un Devis
               </a>
-              <a href="#contact" className="bi-btn bi-btn-outline">
-                Demander un devis
+              <a href="/projets" className="BatimentsIndustriels-btn BatimentsIndustriels-btn-outline">
+                Nos Réalisations
               </a>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Introduction */}
-        <section className="bi-section bi-intro">
-          <div className="container">
-            <div className="bi-section-header">
-              <h2 className="bi-section-title">Expertise industrielle reconnue</h2>
-              <p className="bi-section-subtitle">
-                Fort de plus de 45 ans d'expérience, la SNTP est un acteur
-                majeur dans la construction d'infrastructures industrielles en
-                Algérie. Notre maîtrise des techniques de construction
-                métallique et en béton armé, combinée à notre parc matériel
-                performant, nous permet de livrer des projets industriels
-                complexes dans les délais impartis.
-              </p>
-            </div>
-
-            <div className="bi-intro-grid">
-              <article className="bi-intro-card">
-                <div className="bi-intro-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <path d="M3 9h18M9 21V9" />
-                  </svg>
-                </div>
-                <h3 className="bi-intro-title">Usines & Unités de Production</h3>
-                <p className="bi-intro-text">
-                  Construction d'usines de production industrielle, notamment
-                  l'usine de tuyaux en béton comprimé de Fornaka (Mostaganem)
-                  sur 12 hectares, avec équipements de haute technologie pour
-                  production de tuyaux géants à l'échelle nationale.
-                </p>
-              </article>
-
-              <article className="bi-intro-card">
-                <div className="bi-intro-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                  </svg>
-                </div>
-                <h3 className="bi-intro-title">Hangars & Charpentes Métalliques</h3>
-                <p className="bi-intro-text">
-                  Réalisation de hangars industriels en charpente métallique
-                  légère et lourde, ateliers de production, espaces logistiques
-                  et entrepôts avec portées importantes et équipements de levage
-                  intégrés (ponts roulants).
-                </p>
-              </article>
-
-              <article className="bi-intro-card">
-                <div className="bi-intro-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                  </svg>
-                </div>
-                <h3 className="bi-intro-title">Zones Techniques & Installations</h3>
-                <p className="bi-intro-text">
-                  Études et réalisation de zones techniques industrielles,
-                  centrales de production d'énergie, installations spécialisées
-                  et bâtiments auxiliaires nécessaires au fonctionnement des
-                  complexes industriels.
-                </p>
-              </article>
-            </div>
+      {/* Section Introduction */}
+      <section className="BatimentsIndustriels-section BatimentsIndustriels-intro">
+        <div className="BatimentsIndustriels-container">
+          <div className="BatimentsIndustriels-section-header">
+            <h2 className="BatimentsIndustriels-section-title">
+              Notre Expertise Industrielle
+            </h2>
+            <p className="BatimentsIndustriels-section-subtitle">
+              La SNTP accompagne les industriels dans la réalisation de leurs infrastructures 
+              avec une approche globale, du design à la livraison.
+            </p>
           </div>
-        </section>
 
-        {/* Réalisations phares */}
-        <section id="realisations" className="bi-section bi-projects">
-          <div className="container">
-            <div className="bi-section-header">
-              <h2 className="bi-section-title">Réalisations phares</h2>
-              <p className="bi-section-subtitle">
-                Des projets d'envergure qui témoignent de notre savoir-faire et
-                de notre capacité à livrer des infrastructures industrielles de
-                qualité sur l'ensemble du territoire national.
-              </p>
-            </div>
-
-            <div className="bi-projects-grid">
-              <article className="bi-project-card">
-                <div className="bi-project-header">
-                  <h3 className="bi-project-title">Usine de Tuyaux en Béton - Fornaka</h3>
-                  <span className="bi-project-location">Mostaganem</span>
+          <div className="BatimentsIndustriels-intro-grid">
+            {introCards.map((card) => (
+              <div key={card.id} className="BatimentsIndustriels-intro-card">
+                <div className="BatimentsIndustriels-intro-icon">
+                  {card.icon}
                 </div>
-                <div className="bi-project-content">
-                  <p className="bi-project-desc">
-                    Reprise et réhabilitation de l'usine de production de
-                    tuyaux en béton comprimé située dans la zone d'activités de
-                    Fornaka, commune d'Ain Nouissy. Cette infrastructure de 12
-                    hectares est équipée de technologies de pointe pour la
-                    production de tuyaux géants destinés aux réseaux hydrauliques.
-                  </p>
-                  <ul className="bi-project-specs">
-                    <li><strong>Superficie :</strong> 12 hectares</li>
-                    <li><strong>Capacité :</strong> 360 employés</li>
-                    <li><strong>Statut :</strong> Gestion transférée à SNTP</li>
-                    <li><strong>Impact :</strong> Autosuffisance nationale en tuyaux</li>
+                <h3 className="BatimentsIndustriels-intro-title">{card.title}</h3>
+                <p className="BatimentsIndustriels-intro-text">{card.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Projets Phares */}
+      <section className="BatimentsIndustriels-section BatimentsIndustriels-projects">
+        <div className="BatimentsIndustriels-container">
+          <div className="BatimentsIndustriels-section-header">
+            <h2 className="BatimentsIndustriels-section-title">
+              Projets Phares
+            </h2>
+            <p className="BatimentsIndustriels-section-subtitle">
+              Des réalisations emblématiques qui témoignent de notre maîtrise technique et 
+              de notre capacité à relever les défis les plus complexes.
+            </p>
+          </div>
+
+          <div className="BatimentsIndustriels-projects-grid">
+            {projects.map((project) => (
+              <div key={project.id} className="BatimentsIndustriels-project-card">
+                <div className="BatimentsIndustriels-project-header">
+                  <h3 className="BatimentsIndustriels-project-title">{project.title}</h3>
+                  <p className="BatimentsIndustriels-project-location">{project.location}</p>
+                </div>
+                <div className="BatimentsIndustriels-project-content">
+                  <p className="BatimentsIndustriels-project-desc">{project.description}</p>
+                  <ul className="BatimentsIndustriels-project-specs">
+                    {project.specs.map((spec, index) => (
+                      <li key={index}>
+                        <strong>{spec.label}:</strong> {spec.value}
+                      </li>
+                    ))}
                   </ul>
                 </div>
-              </article>
-
-              <article className="bi-project-card">
-                <div className="bi-project-header">
-                  <h3 className="bi-project-title">Zone Technique Militaire</h3>
-                  <span className="bi-project-location">National</span>
-                </div>
-                <div className="bi-project-content">
-                  <p className="bi-project-desc">
-                    Étude et réalisation de zones techniques pour le Ministère
-                    de la Défense Nationale, incluant infrastructures
-                    spécialisées, VRD et aménagements sécurisés selon cahier des
-                    charges strict et normes militaires.
-                  </p>
-                  <ul className="bi-project-specs">
-                    <li><strong>Type :</strong> Infrastructure technique</li>
-                    <li><strong>Client :</strong> Ministère de la Défense Nationale</li>
-                    <li><strong>Expertise :</strong> Études + Réalisation</li>
-                    <li><strong>Délais :</strong> Respect strict du planning</li>
-                  </ul>
-                </div>
-              </article>
-
-              <article className="bi-project-card">
-                <div className="bi-project-header">
-                  <h3 className="bi-project-title">Centrales Électriques</h3>
-                  <span className="bi-project-location">Djanet, Illizi</span>
-                </div>
-                <div className="bi-project-content">
-                  <p className="bi-project-desc">
-                    Travaux de génie civil pour centrales TG mobiles et
-                    installations électriques, incluant fondations spéciales,
-                    structures en béton armé, dalles techniques et aménagements
-                    pour équipements de production énergétique.
-                  </p>
-                  <ul className="bi-project-specs">
-                    <li><strong>Type :</strong> Infrastructure énergétique</li>
-                    <li><strong>Région :</strong> Sud algérien (Illizi)</li>
-                    <li><strong>Prestations :</strong> Génie civil complet</li>
-                    <li><strong>Contraintes :</strong> Conditions climatiques extrêmes</li>
-                  </ul>
-                </div>
-              </article>
-            </div>
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Types de bâtiments */}
-        <section className="bi-section bi-types">
-          <div className="container">
-            <div className="bi-section-header">
-              <h2 className="bi-section-title">Types de bâtiments industriels</h2>
-              <p className="bi-section-subtitle">
-                La SNTP maîtrise l'ensemble des typologies de constructions
-                industrielles, des structures légères aux bâtiments lourds à
-                forte contrainte structurelle.
+      {/* Section Types de Bâtiments */}
+      <section className="BatimentsIndustriels-section">
+        <div className="BatimentsIndustriels-container">
+          <div className="BatimentsIndustriels-section-header">
+            <h2 className="BatimentsIndustriels-section-title">
+              Types de Bâtiments
+            </h2>
+            <p className="BatimentsIndustriels-section-subtitle">
+              Une gamme complète de solutions pour tous vos besoins industriels et logistiques.
+            </p>
+          </div>
+
+          <div className="BatimentsIndustriels-types-grid">
+            {buildingTypes.map((type) => (
+              <div key={type.id} className="BatimentsIndustriels-type-card">
+                <h3 className="BatimentsIndustriels-type-title">{type.title}</h3>
+                <p className="BatimentsIndustriels-type-text">{type.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Expertise Technique */}
+      <section className="BatimentsIndustriels-section">
+        <div className="BatimentsIndustriels-container">
+          <div className="BatimentsIndustriels-section-header">
+            <h2 className="BatimentsIndustriels-section-title">
+              Expertise Technique
+            </h2>
+            <p className="BatimentsIndustriels-section-subtitle">
+              Maîtrise de tous les aspects techniques pour des bâtiments performants et durables.
+            </p>
+          </div>
+
+          <div className="BatimentsIndustriels-expertise-grid">
+            {expertise.map((item) => (
+              <div key={item.id} className="BatimentsIndustriels-expertise-item">
+                <div className="BatimentsIndustriels-expertise-number">{item.number}</div>
+                <h3 className="BatimentsIndustriels-expertise-title">{item.title}</h3>
+                <p className="BatimentsIndustriels-expertise-text">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Avantages */}
+      <section className="BatimentsIndustriels-section BatimentsIndustriels-advantages">
+        <div className="BatimentsIndustriels-container">
+          <div className="BatimentsIndustriels-section-header">
+            <h2 className="BatimentsIndustriels-section-title">
+              Nos Avantages
+            </h2>
+            <p className="BatimentsIndustriels-section-subtitle">
+              Ce qui fait la différence SNTP dans vos projets industriels.
+            </p>
+          </div>
+
+          <div className="BatimentsIndustriels-advantages-grid">
+            {advantages.map((advantage) => (
+              <div key={advantage.id} className="BatimentsIndustriels-advantage-card">
+                <h3 className="BatimentsIndustriels-advantage-title">{advantage.title}</h3>
+                <p className="BatimentsIndustriels-advantage-text">{advantage.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section CTA */}
+      <section className="BatimentsIndustriels-section BatimentsIndustriels-cta">
+        <div className="BatimentsIndustriels-container">
+          <div className="BatimentsIndustriels-cta-inner">
+            <div>
+              <h2 className="BatimentsIndustriels-cta-title">
+                Un Projet Industriel ?
+              </h2>
+              <p className="BatimentsIndustriels-cta-subtitle">
+                Discutons de vos besoins et découvrez comment notre expertise peut donner 
+                vie à votre infrastructure industrielle.
               </p>
             </div>
-
-            <div className="bi-types-grid">
-              <div className="bi-type-card">
-                <h3 className="bi-type-title">Hangars Métalliques</h3>
-                <p className="bi-type-text">
-                  Structures en charpente métallique légère ou lourde, avec ou
-                  sans fondations, adaptées aux besoins logistiques et de
-                  stockage. Possibilité d'intégration de ponts roulants, réseaux
-                  sprinklage et installations photovoltaïques.
-                </p>
-              </div>
-
-              <div className="bi-type-card">
-                <h3 className="bi-type-title">Usines de Production</h3>
-                <p className="bi-type-text">
-                  Bâtiments industriels à usage de production, équipés de
-                  fondations renforcées, dalles techniques, réseaux industriels
-                  (électricité, eau, gaz, air comprimé) et systèmes de
-                  ventilation/climatisation adaptés.
-                </p>
-              </div>
-
-              <div className="bi-type-card">
-                <h3 className="bi-type-title">Ateliers Spécialisés</h3>
-                <p className="bi-type-text">
-                  Espaces de travail technique pour maintenance, assemblage et
-                  fabrication, avec équipements de levage intégrés, installations
-                  électriques renforcées et zones de circulation optimisées pour
-                  engins et flux logistiques.
-                </p>
-              </div>
-
-              <div className="bi-type-card">
-                <h3 className="bi-type-title">Entrepôts & Plateformes Logistiques</h3>
-                <p className="bi-type-text">
-                  Espaces de stockage de grande hauteur avec systèmes de
-                  rayonnage, quais de chargement, portes sectionnelles
-                  industrielles et sols renforcés pour circulation d'engins de
-                  manutention lourds.
-                </p>
-              </div>
-
-              <div className="bi-type-card">
-                <h3 className="bi-type-title">Centrales & Installations Techniques</h3>
-                <p className="bi-type-text">
-                  Bâtiments techniques pour installations énergétiques,
-                  centrales de production, sous-stations électriques, salles
-                  machines et locaux techniques nécessitant fondations spéciales
-                  et isolation acoustique.
-                </p>
-              </div>
-
-              <div className="bi-type-card">
-                <h3 className="bi-type-title">Bâtiments Administratifs Industriels</h3>
-                <p className="bi-type-text">
-                  Locaux sociaux, bureaux, salles de contrôle, laboratoires et
-                  espaces administratifs intégrés aux sites industriels, avec
-                  confort thermique et acoustique adapté aux normes du travail.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Savoir-faire technique */}
-        <section className="bi-section bi-expertise">
-          <div className="container">
-            <div className="bi-section-header">
-              <h2 className="bi-section-title">Savoir-faire technique</h2>
-              <p className="bi-section-subtitle">
-                Notre expertise technique couvre l'ensemble des phases d'un
-                projet industriel, de la conception à la mise en service.
-              </p>
-            </div>
-
-            <div className="bi-expertise-grid">
-              <div className="bi-expertise-item">
-                <div className="bi-expertise-number">01</div>
-                <h3 className="bi-expertise-title">Études & Engineering</h3>
-                <p className="bi-expertise-text">
-                  Conception architecturale et structurelle, calculs selon
-                  Eurocodes et normes algériennes (RPA2024, RNV2013), études
-                  géotechniques, dimensionnement des fondations et notes de
-                  calcul détaillées.
-                </p>
-              </div>
-
-              <div className="bi-expertise-item">
-                <div className="bi-expertise-number">02</div>
-                <h3 className="bi-expertise-title">Charpente Métallique</h3>
-                <p className="bi-expertise-text">
-                  Fabrication et montage de structures métalliques, profilés
-                  laminés à chaud et PRS (Profilés Reconstitués Soudés),
-                  assemblages soudés ou boulonnés, traitement anticorrosion et
-                  peinture industrielle.
-                </p>
-              </div>
-
-              <div className="bi-expertise-item">
-                <div className="bi-expertise-number">03</div>
-                <h3 className="bi-expertise-title">Génie Civil Lourd</h3>
-                <p className="bi-expertise-text">
-                  Terrassements, fondations profondes et superficielles,
-                  structures en béton armé et précontraint, dalles industrielles
-                  renforcées, murs de soutènement et ouvrages de rétention.
-                </p>
-              </div>
-
-              <div className="bi-expertise-item">
-                <div className="bi-expertise-number">04</div>
-                <h3 className="bi-expertise-title">Réseaux & VRD</h3>
-                <p className="bi-expertise-text">
-                  Voirie interne, parkings, aires de manœuvre, réseaux d'eaux
-                  usées et pluviales, alimentation électrique HT/BT, éclairage
-                  extérieur, réseaux incendie et télécommunications.
-                </p>
-              </div>
-
-              <div className="bi-expertise-item">
-                <div className="bi-expertise-number">05</div>
-                <h3 className="bi-expertise-title">Second Œuvre Industriel</h3>
-                <p className="bi-expertise-text">
-                  Bardage métallique et isolé, couverture étanche, menuiseries
-                  industrielles, portes sectionnelles, quais de chargement,
-                  systèmes de désenfumage et installations de sécurité incendie.
-                </p>
-              </div>
-
-              <div className="bi-expertise-item">
-                <div className="bi-expertise-number">06</div>
-                <h3 className="bi-expertise-title">Équipements Spéciaux</h3>
-                <p className="bi-expertise-text">
-                  Intégration de ponts roulants et équipements de levage,
-                  systèmes de ventilation industrielle, réseaux sprinklage,
-                  centrales de traitement d'air et installations photovoltaïques
-                  en toiture.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Avantages SNTP */}
-        <section className="bi-section bi-advantages">
-          <div className="container">
-            <div className="bi-section-header">
-              <h2 className="bi-section-title">Pourquoi choisir la SNTP ?</h2>
-              <p className="bi-section-subtitle">
-                Un partenaire industriel de confiance, reconnu pour son
-                professionnalisme et sa capacité à livrer des projets complexes.
-              </p>
-            </div>
-
-            <div className="bi-advantages-grid">
-              <div className="bi-advantage-card">
-                <h3 className="bi-advantage-title">Expertise éprouvée</h3>
-                <p className="bi-advantage-text">
-                  Plus de 45 ans d'expérience dans la construction
-                  d'infrastructures industrielles à travers tout le territoire
-                  algérien, avec gestion de projets d'envergure nationale.
-                </p>
-              </div>
-
-              <div className="bi-advantage-card">
-                <h3 className="bi-advantage-title">Parc matériel performant</h3>
-                <p className="bi-advantage-text">
-                  Armada d'équipements spécialisés et de forte capacité :
-                  grues, engins de terrassement, centrales à béton, ateliers
-                  de préfabrication et logistique intégrée.
-                </p>
-              </div>
-
-              <div className="bi-advantage-card">
-                <h3 className="bi-advantage-title">Qualité certifiée ISO 9001</h3>
-                <p className="bi-advantage-text">
-                  Système de management de la qualité certifié garantissant
-                  traçabilité, conformité et contrôles rigoureux à chaque étape
-                  du projet industriel.
-                </p>
-              </div>
-
-              <div className="bi-advantage-card">
-                <h3 className="bi-advantage-title">Respect des délais</h3>
-                <p className="bi-advantage-text">
-                  Organisation rigoureuse, planification détaillée et
-                  coordination efficace des corps d'état pour livrer vos
-                  infrastructures dans les délais contractuels.
-                </p>
-              </div>
-
-              <div className="bi-advantage-card">
-                <h3 className="bi-advantage-title">Solutions clés en main</h3>
-                <p className="bi-advantage-text">
-                  De la conception à la mise en service, la SNTP assure
-                  l'intégralité des prestations : études, travaux, équipements
-                  et accompagnement post-réception.
-                </p>
-              </div>
-
-              <div className="bi-advantage-card">
-                <h3 className="bi-advantage-title">Main-d'œuvre qualifiée</h3>
-                <p className="bi-advantage-text">
-                  Équipes d'ingénieurs, techniciens et compagnons spécialisés
-                  dans les techniques de construction industrielle métallique
-                  et béton armé.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA / Contact */}
-        <section id="contact" className="bi-section bi-cta">
-          <div className="container bi-cta-inner">
-            <div className="bi-cta-text">
-              <h2 className="bi-cta-title">Un projet industriel en vue ?</h2>
-              <p className="bi-cta-subtitle">
-                Que vous planifiez la construction d'une usine, d'un hangar
-                logistique ou d'une installation technique, la SNTP met son
-                expertise et ses moyens à votre service pour concrétiser votre
-                projet industriel dans les meilleures conditions.
-              </p>
-            </div>
-            <div className="bi-cta-actions">
-              <a href="/contact" className="bi-btn bi-btn-primary">
-                Contacter nos experts
+            <div className="BatimentsIndustriels-cta-actions">
+              <a href="/contact" className="BatimentsIndustriels-btn BatimentsIndustriels-btn-primary">
+                <FaCheckCircle style={{ marginRight: '8px' }} />
+                Contactez-nous
               </a>
-              <a href="/services" className="bi-btn bi-btn-outline-light">
-                Découvrir tous nos services
+              <a href="/brochure-batiments.pdf" className="BatimentsIndustriels-btn BatimentsIndustriels-btn-outline-light">
+                Télécharger la Brochure
               </a>
             </div>
           </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+        </div>
+      </section>
+    </div>
   );
 };
 
