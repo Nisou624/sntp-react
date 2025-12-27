@@ -1,4 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, EffectCards } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-cards';
 import {
   FaBuilding,
   FaRoad,
@@ -6,81 +12,86 @@ import {
   FaHardHat,
   FaTools,
   FaIndustry,
-  FaWarehouse,
-  FaArrowRight,
-  FaCheckCircle
+  FaWarehouse
 } from 'react-icons/fa';
 import './Services.css';
 
 const Services = () => {
-  const [currentSlide, setCurrentSlide] = React.useState(0);
-  const [isAnimating, setIsAnimating] = React.useState(false);
-  const [hasScroll, setHasScroll] = React.useState(false);
-  const tabsWrapperRef = React.useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [previousSlide, setPreviousSlide] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const swiperRef = useRef(null);
 
-  // Services data avec images et contenus
+  // Services data avec images Unsplash
   const servicesData = [
     {
       id: 1,
-      category: 'Construction de bâtiments',
-      title: 'INFRASTRUCTURES PUBLIQUES ET BÂTIMENTS D\'EXCELLENCE',
-      description: 'La SNTP excelle dans la réalisation de grands projets de bâtiments publics, administratifs, éducatifs et de santé. Notre expertise intégrée garantit la livraison de structures durables et conformes aux normes internationales.',
-      buttonText: 'Découvrir nos projets',
-      image: '/assets/images/construction-batiments.jpg',
+      category: 'COMPLEXES COMMERCIAUX',
+      title: 'L\'ARCHITECTURE COMMERCIALE',
+      description: 'Les complexes commerciaux modernes sont des espaces de vie innovants. Réalisation de centres commerciaux attractifs et fonctionnels qui transforment l\'expérience client. Nous intégrons design architectural contemporain, performance énergétique optimale et technologies intelligentes pour créer des espaces durables et rentables.',
+      buttonText: 'DÉCOUVRIR NOS COMPLEXES',
+      image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1200&h=1600&fit=crop',
+      cardTitle: 'COMPLEXES COMMERCIAUX',
       icon: <FaBuilding />
     },
     {
       id: 2,
-      category: 'Travaux routiers',
-      title: 'ROUTES, AUTOROUTES ET OUVRAGES D\'ART',
-      description: 'Spécialiste des infrastructures routières, la SNTP conçoit et réalise des routes, autoroutes, échangeurs et ponts en appliquant les technologies les plus avancées pour garantir sécurité, durabilité et fluidité du trafic.',
-      buttonText: 'Voir nos réalisations',
-      image: '/assets/images/travaux-routiers.jpg',
+      category: 'TRAVAUX ROUTIERS',
+      title: 'INFRASTRUCTURES ROUTIÈRES',
+      description: 'Construction et réhabilitation d\'infrastructures routières de haute qualité. Nos équipes spécialisées maîtrisent toutes les techniques modernes de construction routière, du terrassement à la pose de revêtements bitumineux. Respect strict des normes de sécurité et engagement pour des infrastructures durables.',
+      buttonText: 'VOIR NOS ROUTES',
+      image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&h=1600&fit=crop',
+      cardTitle: 'TRAVAUX ROUTIERS',
       icon: <FaRoad />
     },
     {
       id: 3,
-      category: 'Hydraulique',
-      title: 'BARRAGES, STATIONS DE TRAITEMENT ET RÉSEAUX HYDRAULIQUES',
-      description: 'La SNTP réalise des infrastructures hydrauliques majeures : barrages, stations d\'épuration, réseaux d\'adduction d\'eau potable et d\'assainissement, contribuant ainsi à la sécurité hydrique du pays.',
-      buttonText: 'Explorer nos solutions',
-      image: '/assets/images/hydraulique.jpg',
+      category: 'OUVRAGES HYDRAULIQUES',
+      title: 'GESTION DE L\'EAU',
+      description: 'Conception et réalisation d\'ouvrages hydrauliques complexes pour la gestion durable de l\'eau. Barrages, stations de pompage, réseaux d\'adduction et systèmes d\'irrigation modernes. Notre expertise garantit des solutions techniques fiables et respectueuses de l\'environnement.',
+      buttonText: 'NOS PROJETS HYDRAULIQUES',
+      image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&h=1600&fit=crop',
+      cardTitle: 'OUVRAGES HYDRAULIQUES',
       icon: <FaTint />
     },
     {
       id: 4,
-      category: 'Terrassement',
-      title: 'TRAVAUX DE TERRASSEMENT ET PRÉPARATION DE SITES',
-      description: 'Avec un parc d\'engins modernes et une expertise reconnue, la SNTP assure les opérations de terrassement, nivellement, déblai-remblai pour préparer les sites de construction de manière optimale.',
-      buttonText: 'En savoir plus',
-      image: '/assets/images/terrassement.jpg',
+      category: 'GÉNIE CIVIL',
+      title: 'CONSTRUCTION & GÉNIE CIVIL',
+      description: 'Expertise complète en génie civil pour tous types de projets d\'infrastructure. De la conception structurale à la réalisation, nous assurons la solidité et la pérennité de vos ouvrages. Ponts, tunnels, fondations spéciales et structures complexes sont notre spécialité.',
+      buttonText: 'EXPLORER LE GÉNIE CIVIL',
+      image: 'https://images.unsplash.com/photo-1590586767908-20d6d1b6db58?w=1200&h=1600&fit=crop',
+      cardTitle: 'GÉNIE CIVIL',
       icon: <FaHardHat />
     },
     {
       id: 5,
-      category: 'Travaux spéciaux',
-      title: 'FONDATIONS SPÉCIALES, TUNNELS ET OUVRAGES SOUTERRAINS',
-      description: 'La SNTP maîtrise les techniques de travaux spéciaux : fondations profondes, pieux, tunnels, galeries souterraines et renforcement de sols, permettant la réalisation de projets complexes.',
-      buttonText: 'Découvrir notre expertise',
-      image: '/assets/images/travaux-speciaux.jpg',
+      category: 'MAINTENANCE',
+      title: 'ENTRETIEN & MAINTENANCE',
+      description: 'Services complets de maintenance préventive et corrective pour préserver la valeur de vos actifs. Inspections régulières, diagnostics techniques et interventions rapides. Notre approche proactive prolonge la durée de vie de vos infrastructures.',
+      buttonText: 'SERVICES DE MAINTENANCE',
+      image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1200&h=1600&fit=crop',
+      cardTitle: 'MAINTENANCE',
       icon: <FaTools />
     },
     {
       id: 6,
-      category: 'Industrie',
-      title: 'INFRASTRUCTURES INDUSTRIELLES ET ÉNERGÉTIQUES',
-      description: 'Réalisation d\'installations industrielles, centrales électriques, raffineries et infrastructures pétrolières, avec une approche intégrée garantissant performance, sécurité et conformité réglementaire.',
-      buttonText: 'Nos références',
-      image: '/assets/images/industrie.jpg',
+      category: 'BÂTIMENTS INDUSTRIELS',
+      title: 'CONSTRUCTION INDUSTRIELLE',
+      description: 'Réalisation d\'usines, d\'ateliers et de bâtiments industriels sur mesure. Solutions clés en main adaptées aux besoins spécifiques de votre activité. Respect des normes industrielles les plus strictes et optimisation des flux de production.',
+      buttonText: 'PROJETS INDUSTRIELS',
+      image: 'https://images.unsplash.com/photo-1565891741441-64926e441838?w=1200&h=1600&fit=crop',
+      cardTitle: 'BÂTIMENTS INDUSTRIELS',
       icon: <FaIndustry />
     },
     {
       id: 7,
-      category: 'Équipements',
-      title: 'LOCATION ET MAINTENANCE D\'ÉQUIPEMENTS',
-      description: 'La SNTP dispose d\'un parc d\'équipements moderne et performant, disponible à la location avec services de maintenance, permettant d\'optimiser la productivité et la rentabilité de vos chantiers.',
-      buttonText: 'Consulter notre catalogue',
-      image: '/assets/images/equipements.jpg',
+      category: 'HANGARS & ENTREPÔTS',
+      title: 'LOGISTIQUE & STOCKAGE',
+      description: 'Conception et construction de hangars et entrepôts logistiques modernes. Structures métalliques robustes, vastes espaces de stockage et solutions intelligentes pour optimiser votre chaîne logistique. Délais de construction rapides garantis.',
+      buttonText: 'NOS ENTREPÔTS',
+      image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&h=1600&fit=crop',
+      cardTitle: 'HANGARS & ENTREPÔTS',
       icon: <FaWarehouse />
     }
   ];
@@ -90,182 +101,216 @@ const Services = () => {
     {
       number: '01',
       title: 'Consultation',
-      description: 'Analyse approfondie de vos besoins et élaboration d\'une stratégie sur mesure.'
+      description: 'Analyse approfondie de vos besoins et définition du cahier des charges'
     },
     {
       number: '02',
-      title: 'Planification',
-      description: 'Conception détaillée, études techniques et planning d\'exécution rigoureux.'
+      title: 'Conception',
+      description: 'Élaboration des plans techniques et validation des solutions'
     },
     {
       number: '03',
       title: 'Réalisation',
-      description: 'Exécution des travaux avec suivi qualité permanent et respect des délais.'
+      description: 'Exécution des travaux avec suivi qualité permanent'
     },
     {
       number: '04',
       title: 'Livraison',
-      description: 'Réception définitive, garanties et support après-vente de qualité.'
+      description: 'Réception des ouvrages et accompagnement post-livraison'
     }
   ];
 
   // Features list
   const features = [
     {
-      icon: '1',
+      number: '01',
       title: 'Expertise Technique',
       description: 'Des ingénieurs et techniciens formés aux dernières technologies'
     },
     {
-      icon: '2',
+      number: '02',
       title: 'Respect des Délais',
       description: 'Une planification rigoureuse pour livrer vos projets à temps'
     },
     {
-      icon: '3',
-      title: 'Certifications Internationales',
+      number: '03',
+      title: 'Qualité Certifiée',
       description: 'Certifications ISO 9001, ISO 14001 et OHSAS 18001'
     },
     {
-      icon: '4',
-      title: 'Technologies Avancées',
+      number: '04',
+      title: 'Innovation',
       description: 'Équipements modernes et techniques innovantes'
     },
     {
-      icon: '5',
-      title: 'Développement Durable',
+      number: '05',
+      title: 'Durabilité',
       description: 'Construction durable et respect de l\'environnement'
     }
   ];
 
-  const scrollToActiveTab = (index) => {
-    if (tabsWrapperRef.current) {
-      const activeTab = tabsWrapperRef.current.children[index];
-      if (activeTab) {
-        const wrapperRect = tabsWrapperRef.current.getBoundingClientRect();
-        const tabRect = activeTab.getBoundingClientRect();
-        
-        // Calculer la position de scroll nécessaire (horizontal uniquement)
-        const scrollLeft = tabsWrapperRef.current.scrollLeft;
-        const tabRelativeLeft = tabRect.left - wrapperRect.left;
-        const tabCenter = tabRelativeLeft + (tabRect.width / 2);
-        const wrapperCenter = wrapperRect.width / 2;
-        
-        // Scroll horizontal smooth uniquement
-        const targetScrollLeft = scrollLeft + tabCenter - wrapperCenter;
-        
-        tabsWrapperRef.current.scrollTo({
-          left: targetScrollLeft,
-          behavior: 'smooth'
-        });
-      }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleSlideChange = (index) => {
+    setPreviousSlide(currentSlide);
+    setCurrentSlide(index);
+    if (swiperRef.current?.swiper) {
+      swiperRef.current.swiper.slideTo(index);
     }
   };
 
-  // Fonction pour changer de slide
-  const goToSlide = (index) => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentSlide(index);
-    
-    // Scroll horizontal uniquement vers l'onglet actif
-    scrollToActiveTab(index);
-    
-    setTimeout(() => setIsAnimating(false), 800);
+  const handleSwiperSlideChange = (swiper) => {
+    setPreviousSlide(currentSlide);
+    setCurrentSlide(swiper.realIndex);
   };
 
-  // Auto-slide effect
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % servicesData.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [servicesData.length]);
+  const goToPrevSlide = () => {
+    const newIndex = currentSlide === 0 ? servicesData.length - 1 : currentSlide - 1;
+    handleSlideChange(newIndex);
+  };
 
-  // Check scroll for tabs
-  React.useEffect(() => {
-    const checkScroll = () => {
-      if (tabsWrapperRef.current) {
-        const hasScrollable = tabsWrapperRef.current.scrollWidth > tabsWrapperRef.current.clientWidth;
-        setHasScroll(hasScrollable);
-      }
-    };
-
-    checkScroll();
-    window.addEventListener('resize', checkScroll);
-    return () => window.removeEventListener('resize', checkScroll);
-  }, []);
-
-  // Scroll automatique horizontal vers l'onglet actif lors du changement de slide
-  React.useEffect(() => {
-    scrollToActiveTab(currentSlide);
-  }, [currentSlide]);
+  const goToNextSlide = () => {
+    const newIndex = currentSlide === servicesData.length - 1 ? 0 : currentSlide + 1;
+    handleSlideChange(newIndex);
+  };
 
   return (
     <div className="Services-page">
-      {/* Hero Carousel Section */}
-      <section className="Services-hero-carousel">
-        <div className="Services-carousel-wrapper">
-          {/* Slides */}
-          <div className="Services-carousel-slides">
-            {servicesData.map((service, index) => (
-              <div
-                key={service.id}
-                className={`Services-carousel-slide ${
-                  index === currentSlide ? 'active' : ''
-                } ${index === currentSlide - 1 || (currentSlide === 0 && index === servicesData.length - 1) ? 'prev' : ''} ${
-                  index === currentSlide + 1 || (currentSlide === servicesData.length - 1 && index === 0) ? 'next' : ''
-                }`}
-              >
-                <div className="Services-slide-background">
-                  <img src={service.image} alt={service.category} />
-                </div>
-                <div className="Services-slide-overlay"></div>
-                <div className="Services-slide-content-wrapper">
-                  <div className="container">
-                    <div className="Services-slide-content">
-                      <div className="Services-slide-category">{service.category}</div>
-                      <h1 className="Services-slide-title">{service.title}</h1>
-                      <p className="Services-slide-description">{service.description}</p>
-                      <button className="Services-slide-cta-button">
-                        {service.buttonText}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* HERO SLIDER SECTION */}
+      <section className={`Services-hero-slider ${isLoaded ? 'Services-loaded' : ''}`}>
+        {/* Background animé */}
+        <div className="Services-hero-slider-background">
+          {servicesData.map((service, index) => (
+            <img
+              key={service.id}
+              src={service.image}
+              alt={service.title}
+              className={index === currentSlide ? 'Services-active' : ''}
+              loading={index === 0 ? 'eager' : 'lazy'}
+            />
+          ))}
+        </div>
 
-          {/* Navigation Tabs */}
-          <div className="Services-carousel-navigation-tabs">
-            <div
-              ref={tabsWrapperRef}
-              className={`Services-nav-tabs-wrapper ${hasScroll ? 'has-scroll' : ''}`}
-            >
+        {/* Overlay gradient */}
+        <div className="Services-hero-slider-overlay" />
+
+        {/* Wrapper principal */}
+        <div className="Services-hero-slider-wrapper">
+          <div className="Services-hero-content-container">
+            {/* DOTS NAVIGATION VERTICALE */}
+            <div className="Services-hero-dots">
               {servicesData.map((service, index) => (
                 <button
                   key={service.id}
-                  className={`Services-nav-tab ${index === currentSlide ? 'active' : ''}`}
-                  onClick={() => goToSlide(index)}
-                >
-                  <span className="Services-nav-tab-text">{service.category}</span>
-                </button>
+                  className={`Services-hero-dot ${index === currentSlide ? 'Services-active' : ''}`}
+                  onClick={() => handleSlideChange(index)}
+                  aria-label={`Aller au service ${index + 1}`}
+                />
               ))}
             </div>
+
+            {/* CONTENU PRINCIPAL */}
+            <div className="Services-hero-main-content">
+              <div className="Services-hero-content-box">
+                <div className="Services-hero-content-inner">
+                  <div className="Services-hero-category">
+                    {servicesData[currentSlide].category}
+                  </div>
+                  <h1 className="Services-hero-title">
+                    {servicesData[currentSlide].title}
+                  </h1>
+                  <p className="Services-hero-description">
+                    {servicesData[currentSlide].description}
+                  </p>
+                  <button className="Services-hero-cta-button">
+                    {servicesData[currentSlide].buttonText}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* CAROUSEL 3D CARDS */}
+            <div className="Services-hero-cards-carousel">
+              <Swiper
+                ref={swiperRef}
+                effect="cards"
+                grabCursor={true}
+                modules={[EffectCards, Autoplay]}
+                className="Services-hero-swiper-cards"
+                cardsEffect={{
+                  perSlideOffset: 12,
+                  perSlideRotate: 3,
+                  rotate: true,
+                  slideShadows: true
+                }}
+                loop={true}
+                autoplay={{
+                  delay: 4000,
+                  disableOnInteraction: false
+                }}
+                speed={800}
+                onSlideChange={handleSwiperSlideChange}
+              >
+                {servicesData.map((service) => (
+                  <SwiperSlide key={service.id}>
+                    <div className="Services-hero-card-3d">
+                      <div className="Services-hero-card-image-wrapper">
+                        <img src={service.image} alt={service.cardTitle} loading="lazy" />
+                      </div>
+                      <div className="Services-hero-card-gradient" />
+                      <div className="Services-hero-card-label">
+                        <h3 className="Services-hero-card-label-text">{service.cardTitle}</h3>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          </div>
+
+          {/* NAVIGATION BUTTONS */}
+          <div className="Services-hero-navigation">
+            <button
+              className="Services-hero-nav-btn"
+              onClick={goToPrevSlide}
+              aria-label="Diapositive précédente"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button
+              className="Services-hero-nav-btn"
+              onClick={goToNextSlide}
+              aria-label="Diapositive suivante"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className="Services-section Services-process-section">
-        <div className="container">
+      {/* PROCESS SECTION */}
+      <section className="Services-process-section">
+        <div className="Services-container">
           <div className="Services-section-header Services-text-center">
-            <div className="Services-section-label Services-section-label-white">Notre Méthode</div>
+            <div className="Services-section-label Services-section-label-white">
+              NOTRE MÉTHODOLOGIE
+            </div>
             <h2 className="Services-section-title Services-section-title-white">
-              Une méthodologie éprouvée pour garantir la réussite de vos projets
+              Un Processus Éprouvé
             </h2>
-            <div className="Services-section-divider-white"></div>
+            <div className="Services-section-divider-white" />
+            <p className="Services-section-description Services-section-description-white">
+              Une méthodologie éprouvée pour garantir la réussite de vos projets
+            </p>
           </div>
 
           <div className="Services-process-grid">
@@ -283,21 +328,24 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="Services-section Services-why-choose-section">
-        <div className="container">
+      {/* WHY CHOOSE US SECTION */}
+      <section className="Services-why-choose-section">
+        <div className="Services-container">
           <div className="Services-why-choose-grid">
             <div className="Services-why-choose-content">
-              <div className="Services-section-label">Pourquoi nous choisir</div>
+              <div className="Services-section-label">NOTRE EXPERTISE</div>
               <h2 className="Services-section-title">
-                Une expertise reconnue dans tous les domaines de la construction
+                Pourquoi Choisir SNTP ?
               </h2>
-              <div className="Services-section-divider-red"></div>
+              <div className="Services-section-divider-red" />
+              <p className="Services-section-description">
+                Une expertise reconnue dans tous les domaines de la construction
+              </p>
 
               <div className="Services-features-list">
                 {features.map((feature, index) => (
                   <div key={index} className="Services-feature-item">
-                    <div className="Services-feature-icon">{feature.icon}</div>
+                    <div className="Services-feature-icon">{feature.number}</div>
                     <div className="Services-feature-content">
                       <h4>{feature.title}</h4>
                       <p>{feature.description}</p>
@@ -309,33 +357,37 @@ const Services = () => {
 
             <div className="Services-why-choose-image">
               <div className="Services-image-wrapper">
-                <img src="/assets/images/why-choose-us.jpg" alt="Pourquoi choisir SNTP" />
+                <img
+                  src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=1000&fit=crop"
+                  alt="Équipe SNTP au travail"
+                  loading="lazy"
+                />
               </div>
-              <div className="Services-image-decoration"></div>
+              <div className="Services-image-decoration" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section
-        className="Services-cta"
-        style={{ backgroundImage: 'url(/assets/images/cta-background.jpg)' }}
-      >
-        <div className="Services-cta-overlay"></div>
-        <div className="container Services-cta-container">
+      {/* CTA SECTION */}
+      <section className="Services-cta">
+        <div className="Services-cta-overlay" />
+        <div className="Services-cta-container Services-container">
           <div className="Services-cta-content Services-text-center">
-            <div className="Services-cta-label">Parlons de votre projet</div>
+            <div className="Services-cta-label">CONTACTEZ-NOUS</div>
             <h2 className="Services-cta-title">
-              Prêt à démarrer votre projet avec SNTP ?
+              Prêt à Démarrer Votre Projet ?
             </h2>
             <p className="Services-cta-text">
-              Contactez nos experts dès aujourd'hui pour discuter de votre projet. Nous vous accompagnons 
-              de la conception à la réalisation.
+              Contactez nos experts dès aujourd'hui pour discuter de votre projet. Nous vous accompagnons de la conception à la réalisation.
             </p>
-            <button className="Services-cta-button">
-              Demander un Devis Gratuit <FaArrowRight />
-            </button>
+            <a href="/contact" className="Services-cta-button">
+              Demander un Devis Gratuit
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </a>
           </div>
         </div>
       </section>
