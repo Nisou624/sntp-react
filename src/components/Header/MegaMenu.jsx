@@ -11,7 +11,8 @@ const MegaMenu = ({ isOpen, onClose }) => {
         { path: '/about', label: 'Mot du PDG' },
         { path: '/about-us', label: 'À propos de nous' },
         { path: '/nous-connaitre#histoire', label: 'Histoire' },
-        { path: '/nous-connaitre#vision', label: 'Vision et valeurs' }
+        { path: '/nous-connaitre#vision', label: 'Vision et valeurs' },
+        { path: '/blog', label: 'Notre Actualité'}
       ]
     },
     {

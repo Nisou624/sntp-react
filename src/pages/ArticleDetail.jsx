@@ -1,259 +1,192 @@
+// src/pages/ArticleDetail.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, MapPin, Building2, FileText, Clock, DollarSign } from 'lucide-react';
-import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
-import appelOffreService from '../services/appelOffreService';
-import './AppelOffreDetails.css';
+import { getArticleBySlug } from '../services/articleService';
+import { FaCalendar, FaArrowLeft, FaFacebookF } from 'react-icons/fa';
+import { prepareContent } from '../utils/markdownHelper';
+import './ArticleDetail.css';
 
-const AppelOffreDetails = () => {
-  const { id } = useParams();
+const ArticleDetail = () => {
+  const { slug } = useParams();
   const navigate = useNavigate();
-  const [appelOffre, setAppelOffre] = useState(null);
+  const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    loadAppelOffre();
-  }, [id]);
+    loadArticle();
+  }, [slug]);
 
-  const loadAppelOffre = async () => {
+  const normalizeTags = (tags) => {
+    if (!tags) return [];
+    if (Array.isArray(tags)) return tags;
+    if (typeof tags === 'string') {
+      try {
+        const parsed = JSON.parse(tags);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return tags.split(',').map(t => t.trim()).filter(t => t);
+      }
+    }
+    return [];
+  };
+
+  const loadArticle = async () => {
     try {
       setLoading(true);
-      const response = await appelOffreService.getById(id);
+      setError(null);
+      const response = await getArticleBySlug(slug);
+
       if (response.success) {
-        setAppelOffre(response.data);
+        const normalizedArticle = {
+          ...response.data,
+          tags: normalizeTags(response.data.tags)
+        };
+        setArticle(normalizedArticle);
       } else {
-        setError('Appel d\'offre non trouvé');
+        setError('Article non trouvé');
       }
     } catch (err) {
-      setError('Erreur lors du chargement de l\'appel d\'offre');
-      console.error(err);
+      console.error('Erreur chargement article:', err);
+      setError(err.message || 'Erreur lors du chargement de l\'article');
     } finally {
       setLoading(false);
     }
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return 'Non spécifié';
-    try {
-      return new Date(dateString).toLocaleDateString('fr-FR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-      });
-    } catch {
-      return 'Date invalide';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
+
+  const createMarkup = (content) => {
+    if (!content) return { __html: '' };
+    const html = prepareContent(content);
+    return { __html: html };
+  };
+
+  const shareOnFacebook = () => {
+    const url = window.location.href;
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+      '_blank'
+    );
+  };
+
+  // Fonction pour obtenir l'URL de l'image (priorité à imagePrincipale, sinon imageUrl)
+  const getImageUrl = () => {
+    if (article.imagePrincipale) {
+      return `/uploads/${article.imagePrincipale}`;
     }
-  };
-
-  const formatMontant = (montant) => {
-    if (!montant || montant === 0) return 'Non spécifié';
-    try {
-      return new Intl.NumberFormat('fr-DZ', {
-        style: 'currency',
-        currency: 'DZD',
-        minimumFractionDigits: 0
-      }).format(montant);
-    } catch {
-      return `${montant.toLocaleString('fr-FR')} DA`;
+    if (article.imageUrl) {
+      return article.imageUrl;
     }
-  };
-
-  const getStatutClass = (statut) => {
-    const classes = {
-      'Ouvert': 'AppelOffreDetails-statut-ouvert',
-      'Fermé': 'AppelOffreDetails-statut-ferme',
-      'Annulé': 'AppelOffreDetails-statut-annule',
-      'Attribué': 'AppelOffreDetails-statut-attribue'
-    };
-    return classes[statut] || '';
-  };
-
-  const calculateDaysRemaining = (dateEcheance) => {
-    if (!dateEcheance) return null;
-    const deadline = new Date(dateEcheance);
-    const today = new Date();
-    const diffTime = deadline - today;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
-  };
-
-  const handleDownloadPDF = () => {
-    if (appelOffre.fichier_cahier_charges) {
-      window.open(appelOffre.fichier_cahier_charges, '_blank');
-    }
-  };
-
-  const handleBack = () => {
-    navigate('/nos-appels-offres');
+    return null;
   };
 
   if (loading) {
     return (
-      <div className="AppelOffreDetails-page">
-        <Header />
-        <div className="AppelOffreDetails-container">
-          <div className="AppelOffreDetails-loading-state">
-            <div className="AppelOffreDetails-spinner"></div>
-            <p>Chargement des détails...</p>
-          </div>
-        </div>
-        <Footer />
+      <div className="ArticleDetail-loading-snt">
+        <div className="ArticleDetail-spinner"></div>
+        <p>Chargement...</p>
       </div>
     );
   }
 
-  if (error || !appelOffre) {
+  if (error || !article) {
     return (
-      <div className="AppelOffreDetails-page">
-        <Header />
-        <div className="AppelOffreDetails-container">
-          <div className="AppelOffreDetails-error-state">
-            <p>{error || 'Appel d\'offre non trouvé'}</p>
-            <button onClick={handleBack} className="AppelOffreDetails-btn-retry">
-              Retour à la liste
-            </button>
-          </div>
-        </div>
-        <Footer />
+      <div className="ArticleDetail-error-snt">
+        <h2>Article introuvable</h2>
+        <p>{error || 'Cet article n\'existe pas.'}</p>
+        <button
+          className="ArticleDetail-btn-error-snt"
+          onClick={() => navigate(-1)}
+        >
+          <FaArrowLeft /> Retour aux actualités
+        </button>
       </div>
     );
   }
 
-  const daysRemaining = calculateDaysRemaining(appelOffre.date_limite_depot);
+  const imageUrl = getImageUrl();
 
   return (
-    <div className="AppelOffreDetails-page">
-      <Header />
-
-      <div className="AppelOffreDetails-container">
-        {/* Bouton retour */}
-        <button onClick={handleBack} className="AppelOffreDetails-btn-back">
-          <ArrowLeft size={18} />
-          Retour à la liste
-        </button>
-
-        {/* Header */}
-        <header className="AppelOffreDetails-header">
-          <div className="AppelOffreDetails-header-content">
-            <h1>{appelOffre.titre || 'Sans titre'}</h1>
-            <div className="AppelOffreDetails-header-badges">
-              <span className={`AppelOffreDetails-statut-badge ${getStatutClass(appelOffre.statut)}`}>
-                {appelOffre.statut}
-              </span>
-              {daysRemaining !== null && daysRemaining >= 0 && (
-                <span className="AppelOffreDetails-deadline-badge">
-                  {daysRemaining === 0 ? "Aujourd'hui" : `${daysRemaining} jour${daysRemaining > 1 ? 's' : ''}`}
-                </span>
-              )}
-            </div>
+    <div className="ArticleDetail-article-page-snt">
+      {/* Section image principale (centrée, pas full-width) */}
+      {imageUrl && (
+        <section className="ArticleDetail-article-hero-section">
+          <div className="ArticleDetail-hero-image-container">
+            <img
+              src={imageUrl}
+              alt={article.titre}
+              className="ArticleDetail-hero-image"
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
           </div>
-          <p className="AppelOffreDetails-reference">
-            Réf: {appelOffre.reference || 'N/A'}
-          </p>
+        </section>
+      )}
+
+      {/* Card de contenu */}
+      <article className="ArticleDetail-article-content-card">
+        {/* Header de la card */}
+        <header className="ArticleDetail-card-header">
+          <button
+            className="ArticleDetail-btn-back-snt"
+            onClick={() => navigate(-1)}
+          >
+            <FaArrowLeft /> Retour
+          </button>
+
+          <h1 className="ArticleDetail-card-title">{article.titre}</h1>
+
+          <div className="ArticleDetail-card-meta">
+            <FaCalendar className="ArticleDetail-icon" />
+            <time>{formatDate(article.datePublication)}</time>
+            {article.auteur && <span> • Par {article.auteur}</span>}
+          </div>
+
+          <button
+            className="ArticleDetail-btn-share-snt"
+            onClick={shareOnFacebook}
+            title="Partager sur Facebook"
+          >
+            <FaFacebookF />
+          </button>
         </header>
 
-        {/* Body */}
-        <div className="AppelOffreDetails-body">
-          <div className="AppelOffreDetails-main-content">
-            {/* Description */}
-            {appelOffre.description && (
-              <section className="AppelOffreDetails-section">
-                <h2>Description du projet</h2>
-                <p className="AppelOffreDetails-description-content">
-                  {appelOffre.description}
-                </p>
-              </section>
-            )}
+        {/* Corps de la card */}
+        <div className="ArticleDetail-card-body">
+          {article.extrait && (
+            <div className="ArticleDetail-card-lead">{article.extrait}</div>
+          )}
 
-            {/* Informations principales */}
-            <section className="AppelOffreDetails-section">
-              <h2>Informations principales</h2>
-              <div className="AppelOffreDetails-info-grid">
-                {appelOffre.maitre_ouvrage && (
-                  <div className="AppelOffreDetails-info-card">
-                    <Building2 size={24} className="AppelOffreDetails-info-icon" />
-                    <div className="AppelOffreDetails-info-content">
-                      <span className="AppelOffreDetails-info-label">Maître d'ouvrage</span>
-                      <span className="AppelOffreDetails-info-value">{appelOffre.maitre_ouvrage}</span>
-                    </div>
-                  </div>
-                )}
+          <div className="ArticleDetail-card-divider"></div>
 
-                {appelOffre.localisation && (
-                  <div className="AppelOffreDetails-info-card">
-                    <MapPin size={24} className="AppelOffreDetails-info-icon" />
-                    <div className="AppelOffreDetails-info-content">
-                      <span className="AppelOffreDetails-info-label">Localisation</span>
-                      <span className="AppelOffreDetails-info-value">{appelOffre.localisation}</span>
-                    </div>
-                  </div>
-                )}
+          <div
+            className="ArticleDetail-card-text"
+            dangerouslySetInnerHTML={createMarkup(article.contenu)}
+          />
 
-                {appelOffre.type_marche && (
-                  <div className="AppelOffreDetails-info-card">
-                    <FileText size={24} className="AppelOffreDetails-info-icon" />
-                    <div className="AppelOffreDetails-info-content">
-                      <span className="AppelOffreDetails-info-label">Type de marché</span>
-                      <span className="AppelOffreDetails-info-value">{appelOffre.type_marche}</span>
-                    </div>
-                  </div>
-                )}
-
-                {appelOffre.montant && (
-                  <div className="AppelOffreDetails-info-card">
-                    <DollarSign size={24} className="AppelOffreDetails-info-icon" />
-                    <div className="AppelOffreDetails-info-content">
-                      <span className="AppelOffreDetails-info-label">Montant estimé</span>
-                      <span className="AppelOffreDetails-info-value">{formatMontant(appelOffre.montant)}</span>
-                    </div>
-                  </div>
-                )}
-
-                {appelOffre.date_publication && (
-                  <div className="AppelOffreDetails-info-card">
-                    <Calendar size={24} className="AppelOffreDetails-info-icon" />
-                    <div className="AppelOffreDetails-info-content">
-                      <span className="AppelOffreDetails-info-label">Date de publication</span>
-                      <span className="AppelOffreDetails-info-value">{formatDate(appelOffre.date_publication)}</span>
-                    </div>
-                  </div>
-                )}
-
-                {appelOffre.date_limite_depot && (
-                  <div className="AppelOffreDetails-info-card AppelOffreDetails-info-card-urgent">
-                    <Clock size={24} className="AppelOffreDetails-info-icon" />
-                    <div className="AppelOffreDetails-info-content">
-                      <span className="AppelOffreDetails-info-label">Date limite de dépôt</span>
-                      <span className="AppelOffreDetails-info-value">{formatDate(appelOffre.date_limite_depot)}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </section>
-
-            {/* Télécharger le cahier des charges */}
-            {appelOffre.fichier_cahier_charges && (
-              <section className="AppelOffreDetails-section AppelOffreDetails-pdf-section">
-                <h2>Documents</h2>
-                <button onClick={handleDownloadPDF} className="AppelOffreDetails-btn-download-pdf">
-                  <FileText size={20} />
-                  Télécharger le cahier des charges
-                  <span className="AppelOffreDetails-pdf-name">
-                    Format PDF
-                  </span>
-                </button>
-              </section>
-            )}
-          </div>
+          {article.tags && article.tags.length > 0 && (
+            <div className="ArticleDetail-card-tags">
+              {article.tags.map((tag, index) => (
+                <span key={index} className="ArticleDetail-card-tag">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
-
-      <Footer />
+      </article>
     </div>
   );
 };
 
-export default AppelOffreDetails;
+export default ArticleDetail;
 

@@ -1,9 +1,9 @@
-// src/components/admin/ArticlesList.jsx - VERSION COMPLÈTE
+// src/components/admin/ArticlesList.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllArticles, deleteArticle } from '../../services/articleService';
 import { toast } from 'react-toastify';
-import { FaEdit, FaTrash, FaEye, FaPlus, FaStar, FaNewspaper, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaEye, FaPlus, FaStar, FaNewspaper, FaExternalLinkAlt, FaVideo, FaImage, FaFacebook, FaTwitter, FaLinkedin, FaYoutube, FaInstagram } from 'react-icons/fa';
 import './ArticleList.css';
 
 const ArticlesList = () => {
@@ -12,8 +12,8 @@ const ArticlesList = () => {
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     statut: '',
-    typeContenu: '', // Nouveau filtre
-    typeMedia: '',   // Nouveau filtre
+    typeContenu: '',
+    typeMedia: '',
     search: '',
     sortBy: 'datePublication',
     sortOrder: 'DESC'
@@ -37,7 +37,6 @@ const ArticlesList = () => {
         limit: pagination.limit,
         ...filters
       });
-
       setArticles(response.data);
       setPagination(prev => ({
         ...prev,
@@ -83,11 +82,11 @@ const ArticlesList = () => {
 
   const getTypeContentuBadge = (typeContenu) => {
     return typeContenu === 'mention_media' ? (
-      <span className="type-badge type-mention-media">
+      <span className="ArticleList-type-badge ArticleList-type-mention-media">
         <FaExternalLinkAlt /> Mention Média
       </span>
     ) : (
-      <span className="type-badge type-article">
+      <span className="ArticleList-type-badge ArticleList-type-article">
         <FaNewspaper /> Article
       </span>
     );
@@ -95,122 +94,95 @@ const ArticlesList = () => {
 
   const getStatutBadge = (statut) => {
     const badges = {
-      publie: { label: 'Publié', className: 'statut-publie' },
-      brouillon: { label: 'Brouillon', className: 'statut-brouillon' },
-      archive: { label: 'Archivé', className: 'statut-archive' }
+      'publie': <span className="ArticleList-status-badge ArticleList-status-publie">Publié</span>,
+      'brouillon': <span className="ArticleList-status-badge ArticleList-status-brouillon">Brouillon</span>,
+      'archive': <span className="ArticleList-status-badge ArticleList-status-archive">Archivé</span>
     };
-    const badge = badges[statut] || badges.brouillon;
-    return <span className={`statut-badge ${badge.className}`}>{badge.label}</span>;
+    return badges[statut] || <span className="ArticleList-status-badge">{statut}</span>;
   };
 
-  const handleView = (article) => {
-    if (article.typeContenu === 'mention_media' && article.urlExterne) {
-      window.open(article.urlExterne, '_blank');
-    } else {
-      window.open(`/articles/${article.slug}`, '_blank');
+  const getMediaIcon = (typeMedia, sourceMedia) => {
+    // Icônes basées sur le type de média ou la source
+    const lowerSource = (sourceMedia || '').toLowerCase();
+    
+    if (typeMedia === 'video' || lowerSource.includes('youtube') || lowerSource.includes('video')) {
+      return <FaYoutube className="ArticleList-media-icon ArticleList-media-icon-youtube" />;
     }
+    if (lowerSource.includes('facebook')) {
+      return <FaFacebook className="ArticleList-media-icon ArticleList-media-icon-facebook" />;
+    }
+    if (lowerSource.includes('twitter') || lowerSource.includes('x.com')) {
+      return <FaTwitter className="ArticleList-media-icon ArticleList-media-icon-twitter" />;
+    }
+    if (lowerSource.includes('linkedin')) {
+      return <FaLinkedin className="ArticleList-media-icon ArticleList-media-icon-linkedin" />;
+    }
+    if (lowerSource.includes('instagram')) {
+      return <FaInstagram className="ArticleList-media-icon ArticleList-media-icon-instagram" />;
+    }
+    // Icône par défaut pour mention média
+    return <FaExternalLinkAlt className="ArticleList-media-icon ArticleList-media-icon-default" />;
   };
+
+  if (loading) {
+    return <div className="ArticleList-loading">Chargement des articles...</div>;
+  }
 
   return (
-    <div className="articles-list-container">
-      <div className="articles-list-header">
-        <h1>Gestion du Blog & Médias</h1>
-        <button 
-          className="btn-primary"
-          onClick={() => navigate('/admin/articles/nouveau')}
-        >
-          <FaPlus /> Nouveau contenu
+    <div className="ArticleList-article-list-container">
+      <div className="ArticleList-article-list-header">
+        <h1>Gestion des Articles & Mentions Médias</h1>
+        <button className="ArticleList-btn-primary" onClick={() => navigate('/admin/articles/nouveau')}>
+          <FaPlus /> Nouvel Article
         </button>
       </div>
 
-      {/* Filtres */}
-      <div className="articles-filters">
-        <div className="search-form">
+      <div className="ArticleList-article-filters">
+        <form className="ArticleList-search-form" onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
             name="search"
-            placeholder="Rechercher..."
+            className="ArticleList-search-input"
+            placeholder="Rechercher un article..."
             value={filters.search}
             onChange={handleFilterChange}
-            className="search-input"
           />
-        </div>
+          <button type="button" className="ArticleList-btn-search" onClick={loadArticles}>
+            Rechercher
+          </button>
+        </form>
 
-        <div className="filter-controls">
-          <select
-            name="statut"
-            value={filters.statut}
-            onChange={handleFilterChange}
-            className="filter-select"
-          >
+        <div className="ArticleList-filter-controls">
+          <select name="statut" className="ArticleList-filter-select" value={filters.statut} onChange={handleFilterChange}>
             <option value="">Tous les statuts</option>
             <option value="publie">Publié</option>
             <option value="brouillon">Brouillon</option>
             <option value="archive">Archivé</option>
           </select>
 
-          <select
-            name="typeContenu"
-            value={filters.typeContenu}
-            onChange={handleFilterChange}
-            className="filter-select"
-          >
+          <select name="typeContenu" className="ArticleList-filter-select" value={filters.typeContenu} onChange={handleFilterChange}>
             <option value="">Tous les types</option>
             <option value="article">Articles</option>
             <option value="mention_media">Mentions Médias</option>
           </select>
 
-          {filters.typeContenu === 'mention_media' && (
-            <select
-              name="typeMedia"
-              value={filters.typeMedia}
-              onChange={handleFilterChange}
-              className="filter-select"
-            >
-              <option value="">Tous les médias</option>
-              <option value="article">Article</option>
-              <option value="video">Vidéo</option>
-              <option value="podcast">Podcast</option>
-              <option value="interview">Interview</option>
-              <option value="communique">Communiqué</option>
-            </select>
-          )}
-
-          <select
-            name="sortBy"
-            value={filters.sortBy}
-            onChange={handleFilterChange}
-            className="filter-select"
-          >
-            <option value="datePublication">Date de publication</option>
-            <option value="titre">Titre</option>
-            <option value="createdat">Date de création</option>
-            <option value="vues">Vues</option>
-          </select>
-
-          <select
-            name="sortOrder"
-            value={filters.sortOrder}
-            onChange={handleFilterChange}
-            className="filter-select"
-          >
-            <option value="DESC">Décroissant</option>
-            <option value="ASC">Croissant</option>
+          <select name="typeMedia" className="ArticleList-filter-select" value={filters.typeMedia} onChange={handleFilterChange}>
+            <option value="">Tous les médias</option>
+            <option value="video">Vidéo</option>
+            <option value="article_presse">Article Presse</option>
+            <option value="publication_social">Publication Sociale</option>
           </select>
         </div>
       </div>
 
-      {/* Table */}
-      {loading ? (
-        <div className="loading">Chargement...</div>
-      ) : articles.length === 0 ? (
-        <div className="no-data">
+      {articles.length === 0 ? (
+        <div className="ArticleList-no-data">
           <p>Aucun contenu trouvé</p>
         </div>
       ) : (
         <>
-          <div className="articles-table-wrapper">
-            <table className="articles-table">
+          <div className="ArticleList-article-table-wrapper">
+            <table className="ArticleList-article-table">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -219,8 +191,8 @@ const ArticlesList = () => {
                   <th>Auteur / Source</th>
                   <th>Statut</th>
                   <th>Date pub.</th>
-                  <th>Vues</th>
-                  <th>Featured</th>
+                  <th className="ArticleList-text-center">Vues</th>
+                  <th className="ArticleList-text-center">Featured</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -228,27 +200,36 @@ const ArticlesList = () => {
                 {articles.map((article) => (
                   <tr key={article.id}>
                     <td>{article.id}</td>
-                    <td className="article-title-cell">
-                      <div className="article-title-wrapper">
-                        {(article.imagePrincipale || article.logoSource) && (
-                          <img 
-                            src={article.imagePrincipale || article.logoSource} 
+                    <td className="ArticleList-article-title-cell">
+                      <div className="ArticleList-article-title-wrapper">
+                        {/* Affichage de l'image principale pour les articles */}
+                        {article.typeContenu === 'article' && article.imagePrincipale ? (
+                          <img
+                            src={`/uploads/${article.imagePrincipale}`}
                             alt={article.titre}
-                            className="article-thumb"
+                            className="ArticleList-article-thumb"
                             onError={(e) => e.target.style.display = 'none'}
                           />
-                        )}
+                        ) : null}
+                        
+                        {/* Affichage de l'icône du type média pour les mentions média */}
+                        {article.typeContenu === 'mention_media' ? (
+                          <div className="ArticleList-media-icon-container">
+                            {getMediaIcon(article.typeMedia, article.sourceMedia)}
+                          </div>
+                        ) : null}
+                        
                         <div>
-                          <div className="article-title">{article.titre}</div>
+                          <div className="ArticleList-article-title">{article.titre}</div>
                           {article.typeContenu === 'mention_media' && article.urlExterne && (
-                            <a 
+                            <a
                               href={article.urlExterne}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="article-url"
+                              className="ArticleList-article-url"
                               onClick={(e) => e.stopPropagation()}
                             >
-                              <FaExternalLinkAlt /> Lien externe
+                              <FaExternalLinkAlt /> Voir la source
                             </a>
                           )}
                         </div>
@@ -256,41 +237,42 @@ const ArticlesList = () => {
                     </td>
                     <td>{getTypeContentuBadge(article.typeContenu)}</td>
                     <td>
-                      {article.typeContenu === 'mention_media' 
+                      {article.typeContenu === 'mention_media'
                         ? article.sourceMedia || 'N/A'
-                        : article.auteur || 'N/A'
-                      }
+                        : article.auteur || 'N/A'}
                     </td>
                     <td>{getStatutBadge(article.statut)}</td>
                     <td>{formatDate(article.datePublication)}</td>
-                    <td className="text-center">{article.vues || 0}</td>
-                    <td className="featured-cell">
+                    <td className="ArticleList-text-center">{article.vues || 0}</td>
+                    <td className="ArticleList-featured-cell">
                       {article.featured && (
-                        <FaStar className="featured-icon" title="À la une" />
+                        <FaStar className="ArticleList-featured-icon" title="Article en vedette" />
                       )}
                     </td>
-                    <td className="actions-cell">
-                      <button
-                        className="btn-action btn-view"
-                        onClick={() => handleView(article)}
-                        title="Voir"
-                      >
-                        <FaEye />
-                      </button>
-                      <button
-                        className="btn-action btn-edit"
-                        onClick={() => navigate(`/admin/articles/modifier/${article.id}`)}
-                        title="Modifier"
-                      >
-                        <FaEdit />
-                      </button>
-                      <button
-                        className="btn-action btn-delete"
-                        onClick={() => handleDelete(article.id, article.titre)}
-                        title="Supprimer"
-                      >
-                        <FaTrash />
-                      </button>
+                    <td>
+                      <div className="ArticleList-actions-cell">
+                        <button
+                          className="ArticleList-btn-action ArticleList-btn-view"
+                          onClick={() => navigate(`/articles/${article.slug}`)}
+                          title="Voir"
+                        >
+                          <FaEye />
+                        </button>
+                        <button
+                          className="ArticleList-btn-action ArticleList-btn-edit"
+                          onClick={() => navigate(`/admin/articles/modifier/${article.id}`)}
+                          title="Modifier"
+                        >
+                          <FaEdit />
+                        </button>
+                        <button
+                          className="ArticleList-btn-action ArticleList-btn-delete"
+                          onClick={() => handleDelete(article.id, article.titre)}
+                          title="Supprimer"
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -298,22 +280,21 @@ const ArticlesList = () => {
             </table>
           </div>
 
-          {/* Pagination */}
-          <div className="pagination">
+          <div className="ArticleList-pagination">
             <button
-              className="pagination-btn"
-              disabled={pagination.page === 1}
+              className="ArticleList-pagination-btn"
               onClick={() => setPagination(prev => ({ ...prev, page: prev.page - 1 }))}
+              disabled={pagination.page === 1}
             >
               Précédent
             </button>
-            <span className="pagination-info">
-              Page {pagination.page} sur {pagination.totalPages} ({pagination.total} éléments)
+            <span className="ArticleList-pagination-info">
+              Page {pagination.page} sur {pagination.totalPages} ({pagination.total} articles)
             </span>
             <button
-              className="pagination-btn"
-              disabled={pagination.page === pagination.totalPages}
+              className="ArticleList-pagination-btn"
               onClick={() => setPagination(prev => ({ ...prev, page: prev.page + 1 }))}
+              disabled={pagination.page === pagination.totalPages}
             >
               Suivant
             </button>

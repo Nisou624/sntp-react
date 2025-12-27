@@ -6,7 +6,7 @@ import AppelOffresList from '../../components/admin/AppelOffreList';
 import AppelOffreForm from '../../components/admin/AppelOffreForm';
 import ProjetsList from '../../components/admin/ProjetList';
 import ProjetForm from '../../components/admin/ProjetForm';
-import { FaNewspaper } from 'react-icons/fa';
+import ArticlesList from '../../components/admin/ArticleList';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -22,11 +22,23 @@ const Dashboard = () => {
   };
 
   const handleAdd = () => {
+    // Pour les articles, rediriger vers la page de création dédiée
+    if (activeTab === 'articles') {
+      navigate('/admin/articles/nouveau');
+      return;
+    }
+    
     setSelectedItem(null);
     setShowForm(true);
   };
 
   const handleEdit = (item) => {
+    // Pour les articles, rediriger vers la page d'édition dédiée
+    if (activeTab === 'articles') {
+      navigate(`/admin/articles/modifier/${item.id}`);
+      return;
+    }
+    
     setSelectedItem(item);
     setShowForm(true);
   };
@@ -45,9 +57,12 @@ const Dashboard = () => {
         } else if (activeTab === 'projets') {
           const projetService = require('../../services/projetService').default;
           response = await projetService.delete(id);
+        } else if (activeTab === 'articles') {
+          const { deleteArticle } = require('../../services/articleService');
+          response = await deleteArticle(id);
         }
 
-        if (response.success) {
+        if (response && response.success) {
           alert('Élément supprimé avec succès');
           setRefreshTrigger(prev => prev + 1);
         }
@@ -75,72 +90,92 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-header">
-        <div className="header-content">
-          <h1>Panel Administrateur</h1>
-          <button onClick={handleLogout} className="btn-logout">
+    <div className="Dashboard-container">
+      <header className="Dashboard-header">
+        <div className="Dashboard-header-content">
+          <h1>Tableau de Bord SNTP</h1>
+          <button className="Dashboard-btn-logout" onClick={handleLogout}>
             Déconnexion
           </button>
         </div>
-      </div>
+      </header>
 
-      <div className="dashboard-content">
-        <div className="dashboard-tabs">
+      <div className="Dashboard-content">
+        {/* Onglets */}
+        <div className="Dashboard-tabs">
           <button
-            className={`tab-btn ${activeTab === 'appels-offres' ? 'active' : ''}`}
+            className={`Dashboard-tab-btn ${
+              activeTab === 'appels-offres' ? 'Dashboard-active' : ''
+            }`}
             onClick={() => {
               setActiveTab('appels-offres');
               setShowForm(false);
-              setSelectedItem(null);
             }}
           >
-            📢 Appels d'Offres
+            Appels d'Offres
           </button>
           <button
-            className={`tab-btn ${activeTab === 'projets' ? 'active' : ''}`}
+            className={`Dashboard-tab-btn ${
+              activeTab === 'projets' ? 'Dashboard-active' : ''
+            }`}
             onClick={() => {
               setActiveTab('projets');
               setShowForm(false);
-              setSelectedItem(null);
             }}
           >
-            🏗️ Projets
+            Projets
+          </button>
+          <button
+            className={`Dashboard-tab-btn ${
+              activeTab === 'articles' ? 'Dashboard-active' : ''
+            }`}
+            onClick={() => {
+              setActiveTab('articles');
+              setShowForm(false);
+            }}
+          >
+            Articles
           </button>
         </div>
 
-        <div className="dashboard-actions">
-          {!showForm && (
-            <button onClick={handleAdd} className="btn-add">
-              ➕ Ajouter {activeTab === 'appels-offres' ? 'un Appel d\'Offre' : 'un Projet'}
+        {/* Bouton Ajouter (sauf pour les articles qui ont leur propre interface) */}
+        {!showForm && activeTab !== 'articles' && (
+          <div className="Dashboard-actions">
+            <button className="Dashboard-btn-add" onClick={handleAdd}>
+              + Ajouter
             </button>
-          )}
-        </div>
+          </div>
+        )}
 
-        <div className="dashboard-main">
-          {showForm ? (
-            <div>
-              {activeTab === 'appels-offres' ? (
+        {/* Contenu principal */}
+        <div className="Dashboard-main">
+          {/* Appels d'Offres */}
+          {activeTab === 'appels-offres' && (
+            <>
+              {showForm ? (
                 <AppelOffreForm
                   appelOffre={selectedItem}
                   onSuccess={handleFormSuccess}
                   onCancel={handleFormCancel}
                 />
               ) : (
-                <ProjetForm
-                  projet={selectedItem}
-                  onSuccess={handleFormSuccess}
-                  onCancel={handleFormCancel}
-                />
-              )}
-            </div>
-          ) : (
-            <div>
-              {activeTab === 'appels-offres' ? (
                 <AppelOffresList
                   onEdit={handleEdit}
                   onDelete={handleDelete}
                   refreshTrigger={refreshTrigger}
+                />
+              )}
+            </>
+          )}
+
+          {/* Projets */}
+          {activeTab === 'projets' && (
+            <>
+              {showForm ? (
+                <ProjetForm
+                  projet={selectedItem}
+                  onSuccess={handleFormSuccess}
+                  onCancel={handleFormCancel}
                 />
               ) : (
                 <ProjetsList
@@ -149,7 +184,12 @@ const Dashboard = () => {
                   refreshTrigger={refreshTrigger}
                 />
               )}
-            </div>
+            </>
+          )}
+
+          {/* Articles */}
+          {activeTab === 'articles' && (
+            <ArticlesList />
           )}
         </div>
       </div>

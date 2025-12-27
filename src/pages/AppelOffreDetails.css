@@ -86,7 +86,7 @@
   gap: 24px;
 }
 
-section {
+.detail-container section {
   background: var(--sntp-white);
   border: 2px solid var(--sntp-gray-lighter);
   border-radius: 4px;

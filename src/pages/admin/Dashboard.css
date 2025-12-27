@@ -1,17 +1,51 @@
-/* src/pages/admin/Dashboard.css */
-.dashboard-container {
+/* ===================================
+   Dashboard Page - SNTP Admin
+   Route: /admin/dashboard
+   =================================== */
+
+/* Variables de couleurs SNTP */
+:root {
+  --sntp-red-darker: #5A000D;
+  --sntp-red-dark: #810012;
+  --sntp-red: #C1121F;
+  --sntp-red-light: #D32F2F;
+  --sntp-red-lighter: #E57373;
+  --sntp-red-lightest: #FFEBEE;
+  --sntp-black: #0D1B2A;
+  --sntp-gray-darkest: #1B263B;
+  --sntp-gray-dark: #415A77;
+  --sntp-gray: #778DA9;
+  --sntp-gray-light: #B0C4DE;
+  --sntp-gray-lighter: #E0E1DD;
+  --sntp-gray-lightest: #F5F5F5;
+  --sntp-white: #FFFFFF;
+  --sntp-white-soft: #FAFAFA;
+  --sntp-success: #2E7D32;
+  --sntp-success-light: #E8F5E9;
+  --sntp-warning: #ED6C02;
+  --sntp-warning-light: #FFF4E5;
+  --sntp-error: #D32F2F;
+  --sntp-error-light: #FFEBEE;
+  --sntp-info: #0288D1;
+  --sntp-info-light: #E1F5FE;
+}
+
+/* Container principal */
+.Dashboard-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, var(--sntp-gray-lightest) 0%, var(--sntp-gray-lighter) 100%);
+  padding-top: 80px; /* Marge pour le header fixe de l'app */
 }
 
-.dashboard-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+/* Header du dashboard */
+.Dashboard-header {
+  background: linear-gradient(135deg, var(--sntp-red) 0%, var(--sntp-red-dark) 100%);
+  color: var(--sntp-white);
   padding: 24px 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(13, 27, 42, 0.15);
 }
 
-.header-content {
+.Dashboard-header-content {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
@@ -20,46 +54,52 @@
   align-items: center;
 }
 
-.header-content h1 {
+.Dashboard-header-content h1 {
   font-size: 28px;
   margin: 0;
   font-weight: 700;
+  color: var(--sntp-white);
 }
 
-.btn-logout {
+/* Bouton déconnexion */
+.Dashboard-btn-logout {
   padding: 10px 20px;
   background: rgba(255, 255, 255, 0.2);
-  border: 2px solid white;
+  border: 2px solid var(--sntp-white);
   border-radius: 8px;
-  color: white;
+  color: var(--sntp-white);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.btn-logout:hover {
-  background: white;
-  color: #667eea;
+.Dashboard-btn-logout:hover {
+  background: var(--sntp-white);
+  color: var(--sntp-red);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
-.dashboard-content {
+/* Contenu principal */
+.Dashboard-content {
   max-width: 1400px;
   margin: 0 auto;
   padding: 32px 24px;
 }
 
-.dashboard-tabs {
+/* Onglets */
+.Dashboard-tabs {
   display: flex;
   gap: 16px;
   margin-bottom: 24px;
-  background: white;
+  background: var(--sntp-white);
   padding: 8px;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(13, 27, 42, 0.08);
 }
 
-.tab-btn {
+.Dashboard-tab-btn {
   flex: 1;
   padding: 16px 24px;
   background: transparent;
@@ -69,79 +109,95 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #718096;
+  color: var(--sntp-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.tab-btn:hover {
-  background: #f7fafc;
-  color: #2d3748;
+.Dashboard-tab-btn:hover {
+  background: var(--sntp-gray-lightest);
+  color: var(--sntp-black);
 }
 
-.tab-btn.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+.Dashboard-tab-btn.Dashboard-active {
+  background: linear-gradient(135deg, var(--sntp-red) 0%, var(--sntp-red-dark) 100%);
+  color: var(--sntp-white);
+  box-shadow: 0 4px 12px rgba(193, 18, 31, 0.3);
 }
 
-.dashboard-actions {
+/* Actions (bouton ajouter) */
+.Dashboard-actions {
   margin-bottom: 24px;
   display: flex;
   justify-content: flex-end;
 }
 
-.btn-add {
+.Dashboard-btn-add {
   padding: 14px 28px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--sntp-red) 0%, var(--sntp-red-dark) 100%);
+  color: var(--sntp-white);
   border: none;
   border-radius: 8px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 12px rgba(193, 18, 31, 0.3);
 }
 
-.btn-add:hover {
+.Dashboard-btn-add:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 6px 20px rgba(193, 18, 31, 0.4);
+  background: linear-gradient(135deg, var(--sntp-red-light) 0%, var(--sntp-red) 100%);
 }
 
-.dashboard-main {
-  background: white;
+/* Zone principale de contenu */
+.Dashboard-main {
+  background: var(--sntp-white);
   border-radius: 12px;
   padding: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(13, 27, 42, 0.08);
+  min-height: 400px;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .header-content {
+  .Dashboard-container {
+    padding-top: 60px;
+  }
+
+  .Dashboard-header-content {
     flex-direction: column;
     gap: 16px;
     text-align: center;
   }
 
-  .header-content h1 {
+  .Dashboard-header-content h1 {
     font-size: 22px;
   }
 
-  .dashboard-tabs {
+  .Dashboard-tabs {
     flex-direction: column;
   }
 
-  .tab-btn {
+  .Dashboard-tab-btn {
     padding: 12px 16px;
     font-size: 14px;
   }
 
-  .dashboard-main {
+  .Dashboard-main {
     padding: 16px;
   }
 
-  .btn-add {
+  .Dashboard-btn-add {
     width: 100%;
     justify-content: center;
+  }
+
+  .Dashboard-actions {
+    justify-content: stretch;
   }
 }
 

@@ -9,12 +9,10 @@ const AppelOffresList = ({ onEdit, onDelete, refreshTrigger }) => {
   const [appelsOffres, setAppelsOffres] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const limit = 10;
-
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatut, setFilterStatut] = useState('');
 
@@ -96,98 +94,83 @@ const AppelOffresList = ({ onEdit, onDelete, refreshTrigger }) => {
 
   if (loading) {
     return (
-      <div className="liste-container">
-        <div className="loading">
-          <div className="spinner"></div>
-          <p>Chargement des appels d'offres...</p>
-        </div>
+      <div className="AppelOffreList-loading">
+        <div className="AppelOffreList-spinner"></div>
+        <p>Chargement des appels d'offres...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="liste-container">
-        <div className="error-message">
-          <p>{error}</p>
-          <button onClick={loadAppelsOffres} className="btn-retry">
-            Réessayer
-          </button>
-        </div>
+      <div className="AppelOffreList-error-message">
+        <p>{error}</p>
+        <button className="AppelOffreList-btn-retry" onClick={loadAppelsOffres}>
+          Réessayer
+        </button>
       </div>
     );
   }
 
   return (
-    <div className="liste-container">
-      <div className="liste-header">
-        <h1>Gestion des Appels D'Offres</h1>
-        <p className="subtitle">Consultez et gérez tous les appels d'offres</p>
+    <div className="AppelOffreList-liste-container">
+      <div className="AppelOffreList-liste-header">
+        <h1>Liste des Appels d'Offres</h1>
+        <p className="AppelOffreList-subtitle">
+          Consultez et gérez tous les appels d'offres
+        </p>
       </div>
 
-      <div className="liste-filters">
-        <div className="search-box">
+      <div className="AppelOffreList-liste-filters">
+        <div className="AppelOffreList-search-box">
           <input
             type="text"
-            placeholder="Rechercher par titre, référence, description..."
+            placeholder="Rechercher par titre, référence, localisation..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-
-        <div className="filter-buttons">
+        <div className="AppelOffreList-filter-buttons">
           <button
-            className={`filter-btn ${filterStatut === '' ? 'active' : ''}`}
-            onClick={() => {
-              setFilterStatut('');
-              setCurrentPage(1);
-            }}
+            className={`AppelOffreList-filter-btn ${filterStatut === '' ? 'AppelOffreList-active' : ''}`}
+            onClick={() => setFilterStatut('')}
           >
             Tous
           </button>
           <button
-            className={`filter-btn ${filterStatut === 'actif' ? 'active' : ''}`}
-            onClick={() => {
-              setFilterStatut('actif');
-              setCurrentPage(1);
-            }}
+            className={`AppelOffreList-filter-btn ${filterStatut === 'actif' ? 'AppelOffreList-active' : ''}`}
+            onClick={() => setFilterStatut('actif')}
           >
             Actifs
           </button>
           <button
-            className={`filter-btn ${filterStatut === 'expire' ? 'active' : ''}`}
-            onClick={() => {
-              setFilterStatut('expire');
-              setCurrentPage(1);
-            }}
+            className={`AppelOffreList-filter-btn ${filterStatut === 'expire' ? 'AppelOffreList-active' : ''}`}
+            onClick={() => setFilterStatut('expire')}
           >
             Expirés
           </button>
           <button
-            className={`filter-btn ${filterStatut === 'annule' ? 'active' : ''}`}
-            onClick={() => {
-              setFilterStatut('annule');
-              setCurrentPage(1);
-            }}
+            className={`AppelOffreList-filter-btn ${filterStatut === 'annule' ? 'AppelOffreList-active' : ''}`}
+            onClick={() => setFilterStatut('annule')}
           >
             Annulés
           </button>
         </div>
       </div>
 
-      <div className="results-info">
-        <p>{filteredAppelsOffres.length} résultat(s) sur {totalItems}</p>
+      <div className="AppelOffreList-results-info">
+        {filteredAppelsOffres.length} résultat(s) sur {totalItems}
       </div>
 
       {filteredAppelsOffres.length === 0 ? (
-        <div className="empty-state">
+        <div className="AppelOffreList-empty-state">
           <p>Aucun appel d'offre trouvé</p>
           <small>Essayez de modifier vos critères de recherche</small>
         </div>
       ) : (
         <>
-          <div className="table-responsive">
-            <table className="appels-offres-table">
+          <div className="AppelOffreList-table-responsive">
+            <table className="AppelOffreList-appels-offres-table">
               <thead>
                 <tr>
                   <th>Référence</th>
@@ -203,47 +186,70 @@ const AppelOffresList = ({ onEdit, onDelete, refreshTrigger }) => {
                 {filteredAppelsOffres.map((appel) => (
                   <tr key={appel.id}>
                     <td data-label="Référence">
-                      <span className="reference">{appel.reference || 'N/A'}</span>
+                      <span className="AppelOffreList-reference">
+                        {appel.reference || 'N/A'}
+                      </span>
                     </td>
                     <td data-label="Titre">
-                      <div className="titre-cell">
-                        <span className="titre-text">{appel.titre || 'Sans titre'}</span>
+                      <div className="AppelOffreList-titre-cell">
+                        <span className="AppelOffreList-titre-text">
+                          {appel.titre || 'Sans titre'}
+                        </span>
                         {appel.hasPdf && (
-                          <span className="pdf-indicator">PDF</span>
+                          <span className="AppelOffreList-pdf-indicator">
+                            PDF
+                          </span>
                         )}
                       </div>
                     </td>
-                    <td data-label="Localisation">{appel.localisation || 'Non spécifié'}</td>
-                    <td data-label="Montant">{formatMontant(appel.montant)}</td>
-                    <td data-label="Échéance">{formatDate(appel.dateEcheance)}</td>
+                    <td data-label="Localisation">
+                      {appel.localisation || 'Non spécifié'}
+                    </td>
+                    <td data-label="Montant">
+                      {formatMontant(appel.montant)}
+                    </td>
+                    <td data-label="Échéance">
+                      {formatDate(appel.dateEcheance)}
+                    </td>
                     <td data-label="Statut">
-                      <span className={`statut-badge statut-${appel.statut}`}>
-                        {appel.statut === 'actif' ? 'Actif' : 
-                         appel.statut === 'expire' ? 'Expiré' : 'Annulé'}
+                      <span
+                        className={`AppelOffreList-statut-badge ${
+                          appel.statut === 'actif'
+                            ? 'AppelOffreList-statut-actif'
+                            : appel.statut === 'expire'
+                            ? 'AppelOffreList-statut-expire'
+                            : 'AppelOffreList-statut-annule'
+                        }`}
+                      >
+                        {appel.statut === 'actif'
+                          ? 'Actif'
+                          : appel.statut === 'expire'
+                          ? 'Expiré'
+                          : 'Annulé'}
                       </span>
                     </td>
                     <td data-label="Actions">
-                      <div className="action-buttons">
+                      <div className="AppelOffreList-action-buttons">
                         <button
-                          className="btn-action btn-view"
+                          className="AppelOffreList-btn-action AppelOffreList-btn-view"
                           onClick={() => handleViewDetails(appel.id)}
                           title="Voir les détails"
                         >
-                          Voir
+                           Voir
                         </button>
                         <button
-                          className="btn-action btn-edit"
+                          className="AppelOffreList-btn-action AppelOffreList-btn-edit"
                           onClick={() => onEdit(appel)}
                           title="Modifier"
                         >
-                          Modifier
+                           Éditer
                         </button>
                         <button
-                          className="btn-action btn-delete"
+                          className="AppelOffreList-btn-action AppelOffreList-btn-delete"
                           onClick={() => onDelete(appel.id)}
                           title="Supprimer"
                         >
-                          Supprimer
+                           Suppr.
                         </button>
                       </div>
                     </td>

@@ -1,15 +1,48 @@
-/* src/components/admin/ProjetList.css */
-.liste-container {
+/* ===================================
+   ProjetList Component - SNTP Admin
+   Liste des Projets
+   =================================== */
+
+/* Variables de couleurs SNTP */
+:root {
+  --sntp-red-darker: #5A000D;
+  --sntp-red-dark: #810012;
+  --sntp-red: #C1121F;
+  --sntp-red-light: #D32F2F;
+  --sntp-red-lighter: #E57373;
+  --sntp-red-lightest: #FFEBEE;
+  --sntp-black: #0D1B2A;
+  --sntp-gray-darkest: #1B263B;
+  --sntp-gray-dark: #415A77;
+  --sntp-gray: #778DA9;
+  --sntp-gray-light: #B0C4DE;
+  --sntp-gray-lighter: #E0E1DD;
+  --sntp-gray-lightest: #F5F5F5;
+  --sntp-white: #FFFFFF;
+  --sntp-white-soft: #FAFAFA;
+  --sntp-success: #2E7D32;
+  --sntp-success-light: #E8F5E9;
+  --sntp-warning: #ED6C02;
+  --sntp-warning-light: #FFF4E5;
+  --sntp-error: #D32F2F;
+  --sntp-error-light: #FFEBEE;
+  --sntp-info: #0288D1;
+  --sntp-info-light: #E1F5FE;
+}
+
+/* Container principal */
+.ProjetList-liste-container {
   width: 100%;
 }
 
-.liste-header {
+/* Header de la liste */
+.ProjetList-liste-header {
   margin-bottom: 32px;
   padding-bottom: 24px;
   border-bottom: 2px solid var(--sntp-red);
 }
 
-.liste-header h1 {
+.ProjetList-liste-header h1 {
   font-size: 24px;
   color: var(--sntp-black);
   margin: 0 0 8px;
@@ -18,13 +51,14 @@
   letter-spacing: 0.5px;
 }
 
-.subtitle {
+.ProjetList-subtitle {
   color: var(--sntp-gray);
   font-size: 14px;
   margin: 0;
 }
 
-.liste-filters {
+/* Filtres */
+.ProjetList-liste-filters {
   margin-bottom: 24px;
   display: flex;
   gap: 16px;
@@ -32,12 +66,12 @@
   align-items: center;
 }
 
-.search-box {
+.ProjetList-search-box {
   flex: 1;
   min-width: 280px;
 }
 
-.search-box input {
+.ProjetList-search-box input {
   width: 100%;
   padding: 12px 16px;
   border: 2px solid var(--sntp-gray-lighter);
@@ -48,23 +82,23 @@
   color: var(--sntp-gray-dark);
 }
 
-.search-box input:focus {
+.ProjetList-search-box input:focus {
   outline: none;
   border-color: var(--sntp-red);
-  box-shadow: 0 0 0 3px rgba(129, 0, 18, 0.1);
+  box-shadow: 0 0 0 3px rgba(193, 18, 31, 0.1);
 }
 
-.search-box input::placeholder {
+.ProjetList-search-box input::placeholder {
   color: var(--sntp-gray-light);
 }
 
-.filter-buttons {
+.ProjetList-filter-buttons {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-.filter-btn {
+.ProjetList-filter-btn {
   padding: 10px 20px;
   background: var(--sntp-white);
   border: 2px solid var(--sntp-gray-lighter);
@@ -78,25 +112,27 @@
   letter-spacing: 0.5px;
 }
 
-.filter-btn:hover {
+.ProjetList-filter-btn:hover {
   border-color: var(--sntp-red);
   color: var(--sntp-red);
 }
 
-.filter-btn.active {
+.ProjetList-filter-btn.ProjetList-active {
   background: var(--sntp-red);
   border-color: var(--sntp-red);
   color: var(--sntp-white);
 }
 
-.results-info {
+/* Info résultats */
+.ProjetList-results-info {
   margin-bottom: 16px;
   color: var(--sntp-gray);
   font-size: 14px;
   font-weight: 600;
 }
 
-.table-responsive {
+/* Tableau responsive */
+.ProjetList-table-responsive {
   background: var(--sntp-white);
   border: 2px solid var(--sntp-gray-lighter);
   border-radius: 4px;
@@ -104,16 +140,16 @@
   margin-bottom: 24px;
 }
 
-.projets-table {
+.ProjetList-projets-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.projets-table thead {
+.ProjetList-projets-table thead {
   background: var(--sntp-gray-lightest);
 }
 
-.projets-table th {
+.ProjetList-projets-table th {
   padding: 16px;
   text-align: left;
   font-size: 12px;
@@ -124,67 +160,85 @@
   border-bottom: 2px solid var(--sntp-red);
 }
 
-.projets-table tbody tr {
+.ProjetList-projets-table tbody tr {
   border-bottom: 1px solid var(--sntp-gray-lighter);
   transition: background-color 0.2s ease;
 }
 
-.projets-table tbody tr:hover {
+.ProjetList-projets-table tbody tr:hover {
   background-color: var(--sntp-gray-lightest);
 }
 
-.projets-table tbody tr:last-child {
+.ProjetList-projets-table tbody tr:last-child {
   border-bottom: none;
 }
 
-.projets-table td {
+.ProjetList-projets-table td {
   padding: 16px;
   font-size: 14px;
   color: var(--sntp-gray-dark);
   vertical-align: middle;
 }
 
-.projet-image-thumb {
+/* Miniature d'image */
+.ProjetList-projet-image-thumb {
   width: 80px;
   height: 60px;
   border-radius: 4px;
   overflow: hidden;
+  border: 2px solid var(--sntp-gray-lighter);
 }
 
-.projet-image-thumb img {
+.ProjetList-projet-image-thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.titre-cell {
+.ProjetList-no-image {
+  width: 80px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sntp-gray-lightest);
+  border: 2px solid var(--sntp-gray-lighter);
+  border-radius: 4px;
+  font-size: 10px;
+  color: var(--sntp-gray);
+  text-align: center;
+  padding: 4px;
+}
+
+/* Cellule titre */
+.ProjetList-titre-cell {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.titre-text {
+.ProjetList-titre-text {
   flex: 1;
   font-weight: 500;
   color: var(--sntp-black);
 }
 
-.category-badge {
+/* Badge de catégorie */
+.ProjetList-category-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
   background: var(--sntp-gray-lightest);
+  border: 1px solid var(--sntp-gray-lighter);
   border-radius: 4px;
   font-size: 12px;
   font-weight: 600;
+  color: var(--sntp-gray-dark);
 }
 
-.category-icon {
-  font-size: 16px;
-}
-
-.year-badge {
+/* Badge d'année */
+.ProjetList-year-badge {
   display: inline-block;
   padding: 6px 12px;
   background: var(--sntp-gray-lightest);
@@ -194,7 +248,8 @@
   color: var(--sntp-gray-dark);
 }
 
-.statut-badge {
+/* Badges de statut */
+.ProjetList-statut-badge {
   display: inline-block;
   padding: 6px 12px;
   border-radius: 2px;
@@ -204,22 +259,23 @@
   letter-spacing: 0.5px;
 }
 
-.statut-completed {
-  background-color: #10b981;
+.ProjetList-statut-completed {
+  background-color: var(--sntp-success);
   color: var(--sntp-white);
 }
 
-.statut-in_progress {
-  background-color: #f59e0b;
+.ProjetList-statut-in_progress {
+  background-color: var(--sntp-red-light);
   color: var(--sntp-white);
 }
 
-.action-buttons {
+/* Boutons d'action */
+.ProjetList-action-buttons {
   display: flex;
   gap: 8px;
 }
 
-.btn-action {
+.ProjetList-btn-action {
   padding: 8px 16px;
   border: 2px solid var(--sntp-gray-lighter);
   border-radius: 4px;
@@ -233,29 +289,30 @@
   color: var(--sntp-gray-dark);
 }
 
-.btn-edit {
+.ProjetList-btn-edit {
   border-color: var(--sntp-red);
   color: var(--sntp-red);
 }
 
-.btn-edit:hover {
+.ProjetList-btn-edit:hover {
   background: var(--sntp-red);
   color: var(--sntp-white);
 }
 
-.btn-delete {
+.ProjetList-btn-delete {
   border-color: var(--sntp-gray);
   color: var(--sntp-gray);
 }
 
-.btn-delete:hover {
+.ProjetList-btn-delete:hover {
   background: var(--sntp-gray);
   color: var(--sntp-white);
 }
 
-.loading,
-.error-message,
-.empty-state {
+/* États de chargement, erreur et vide */
+.ProjetList-loading,
+.ProjetList-error-message,
+.ProjetList-empty-state {
   text-align: center;
   padding: 60px 20px;
   background: var(--sntp-white);
@@ -263,37 +320,37 @@
   border-radius: 4px;
 }
 
-.spinner {
+.ProjetList-spinner {
   width: 50px;
   height: 50px;
   border: 4px solid var(--sntp-gray-lighter);
   border-top-color: var(--sntp-red);
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: ProjetList-spin 1s linear infinite;
   margin: 0 auto 24px;
 }
 
-@keyframes spin {
+@keyframes ProjetList-spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-.loading p,
-.error-message p,
-.empty-state p {
+.ProjetList-loading p,
+.ProjetList-error-message p,
+.ProjetList-empty-state p {
   font-size: 16px;
   margin-bottom: 8px;
   color: var(--sntp-gray-dark);
   font-weight: 600;
 }
 
-.empty-state small {
+.ProjetList-empty-state small {
   font-size: 14px;
   color: var(--sntp-gray);
 }
 
-.btn-retry {
+.ProjetList-btn-retry {
   margin-top: 16px;
   padding: 12px 24px;
   background: var(--sntp-red);
@@ -308,64 +365,64 @@
   letter-spacing: 0.5px;
 }
 
-.btn-retry:hover {
+.ProjetList-btn-retry:hover {
   background: var(--sntp-red-dark);
   border-color: var(--sntp-red-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(129, 0, 18, 0.3);
+  box-shadow: 0 6px 16px rgba(193, 18, 31, 0.3);
 }
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .table-responsive {
+  .ProjetList-table-responsive {
     overflow-x: auto;
   }
 
-  .projets-table {
+  .ProjetList-projets-table {
     min-width: 900px;
   }
 }
 
 @media (max-width: 768px) {
-  .liste-filters {
+  .ProjetList-liste-filters {
     flex-direction: column;
   }
 
-  .search-box {
+  .ProjetList-search-box {
     width: 100%;
   }
 
-  .filter-buttons {
+  .ProjetList-filter-buttons {
     width: 100%;
     justify-content: space-between;
   }
 
-  .filter-btn {
+  .ProjetList-filter-btn {
     flex: 1;
     padding: 8px 12px;
     font-size: 11px;
   }
 
-  .projets-table thead {
+  .ProjetList-projets-table thead {
     display: none;
   }
 
-  .projets-table,
-  .projets-table tbody,
-  .projets-table tr,
-  .projets-table td {
+  .ProjetList-projets-table,
+  .ProjetList-projets-table tbody,
+  .ProjetList-projets-table tr,
+  .ProjetList-projets-table td {
     display: block;
     width: 100%;
   }
 
-  .projets-table tr {
+  .ProjetList-projets-table tr {
     margin-bottom: 16px;
     border: 2px solid var(--sntp-gray-lighter);
     border-radius: 4px;
     padding: 16px;
   }
 
-  .projets-table td {
+  .ProjetList-projets-table td {
     padding: 8px 0;
     text-align: right;
     position: relative;
@@ -373,11 +430,11 @@
     border-bottom: 1px solid var(--sntp-gray-lighter);
   }
 
-  .projets-table td:last-child {
+  .ProjetList-projets-table td:last-child {
     border-bottom: none;
   }
 
-  .projets-table td:before {
+  .ProjetList-projets-table td::before {
     content: attr(data-label);
     position: absolute;
     left: 0;
@@ -391,20 +448,21 @@
     letter-spacing: 0.5px;
   }
 
-  .titre-cell {
+  .ProjetList-titre-cell {
     justify-content: flex-end;
   }
 
-  .projet-image-thumb {
+  .ProjetList-projet-image-thumb,
+  .ProjetList-no-image {
     margin-left: auto;
   }
 
-  .action-buttons {
+  .ProjetList-action-buttons {
     justify-content: flex-end;
     flex-wrap: wrap;
   }
 
-  .btn-action {
+  .ProjetList-btn-action {
     flex: 1;
     min-width: 80px;
   }

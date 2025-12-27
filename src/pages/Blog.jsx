@@ -142,7 +142,7 @@ const Blog = () => {
       <header className="blog-hero-section">
         <div className="container">
           <div className="blog-hero-content">
-            <h1 className="blog-page-title">Blog & Médias</h1>
+            <h1 className="blog-page-title">Blog</h1>
             <p className="blog-hero-description">
               Découvrez nos dernières actualités, projets et ce que les médias disent de nous
             </p>
@@ -311,20 +311,6 @@ const Blog = () => {
                     className={`blog-card ${item.typeContenu === 'mention_media' ? 'mention-media-card' : ''} ${item.featured ? 'featured' : ''}`}
                     onClick={() => handleItemClick(item)}
                   >
-                    {/* Badge type de contenu */}
-                    <div className="content-type-badge">
-                      {item.typeContenu === 'mention_media' ? (
-                        <>
-                          {getTypeMediaIcon(item.typeMedia)}
-                          <span>{getTypeMediaLabel(item.typeMedia)}</span>
-                        </>
-                      ) : (
-                        <>
-                          <FaNewspaper />
-                          <span>Article SNTP</span>
-                        </>
-                      )}
-                    </div>
 
                     {/* Featured badge */}
                     {item.featured && (

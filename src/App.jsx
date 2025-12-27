@@ -55,6 +55,8 @@ import MentionsMedias from './pages/MentionsMedias';
 import MentionsList from './components/admin/MentionsList';
 import MentionForm from './components/admin/MentionForm';
 
+import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite';
+
 import './i18n/config';
 
 
@@ -115,6 +117,7 @@ function AppContent() {
             <Route path="/nos-appels-offres/:id" element={<AppelOffreDetails />} />
             <Route path='/nos-unites' element={<NosUnites />} />
             <Route path="/mentions-medias" element={<MentionsMedias />} />
+            <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
             <Route path='/admin/login' element={<Login />} />
             <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}>
               {/* Routes Articles */}
