@@ -1,43 +1,59 @@
-/* ========================================
-   NOUS REJOINDRE - PALETTE SNTP 100%
-======================================== */
+/* ===============================================
+   NOUS REJOINDRE PAGE - PALETTE SNTP OFFICIELLE
+   =============================================== */
 
+/* Variables CSS - Palette SNTP */
 :root {
-  /* Couleurs SNTP */
+  /* Palette rouge SNTP */
   --sntp-red-darker: #5A000D;
   --sntp-red-dark: #810012;
   --sntp-red: #C1121F;
   --sntp-red-light: #D32F2F;
   --sntp-red-lighter: #E57373;
+  --sntp-red-lightest: #FFEBEE;
   
-  /* Noir et gris */
+  /* Palette noir et gris SNTP */
   --sntp-black: #0D1B2A;
-  --sntp-gray-darkest: #3b3b3b;
+  --sntp-gray-darkest: #1B263B;
   --sntp-gray-dark: #415A77;
   --sntp-gray: #778DA9;
   --sntp-gray-light: #B0C4DE;
   --sntp-gray-lighter: #E0E1DD;
   --sntp-gray-lightest: #F5F5F5;
-  
-  /* Blanc */
   --sntp-white: #FFFFFF;
+  --sntp-white-soft: #FAFAFA;
+
+  /* Alias pour compatibilité */
+  --primary-red: var(--sntp-red);
+  --dark-red: var(--sntp-red-dark);
+  --black: var(--sntp-black);
+  --dark-gray: var(--sntp-gray-darkest);
+  --medium-gray: var(--sntp-gray);
+  --light-gray: var(--sntp-gray-lightest);
+  --white: var(--sntp-white);
   
-  /* Utilitaires */
-  --shadow-light: rgba(0, 0, 0, 0.1);
-  --shadow-medium: rgba(0, 0, 0, 0.15);
-  --shadow-heavy: rgba(0, 0, 0, 0.25);
+  /* Ombres SNTP */
+  --shadow-light: rgba(13, 27, 42, 0.1);
+  --shadow-medium: rgba(13, 27, 42, 0.15);
+  --shadow-heavy: rgba(13, 27, 42, 0.25);
   --red-shadow: rgba(193, 18, 31, 0.3);
+  
+  /* États */
   --success-green: #28A745;
   --error-red: #FF4444;
 }
 
+/* Reset et base */
 .NousRejoindre-page {
   width: 100%;
   overflow-x: hidden;
   background-color: var(--sntp-white);
 }
 
-/* ======================================== HERO SECTION ======================================== */
+/* ===============================================
+   HERO SECTION
+   =============================================== */
+
 .NousRejoindre-hero-section {
   position: relative;
   height: 100vh;
@@ -45,8 +61,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--sntp-black) 0%, var(--sntp-gray-darkest) 50%, var(--sntp-black) 100%);
   overflow: hidden;
+  background: linear-gradient(135deg, var(--sntp-black) 0%, var(--sntp-gray-darkest) 50%, var(--sntp-black) 100%);
 }
 
 .NousRejoindre-hero-section::before {
@@ -130,22 +146,25 @@
   box-shadow: 0 8px 30px var(--red-shadow);
 }
 
-.NousRejoindre-hero-cta-button .arrow-icon {
+.NousRejoindre-hero-cta-button .NousRejoindre-arrow-icon {
   transition: transform 0.3s ease;
 }
 
-.NousRejoindre-hero-cta-button:hover .arrow-icon {
+.NousRejoindre-hero-cta-button:hover .NousRejoindre-arrow-icon {
   transform: translateX(5px);
 }
 
-/* ======================================== SECTIONS COMMUNES ======================================== */
+/* ===============================================
+   SECTIONS COMMUNES
+   =============================================== */
+
 .NousRejoindre-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-.NousRejoindre-section {
+.NousRejoindre-page section {
   padding: 100px 0;
 }
 
@@ -168,15 +187,18 @@
 
 .NousRejoindre-section-subtitle {
   font-size: 1.2rem;
-  color: var(--sntp-gray-dark);
+  color: var(--sntp-gray);
   text-align: center;
   max-width: 700px;
   margin: 0 auto 60px;
   line-height: 1.8;
 }
 
-/* ======================================== TRAVAILLEZ CHEZ SNTP ======================================== */
-.NousRejoindre-work-section {
+/* ===============================================
+   SECTION TRAVAILLEZ CHEZ SNTP
+   =============================================== */
+
+.NousRejoindre-work-at-sntp-section {
   background-color: var(--sntp-white);
 }
 
@@ -188,14 +210,14 @@
 }
 
 .NousRejoindre-work-text {
-  color: var(--sntp-gray-dark);
+  color: var(--sntp-gray-darkest);
 }
 
 .NousRejoindre-work-intro {
   font-size: 1.15rem;
   line-height: 1.9;
   margin-bottom: 30px;
-  color: var(--sntp-gray-dark);
+  color: var(--sntp-gray-darkest);
 }
 
 .NousRejoindre-work-intro strong {
@@ -213,10 +235,10 @@
   gap: 15px;
   margin-bottom: 20px;
   font-size: 1.05rem;
-  color: var(--sntp-gray-dark);
+  color: var(--sntp-gray-darkest);
 }
 
-.NousRejoindre-highlight-item .check-icon {
+.NousRejoindre-highlight-item .NousRejoindre-check-icon {
   color: var(--sntp-red);
   flex-shrink: 0;
   width: 24px;
@@ -236,7 +258,7 @@
 }
 
 .NousRejoindre-stat-card {
-  background: linear-gradient(135deg, var(--sntp-red) 0%, var(--sntp-red-dark) 100%);
+  background: linear-gradient(135deg, var(--sntp-red), var(--sntp-red-dark));
   padding: 40px 30px;
   border-radius: 15px;
   text-align: center;
@@ -264,8 +286,11 @@
   letter-spacing: 1px;
 }
 
-/* ======================================== PROFILS DE POSTES ======================================== */
-.NousRejoindre-profiles-section {
+/* ===============================================
+   SECTION NOS PROFILS DE POSTES
+   =============================================== */
+
+.NousRejoindre-job-profiles-section {
   background-color: var(--sntp-gray-lightest);
 }
 
@@ -327,7 +352,7 @@
 
 .NousRejoindre-skill-tag {
   background-color: var(--sntp-gray-lightest);
-  color: var(--sntp-gray-dark);
+  color: var(--sntp-gray-darkest);
   padding: 8px 15px;
   border-radius: 20px;
   font-size: 0.85rem;
@@ -342,8 +367,11 @@
   border-color: var(--sntp-red);
 }
 
-/* ======================================== POURQUOI NOUS REJOINDRE ======================================== */
-.NousRejoindre-why-section {
+/* ===============================================
+   SECTION POURQUOI NOUS REJOINDRE
+   =============================================== */
+
+.NousRejoindre-why-join-section {
   background-color: var(--sntp-white);
 }
 
@@ -400,20 +428,22 @@
   line-height: 1.7;
   color: var(--sntp-gray);
 }
+/* ===============================================
+   SECTION CANDIDATURE SPONTANÉE
+   =============================================== */
 
-/* ======================================== CANDIDATURE SPONTANÉE ======================================== */
-.NousRejoindre-spontaneous-section {
+.NousRejoindre-spontaneous-application-section {
   background-color: var(--sntp-gray-lightest);
   padding: 100px 0;
 }
 
-.NousRejoindre-toggle-container {
+.NousRejoindre-spontaneous-toggle-container {
   display: flex;
   justify-content: center;
   margin: 40px 0;
 }
 
-.NousRejoindre-toggle-btn {
+.NousRejoindre-spontaneous-toggle-btn {
   display: inline-flex;
   align-items: center;
   gap: 15px;
@@ -431,17 +461,17 @@
   box-shadow: 0 5px 20px var(--red-shadow);
 }
 
-.NousRejoindre-toggle-btn:hover {
+.NousRejoindre-spontaneous-toggle-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 30px var(--red-shadow);
 }
 
-.NousRejoindre-form-container {
+.NousRejoindre-spontaneous-form-container {
   overflow: hidden;
   margin-top: 40px;
 }
 
-.NousRejoindre-form {
+.NousRejoindre-spontaneous-form {
   background: var(--sntp-white);
   padding: 50px;
   border-radius: 20px;
@@ -465,7 +495,7 @@
 .NousRejoindre-form-group label {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--sntp-gray-dark);
+  color: var(--sntp-gray-darkest);
   margin-bottom: 10px;
 }
 
@@ -495,9 +525,9 @@
   box-shadow: 0 0 0 3px rgba(193, 18, 31, 0.1);
 }
 
-.NousRejoindre-form-group input.error,
-.NousRejoindre-form-group select.error,
-.NousRejoindre-form-group textarea.error {
+.NousRejoindre-form-group input.NousRejoindre-error,
+.NousRejoindre-form-group select.NousRejoindre-error,
+.NousRejoindre-form-group textarea.NousRejoindre-error {
   border-color: var(--error-red);
 }
 
@@ -523,7 +553,7 @@
   gap: 8px;
   cursor: pointer;
   font-weight: 500;
-  color: var(--sntp-gray-dark);
+  color: var(--sntp-gray-darkest);
 }
 
 .NousRejoindre-radio-label input[type="radio"] {
@@ -540,7 +570,7 @@
   text-align: right;
 }
 
-/* Upload de fichier */
+/* File Upload Styles */
 .NousRejoindre-file-upload-container {
   margin-top: 10px;
 }
@@ -555,7 +585,7 @@
   border-radius: 15px;
   cursor: pointer;
   transition: all 0.3s ease;
-  background-color: var(--sntp-gray-lightest);
+  background-color: var(--sntp-white-soft);
 }
 
 .NousRejoindre-file-upload-label:hover {
@@ -570,7 +600,7 @@
 
 .NousRejoindre-file-upload-text {
   font-size: 1rem;
-  color: var(--sntp-gray-dark);
+  color: var(--sntp-gray-darkest);
   margin-bottom: 8px;
 }
 
@@ -612,7 +642,7 @@
 
 .NousRejoindre-file-name {
   font-weight: 600;
-  color: var(--sntp-gray-dark);
+  color: var(--sntp-gray-darkest);
   word-break: break-word;
 }
 
@@ -641,7 +671,52 @@
   transform: scale(1.1);
 }
 
-/* Actions du formulaire */
+/* Privacy Policy Checkbox */
+.NousRejoindre-privacy-policy-group {
+  margin: 25px 0;
+  padding: 20px;
+  background: var(--sntp-white-soft);
+  border: 1px solid var(--sntp-gray-lighter);
+  border-radius: 8px;
+}
+
+.NousRejoindre-privacy-policy-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.NousRejoindre-privacy-checkbox {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--sntp-red);
+}
+
+.NousRejoindre-privacy-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--sntp-gray-darkest);
+}
+
+.NousRejoindre-privacy-link {
+  color: var(--sntp-red);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.NousRejoindre-privacy-link:hover {
+  color: var(--sntp-red-dark);
+  border-bottom: 1px solid var(--sntp-red-dark);
+}
+
+/* Form Actions */
 .NousRejoindre-form-actions {
   display: flex;
   justify-content: center;
@@ -671,9 +746,17 @@
   box-shadow: 0 8px 30px var(--red-shadow);
 }
 
-.NousRejoindre-submit-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.NousRejoindre-submit-btn:disabled,
+.NousRejoindre-submit-btn.NousRejoindre-disabled {
+  background: var(--sntp-gray-light) !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+  box-shadow: none !important;
+}
+
+.NousRejoindre-submit-btn:disabled:hover,
+.NousRejoindre-submit-btn.NousRejoindre-disabled:hover {
+  transform: none !important;
 }
 
 .NousRejoindre-spinner {
@@ -689,7 +772,7 @@
   to { transform: rotate(360deg); }
 }
 
-/* Alertes */
+/* Alerts */
 .NousRejoindre-alert {
   display: flex;
   align-items: center;
@@ -741,14 +824,17 @@
   color: var(--error-red);
 }
 
-/* ======================================== OFFRES D'EMPLOI ======================================== */
-.NousRejoindre-offers-section {
+/* ===============================================
+   SECTION OFFRES D'EMPLOI
+   =============================================== */
+
+.NousRejoindre-job-offers-section {
   background: linear-gradient(135deg, var(--sntp-black) 0%, var(--sntp-gray-darkest) 100%);
   position: relative;
   overflow: hidden;
 }
 
-.NousRejoindre-offers-section::before {
+.NousRejoindre-job-offers-section::before {
   content: '';
   position: absolute;
   top: 0;
@@ -789,7 +875,7 @@
 
 .NousRejoindre-offers-description {
   font-size: 1.2rem;
-  color: var(--sntp-gray-light);
+  color: var(--sntp-gray-lightest);
   line-height: 1.8;
   margin-bottom: 50px;
 }
@@ -820,15 +906,16 @@
   box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
 }
 
-.NousRejoindre-offers-button .arrow-icon {
+.NousRejoindre-offers-button .NousRejoindre-arrow-icon {
   transition: transform 0.3s ease;
 }
 
-.NousRejoindre-offers-button:hover .arrow-icon {
+.NousRejoindre-offers-button:hover .NousRejoindre-arrow-icon {
   transform: translateX(5px);
 }
-
-/* ======================================== RESPONSIVE ======================================== */
+/* ===============================================
+   RESPONSIVE DESIGN
+   =============================================== */
 
 @media (max-width: 1024px) {
   .NousRejoindre-hero-title {
@@ -854,11 +941,7 @@
 }
 
 @media (max-width: 768px) {
-  .NousRejoindre-page {
-    padding-top: 70px;
-  }
-
-  .NousRejoindre-section {
+  .NousRejoindre-page section {
     padding: 60px 0;
   }
 
@@ -916,7 +999,8 @@
     font-size: 1rem;
   }
 
-  .NousRejoindre-form {
+  /* Formulaire responsive */
+  .NousRejoindre-spontaneous-form {
     padding: 30px 20px;
   }
 
@@ -925,7 +1009,7 @@
     gap: 20px;
   }
 
-  .NousRejoindre-toggle-btn {
+  .NousRejoindre-spontaneous-toggle-btn {
     padding: 15px 30px;
     font-size: 1rem;
   }
@@ -942,6 +1026,20 @@
   .NousRejoindre-radio-group {
     flex-direction: column;
     gap: 15px;
+  }
+
+  .NousRejoindre-privacy-policy-group {
+    padding: 15px;
+  }
+
+  .NousRejoindre-privacy-checkbox {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+  }
+
+  .NousRejoindre-privacy-text {
+    font-size: 13px;
   }
 }
 
@@ -981,15 +1079,15 @@
     height: 60px;
   }
 
-  .NousRejoindre-spontaneous-section {
+  .NousRejoindre-spontaneous-application-section {
     padding: 60px 0;
   }
 
-  .NousRejoindre-form {
+  .NousRejoindre-spontaneous-form {
     padding: 25px 15px;
   }
 
-  .NousRejoindre-toggle-btn {
+  .NousRejoindre-spontaneous-toggle-btn {
     font-size: 0.9rem;
     padding: 12px 25px;
   }
@@ -1004,12 +1102,36 @@
   }
 }
 
-/* Smooth scroll */
+/* ===============================================
+   ANIMATIONS ADDITIONNELLES
+   =============================================== */
+
+@keyframes NousRejoindre-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes NousRejoindre-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
 }
 
-/* Selection */
+/* Selection color */
 ::selection {
   background-color: var(--sntp-red);
   color: var(--sntp-white);
@@ -1020,11 +1142,9 @@ html {
   color: var(--sntp-white);
 }
 
-/* Focus accessibility */
+/* Focus styles pour accessibilité */
 *:focus-visible {
   outline: 2px solid var(--sntp-red);
   outline-offset: 2px;
 }
-
-/* End of NousRejoindre.css */
 

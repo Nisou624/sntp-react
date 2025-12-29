@@ -12,7 +12,7 @@ const MegaMenu = ({ isOpen, onClose }) => {
         { path: '/about-us', label: 'À propos de nous' },
         { path: '/nous-connaitre#histoire', label: 'Histoire' },
         { path: '/nous-connaitre#vision', label: 'Vision et valeurs' },
-        { path: '/blog', label: 'Notre Actualité'}
+        { path: '/implantations', label: 'Nos Implantations'}
       ]
     },
     {
@@ -66,9 +66,9 @@ const MegaMenu = ({ isOpen, onClose }) => {
       ]
     },
     {
-      title: 'Implantations',
+      title: 'Notre Actualité',
       items: [
-        { path: '/implantations', label: 'Implantations' }
+        { path: '/blog', label: 'Actualité' }
       ]
     },
     {
