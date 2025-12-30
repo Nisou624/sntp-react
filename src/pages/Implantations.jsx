@@ -105,21 +105,6 @@ const Implantations = () => {
           </div>
         </div>
 
-        {/* Statistiques */}
-        <div className="stats-row">
-          <div className="stat-box">
-            <div className="stat-number">{stats.total}</div>
-            <div className="stat-label">{getTypeLabel()}s affichée(s)</div>
-          </div>
-          <div className="stat-box">
-            <div className="stat-number">{stats.directions}</div>
-            <div className="stat-label">Directions</div>
-          </div>
-          <div className="stat-box">
-            <div className="stat-number">{stats.unites}</div>
-            <div className="stat-label">Unités</div>
-          </div>
-        </div>
       </div>
 
       {/* Contenu principal : Liste + Carte */}

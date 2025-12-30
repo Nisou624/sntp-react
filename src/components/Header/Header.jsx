@@ -118,7 +118,7 @@ const Header = () => {
 
           {/* ACTIONS (CTA + Hamburger) */}
           <div className="header-actions">
-            <Link to="/contact" className="ct-button">
+            <Link to="/about-us" className="ct-button">
               {t('header.menu.contact')}
             </Link>
 

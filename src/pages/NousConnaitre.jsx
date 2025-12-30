@@ -170,7 +170,7 @@ const NousConnaitre = () => {
       </section>
 
       {/* Histoire Intro Section */}
-      <section className="NousConnaitre-histoire-intro NousConnaitre-section">
+      <section className="NousConnaitre-histoire-intro NousConnaitre-section" id="histoire">
         <div className="container">
           <div className="NousConnaitre-intro-content">
             <div className="NousConnaitre-section-header">
@@ -360,7 +360,7 @@ const NousConnaitre = () => {
       </section>
 
       {/* Vision Section */}
-      <section className="NousConnaitre-vision-section NousConnaitre-section">
+      <section className="NousConnaitre-vision-section NousConnaitre-section" id="vision">
         <div className="container">
           <div className="NousConnaitre-section-header">
             <span className="NousConnaitre-vision-badge">Notre Vision</span>

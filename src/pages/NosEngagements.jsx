@@ -49,7 +49,7 @@ const NosEngagements = () => {
       </section>
 
       {/* Section Environnement */}
-      <section className="NosEngagements-engagement-section NosEngagements-environnement-section">
+      <section className="NosEngagements-engagement-section NosEngagements-environnement-section" id="environnement-section">
         <div className="container">
           <div className="NosEngagements-section-header">
             <FaLeaf className="NosEngagements-section-icon NosEngagements-env-icon" />
@@ -102,7 +102,7 @@ const NosEngagements = () => {
       </section>
 
       {/* Section RSE */}
-      <section className="NosEngagements-engagement-section NosEngagements-rse-section">
+      <section className="NosEngagements-engagement-section NosEngagements-rse-section" id="rse-section">
         <div className="container">
           <div className="NosEngagements-section-header">
             <FaHandsHelping className="NosEngagements-section-icon NosEngagements-rse-icon" />
@@ -153,7 +153,7 @@ const NosEngagements = () => {
       </section>
 
       {/* Section Innovation */}
-      <section className="NosEngagements-engagement-section NosEngagements-innovation-section">
+      <section className="NosEngagements-engagement-section NosEngagements-innovation-section" id="innovation-section">
         <div className="container">
           <div className="NosEngagements-section-header">
             <FaLightbulb className="NosEngagements-section-icon NosEngagements-innovation-icon" />
@@ -206,7 +206,7 @@ const NosEngagements = () => {
       </section>
 
       {/* Section Santé et Sécurité */}
-      <section className="NosEngagements-engagement-section NosEngagements-sante-section">
+      <section className="NosEngagements-engagement-section NosEngagements-sante-section" id="sante-section">
         <div className="container">
           <div className="NosEngagements-section-header">
             <FaShieldAlt className="NosEngagements-section-icon NosEngagements-sante-icon" />
