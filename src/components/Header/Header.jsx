@@ -75,7 +75,7 @@ const Header = () => {
     { path: '/projects', label: t('header.menu.projects') },
     { path: '/nos-unites', label: t('header.menu.units') },
     { path: '/nos-directions', label: t('header.menu.directions') },
-    { path: '/implantations', label: t('header.menu.locations') },
+    { path: '/blog', label: t('header.menu.news') },
     { path: '/nos-appels-offres', label: t('header.menu.tenders') },
     { path: '/nous-rejoindre', label: t('header.menu.join') }
   ];

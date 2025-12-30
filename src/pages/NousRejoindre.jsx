@@ -340,7 +340,7 @@ const NousRejoindre = () => {
       </section>
 
       {/* SECTION TRAVAILLEZ CHEZ SNTP */}
-      <section className="NousRejoindre-work-at-sntp-section">
+      <section className="NousRejoindre-work-at-sntp-section" id="work-at-sntp">
         <div className="NousRejoindre-container">
           <h2 className="NousRejoindre-section-title">Travaillez chez SNTP</h2>
           <div className="NousRejoindre-section-divider" />
@@ -416,7 +416,7 @@ const NousRejoindre = () => {
       </section>
 
       {/* SECTION NOS PROFILS DE POSTES */}
-      <section className="NousRejoindre-job-profiles-section">
+      <section className="NousRejoindre-job-profiles-section" id="job-profiles">
         <div className="NousRejoindre-container">
           <h2 className="NousRejoindre-section-title">Nos Profils de Postes</h2>
           <div className="NousRejoindre-section-divider" />
@@ -933,7 +933,7 @@ const NousRejoindre = () => {
       </section>
 
       {/* SECTION OFFRES D'EMPLOI */}
-      <section id="offres-emploi" className="NousRejoindre-job-offers-section">
+      <section id="offres-emploi" className="NousRejoindre-job-offers-section" id="job-offers">
         <div className="NousRejoindre-container">
           <div className="NousRejoindre-offers-content">
             <Briefcase className="NousRejoindre-offers-icon" size={64} />
