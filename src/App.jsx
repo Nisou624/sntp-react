@@ -57,7 +57,28 @@ import MentionForm from './components/admin/MentionForm';
 
 import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite';
 
+import authService from './services/authService';
+
 import './i18n/config';
+
+function AdminRouteMonitor() {
+  const location = useLocation();
+  const wasInAdmin = React.useRef(false);
+
+
+  useEffect(() => {
+    const isAdminRoute = location.pathname.startsWith('/admin');
+    const isLoginRoute = location.pathname === '/admin/login';
+
+    if(wasInAdmin.current && !isAdminRoute && authService.isAuthenticated()) {
+      console.log('Sortie de la zone admin détectée. Déconnexion automatique.');
+      authService.logout();
+    }
+    
+    wasInAdmin.current = isAdminRoute && !isLoginRoute;
+  }, [location.pathname]);
+  return null;
+}
 
 
 function AppContent() {
@@ -86,6 +107,7 @@ function AppContent() {
 
   return (
     <div className="App">
+      <AdminRouteMonitor />
       <Header />
       <main id="main" className="site-main">
         <PageTransition location={location.pathname}>

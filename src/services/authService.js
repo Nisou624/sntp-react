@@ -9,15 +9,15 @@ const authService = {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const expiration = payload.exp * 1000; // Convertir en millisecondes
       
-      if (Date.now() > expiration) {
-        console.log('⚠️ Token expiré');
+      if (Date.now() >= expiration) {
+        console.log('Token expiré');
         sessionStorage.removeItem('adminToken');
         return false;
       }
       
       return true;
     } catch (error) {
-      console.error('❌ Erreur validation token:', error);
+      console.error('Erreur validation token:', error);
       sessionStorage.removeItem('adminToken');
       return false;
     }
@@ -30,7 +30,11 @@ const authService = {
 
   // Déconnexion
   logout: () => {
+    console.log('Déconnexion utilisateur');
     sessionStorage.removeItem('adminToken');
+    
+    // Rediriger vers la page de login
+    // Utiliser window.location pour forcer un rechargement complet
     window.location.href = '/admin/login';
   },
 
@@ -43,7 +47,7 @@ const authService = {
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload;
     } catch (error) {
-      console.error('❌ Erreur décodage token:', error);
+      console.error('Erreur décodage token:', error);
       return null;
     }
   }

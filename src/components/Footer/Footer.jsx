@@ -134,8 +134,6 @@ const Footer = () => {
               © {currentYear} SNTP - Société Nationale des Travaux Publics. Tous droits réservés.
             </p>
             <div className="footer-legal">
-              <Link to="/mentions-legales">Mentions légales</Link>
-              <span className="separator">•</span>
               <Link to="/politique-confidentialite">Politique de confidentialité</Link>
               <span className="separator">•</span>
               <Link to="/faq">FAQ</Link>
