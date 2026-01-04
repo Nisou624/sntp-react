@@ -60,7 +60,7 @@ const projetService = {
       }
       
       // CORRECTION ICI : Récupérer le token correctement
-      const token = localStorage.getItem('adminToken');
+      const token = sessionStorage.getItem('adminToken');
       
       // Debug
       console.log('📤 Token envoyé:', token ? token.substring(0, 20) + '...' : 'AUCUN TOKEN');
@@ -83,7 +83,7 @@ const projetService = {
       // Vérifier si la réponse est une erreur d'authentification
       if (response.status === 401) {
         // Token invalide ou expiré
-        localStorage.removeItem('adminToken');
+        sessionStorage.removeItem('adminToken');
         throw new Error('Session expirée. Veuillez vous reconnecter.');
       }
       
@@ -116,7 +116,7 @@ const projetService = {
       }
       
       // CORRECTION ICI : Récupérer le token correctement
-      const token = localStorage.getItem('adminToken');
+      const token = sessionStorage.getItem('adminToken');
       
       // Debug
       console.log('📤 Token envoyé:', token ? token.substring(0, 20) + '...' : 'AUCUN TOKEN');
@@ -138,7 +138,7 @@ const projetService = {
       
       // Vérifier si la réponse est une erreur d'authentification
       if (response.status === 401) {
-        localStorage.removeItem('adminToken');
+        sessionStorage.removeItem('adminToken');
         throw new Error('Session expirée. Veuillez vous reconnecter.');
       }
       
@@ -156,7 +156,7 @@ const projetService = {
   // Supprimer un projet
   deleteProjet: async (id) => {
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = sessionStorage.getItem('adminToken');
       
       if (!token) {
         throw new Error('Vous devez être connecté pour supprimer un projet');
@@ -173,7 +173,7 @@ const projetService = {
       const data = await response.json();
       
       if (response.status === 401) {
-        localStorage.removeItem('adminToken');
+        sessionStorage.removeItem('adminToken');
         throw new Error('Session expirée. Veuillez vous reconnecter.');
       }
       
@@ -191,7 +191,7 @@ const projetService = {
   // Obtenir les statistiques
   getStatistics: async () => {
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = sessionStorage.getItem('adminToken');
       
       if (!token) {
         throw new Error('Vous devez être connecté pour accéder aux statistiques');
@@ -208,7 +208,7 @@ const projetService = {
       const data = await response.json();
       
       if (response.status === 401) {
-        localStorage.removeItem('adminToken');
+        sessionStorage.removeItem('adminToken');
         throw new Error('Session expirée. Veuillez vous reconnecter.');
       }
       

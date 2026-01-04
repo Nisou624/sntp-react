@@ -1,4 +1,5 @@
 import api from './api';
+import authService from './authService';
 
 class AppelOffreService {
   // Obtenir tous les appels d'offres
@@ -40,8 +41,15 @@ class AppelOffreService {
   // Créer un nouvel appel d'offre
   async create(formData) {
     try {
+      const token = authService.getToken(); // ✅ Utilisation correcte
+    
+      if (!token) {
+        throw new Error('Non authentifié. Veuillez vous connecter.');
+      }
+
       const response = await api.post('/appels-offres', formData, {
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
         }
       });
@@ -54,8 +62,15 @@ class AppelOffreService {
   // Mettre à jour un appel d'offre
   async update(id, formData) {
     try {
+      const token = authService.getToken(); // ✅ Utilisation correcte
+    
+      if (!token) {
+        throw new Error('Non authentifié. Veuillez vous connecter.');
+      }
+
       const response = await api.put(`/appels-offres/${id}`, formData, {
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
         }
       });

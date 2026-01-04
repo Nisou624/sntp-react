@@ -124,7 +124,7 @@ const ProjetForm = ({ projet, onSuccess, onCancel }) => {
 
     try {
       // Vérifier si l'utilisateur est connecté
-      const token = localStorage.getItem('adminToken');
+      const token = sessionStorage.getItem('adminToken');
       if (!token) {
         setError('Vous devez être connecté pour effectuer cette action');
         setLoading(false);
