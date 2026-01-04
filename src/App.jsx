@@ -57,6 +57,8 @@ import MentionForm from './components/admin/MentionForm';
 
 import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite';
 
+import adminPaths, { ADMIN_PREFIX } from './config/adminConfig';
+
 import authService from './services/authService';
 
 import './i18n/config';
@@ -65,18 +67,18 @@ function AdminRouteMonitor() {
   const location = useLocation();
   const wasInAdmin = React.useRef(false);
 
-
   useEffect(() => {
-    const isAdminRoute = location.pathname.startsWith('/admin');
-    const isLoginRoute = location.pathname === '/admin/login';
+    const isAdminRoute = adminPaths.isAdminPath(location.pathname);
+    const isLoginRoute = adminPaths.isLoginPath(location.pathname);
 
-    if(wasInAdmin.current && !isAdminRoute && authService.isAuthenticated()) {
+    if (wasInAdmin.current && !isAdminRoute && authService.isAuthenticated()) {
       console.log('Sortie de la zone admin détectée. Déconnexion automatique.');
-      authService.logout();
+      authService.logoutSilent();
     }
-    
+
     wasInAdmin.current = isAdminRoute && !isLoginRoute;
   }, [location.pathname]);
+
   return null;
 }
 
@@ -140,8 +142,8 @@ function AppContent() {
             <Route path='/nos-unites' element={<NosUnites />} />
             <Route path="/mentions-medias" element={<MentionsMedias />} />
             <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
-            <Route path='/admin/login' element={<Login />} />
-            <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}>
+            <Route path={`${ADMIN_PREFIX}/admin/login`} element={<Login />} />
+            <Route path={`${ADMIN_PREFIX}/admin/dashboard`} element={<ProtectedRoute><Dashboard /></ProtectedRoute>}>
               {/* Routes Articles */}
               <Route path="articles" element={<ArticleList />} />
               <Route path="articles/nouveau" element={<ArticleForm />} />
@@ -149,7 +151,7 @@ function AppContent() {
             </Route>
 
             <Route 
-              path='/admin/articles'
+              path={`${ADMIN_PREFIX}/admin/articles`} 
               element={
                 <ProtectedRoute>
                   <ArticleList />
@@ -157,7 +159,7 @@ function AppContent() {
               }
             />
             <Route 
-              path='/admin/articles/nouveau'
+              path={`${ADMIN_PREFIX}/admin/articles/nouveau`} 
               element={
                 <ProtectedRoute>
                   <ArticleForm />
@@ -165,7 +167,7 @@ function AppContent() {
               }
             />
             <Route 
-              path='/admin/articles/modifier/:id'
+              path={`${ADMIN_PREFIX}/admin/articles/modifier/:id`} 
               element={
                 <ProtectedRoute>
                   <ArticleForm />
@@ -173,7 +175,7 @@ function AppContent() {
               }
             />
              <Route 
-              path='/admin/mentions-medias'
+              path={`${ADMIN_PREFIX}/admin/mentions-medias`} 
               element={
                 <ProtectedRoute>
                   <MentionsList />
@@ -181,7 +183,7 @@ function AppContent() {
               }
             />
             <Route 
-              path='/admin/mentions-medias/nouveau'
+              path={`${ADMIN_PREFIX}/admin/mentions-medias/nouveau`} 
               element={
                 <ProtectedRoute>
                   <MentionForm />
@@ -189,14 +191,13 @@ function AppContent() {
               }
             />
              <Route 
-              path='/admin/mentions-medias/modifier/:id'
+              path={`${ADMIN_PREFIX}/admin/mentions-medias/modifier/:id`} 
               element={
                 <ProtectedRoute>
                   <MentionForm />
                 </ProtectedRoute>
               }
             />
-            <Route path='/admin' element={<Navigate to="/admin/dashboard" replace />} />
             <Route path='*' element={<Navigate to="/" replace />} />
           </Routes>
         </PageTransition>

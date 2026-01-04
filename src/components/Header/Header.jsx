@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import MegaMenu from './MegaMenu';
 import LanguageSwitcher from '../../i18n/LanguageSwitcher';
+import adminPaths from '../../config/adminConfig';
 import './Header.css';
 
 const Header = () => {
@@ -18,8 +19,7 @@ const Header = () => {
     '/implantations',
     '/nos-directions',
     '/nos-appels-offres', // Liste des appels d'offres
-    '/admin/dashboard',
-    '/admin/articles'
+    `${adminPaths.dashboard}`,
   ];
 
   // Chemins dynamiques avec paramètres (routes avec :id ou :slug)

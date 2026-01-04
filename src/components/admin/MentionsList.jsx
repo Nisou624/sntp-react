@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllMentions, deleteMention } from '../../services/mentionMediaService';
+import adminPaths from '../../config/adminConfig';
 import { toast } from 'react-toastify';
 import { FaEdit, FaTrash, FaExternalLinkAlt, FaPlus, FaStar } from 'react-icons/fa';
 import './MentionsList.css';
@@ -107,7 +108,7 @@ const MentionsList = () => {
         <h1>Gestion des Mentions Médias</h1>
         <button 
           className="btn-primary"
-          onClick={() => navigate('/admin/dashboard/mentions-medias/nouveau')}
+          onClick={() => navigate(adminPaths.mentionsNew)}
         >
           <FaPlus /> Nouvelle Mention
         </button>
@@ -242,7 +243,7 @@ const MentionsList = () => {
                       </button>
                       <button
                         className="btn-action btn-edit"
-                        onClick={() => navigate(`/admin/dashboard/mentions-medias/modifier/${mention.id}`)}
+                        onClick={() => navigate(adminPaths.mentionsEdit(mention.id))}
                         title="Modifier"
                       >
                         <FaEdit />

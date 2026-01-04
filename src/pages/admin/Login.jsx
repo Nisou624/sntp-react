@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
 import mfaService from '../../services/mfaService';
+import adminPaths from '../../config/adminConfig';
 import './Login.css';
 
 const Login = () => {
@@ -25,7 +26,7 @@ const Login = () => {
 
   useEffect(() => {
     if (authService.isAuthenticated()) {
-      navigate('/admin/dashboard');
+      navigate(adminPaths.dashboard);
     }
   }, [navigate]);
 
@@ -104,7 +105,7 @@ const Login = () => {
           sessionStorage.setItem('adminToken', result.token);
           setMessage('🎉 Authentification réussie ! Redirection...');
           setTimeout(() => {
-            navigate('/admin/dashboard');
+            navigate(adminPaths.dashboard);
           }, 1000);
         } else {
           setMfaData({

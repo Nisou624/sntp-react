@@ -1,6 +1,7 @@
 // src/components/admin/ArticlesList.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import adminPaths from '../../config/adminConfig';
 import { getAllArticles, deleteArticle } from '../../services/articleService';
 import { toast } from 'react-toastify';
 import { FaEdit, FaTrash, FaEye, FaPlus, FaStar, FaNewspaper, FaExternalLinkAlt, FaVideo, FaImage, FaFacebook, FaTwitter, FaLinkedin, FaYoutube, FaInstagram } from 'react-icons/fa';
@@ -132,7 +133,7 @@ const ArticlesList = () => {
     <div className="ArticleList-article-list-container">
       <div className="ArticleList-article-list-header">
         <h1>Gestion des Articles & Mentions Médias</h1>
-        <button className="ArticleList-btn-primary" onClick={() => navigate('/admin/articles/nouveau')}>
+        <button className="ArticleList-btn-primary" onClick={() => navigate(adminPaths.articlesNew)}>
           <FaPlus /> Nouvel Article
         </button>
       </div>
@@ -260,7 +261,7 @@ const ArticlesList = () => {
                         </button>
                         <button
                           className="ArticleList-btn-action ArticleList-btn-edit"
-                          onClick={() => navigate(`/admin/articles/modifier/${article.id}`)}
+                          onClick={() => navigate(adminPaths.articlesEdit(article.id))}
                           title="Modifier"
                         >
                           <FaEdit />

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createMention, updateMention, getMentionById } from '../../services/mentionMediaService';
+import adminPaths from '../../config/adminConfig';
 import { toast } from 'react-toastify';
 import { FaArrowLeft, FaSave } from 'react-icons/fa';
 import './MentionForm.css';
@@ -116,7 +117,7 @@ const MentionForm = () => {
         toast.success('Mention créée avec succès');
       }
 
-      navigate('/admin/dashboard/mentions-medias');
+      navigate(adminPaths.dashMentions);
     } catch (error) {
       toast.error(error.message || 'Erreur lors de l\'enregistrement');
       console.error(error);
@@ -131,7 +132,7 @@ const MentionForm = () => {
         <h1>{isEditMode ? 'Modifier la mention' : 'Nouvelle mention'}</h1>
         <button 
           className="btn-secondary"
-          onClick={() => navigate('/admin/dashboard/mentions-medias')}
+          onClick={() => navigate(adminPaths.dashMentions)}
         >
           <FaArrowLeft /> Retour
         </button>

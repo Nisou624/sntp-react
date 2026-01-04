@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { createArticle, updateArticle, getArticleById } from '../../services/articleService';
+import adminPaths from '../../config/adminConfig';
 import RichTextEditor from './RichTextEditor';
 import ImageUploader from './ImageUploader';
 import { getImageUrl } from '../../services/imageService';
@@ -98,7 +99,7 @@ const ArticleForm = () => {
     } catch (error) {
       console.error('Erreur chargement article:', error);
       toast.error(error.message || 'Erreur lors du chargement de l\'article');
-      navigate('/admin/dashboard/articles');
+      navigate(adminPaths.dashArticles);
     } finally {
       setLoadingArticle(false);
     }
@@ -226,7 +227,7 @@ const ArticleForm = () => {
 
       if (response.success) {
         toast.success(response.message || 'Opération réussie');
-        navigate('/admin/articles');
+        navigate(adminPaths.articles);
       }
     } catch (error) {
       console.error('Erreur soumission:', error);
@@ -253,7 +254,7 @@ const ArticleForm = () => {
         <h1>{isEditMode ? 'Modifier' : 'Créer'} un contenu</h1>
         <button 
           type="button" 
-          onClick={() => navigate('/admin/dashboard/articles')}
+          onClick={() => navigate(adminPaths.dashArticles)}
           className="btn-back"
         >
           ← Retour
@@ -616,7 +617,7 @@ const ArticleForm = () => {
         <div className="form-actions">
           <button
             type="button"
-            onClick={() => navigate('/admin/articles')}
+            onClick={() => navigate(adminPaths.articles)}
             className="btn-secondary"
             disabled={loading}
           >

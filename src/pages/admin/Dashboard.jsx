@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
+import adminPaths from '../../config/adminConfig';
 import AppelOffresList from '../../components/admin/AppelOffreList';
 import AppelOffreForm from '../../components/admin/AppelOffreForm';
 import ProjetsList from '../../components/admin/ProjetList';
@@ -18,13 +19,12 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     authService.logout();
-    navigate('/admin/login');
   };
 
   const handleAdd = () => {
     // Pour les articles, rediriger vers la page de création dédiée
     if (activeTab === 'articles') {
-      navigate('/admin/articles/nouveau');
+      navigate(adminPaths.articlesNew);
       return;
     }
     
@@ -35,7 +35,7 @@ const Dashboard = () => {
   const handleEdit = (item) => {
     // Pour les articles, rediriger vers la page d'édition dédiée
     if (activeTab === 'articles') {
-      navigate(`/admin/articles/modifier/${item.id}`);
+      navigate(adminPaths.articlesEdit(item.id));
       return;
     }
     
