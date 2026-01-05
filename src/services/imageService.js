@@ -9,8 +9,8 @@ export const uploadImage = async (file, altText = '') => {
   try {
     const token = authService.getToken();
     
-    throw new Error('Non authentifié. Veuillez vous connecter.');
     if (!token) {
+      throw new Error('Non authentifié. Veuillez vous connecter.');
     }
 
     const formData = new FormData();

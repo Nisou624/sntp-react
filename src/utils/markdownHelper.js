@@ -2,7 +2,8 @@
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
-// Configuration de marked
+const API_BASE_URL = "http://localhost:5000"
+
 marked.setOptions({
   breaks: true, // Convertir les retours à la ligne
   gfm: true, // GitHub Flavored Markdown
@@ -74,17 +75,41 @@ export const markdownToHtml = (markdown) => {
 };
 
 /**
- * Prépare le contenu pour l'affichage (détecte et convertit si nécessaire)
+ * Prepares content for display:
+ * 1. Converts MD to HTML
+ * 2. Rewrites Image URLs to point to Backend
+ * 3. Sanitizes HTML
  */
 export const prepareContent = (content) => {
   if (!content) return '';
   
-  // Si c'est du Markdown, convertir en HTML
-  if (isMarkdown(content)) {
-    return markdownToHtml(content);
-  }
+  // 1. Convert to HTML if necessary
+  let html = isMarkdown(content) ? markdownToHtml(content) : content;
   
-  // Sinon, juste sanitizer le HTML
-  return DOMPurify.sanitize(content);
+  // 2. Add Hook to rewrite relative image paths before sanitizing
+  DOMPurify.addHook('afterSanitizeAttributes', function (node) {
+    if (node.tagName === 'IMG' && node.hasAttribute('src')) {
+      const src = node.getAttribute('src');
+      
+      // Check if path is relative (starts with /api or just /)
+      // and does NOT already include http (is not absolute)
+      if (src && src.startsWith('/') && !src.startsWith('http')) {
+        
+        // Remove trailing slash from base URL if present to avoid double slash
+        const baseUrl = API_BASE_URL.endsWith('/') 
+          ? API_BASE_URL.slice(0, -1) 
+          : API_BASE_URL;
+          
+        node.setAttribute('src', `${baseUrl}${src}`);
+      }
+    }
+  });
+
+  // 3. Sanitize
+  return DOMPurify.sanitize(html, {
+    ADD_TAGS: ['iframe', 'img', 'table', 'tbody', 'tr', 'td', 'th', 'br', 'p', 'span', 'div'],
+    ADD_ATTR: ['src', 'alt', 'class', 'style', 'target', 'href', 'title', 'width', 'height'],
+    FORBID_TAGS: ['script', 'style'],
+  });
 };
 

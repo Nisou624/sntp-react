@@ -1,8 +1,7 @@
 // src/services/imageUploadService.js
 import axios from 'axios';
-import authService from './authService';
 
-const API_URL = 'http://localhost:5000/api/images';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 /**
  * Upload une image pour le contenu de l'article
@@ -11,27 +10,26 @@ const API_URL = 'http://localhost:5000/api/images';
  */
 export const uploadContentImage = async (file) => {
   try {
-
-    const token = authService.getToken();
-
-    if (!token) {
-      throw new Error('Non authentifié. Veuillez vous connecter.');
-    }
-
     const formData = new FormData();
     formData.append('image', file);
 
-    const response = await axios.post(`${API_URL}/upload`, formData, {
+    const token = sessionStorage.getItem('adminToken');
+    const response = await axios.post(`${API_URL}/images/upload`, formData, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'multipart/form-data'
       }
     });
 
-    // Retourner l'URL complète de l'image
-    return response.data;
+    if (response.data.success) {
+      // Retourner l'URL complète de l'image
+      return response.data.data.url;
+    } else {
+      throw new Error(response.data.message || 'Erreur lors de l\'upload');
+    }
   } catch (error) {
-    throw error.response?.data || {message: error.message};
+    console.error('Erreur upload image:', error);
+    throw error;
   }
 };
 
@@ -40,7 +38,9 @@ export const uploadContentImage = async (file) => {
  */
 export const isValidImageFile = (file) => {
   const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-  return validTypes.includes(file.type); };
+  return validTypes.includes(file.type);
+};
+
 /**
  * Valider la taille du fichier (max 5MB)
  */
