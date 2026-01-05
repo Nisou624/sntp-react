@@ -13,6 +13,8 @@ const ArticleDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api"
+
   useEffect(() => {
     loadArticle();
   }, [slug]);
@@ -80,7 +82,7 @@ const ArticleDetail = () => {
   // Fonction pour obtenir l'URL de l'image (priorité à imagePrincipale, sinon imageUrl)
   const getImageUrl = () => {
     if (article.imagePrincipale) {
-      return `/uploads/${article.imagePrincipale}`;
+      return `${API_BASE}/images/uploads/${article.imagePrincipale}`;
     }
     if (article.imageUrl) {
       return article.imageUrl;
