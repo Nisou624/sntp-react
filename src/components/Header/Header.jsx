@@ -18,8 +18,9 @@ const Header = () => {
     '/about',
     '/implantations',
     '/nos-directions',
+    adminPaths.articlesNew,
     '/nos-appels-offres', // Liste des appels d'offres
-    `${adminPaths.dashboard}`,
+    adminPaths.dashboard,
   ];
 
   // Chemins dynamiques avec paramètres (routes avec :id ou :slug)

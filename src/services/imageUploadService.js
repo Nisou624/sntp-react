@@ -13,7 +13,7 @@ export const uploadContentImage = async (file) => {
     const formData = new FormData();
     formData.append('image', file);
 
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('adminToken');
     const response = await axios.post(`${API_URL}/images/upload`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
